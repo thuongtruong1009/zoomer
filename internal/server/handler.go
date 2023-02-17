@@ -12,7 +12,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func (s *Server) Maphandlers(e *echo.Echo) error [
+func (s *Server) MapHandlers(e *echo.Echo) error [
 	userRepo := authRepository.NewUserRepository(s.db)
 
 	authUC := authUseCase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
