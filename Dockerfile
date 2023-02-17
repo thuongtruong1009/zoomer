@@ -10,6 +10,8 @@ RUN go mod download
 
 COPY . .
 
+RUN go clean --modcache
+
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd
 
 RUN apk update

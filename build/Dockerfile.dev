@@ -1,0 +1,7 @@
+FROM golang:1.18-alpine3.14
+
+ENV CGO_ENABLED=0
+ENV GO111MODULE=on
+
+RUN apk add --no-cache git curl openssl && \
+    go install -v github.com/cespare/reflex@latest

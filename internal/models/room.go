@@ -2,9 +2,9 @@ package models
 
 import "time"
 
-type Todo struct {
+type Room struct {
 	Id        string    `gorm:"primary_key" json:"id"`
-	Content   string    `json:"content"`
+	Name      string    `json:"name" validate:"required"`
 	CreatedAt time.Time `json:"created_at"`
 	CreatedBy string    `json:"created_by"`
 	User      User      `gorm:"foreignKey:CreatedBy" json:"user"`

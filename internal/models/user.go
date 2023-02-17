@@ -4,8 +4,8 @@ import "golang.org/x/crypto/bcrypt"
 
 type User struct {
 	Id       string `gorm:"primary_key" json:"id"`
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required"`
 	Limit    int    `json:"limit"`
 }
 

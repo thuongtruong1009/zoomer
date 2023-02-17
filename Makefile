@@ -1,3 +1,6 @@
+include .env.example
+export $(shell sed 's/=.*//' .env.example)
+
 DOCKER_USERNAME ?= thuongtruong1009
 APPLICATION_NAME ?= zoomer
 GIT_HASH ?= $(shell git log --format="%h" -n 1)
@@ -25,6 +28,11 @@ push:
 
 release:
 	$(MAKE) _releaser
+
+dev:
+	reflex -r '(\.go$$|go\.mod)' -s go run .
+
+# ##################################################
 
 build_%:
 	$(MAKE) _builder \
