@@ -5,18 +5,21 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"time"
-	"zoomer/internal/auth"
 	"zoomer/internal/models"
+	auth "zoomer/internal/auth/repository"
 	"zoomer/internal/rooms/repository"
 )
 
 type roomUsecase struct {
-	roomRepo rooms.RoomRepository
+	roomRepo repository.RoomRepository
 	userRepo auth.UserRepository
 }
 
-func NewRoomUseCase(roomRepo rooms.RoomRepository, userRepo auth.userRepository) rooms.Usecase {
-	return &roomUsecase{roomRepo: roomRepo, userRepo: userRepo}
+func NewRoomUseCase(roomRepo repository.RoomRepository, userRepo auth.UserRepository) UseCase {
+	return &roomUsecase{
+		roomRepo: roomRepo,
+		userRepo: userRepo,
+	}
 }
 
 func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string) error {
@@ -27,7 +30,7 @@ func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string
 		CreatedBy: userId,
 	}
 
-	count, err := ru.roomRepo.CountRoom(ctx, userId)
+	count, err := ru.roomRepo.CountRooms(ctx, userId)
 	if err != nil {
 		return err
 	}
@@ -45,8 +48,8 @@ func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string
 
 }
 
-func (ru roomUsecase) GetRoomByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
-	rooms, err := ru.rooRepo.GetRoomByUserId(ctx, userId)
+func (ru roomUsecase) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
+	rooms, err := ru.roomRepo.GetRoomsByUserId(ctx, userId)
 
 	if err != nil {
 		return nil, err

@@ -15,3 +15,9 @@
 tmp/
 
 vendor/
+
+main
+
+.env
+
+!./docker/**/.gitkeep

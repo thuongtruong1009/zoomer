@@ -8,17 +8,17 @@ import (
 	"zoomer/internal/models"
 )
 
-func GetPostgresInstance(cfg *config.Configuration, migrate bool) {
+func GetPostgresInstance(cfg *configs.Configuration, migrate bool) *gorm.DB{
 	dsn := cfg.DatabaseConnectionURL
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println(err)
-		panic("Failed to connect database ", err)
+		panic(err)
 	}
 
 	if migrate {
-		db.AutoMigrate(&models.User{}, &models.Todo{})
+		db.AutoMigrate(&models.User{}, &models.Room{})
 		if err != nil {
 			panic("Error when run migrations")
 		}

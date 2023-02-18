@@ -23,7 +23,7 @@ func (cr *roomRepository) CreateRoom(ctx context.Context, room *models.Room) err
 	return nil
 }
 
-func (cr *roomRepository) GetRoomByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
+func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
 	var rooms []*models.Room
 	err := cr.db.WithContext(ctx).Where(&models.Room{
 		CreatedBy: userId}).Find(&rooms).Error

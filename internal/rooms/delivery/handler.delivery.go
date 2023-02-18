@@ -7,16 +7,16 @@ import (
 	"github.com/labstack/echo/v4"
 	"zoomer/utils"
 	"zoomer/internal/models"
-	"zoomer/internal/auth"
-	"zoomer/internal/rooms"
+	"zoomer/internal/auth/repository"
+	"zoomer/internal/rooms/usecase"
 	"zoomer/internal/rooms/presenter"
 )
 
 type roomHandler struct {
-	roomUC rooms.UseCase
+	roomUC usecase.UseCase
 }
 
-func NewRoomHandler(roomUC rooms.UseCase) *roomHandler {
+func NewRoomHandler(roomUC usecase.UseCase) *roomHandler {
 	return &roomHandler{roomUC: roomUC}
 }
 
@@ -30,7 +30,7 @@ func mapRoom(r *models.Room) *presenter.RoomResponse {
 }
 
 func mapRooms(ro []*models.Room) []*presenter.RoomResponse {
-	out := make([](*presenter.rzoomResponse, len(ro)))
+	out := make([]*presenter.RoomResponse, len(ro))
 
 	for i, b := range ro {
 		out[i] = mapRoom(b)
@@ -42,25 +42,25 @@ func mapRooms(ro []*models.Room) []*presenter.RoomResponse {
 func (rh *roomHandler) GetAll() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		rooms, err := rh.roomUC.GetAllRooms(c.Request().Context())
-		if er != nil {
+		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 		return c.JSON(http.StatusOK, mapRooms(rooms))
 	}
 }
 
-func (rh *roomhandler) GetUserRooms() echo.HandlerFunc {
+func (rh *roomHandler) GetUserRooms() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		rawId := c.Param(auth.CtxUserKey)
+		rawId := c.Param(repository.CtxUserKey)
 		userId, err := uuid.Parse(rawId)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
-		rooms, err := rh.roomsUS.GetRoomByUserId(c.Request().Context(), userId.String())
+		rooms, err := rh.roomUC.GetRoomsByUserId(c.Request().Context(), userId.String())
 		if err != nil {
-			return echo.NewHTTPerror(http.StatusInternalServerError, err.Error())
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
-		if err != ni {
+		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 		return c.JSON(http.StatusOK, mapRooms(rooms))
@@ -69,7 +69,7 @@ func (rh *roomhandler) GetUserRooms() echo.HandlerFunc {
 
 func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		userId := c.Get(auth.CtxUserKey)
+		userId := c.Get(repository.CtxUserKey)
 		input := &presenter.RoomRequest{}
 
 		if err := utils.ReadRequest(c,input); err != nil {

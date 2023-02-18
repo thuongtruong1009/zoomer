@@ -7,15 +7,15 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      # POSTGRES_USER: postgres
+      # POSTGRES_PASSWORD: 123456789
+      # POSTGRES_DB: zoomer
 
-      # - POSTGRES_DB=${POSTGRES_DB:-todos}
-      # - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      # - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password1}
+      - POSTGRES_DB=${POSTGRES_DB:-zoomer}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456789}
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./.docker/postgres:/var/lib/postgresql/data
     restart: unless-stopped
 
   app:
@@ -24,7 +24,8 @@ services:
     # platform: linux/amd64
     build:
       context: .
-      dockerfile: ../build/Dockerfile.dev.air
+      dockerfile: Dockerfile
+      # dockerfile: ../build/Dockerfile.dev.air
     env_file:
       - .env
     ports:
@@ -34,7 +35,7 @@ services:
     volumes:
       - .:/app
       - $GOPATH/pkg/mod:/go/pkg/mod
-    working_dir: /app/cmd
-    # command: sh docker-entrypoint-go-dev.sh
+    command: sh docker-entrypoint.dev.sh
+    # working_dir: /app/cmd
     # command: reflex -r '(\.go$$|go\.mod)' -s go run .
     restart: on-failure

@@ -2,17 +2,18 @@ package delivery
 
 import (
 	"net/http"
-	"zoomer/internal/auth"
-	"zoomer/internal/auth/presenter"
-	"zoomer/utils"
 	"github.com/labstack/echo/v4"
+	"zoomer/utils"
+	"zoomer/internal/auth"
+	"zoomer/internal/auth/usecase"
+	"zoomer/internal/auth/presenter"
 )
 
 type authHandler struct {
-	useCase auth.useCase
+	useCase usecase.UseCase
 }
 
-func NewAuthHandler(useCase auth.UseCase) auth.Handler {
+func NewAuthHandler(useCase usecase.UseCase) Handler {
 	return &authHandler {
 		useCase: useCase,
 	}
@@ -25,13 +26,11 @@ func (h *authHandler) SignUp() echo.HandlerFunc{
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 
-		user, err := h.useCase.SignUp(c Request().Context(), input.Username, input.Password, input.Limit)
+		user, err := h.useCase.SignUp(c.Request().Context(), input.Username, input.Password, input.Limit)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
-		return c.JSON(http.StatusCreated, presenter.SignUpResponse{
-			Id: user.Id, Username: user.Username, Limit: user.Limit
-		})
+		return c.JSON(http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
 	}
 }
 

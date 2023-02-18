@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 	"zoomer/internal/auth"
-	CtxUserKey "zoomer/internal/auth/repository"
+	"zoomer/internal/auth/repository"
 )
 
 func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc {
@@ -34,7 +34,7 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 			return echo.NewHTTPError(status)
 		}
 
-		c.Set(auth.CtxUserKey, userId)
+		c.Set(repository.CtxUserKey, userId)
 		return next(c)
 	}
 }

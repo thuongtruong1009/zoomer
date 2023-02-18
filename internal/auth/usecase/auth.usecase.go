@@ -7,8 +7,9 @@ import (
 	"github.com/google/uuid"
 	"strings"
 	"time"
-	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
+	"zoomer/internal/auth"
+	"zoomer/internal/auth/repository"
 )
 
 type AuthClaims struct {
@@ -17,15 +18,19 @@ type AuthClaims struct {
 	UserId   string `json:"user_id"`
 }
 
-type authUsecase struct {
-	userRepo       auth.UserRepository
+type authUseCase struct {
+	userRepo       repository.UserRepository
 	hashSalt       string
 	signingKey     []byte
 	expireDuration time.Duration
 }
 
-func NewAuthUseCase(userRepo auth.UserRepository, hashSalt string, signingKey []byte, tokenTTL int64) auth.UseCase {
-	return &authUsecase{
+func NewAuthUseCase(
+	userRepo repository.UserRepository,
+	hashSalt string,
+	signingKey []byte,
+	tokenTTL int64) UseCase {
+	return &authUseCase{
 		userRepo:       userRepo,
 		hashSalt:       hashSalt,
 		signingKey:     signingKey,
@@ -62,7 +67,7 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 		return "", auth.ErrUserNotFound
 	}
 
-	if !user.ComparedPassword(password) {
+	if !user.ComparePassword(password) {
 		return "", auth.ErrWrongPassword
 	}
 
