@@ -1,6 +1,7 @@
 package server
 
 import (
+	"strings"
 	authRepository "zoomer/internal/auth/repository"
 	roomRepository "zoomer/internal/rooms/repository"
 
@@ -29,8 +30,20 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 	mw := middlewares.NewMiddlewareManager(authUC)
 
 	e.Use(middleware.BodyLimit("2M"))
-	// e.Use(mw.JWTValidation())
-	e.Use(middleware.Logger())
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Skipper: func(c echo.Context) bool {
+			if strings.HasPrefix(c.Request().Host, "localhost") {
+				return true
+			}
+			return false
+		},
+	}))
+	e.Use(middleware.Recover())
+	e.Use(middleware.Secure())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3001", "http://localhost:3002"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 
 	v1 := e.Group("/api/v1")
 

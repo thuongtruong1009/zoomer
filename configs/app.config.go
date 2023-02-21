@@ -13,14 +13,16 @@ type Configuration struct {
 	SigningKey            string `env:"SIGNING_KEY,required"`
 	TokenTTL              int64 `env:"TOKEN_TTL,required"`
 	JwtSecret             string `env:"JWT_SECRET,required"`
-	DatabaseConnectionURL string `env:"CONNECTION_URL,required"`
+	DatabaseConnectionURL string `env:"PG_URI,required"`
+	RedisURI			  string `env:"REDIS_URI,required"`
+	RedisPassword		  string `env:"REDIS_PASSWORD,required"`
 }
 
 func NewConfig(files ...string) *Configuration {
 	err := godotenv.Load(files...)
 
 	if err != nil {
-		log.Printf("No .env file found %q\n", files)
+		log.Fatal("Unable to Load the .env file\n", err)
 	}
 
 	cfg := Configuration{}
