@@ -47,7 +47,7 @@ func (cr *roomRepository) GetAllRooms(ctx context.Context) ([]*models.Room, erro
 func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, error) {
 	var count int
 
-	err := cr.db.WithContext(ctx).Raw(`SELECT COUNT(*) FROM chats WHERE chats.created_by = ? AND DATE_TRUNC('day', "created_at") =  CURRENT_DATE GROUP BY DATE_TRUNC('day', "created_at")`, userId).Scan(&count).Error
+	err := cr.db.WithContext(ctx).Raw(`SELECT COUNT(*) FROM rooms WHERE rooms.created_by = ? AND DATE_TRUNC('day', "created_at") = CURRENT_DATE GROUP BY DATE_TRUNC('day', "created_at")`, userId).Scan(&count).Error
 
 	if err != nil {
 		return 0, err

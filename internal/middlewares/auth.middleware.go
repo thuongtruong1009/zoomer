@@ -15,6 +15,7 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 			return echo.NewHTTPError(http.StatusUnauthorized)
 		}
 
+
 		headerParts := strings.Split(authHeader, " ")
 		if len(headerParts) != 2 {
 			return echo.NewHTTPError(http.StatusUnauthorized)

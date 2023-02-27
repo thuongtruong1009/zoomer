@@ -13,3 +13,6 @@ func (p1 p) hello(p2 ip2) {
  
 package p2
 struct p2 implement ip2
+
+// build
+go build -o versions/v1.0.exe cmd/main.go

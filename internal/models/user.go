@@ -3,10 +3,10 @@ package models
 import "golang.org/x/crypto/bcrypt"
 
 type User struct {
-	Id       string `gorm:"primary_key" json:"id"`
-	Username string `json:"username" validate:"required"`
-	Password string `json:"password" validate:"required"`
-	Limit    int    `json:"limit"`
+	Id       string `gorm:"primary_key"`
+	Username string
+	Password string
+	Limit    int
 }
 
 func (u *User) HashPassword() error {

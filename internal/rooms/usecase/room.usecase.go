@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"time"
+	"fmt"
 	"zoomer/internal/models"
 	auth "zoomer/internal/auth/repository"
 	"zoomer/internal/rooms/repository"
@@ -42,9 +43,9 @@ func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string
 
 	if user.Limit > count {
 		return ru.roomRepo.CreateRoom(ctx, room)
+	}else {
+		return errors.New("limit exceeded")
 	}
-
-	return errors.New("limit exceeded")
 
 }
 
@@ -59,6 +60,7 @@ func (ru roomUsecase) GetRoomsByUserId(ctx context.Context, userId string) ([]*m
 }
 
 func (ru roomUsecase) GetAllRooms(ctx context.Context) ([]*models.Room, error) {
+	fmt.Print("GetAllRooms")
 	rooms, err := ru.roomRepo.GetAllRooms(ctx)
 
 	if err != nil {

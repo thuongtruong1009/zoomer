@@ -8,5 +8,5 @@ import (
 func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.MiddlewareManager) {
 	roomGroup.POST("/", h.AddRoom(), mw.JWTValidation)
 	roomGroup.GET("/:userId", h.GetUserRooms(), mw.JWTValidation)
-	roomGroup.GET("/", h.GetAll(), mw.JWTValidation)
+	roomGroup.GET("/", h.GetAll())
 }

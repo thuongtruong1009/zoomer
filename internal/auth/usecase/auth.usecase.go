@@ -15,7 +15,7 @@ import (
 type AuthClaims struct {
 	jwt.StandardClaims
 	Username string `json:"username"`
-	UserId   string `json:"user_id"`
+	UserId   string `json:"userId"`
 }
 
 type authUseCase struct {
@@ -87,7 +87,7 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 }
 
 func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
-	token, err := jwt.ParseWithClaims(accessToken, AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(accessToken, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}

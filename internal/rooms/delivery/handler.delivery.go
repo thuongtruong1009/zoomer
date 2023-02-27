@@ -60,15 +60,13 @@ func (rh *roomHandler) GetUserRooms() echo.HandlerFunc {
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
-		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
 		return c.JSON(http.StatusOK, mapRooms(rooms))
 	}
 }
 
 func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 	return func(c echo.Context) error {
+
 		userId := c.Get(repository.CtxUserKey)
 		input := &presenter.RoomRequest{}
 
@@ -80,6 +78,7 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
+
 		return c.JSON(http.StatusCreated, nil)
 	}
 }
