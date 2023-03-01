@@ -51,6 +51,16 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 			}
 			return echo.NewHTTPError(http.StatusInternalServerError)
 		}
+
+		usecase.WriteCookie(c, "jwt", token, 60*60*24, "/", "localhost", false, true)
+
 		return c.JSON(http.StatusOK, presenter.LogInResponse{Token: token})
+	}
+}
+
+func (h *authHandler) SignOut() echo.HandlerFunc {
+	return func (c echo.Context) error {
+		usecase.WriteCookie(c, "jwt", "", -1, "", "", false, true)
+		return c.NoContent(http.StatusNoContent)
 	}
 }

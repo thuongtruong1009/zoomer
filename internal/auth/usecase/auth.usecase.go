@@ -7,6 +7,8 @@ import (
 	"github.com/google/uuid"
 	"strings"
 	"time"
+	"net/http"
+	"github.com/labstack/echo/v4"
 	"zoomer/internal/models"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
@@ -76,12 +78,17 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 		UserId:   user.Id,
 		StandardClaims: jwt.StandardClaims{
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "zoomer",
+			Issuer:    user.Id,
 			ExpiresAt: time.Now().Add(a.expireDuration).Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	// ss, err := token.SignedString([]byte(secretKey))
+	// if err != nil {
+	// 	return &LoginUserRes{}, err
+	// }
 
 	return token.SignedString(a.signingKey)
 }
@@ -103,4 +110,17 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 	}
 
 	return "", auth.ErrInvalidAccessToken
+}
+
+func WriteCookie(c echo.Context, name string, value string, expire time.Duration, path string, domain string, secure bool, httpOnly bool) {
+	cookie := http.Cookie{
+		Name:     name,
+		Value:    value,
+		Expires:  time.Now().Add(expire),
+		Path:     path,
+		Domain:   domain,
+		Secure:   secure,
+		HttpOnly: httpOnly,
+	}
+	c.SetCookie(&cookie)
 }

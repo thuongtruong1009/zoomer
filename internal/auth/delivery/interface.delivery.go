@@ -7,5 +7,5 @@ type Handler interface {
 
 	SignIn() echo.HandlerFunc
 
-	// Logout() echo.HandlerFunc
+	SignOut() echo.HandlerFunc
 }
