@@ -6,7 +6,6 @@ import (
 	"zoomer/db"
 	"zoomer/internal/server"
 	"github.com/sirupsen/logrus"
-	"zoomer/pkg/ws"
 )
 
 func main() {
@@ -17,8 +16,6 @@ func main() {
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
-
-	ws.StartWebsocketServer()
 
 	log.Println("Starting api server")
 }

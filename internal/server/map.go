@@ -12,6 +12,7 @@ import (
 
 	authHttp "zoomer/internal/auth/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
+	chatWs "zoomer/internal/chats"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -23,9 +24,11 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 
 	authUC := authUsecase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
+	chatUC := chatWs.NewHub()
 
 	authHandler := authHttp.NewAuthHandler(authUC)
 	roomHandler := roomHttp.NewRoomHandler(roomUC)
+	chatHandler := chatWs.NewChatHandler(chatUC)
 
 	mw := middlewares.NewMiddlewareManager(authUC)
 
@@ -51,9 +54,11 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 
 	authGroup := v1.Group("/auth")
 	roomGroup := v1.Group("/rooms")
+	chatGroup := v1.Group("/chats")
 
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
+	chatWs.MapChatRoutes(chatGroup, chatHandler, mw)
 
 	return nil
 }
