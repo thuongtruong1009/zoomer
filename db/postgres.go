@@ -8,7 +8,7 @@ import (
 	"zoomer/internal/models"
 )
 
-func GetPostgresInstance(cfg *configs.Configuration, migrate bool) *gorm.DB{
+func GetPostgresInstance(cfg *configs.Configuration, migrate bool) *gorm.DB {
 	dsn := cfg.DatabaseConnectionURL
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 

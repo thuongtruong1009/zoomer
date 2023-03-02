@@ -2,8 +2,8 @@ package db
 
 import (
 	"context"
-	"log"
 	"github.com/go-redis/redis/v8"
+	"log"
 	"zoomer/configs"
 )
 
@@ -11,9 +11,9 @@ var RedisClient *redis.Client
 
 func InitialiseRedis(cfg *configs.Configuration) *redis.Client {
 	conn := redis.NewClient(&redis.Options{
-		Addr: cfg.RedisURI,
+		Addr:     cfg.RedisURI,
 		Password: cfg.RedisPassword,
-		DB: 0,
+		DB:       0,
 	})
 
 	pong, err := conn.Ping(context.Background()).Result()
@@ -26,4 +26,3 @@ func InitialiseRedis(cfg *configs.Configuration) *redis.Client {
 	RedisClient = conn
 	return RedisClient
 }
-

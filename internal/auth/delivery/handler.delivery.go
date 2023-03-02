@@ -1,12 +1,12 @@
 package delivery
 
 import (
-	"net/http"
 	"github.com/labstack/echo/v4"
-	"zoomer/utils"
+	"net/http"
 	"zoomer/internal/auth"
-	"zoomer/internal/auth/usecase"
 	"zoomer/internal/auth/presenter"
+	"zoomer/internal/auth/usecase"
+	"zoomer/utils"
 )
 
 type authHandler struct {
@@ -14,12 +14,12 @@ type authHandler struct {
 }
 
 func NewAuthHandler(useCase usecase.UseCase) Handler {
-	return &authHandler {
+	return &authHandler{
 		useCase: useCase,
 	}
 }
 
-func (h *authHandler) SignUp() echo.HandlerFunc{
+func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
 		if err := utils.ReadRequest(c, input); err != nil {
@@ -35,7 +35,7 @@ func (h *authHandler) SignUp() echo.HandlerFunc{
 }
 
 func (h *authHandler) SignIn() echo.HandlerFunc {
-	return func (c echo.Context) error {
+	return func(c echo.Context) error {
 		input := &presenter.LoginInput{}
 		if err := utils.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
@@ -59,7 +59,7 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 }
 
 func (h *authHandler) SignOut() echo.HandlerFunc {
-	return func (c echo.Context) error {
+	return func(c echo.Context) error {
 		usecase.WriteCookie(c, "jwt", "", -1, "", "", false, true)
 		return c.NoContent(http.StatusNoContent)
 	}

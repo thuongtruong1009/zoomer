@@ -1,23 +1,9 @@
 package chats
 
 import (
-	"log"
 	"github.com/gorilla/websocket"
+	"log"
 )
-
-type Message struct {
-	Content string `json:"content"`
-	RoomID string `json:"roomId"`
-	Username string `json:"username"`
-}
-
-type Client struct {
-	Conn *websocket.Conn
-	Message chan *Message
-	ID string `json:"id"`
-	RoomID string `json:"roomId"`
-	Username string `json:"username"`
-}
 
 func (c *Client) writeMessage() {
 	defer func() {
@@ -36,7 +22,7 @@ func (c *Client) writeMessage() {
 
 func (c *Client) readMessage(hub *Hub) {
 	defer func() {
-		hub.Unregister <-c
+		hub.Unregister <- c
 		c.Conn.Close()
 	}()
 
@@ -49,9 +35,9 @@ func (c *Client) readMessage(hub *Hub) {
 			break
 		}
 
-		msg := &Message {
-			Content: string(m),
-			RoomID: c.RoomID,
+		msg := &Message{
+			Content:  string(m),
+			RoomID:   c.RoomID,
 			Username: c.Username,
 		}
 

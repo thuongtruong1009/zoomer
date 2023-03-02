@@ -2,14 +2,14 @@ package delivery
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"zoomer/utils"
-	"zoomer/internal/models"
+	"net/http"
 	"zoomer/internal/auth/repository"
-	"zoomer/internal/rooms/usecase"
+	"zoomer/internal/models"
 	"zoomer/internal/rooms/presenter"
+	"zoomer/internal/rooms/usecase"
+	"zoomer/utils"
 )
 
 type roomHandler struct {
@@ -21,9 +21,9 @@ func NewRoomHandler(roomUC usecase.UseCase) *roomHandler {
 }
 
 func mapRoom(r *models.Room) *presenter.RoomResponse {
-	return &presenter.RoomResponse {
-		Id: r.Id,
-		Name: r.Name,
+	return &presenter.RoomResponse{
+		Id:        r.Id,
+		Name:      r.Name,
 		CreatedAt: r.CreatedAt,
 		CreatedBy: r.CreatedBy,
 	}
@@ -37,7 +37,6 @@ func mapRooms(ro []*models.Room) []*presenter.RoomResponse {
 	}
 	return out
 }
-
 
 func (rh *roomHandler) GetAll() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -70,7 +69,7 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		userId := c.Get(repository.CtxUserKey)
 		input := &presenter.RoomRequest{}
 
-		if err := utils.ReadRequest(c,input); err != nil {
+		if err := utils.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 

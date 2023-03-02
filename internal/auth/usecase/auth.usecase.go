@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
+	"net/http"
 	"strings"
 	"time"
-	"net/http"
-	"github.com/labstack/echo/v4"
-	"zoomer/internal/models"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
+	"zoomer/internal/models"
 )
 
 type AuthClaims struct {

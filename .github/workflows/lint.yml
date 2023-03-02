@@ -1,4 +1,4 @@
-name: linter
+name: golangci-lint
 on:
   push:
     branches:
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  golangci:
     name: lint
     runs-on: ubuntu-latest
     steps:
@@ -30,16 +30,14 @@ jobs:
           stable: "false"
           go-version: "1.19"
 
-      - name: lint
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.29
+          args: --issues-exit-code=0
+          skip-cache: true
+          skip-pkg-cache: true
+          skip-build-cache: true
         run: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.29.0
           golangci-lint run --issues-exit-code=0
-
-      # - name: lint
-      #   uses: golangci/golangci-lint-action@v3
-      #   with:
-      #     version: v1.29
-      #     args: --issues-exit-code=0
-      #     skip-cache: true
-      #     skip-pkg-cache: true
-      #     skip-build-cache: true

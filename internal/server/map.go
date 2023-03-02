@@ -24,11 +24,11 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 
 	authUC := authUsecase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
-	chatUC := chatWs.NewHub()
+	wsUC := chatWs.NewHub()
 
 	authHandler := authHttp.NewAuthHandler(authUC)
 	roomHandler := roomHttp.NewRoomHandler(roomUC)
-	chatHandler := chatWs.NewChatHandler(chatUC)
+	wsHandler := chatWs.NewChatHandler(wsUC)
 
 	mw := middlewares.NewMiddlewareManager(authUC)
 
@@ -43,22 +43,24 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 	}))
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3001", "http://localhost:3002"},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderContentLength, echo.HeaderAuthorization},
-		AllowCredentials: true,
-		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.PATCH},
-	}))
+	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	// 	AllowOrigins:     []string{"http://localhost:3001", "http://localhost:3002"},
+	// 	AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderContentLength, echo.HeaderAuthorization},
+	// 	AllowCredentials: true,
+	// 	AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
+	// }))
 
-	v1 := e.Group("/api/v1")
+	addrGroup := "/api/v1"
 
-	authGroup := v1.Group("/auth")
-	roomGroup := v1.Group("/rooms")
-	chatGroup := v1.Group("/chats")
+	httpGr := e.Group(addrGroup)
+	authGroup := httpGr.Group("/auth")
+	roomGroup := httpGr.Group("/rooms")
 
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
-	chatWs.MapChatRoutes(chatGroup, chatHandler, mw)
+
+	chatWs.MapChatRoutes(e, wsHandler, addrGroup + "/chats", ":" + s.cfg.WsPort)
+	go wsUC.Run()
 
 	return nil
 }

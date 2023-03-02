@@ -2,7 +2,7 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  cmd = "go run cmd/main.go"
+  cmd = "gofmt -w . && go run cmd/main.go"
 
   args_bin = []
   bin = "tmp/main"

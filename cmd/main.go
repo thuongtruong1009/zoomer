@@ -1,15 +1,15 @@
 package main
 
 import (
+	"github.com/sirupsen/logrus"
 	"log"
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/server"
-	"github.com/sirupsen/logrus"
 )
 
 func main() {
-	cfg := configs.NewConfig()	
+	cfg := configs.NewConfig()
 
 	db := db.GetPostgresInstance(cfg, true)
 	s := server.NewServer(cfg, db, logrus.New(), nil)
