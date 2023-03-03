@@ -7,10 +7,6 @@ import (
 	"zoomer/utils"
 )
 
-type Handler struct {
-	hub *Hub
-}
-
 func NewChatHandler(h *Hub) *Handler {
 	return &Handler{
 		hub: h,
@@ -112,5 +108,20 @@ func (h *Handler) GetClients() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, clients)
+	}
+}
+
+func (h *Handler) GetStats() echo.HandlerFunc {
+	count := 0
+	for _, r := range h.hub.Rooms {
+		count += len(r.Clients)
+	}
+
+	return func(c echo.Context) error {
+		return c.JSON(http.StatusOK, StatsRes{
+			TotalRooms:    len(h.hub.Rooms),
+			TotalClients:  count,
+			TotalMessages: len(h.hub.Broadcast),
+		})
 	}
 }

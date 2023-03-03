@@ -45,3 +45,13 @@ type Client struct {
 	RoomID   string `json:"roomId"`
 	Username string `json:"username"`
 }
+
+type Handler struct {
+	hub *Hub
+}
+
+type StatsRes struct {
+	TotalRooms    int `json:"totalRooms"`
+	TotalClients  int `json:"totalClients"`
+	TotalMessages int `json:"totalMessages"`
+}

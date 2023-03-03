@@ -1,7 +1,6 @@
 package server
 
 import (
-	"strings"
 	authRepository "zoomer/internal/auth/repository"
 	roomRepository "zoomer/internal/rooms/repository"
 
@@ -11,11 +10,10 @@ import (
 	"zoomer/internal/middlewares"
 
 	authHttp "zoomer/internal/auth/delivery"
-	roomHttp "zoomer/internal/rooms/delivery"
 	chatWs "zoomer/internal/chats"
+	roomHttp "zoomer/internal/rooms/delivery"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func (s *Server) MapHandlers(e *echo.Echo) error {
@@ -30,25 +28,9 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 	roomHandler := roomHttp.NewRoomHandler(roomUC)
 	wsHandler := chatWs.NewChatHandler(wsUC)
 
-	mw := middlewares.NewMiddlewareManager(authUC)
+	middlewares.HttpMiddleware(e)
 
-	e.Use(middleware.BodyLimit("2M"))
-	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
-		Skipper: func(c echo.Context) bool {
-			if strings.HasPrefix(c.Request().Host, "localhost") {
-				return true
-			}
-			return false
-		},
-	}))
-	e.Use(middleware.Recover())
-	e.Use(middleware.Secure())
-	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-	// 	AllowOrigins:     []string{"http://localhost:3001", "http://localhost:3002"},
-	// 	AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderContentLength, echo.HeaderAuthorization},
-	// 	AllowCredentials: true,
-	// 	AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
-	// }))
+	mw := middlewares.AuthMiddlewareManager(authUC)
 
 	addrGroup := "/api/v1"
 
@@ -59,7 +41,10 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
 
-	chatWs.MapChatRoutes(e, wsHandler, addrGroup + "/chats", ":" + s.cfg.WsPort)
+	chatWs.MapChatRoutes(e, wsHandler, addrGroup+"/chats")
+
+	e.Logger.Fatal(e.Start(":"+s.cfg.WsPort))
+	defer e.Close()
 	go wsUC.Run()
 
 	return nil
