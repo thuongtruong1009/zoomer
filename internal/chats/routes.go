@@ -2,7 +2,6 @@ package chats
 
 import (
 	"github.com/labstack/echo/v4"
-	// "zoomer/internal/middlewares"
 )
 
 func MapChatRoutes(e *echo.Echo, h *Handler, group string) {
