@@ -15,7 +15,7 @@ func WsMapHandlers() error {
 
 	chatWs.MapChatRoutes(e, wsHandler, "/api/chats")
 
-	e.Start(":8081")
+	e.Logger.Fatal(e.Start(":8081"))
 
 	defer e.Close()
 	go wsUC.Run()

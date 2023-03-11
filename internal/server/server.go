@@ -27,6 +27,8 @@ func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, r
 	}
 }
 
+
+
 func (s *Server) Run() error {
 	httpServer := &http.Server{
 		Addr:         ":" + s.cfg.Port,
@@ -36,9 +38,16 @@ func (s *Server) Run() error {
 
 	go func() {
 		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.Port)
+
+		// http
 		if err := s.echo.StartServer(httpServer); err != nil {
 			s.logger.Fatalln("Error starting server: ", err)
 		}
+
+		// https
+		// if err := s.echo.StartTLS(":8080", ".docker/nginx/cert.pem", ".docker/nginx/key.pem"); err != http.ErrServerClosed {
+		// 	log.Fatal(err)
+		//   }
 	}()
 
 	if err := s.HttpMapHandlers(s.echo); err != nil {

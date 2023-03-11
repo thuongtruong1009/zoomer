@@ -12,7 +12,7 @@ COPY . .
 
 RUN go clean --modcache
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main ./cmd
 
 RUN apk update
 RUN apk add make

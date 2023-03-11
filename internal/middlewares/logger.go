@@ -15,13 +15,16 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		latency := stop.Sub(start)
 		req := c.Request()
 		res := c.Response()
+		protocol := req.Proto
+		host := req.Host
+		address := req.RemoteAddr
 		remoteIP := c.RealIP()
 		method := req.Method
 		path := req.URL.Path
 		status := res.Status
 		size := res.Size
 
-		c.Logger().Infof("%s %s %s %s %d %s", remoteIP, method, path, status, size, latency)
+		c.Logger().Infof("%s %s %s %s %d %s",protocol, host, address, remoteIP, method, path, status, size, latency)
 		return nil
 	}
 }

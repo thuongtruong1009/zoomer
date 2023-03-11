@@ -42,7 +42,7 @@ func (rh *roomHandler) GetAll() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		rooms, err := rh.roomUC.GetAllRooms(c.Request().Context())
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+			return echo.NewHTTPError(http.StatusNotFound, err.Error())
 		}
 		return c.JSON(http.StatusOK, mapRooms(rooms))
 	}

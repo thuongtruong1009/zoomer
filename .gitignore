@@ -20,4 +20,6 @@ main
 
 .env
 
-!./docker/**/.gitkeep
+.docker/**/*
+!.docker/**/.gitkeep
+!.docker/**/nginx.conf
