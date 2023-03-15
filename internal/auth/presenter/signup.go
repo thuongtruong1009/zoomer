@@ -1,12 +1,12 @@
 package presenter
 
-type SignUpResponse struct {
+type SignUpInput struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Limit    int    `json:"limit"`
 }
 
-type SignUpInput struct {
+type SignUpResponse struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
 	Limit    int    `json:"limit"`

@@ -1,16 +1,16 @@
 package middlewares
 
 import (
-	"zoomer/internal/auth"
+	"zoomer/internal/auth/usecase"
 )
 
 type MiddlewareManager struct {
-	authUC auth.UseCase
+	authUC usecase.UseCase
 	// cfg    *config.Configuration
 	// logger *logrus.Logger
 	// origins []string
 }
 
-func NewMiddlewareManager(authUC auth.UseCase) *MiddlewareManager {
+func AuthMiddlewareManager(authUC usecase.UseCase) *MiddlewareManager {
 	return &MiddlewareManager{authUC}
 }

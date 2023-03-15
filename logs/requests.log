@@ -1,0 +1,2 @@
+example: 2023/03/15 12:11:57 file.go:75: This is a new log message.
+example: 2023/03/15 12:11:57 file.go:76: This is another new log message.

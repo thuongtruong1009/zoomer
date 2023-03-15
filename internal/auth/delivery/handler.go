@@ -1,42 +1,41 @@
 package delivery
 
 import (
+	"github.com/labstack/echo/v4"
 	"net/http"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/presenter"
+	"zoomer/internal/auth/usecase"
 	"zoomer/utils"
-	"github.com/labstack/echo/v4"
 )
 
 type authHandler struct {
-	useCase auth.useCase
+	useCase usecase.UseCase
 }
 
-func NewAuthHandler(useCase auth.UseCase) auth.Handler {
-	return &authHandler {
+func NewAuthHandler(useCase usecase.UseCase) Handler {
+	return &authHandler{
 		useCase: useCase,
 	}
 }
 
-func (h *authHandler) SignUp() echo.HandlerFunc{
+func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
 		if err := utils.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 
-		user, err := h.useCase.SignUp(c Request().Context(), input.Username, input.Password, input.Limit)
+		user, err := h.useCase.SignUp(c.Request().Context(), input.Username, input.Password, input.Limit)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
-		return c.JSON(http.StatusCreated, presenter.SignUpResponse{
-			Id: user.Id, Username: user.Username, Limit: user.Limit
-		})
+		return c.JSON(http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
 	}
 }
 
 func (h *authHandler) SignIn() echo.HandlerFunc {
-	return func (c echo.Context) error {
+	return func(c echo.Context) error {
 		input := &presenter.LoginInput{}
 		if err := utils.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
@@ -52,6 +51,16 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 			}
 			return echo.NewHTTPError(http.StatusInternalServerError)
 		}
+
+		usecase.WriteCookie(c, "jwt", token, 60*60*24, "/", "localhost", false, true)
+
 		return c.JSON(http.StatusOK, presenter.LogInResponse{Token: token})
+	}
+}
+
+func (h *authHandler) SignOut() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		usecase.WriteCookie(c, "jwt", "", -1, "", "", false, true)
+		return c.NoContent(http.StatusNoContent)
 	}
 }

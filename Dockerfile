@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine as builder
+FROM golang:1.19-alpine as builder
 
 WORKDIR /app
 
@@ -10,12 +10,14 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd
+RUN go clean --modcache
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main ./cmd
 
 RUN apk update
 RUN apk add make
 
-FROM golang:1.17-alpine as production
+FROM golang:1.19-alpine as production
 
 WORKDIR /root/
 
@@ -24,4 +26,4 @@ COPY --from=builder /app/.env .
 
 ENTRYPOINT ["./main"]
 
-CMD ["air", "-c", ".air.toml"]
+# CMD ["air", "-c", ".air.toml"]

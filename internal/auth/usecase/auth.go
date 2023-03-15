@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
+	"net/http"
 	"strings"
 	"time"
+	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
 )
@@ -14,18 +17,22 @@ import (
 type AuthClaims struct {
 	jwt.StandardClaims
 	Username string `json:"username"`
-	UserId   string `json:"user_id"`
+	UserId   string `json:"userId"`
 }
 
-type authUsecase struct {
-	userRepo       auth.UserRepository
+type authUseCase struct {
+	userRepo       repository.UserRepository
 	hashSalt       string
 	signingKey     []byte
 	expireDuration time.Duration
 }
 
-func NewAuthUseCase(userRepo auth.UserRepository, hashSalt string, signingKey []byte, tokenTTL int64) auth.UseCase {
-	return &authUsecase{
+func NewAuthUseCase(
+	userRepo repository.UserRepository,
+	hashSalt string,
+	signingKey []byte,
+	tokenTTL int64) UseCase {
+	return &authUseCase{
 		userRepo:       userRepo,
 		hashSalt:       hashSalt,
 		signingKey:     signingKey,
@@ -62,7 +69,7 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 		return "", auth.ErrUserNotFound
 	}
 
-	if !user.ComparedPassword(password) {
+	if !user.ComparePassword(password) {
 		return "", auth.ErrWrongPassword
 	}
 
@@ -71,18 +78,23 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 		UserId:   user.Id,
 		StandardClaims: jwt.StandardClaims{
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "zoomer",
+			Issuer:    user.Id,
 			ExpiresAt: time.Now().Add(a.expireDuration).Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
+	// ss, err := token.SignedString([]byte(secretKey))
+	// if err != nil {
+	// 	return &LoginUserRes{}, err
+	// }
+
 	return token.SignedString(a.signingKey)
 }
 
 func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
-	token, err := jwt.ParseWithClaims(accessToken, AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(accessToken, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
@@ -98,4 +110,17 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 	}
 
 	return "", auth.ErrInvalidAccessToken
+}
+
+func WriteCookie(c echo.Context, name string, value string, expire time.Duration, path string, domain string, secure bool, httpOnly bool) {
+	cookie := http.Cookie{
+		Name:     name,
+		Value:    value,
+		Expires:  time.Now().Add(expire),
+		Path:     path,
+		Domain:   domain,
+		Secure:   secure,
+		HttpOnly: httpOnly,
+	}
+	c.SetCookie(&cookie)
 }
