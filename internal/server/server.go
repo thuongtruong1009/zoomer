@@ -27,8 +27,6 @@ func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, r
 	}
 }
 
-
-
 func (s *Server) Run() error {
 	httpServer := &http.Server{
 		Addr:         ":" + s.cfg.Port,

@@ -2,8 +2,25 @@ package middlewares
 
 import (
 	"github.com/labstack/echo/v4"
+	"log"
+	"os"
 	"time"
 )
+
+func writeRequestLog(filePath string) {
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	if err != nil {
+		log.Fatal("Failed to open log file: ", err)
+	}
+	defer file.Close()
+
+	// Create a new logger that writes to the log file
+	logger := log.New(file, "example: ", log.Ldate|log.Ltime|log.Lshortfile)
+
+	// Write some log messages
+	logger.Println("This is a new log message.")
+	logger.Println("This is another new log message.")
+}
 
 func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -24,7 +41,9 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		status := res.Status
 		size := res.Size
 
-		c.Logger().Infof("%s %s %s %s %d %s",protocol, host, address, remoteIP, method, path, status, size, latency)
+		c.Logger().Infof("%s %s %s %s %d %s", protocol, host, address, remoteIP, method, path, status, size, latency)
+
+		writeRequestLog("logs/requests.log")
 		return nil
 	}
 }

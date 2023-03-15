@@ -85,7 +85,7 @@ func GetData(client *minio.Client, bucketName string, objectName string) (file i
 	return file
 }
 
-//Get all data from MinIO
+// Get all data from MinIO
 func GetDataList(client *minio.Client, bucketName string) (file []io.Reader) {
 	_, err := client.GetBucketPolicy(context.Background(), bucketName)
 	if err != nil {

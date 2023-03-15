@@ -18,8 +18,13 @@ func HttpMiddleware(e *echo.Echo) {
 	e.Use(LoggerMiddleware)
 
 	e.Use(middleware.RequestID())
-	e.Use(middleware.Gzip())
-	e.Use(middleware.BodyLimit("2M"))
+	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+		Level: 5,
+		Skipper: func(c echo.Context) bool {
+			return strings.Contains(c.Path(), "auth")
+		},
+	}))
+	e.Use(middleware.BodyLimit("1M"))
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: func(c echo.Context) bool {
 			if strings.HasPrefix(c.Request().Host, "localhost") {
