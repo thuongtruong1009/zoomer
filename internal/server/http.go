@@ -1,29 +1,34 @@
 package server
 
 import (
+	"github.com/labstack/echo/v4"
+	"zoomer/internal/middlewares"
+
 	authRepository "zoomer/internal/auth/repository"
 	roomRepository "zoomer/internal/rooms/repository"
+	searchRepository "zoomer/internal/search/repository"
 
 	authUsecase "zoomer/internal/auth/usecase"
 	roomUsecase "zoomer/internal/rooms/usecase"
-
-	"zoomer/internal/middlewares"
+	searchUsecase "zoomer/internal/search/usecase"
 
 	authHttp "zoomer/internal/auth/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
-
-	"github.com/labstack/echo/v4"
+	searchHttp "zoomer/internal/search/delivery"
 )
 
 func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 	userRepo := authRepository.NewUserRepository(s.db)
 	roomRepo := roomRepository.NewRoomRepository(s.db)
+	searchRepo := searchRepository.NewSearchRepository(s.db)
 
 	authUC := authUsecase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
+	searchUC := searchUsecase.NewSearchUseCase(roomRepo)
 
 	authHandler := authHttp.NewAuthHandler(authUC)
 	roomHandler := roomHttp.NewRoomHandler(roomUC)
+	searchHandler := searchHttp.NewSearchHandler(searchUC)
 
 	middlewares.HttpMiddleware(e)
 
@@ -32,9 +37,11 @@ func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 	httpGr := e.Group("/api")
 	authGroup := httpGr.Group("/auth")
 	roomGroup := httpGr.Group("/rooms")
+	searchGroup := httpGr.Group("/search")
 
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
+	searchHttp.MapSearchRoutes(searchGroup, searchHandler)
 
 	return nil
 }

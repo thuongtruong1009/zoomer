@@ -73,3 +73,5 @@ networks:
     driver: bridge
   minio-network:
     driver: bridge
+
+    # https://github.dev/NooBeeID/simple-go-search/tree/develop
