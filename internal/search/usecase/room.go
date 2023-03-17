@@ -7,16 +7,18 @@ import (
 )
 
 type roomUsecase struct {
-	repo repository.RoomRepository
+	roomRepo repository.RoomRepository
+	searchRepo repository.SearchRepository
 }
 
-func NewRoomUseCase(roomRepo repository.RoomRepository) UseCase {
+func NewSearchUseCase(searchRepo searchRepo, roomRepo repository.RoomRepository) UseCase {
 	return &roomUsecase{
+		searchRepo: searchRepo,
 		roomRepo: roomRepo,
 	}
 }
 
-func (r *roomUsecase) SearchRooms(req *params.RoomSearch) *views.Response {
+func (r roomUsecase) SearchRooms(req *params.RoomSearch) *views.Response {
 	search := req.ParseToModel()
 
 	rooms, err := r.repo.FindRoombySearch(search)

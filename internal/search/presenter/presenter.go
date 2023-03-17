@@ -11,7 +11,7 @@ type RoomSearch struct {
 func (r *RoomSearch) ParseToModel() *models.RoomSearch {
 	category := models.Category(r.Category)
 	return &models.RoomSearch{
-		Name:       r.Name,
+		Name:        r.Name,
 		Description: r.Description,
 		Category:    category,
 	}

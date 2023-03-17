@@ -4,23 +4,25 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"strings"
+	"context"
 	"zoomer/internal/models"
+	"zoomer/internal/search/views"
 )
 
-type gormDB struct {
+type searchRepository struct {
 	db *gorm.DB
 }
 
 func NewSearchRepository(db *gorm.DB) SearchRepository {
-	return &gormDB{db: db.GormDB}
+	return &searchRepository{db: db}
 }
 
-func (r *gormDB) FindRoomBySearch(search *models.RoomSearch) (*[]models.Room, error) {
+func (r *searchRepository) FindRoomBySearch(ctx context.Context, search *models.RoomSearch) ([]*models.Room, error) {
 	if search == nil {
 		return nil, errors.New("search is nil")
 	}
 
-	var rooms []models.Room
+	var rooms []*models.Room
 
 	name := "%" + strings.ToLower(search.Name) + "%"
 	desc := "%" + strings.ToLower(search.Description) + "%"
@@ -36,5 +38,5 @@ func (r *gormDB) FindRoomBySearch(search *models.RoomSearch) (*[]models.Room, er
 		return nil, errors.New(string(views.Err_NotFound))
 	}
 
-	return &rooms, nil
+	return rooms, nil
 }

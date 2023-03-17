@@ -52,7 +52,7 @@ func (s *Server) Run() error {
 		return err
 	}
 
-	go WsMapHandlers()
+	go WsMapHandlers(s.cfg.WsPort)
 
 	if s.ready != nil {
 		s.ready <- true

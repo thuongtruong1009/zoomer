@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func WsMapHandlers() error {
+func WsMapHandlers(port int) error {
 	e := echo.New()
 
 	wsUC := chatWs.NewHub()
@@ -15,7 +15,7 @@ func WsMapHandlers() error {
 
 	chatWs.MapChatRoutes(e, wsHandler, "/api/chats")
 
-	e.Logger.Fatal(e.Start(":8081"))
+	e.Logger.Fatal(e.Start(port))
 
 	defer e.Close()
 	go wsUC.Run()
