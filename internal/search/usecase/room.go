@@ -7,14 +7,14 @@ import (
 )
 
 type roomUsecase struct {
-	roomRepo repository.RoomRepository
+	roomRepo   repository.RoomRepository
 	searchRepo repository.SearchRepository
 }
 
 func NewSearchUseCase(searchRepo searchRepo, roomRepo repository.RoomRepository) UseCase {
 	return &roomUsecase{
 		searchRepo: searchRepo,
-		roomRepo: roomRepo,
+		roomRepo:   roomRepo,
 	}
 }
 

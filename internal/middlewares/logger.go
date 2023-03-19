@@ -47,3 +47,5 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		return nil
 	}
 }
+
+// {"time":"2017-11-13T20:26:28.6438003+01:00","id":"3","remote_ip":"::1","host":"localhost:1323","method":"GET","uri":"/?my=param","my":"param","status":200, "latency":0,"latency_human":"0s","bytes_in":0,"bytes_out":13}

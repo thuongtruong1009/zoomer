@@ -35,11 +35,22 @@ func (s *Server) Run() error {
 	}
 
 	go func() {
+		// s.echo.Logger.Fatal(e.Start(":" + port))
 		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.Port)
 
-		// http
-		if err := s.echo.StartServer(httpServer); err != nil {
-			s.logger.Fatalln("Error starting server: ", err)
+		// http1.1
+		// if err := s.echo.StartServer(httpServer); err != nil {
+		// 	s.logger.Fatalln("Error starting server: ", err)
+		// }
+
+		// http2
+		h2c := &http2.Server{
+			MaxConcurrentStreams: 250,
+			MaxReadFrameSize:     1048576,
+			IdleTimeout:          10 * time.Second,
+		}
+		if err := e.StartH2CServer(":8080", h2c); err != http.ErrServerClosed {
+			log.Fatal(err)
 		}
 
 		// https

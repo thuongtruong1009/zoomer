@@ -5,9 +5,9 @@ import (
 )
 
 type RoomFind struct {
-	Name       string    `json:"name"`
-	Description string    `json:"desc"`
-	Category    string    `json:"category"`
+	Name        string `json:"name"`
+	Description string `json:"desc"`
+	Category    string `json:"category"`
 }
 
 func NewRoomsFind(roomsModel *[]models.Room) *[]RoomFind {

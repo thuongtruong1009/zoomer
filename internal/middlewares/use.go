@@ -3,7 +3,9 @@ package middlewares
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/log"
 	"strings"
+	"zoomer/configs"
 )
 
 func serverHeader(next echo.HandlerFunc) echo.HandlerFunc {
@@ -15,7 +17,9 @@ func serverHeader(next echo.HandlerFunc) echo.HandlerFunc {
 
 func HttpMiddleware(e *echo.Echo) {
 	e.Use(serverHeader)
+
 	e.Use(LoggerMiddleware)
+	e.Logger.SetLevel(log.INFO)
 
 	e.Use(middleware.RequestID())
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
@@ -24,7 +28,7 @@ func HttpMiddleware(e *echo.Echo) {
 			return strings.Contains(c.Path(), "auth")
 		},
 	}))
-	e.Use(middleware.BodyLimit("1M"))
+	e.Use(middleware.BodyLimit("2M"))
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: func(c echo.Context) bool {
 			if strings.HasPrefix(c.Request().Host, "localhost") {
@@ -34,12 +38,22 @@ func HttpMiddleware(e *echo.Echo) {
 		},
 	}))
 
-	e.Use(middleware.Recover())
-	e.Use(middleware.Secure())
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3001", "http://localhost:3002"},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderContentLength, echo.HeaderAuthorization},
-		AllowCredentials: true,
-		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
+	e.Pre(middleware.HTTPSNonWWWRedirect())
+	e.Pre(middleware.HTTPSRedirect())
+
+	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
+		StackSize: 1 << 10, // 1 KB
+		LogLevel:  log.ERROR,
 	}))
+	e.Use(middleware.Secure())
+	e.Use(middleware.Logger())
+	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+		TokenLookup: "header:X-XSRF-TOKEN",
+	}))
+	CheckOrigin(e)
+
+	configs.ProxyConfig(e)
+	configs.RateLimit(e)
+
+	e.Use(middleware.Timeout())
 }

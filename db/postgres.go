@@ -2,9 +2,9 @@ package db
 
 import (
 	"fmt"
-	"time"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"time"
 	"zoomer/configs"
 	"zoomer/internal/models"
 )
