@@ -11,8 +11,11 @@ import (
 func main() {
 	cfg := configs.NewConfig()
 
-	db := db.GetPostgresInstance(cfg, true)
-	s := server.NewServer(cfg, db, logrus.New(), nil)
+	instance := db.GetPostgresInstance(cfg, true)
+
+	db.SetConnectionPool(instance, cfg)
+
+	s := server.NewServer(cfg, instance, logrus.New(), nil)
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
