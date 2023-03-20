@@ -24,7 +24,7 @@ func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 
 	authUC := authUsecase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
-	searchUC := searchUsecase.NewSearchUseCase(roomRepo)
+	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 
 	authHandler := authHttp.NewAuthHandler(authUC)
 	roomHandler := roomHttp.NewRoomHandler(roomUC)

@@ -8,7 +8,8 @@ import (
 )
 
 type Configuration struct {
-	Port                  int    `env:"PORT" envDefault:"8080"`
+	HttpPort                  int    `env:"HTTP_PORT" envDefault:"8080"`
+	Http2Port				 int    `env:"HTTP2_PORT" envDefault:"8082"`
 	WsPort                int    `env:"WS_PORT" envDefault:"8081"`
 	HashSalt              string `env:"HASH_SALT,required"`
 	SigningKey            string `env:"SIGNING_KEY,required"`

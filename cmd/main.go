@@ -12,7 +12,6 @@ func main() {
 	cfg := configs.NewConfig()
 
 	instance := db.GetPostgresInstance(cfg, true)
-	defer instance.Close()
 
 	db.SetConnectionPool(instance, cfg)
 

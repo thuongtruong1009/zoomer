@@ -2,13 +2,13 @@ package presenter
 
 import "zoomer/internal/models"
 
-type RoomSearch struct {
+type RoomSearchParams struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Category    string `json:"category"`
 }
 
-func (r *RoomSearch) ParseToModel() *models.RoomSearch {
+func (r *RoomSearchParams) ParseToModel() *models.RoomSearch {
 	category := models.Category(r.Category)
 	return &models.RoomSearch{
 		Name:        r.Name,

@@ -1,7 +1,10 @@
 package repository
 
-import "zoomer/internal/models"
+import (
+	"context"
+	"zoomer/internal/models"
+)
 
 type SearchRepository interface {
-	FindRoomBySearch(search *models.RoomSearch) ([]*models.Room, error)
+	FindRoomBySearch(ctx context.Context, search *models.RoomSearch) ([]*models.Room, error)
 }

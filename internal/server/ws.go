@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func WsMapHandlers(port int) error {
+func WsMapHandlers(port string) error {
 	e := echo.New()
 
 	wsUC := chatWs.NewHub()
