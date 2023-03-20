@@ -11,9 +11,8 @@ import (
 	"syscall"
 	"time"
 	"zoomer/configs"
-	"log"
-	"fmt"
-	"golang.org/x/net/http2"
+	// "log"
+	// "golang.org/x/net/http2"
 )
 
 type Server struct {
@@ -32,28 +31,18 @@ func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, r
 
 func (s *Server) Run() error {
 	httpServer := &http.Server{
-		Addr:         ":" + fmt.Sprint(s.cfg.HttpPort),
+		Addr:         ":" + s.cfg.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
 	go func() {
 		// s.echo.Logger.Fatal(e.Start(":" + port))
-		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", fmt.Sprint(s.cfg.HttpPort))
+		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.HttpPort)
 
 		// http1.1
 		if err := s.echo.StartServer(httpServer); err != nil {
 			s.logger.Fatalln("Error starting server: ", err)
-		}
-
-		// http2
-		h2c := &http2.Server{
-			MaxConcurrentStreams: 250,
-			MaxReadFrameSize:     1048576,
-			IdleTimeout:          10 * time.Second,
-		}
-		if err := s.echo.StartH2CServer(":" + fmt.Sprint(s.cfg.Http2Port), h2c); err != http.ErrServerClosed {
-			log.Fatal(err)
 		}
 
 		// https
@@ -66,7 +55,7 @@ func (s *Server) Run() error {
 		return err
 	}
 
-	go WsMapHandlers(":" + fmt.Sprint(s.cfg.WsPort))
+	go WsMapHandlers(":" + s.cfg.WsPort)
 
 	if s.ready != nil {
 		s.ready <- true

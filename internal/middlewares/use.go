@@ -38,18 +38,15 @@ func HttpMiddleware(e *echo.Echo) {
 		},
 	}))
 
-	e.Pre(middleware.HTTPSNonWWWRedirect())
-	e.Pre(middleware.HTTPSRedirect())
-
 	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
 		StackSize: 1 << 10, // 1 KB
 		LogLevel:  log.ERROR,
 	}))
 	e.Use(middleware.Secure())
 	e.Use(middleware.Logger())
-	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-		TokenLookup: "header:X-XSRF-TOKEN",
-	}))
+	// e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+	// 	TokenLookup: "header:X-XSRF-TOKEN",
+	// }))
 	CheckOrigin(e)
 
 	configs.ProxyConfig(e)

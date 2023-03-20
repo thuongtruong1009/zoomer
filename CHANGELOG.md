@@ -19,6 +19,9 @@ There is the most valuable changes log:
 - Load balancer with nginx
 - Credential & certificate authentication with JWT
 - Setup CI/CD
+- Apply HTTP2
+- Auto migrate in debug mode
+- Connect pool for database
 
 **2. Features**
 
@@ -29,6 +32,7 @@ There is the most valuable changes log:
 
 - fix: cycle import
 - fix: conflict between websocket and http handler
+- fix: room-searching context
 
 **4. Documentations**
 
