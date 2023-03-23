@@ -23,3 +23,5 @@ main
 .docker/**/*
 !.docker/**/.gitkeep
 !.docker/**/nginx.conf
+
+**/node_modules

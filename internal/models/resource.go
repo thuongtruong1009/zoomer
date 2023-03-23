@@ -1,7 +1,7 @@
 package models
 
 type ResourceList struct {
-	Resource []Resource `json:"resource"`
+	ResourceList []Resource `json:"resource"`
 }
 type Resource struct {
 	Id   string `json:"id"`

@@ -47,7 +47,7 @@ func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
 	searchHttp.MapSearchRoutes(searchGroup, searchHandler)
 
-	resourceHttp.MapResourceRoutes(httpGr+"/resource", s.cfg.MinioPort)
+	resourceHttp.MapResourceRoutes(httpGr+"/resource", ":8082")
 
 	return nil
 }

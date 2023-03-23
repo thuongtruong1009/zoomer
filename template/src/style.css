@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* hidden scrollbar */
+  .scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* custom outline */
+  .default-outline {
+    @apply focus-visible:outline-black dark:focus-visible:outline-white rounded-[4px];
+  }
+
+  /* custom range slider input */
+  .slider {
+    @apply bg-gray-300 appearance-none outline-none h-[6px] rounded-[4px];
+  }
+
+  .slider::-webkit-slider-thumb {
+    @apply bg-indigo-300 w-[12px] h-[12px] mt-[-2px] appearance-none outline-none border-none cursor-pointer rounded-full;
+  }
+
+  .slider::-moz-range-thumb {
+    @apply bg-indigo-300 w-[12px] h-[12px] appearance-none outline-none border-none cursor-pointer rounded-full;
+  }
+
+  .slider::-moz-range-progress {
+    @apply h-[6px] rounded-[4px] bg-indigo-300;
+  }
+
+  .slider::-webkit-slider-runnable-track {
+    @apply rounded-[4px] h-[6px] cursor-pointer;
+  }
+
+  .video-slider {
+    background: transparent !important;
+  }
+
+  .video-slider::-moz-range-thumb {
+    width: 0px;
+    height: 0px;
+  }
+
+  .video-slider::-webkit-slider-thumb {
+    width: 0px;
+    height: 0px;
+  }
+}

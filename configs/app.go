@@ -10,7 +10,6 @@ import (
 type Configuration struct {
 	HttpPort              string `env:"HTTP_PORT" envDefault:"8080"`
 	WsPort                string `env:"WS_PORT" envDefault:"8081"`
-	MinioPort			 string `env:"MINIO_PORT" envDefault:"9000"`
 	HashSalt              string `env:"HASH_SALT,required"`
 	SigningKey            string `env:"SIGNING_KEY,required"`
 	TokenTTL              int64  `env:"TOKEN_TTL,required"`
@@ -22,6 +21,10 @@ type Configuration struct {
 	MaxIdleTimeConnection int    `env:"PG_MAX_IDLE_TIME_CONN" envDefault:"20"`
 	RedisURI              string `env:"REDIS_URI,required"`
 	RedisPassword         string `env:"REDIS_PASSWORD,required"`
+	MinIOAccessKey        string `env:"MINIO_ACCESS,required"`
+	MinIOSecretKey        string `env:"MINIO_SECRET,required"`
+	MinIOEndpoint         string `env:"MINIO_ENDPOINT,required"`
+	MinIOBucket           string `env:"MINIO_BUCKET,required"`
 }
 
 func NewConfig(files ...string) *Configuration {

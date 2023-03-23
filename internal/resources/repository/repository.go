@@ -1,4 +1,4 @@
-package resources
+package repository
 
 import (
 	"bytes"
@@ -36,7 +36,7 @@ func GetResourcesList(jsonFiles []io.Reader) (temp models.ResourceList) {
 		data := StreamToByte(jsonFiles[i])
 		var todo models.Resource
 		json.Unmarshal(data, &todo)
-		temp.Resource = append(temp.Resource, todo)
+		temp.ResourceList = append(temp.ResourceList, todo)
 	}
 	return temp
 }
