@@ -25,13 +25,14 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin
+      MINIO_ROOT_USER: "${MINIO_ROOT_USER}"
+      MINIO_ROOT_PASSWORD: "${MINIO_ROOT_PASSWORD}"
     networks:
       - minio-network
     volumes:
-      - ./storage:/data
-    command: server /data
+      # - ./storage:/data
+      - minio:/var/lib/minio
+    command: server --console-address ":9001" /var/lib/minio
     restart: unless-stopped
 
   app:
@@ -73,5 +74,7 @@ networks:
     driver: bridge
   minio-network:
     driver: bridge
+# volumes:
+#   minio:
 
-    # https://github.dev/NooBeeID/simple-go-search/tree/develop
+# https://github.dev/NooBeeID/simple-go-search/tree/develop

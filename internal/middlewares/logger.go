@@ -1,11 +1,11 @@
 package middlewares
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"log"
 	"os"
 	"time"
-	"fmt"
 )
 
 func writeRequestLog(filePath string, logMessage string) {
@@ -47,8 +47,8 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 
 		c.Logger().Infof("%s %s %s %s %d %s", protocol, host, address, remoteIP, method, path, status, size, latency)
 
-		writeRequestLog("logs/requests.log", 
-			"Time: " + stop.Format(time.RFC3339) + " Id: " + id + " Remote_IP: " + remoteIP + " Host: " + host + " Method: " + method + " Uri: " + uri + " Status: " + fmt.Sprint(status)  + " Latency: " + fmt.Sprint(latency) + " Bytes_in: " + fmt.Sprint(bytesIn) + " Bytes_out: " + fmt.Sprint(bytesOut))
+		writeRequestLog("logs/requests.log",
+			"Time: "+stop.Format(time.RFC3339)+" Id: "+id+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut))
 		return nil
 	}
 }
