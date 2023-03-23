@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"zoomer/utils"
+	"zoomer/constants"
 )
 
 func NewChatHandler(h *Hub) *Handler {
@@ -60,7 +61,8 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 		}
 
 		m := &Message{
-			Content:  "A new user has joined the room",
+			Content:  username + " " + constants.MsgContentJoin,
+			Type:   constants.MsgTypeText,
 			RoomID:   roomID,
 			Username: username,
 		}

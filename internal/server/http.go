@@ -15,6 +15,8 @@ import (
 	authHttp "zoomer/internal/auth/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
+
+	resourceHttp "zoomer/internal/resources/delivery"
 )
 
 func (s *Server) HttpMapHandlers(e *echo.Echo) error {
@@ -34,6 +36,8 @@ func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 
 	mw := middlewares.AuthMiddlewareManager(authUC)
 
+	e.Static("/", "public")
+
 	httpGr := e.Group("/api")
 	authGroup := httpGr.Group("/auth")
 	roomGroup := httpGr.Group("/rooms")
@@ -42,6 +46,8 @@ func (s *Server) HttpMapHandlers(e *echo.Echo) error {
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
 	searchHttp.MapSearchRoutes(searchGroup, searchHandler)
+
+	resourceHttp.MapResourceRoutes(httpGr+"/resource", s.cfg.MinioPort)
 
 	return nil
 }

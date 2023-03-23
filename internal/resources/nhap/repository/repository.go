@@ -1,4 +1,4 @@
-package resources
+package repository
 
 import (
 	"context"
@@ -29,7 +29,7 @@ func MinioClient() (c *minio.Client, err error) {
 	return minioClient, err
 }
 
-func Setpermission(client *minio.Client, bucketName string) error {
+func SetPermission(client *minio.Client, bucketName string) error {
 	policy := `{"Version": "2012-10-17","Statement": [{"Action": ["s3:GetObject"],"Effect": "Allow","Principal": {"AWS": ["*"]},"Resource": ["arn:aws:s3:::` + bucketName + `/*"],"Sid": ""}]}`
 
 	err := client.SetBucketPolicy(context.Background(), bucketName, policy)
@@ -58,7 +58,7 @@ func CreateBucket(client *minio.Client, bucketName string) error {
 	return err
 }
 
-func UploadData(client *minio.Client, bucketName string, objectName string, data io.Reader) error {
+func UploadResource(client *minio.Client, bucketName string, objectName string, data io.Reader) error {
 	_, err := client.GetBucketPolicy(context.Background(), bucketName)
 	if err != nil {
 		log.Fatalln(err)
@@ -72,7 +72,7 @@ func UploadData(client *minio.Client, bucketName string, objectName string, data
 	return err
 }
 
-func GetData(client *minio.Client, bucketName string, objectName string) (file io.Reader) {
+func GetResource(client *minio.Client, bucketName string, objectName string) (file io.Reader) {
 	_, err := client.GetBucketPolicy(context.Background(), bucketName)
 	if err != nil {
 		log.Fatalln(err)
@@ -85,8 +85,7 @@ func GetData(client *minio.Client, bucketName string, objectName string) (file i
 	return file
 }
 
-// Get all data from MinIO
-func GetDataList(client *minio.Client, bucketName string) (file []io.Reader) {
+func GetResourcesList(client *minio.Client, bucketName string) (file []io.Reader) {
 	_, err := client.GetBucketPolicy(context.Background(), bucketName)
 	if err != nil {
 		log.Fatalln(err)
@@ -95,7 +94,40 @@ func GetDataList(client *minio.Client, bucketName string) (file []io.Reader) {
 		Recursive: true,
 	})
 	for object := range objectCh {
-		file = append(file, GetData(client, bucketName, object.Key))
+		file = append(file, GetResource(client, bucketName, object.Key))
 	}
 	return file
+}
+
+func DeleteResource(client *minio.Client, bucketName string, objectName string) error {
+	_, err := client.GetBucketPolicy(context.Background(), bucketName)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	err = client.RemoveObject(context.Background(), bucketName, objectName, minio.RemoveObjectOptions{})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	fmt.Println("Successfully deleted ", objectName)
+	return err
+}
+
+func DeleteResourcesList(client *minio.Client, bucketName string) error {
+	_, err := client.GetBucketPolicy(context.Background(), bucketName)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	objectCh := client.ListObjects(context.Background(), bucketName, minio.ListObjectsOptions{
+		Recursive: true,
+	})
+	for object := range objectCh {
+		err = client.RemoveObject(context.Background(), bucketName, object.Key, minio.RemoveObjectOptions{})
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+		fmt.Println("Successfully deleted ", object.Key)
+	}
+	return err
 }

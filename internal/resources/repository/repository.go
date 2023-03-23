@@ -5,18 +5,11 @@ import (
 	"encoding/json"
 	"io"
 	"log"
+	"zoomer/internal/models"
 )
 
-type TodoList struct {
-	TodoList []Todo `json:"TodoList"`
-}
-type Todo struct {
-	Id   string `json:"Id"`
-	Name string `json:"Name"`
-}
-
-func CreateJson(id, name string) (jsonData []byte, todo Todo) {
-	todo = Todo{
+func CreateResource(id, name string) (jsonData []byte, todo models.Resource) {
+	todo = models.Resource{
 		Id: id, Name: name,
 	}
 	jsonData, err := json.Marshal(todo)
@@ -31,17 +24,19 @@ func StreamToByte(stream io.Reader) []byte {
 	buf.ReadFrom(stream)
 	return buf.Bytes()
 }
-func GetATodo(jsonFile io.Reader) (temp Todo) {
+
+func GetResource(jsonFile io.Reader) (temp models.Resource) {
 	data := StreamToByte(jsonFile)
 	json.Unmarshal(data, &temp)
 	return temp
 }
-func GetAllTodos(jsonFiles []io.Reader) (temp TodoList) {
+
+func GetResourcesList(jsonFiles []io.Reader) (temp models.ResourceList) {
 	for i := 0; i < len(jsonFiles); i++ {
 		data := StreamToByte(jsonFiles[i])
-		var todo Todo
+		var todo models.Resource
 		json.Unmarshal(data, &todo)
-		temp.TodoList = append(temp.TodoList, todo)
+		temp.Resource = append(temp.Resource, todo)
 	}
 	return temp
 }

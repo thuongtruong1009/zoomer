@@ -8,8 +8,9 @@ import (
 )
 
 type Configuration struct {
-	HttpPort                  string    `env:"HTTP_PORT" envDefault:"8080"`
-	WsPort                string    `env:"WS_PORT" envDefault:"8081"`
+	HttpPort              string `env:"HTTP_PORT" envDefault:"8080"`
+	WsPort                string `env:"WS_PORT" envDefault:"8081"`
+	MinioPort			 string `env:"MINIO_PORT" envDefault:"9000"`
 	HashSalt              string `env:"HASH_SALT,required"`
 	SigningKey            string `env:"SIGNING_KEY,required"`
 	TokenTTL              int64  `env:"TOKEN_TTL,required"`
