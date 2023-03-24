@@ -1,10 +1,10 @@
 package constants
 
 const (
-	MsgTypeText= "text"
-	MsgTypeImg = "image"
+	MsgTypeText     = "text"
+	MsgTypeImg      = "image"
 	MsgTypeImgVideo = "video"
-	MsgTypeDesc = "desc"
+	MsgTypeDesc     = "desc"
 )
 
 const (

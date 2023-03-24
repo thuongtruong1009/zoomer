@@ -4,8 +4,8 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/utils"
 	"zoomer/constants"
+	"zoomer/utils"
 )
 
 func NewChatHandler(h *Hub) *Handler {
@@ -62,7 +62,7 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 
 		m := &Message{
 			Content:  username + " " + constants.MsgContentJoin,
-			Type:   constants.MsgTypeText,
+			Type:     constants.MsgTypeText,
 			RoomID:   roomID,
 			Username: username,
 		}

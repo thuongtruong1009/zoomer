@@ -5,19 +5,19 @@ import (
 	"zoomer/internal/middlewares"
 
 	authRepository "zoomer/internal/auth/repository"
+	resourceRepository "zoomer/internal/resources/repository"
 	roomRepository "zoomer/internal/rooms/repository"
 	searchRepository "zoomer/internal/search/repository"
-	resourceRepository "zoomer/internal/resources/repository"
 
 	authUsecase "zoomer/internal/auth/usecase"
+	resourceUsecase "zoomer/internal/resources/usecase"
 	roomUsecase "zoomer/internal/rooms/usecase"
 	searchUsecase "zoomer/internal/search/usecase"
-	resourceUsecase "zoomer/internal/resources/usecase"
 
 	authHttp "zoomer/internal/auth/delivery"
+	resourceHttp "zoomer/internal/resources/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
-	resourceHttp "zoomer/internal/resources/delivery"
 )
 
 func (s *Server) HttpMapHandlers(e *echo.Echo) error {

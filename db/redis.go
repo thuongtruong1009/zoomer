@@ -2,27 +2,34 @@ package db
 
 import (
 	"context"
-	"github.com/go-redis/redis/v8"
 	"log"
+	"time"
+	"fmt"
+	"github.com/go-redis/redis/v8"
 	"zoomer/configs"
 )
 
-var RedisClient *redis.Client
+type RedisClient struct {
+	client *redis.Client
+}
 
-func InitialiseRedis(cfg *configs.Configuration) *redis.Client {
+
+func NewRedisClient(cfg *configs.Configuration) *RedisClient {
 	conn := redis.NewClient(&redis.Options{
 		Addr:     cfg.RedisURI,
 		Password: cfg.RedisPassword,
 		DB:       0,
 	})
 
-	pong, err := conn.Ping(context.Background()).Result()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	pong, err := conn.Ping(ctx).Result()
 	if err != nil {
-		log.Fatal("Redis connection failed", err)
+		panic(fmt.Errorf("Redis connection failed:  %w", err))
 	}
 
 	log.Println("Redis connection successful", pong)
 
-	RedisClient = conn
-	return RedisClient
+	return &RedisClient{conn}
 }
