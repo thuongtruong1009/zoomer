@@ -24,7 +24,6 @@ var upgrader = websocket.Upgrader{
 
 func (h *Handler) CreateRoom() echo.HandlerFunc {
 	return func(c echo.Context) error {
-
 		req := &CreateRoomReq{}
 
 		if err := utils.ReadRequest(c, req); err != nil {

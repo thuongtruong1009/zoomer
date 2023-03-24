@@ -7,12 +7,12 @@ import (
 )
 
 func ProxyConfig(echo *echo.Echo) {
-	url1, err := url.Parse("http://localhost:8082")
+	url1, err := url.Parse("http://localhost:8080")
 	if err != nil {
 		panic(err)
 	}
 
-	url2, err := url.Parse("http://localhost:8083")
+	url2, err := url.Parse("http://localhost:8081")
 	if err != nil {
 		panic(err)
 	}

@@ -1,3 +1,6 @@
+ref:
+https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223
+
 ## **Technical stuff**
 
 - Architecture: Clean architecture
