@@ -40,7 +40,7 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 		if err := utils.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
-		token, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
+		userId, username, token, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
 
 		if err != nil {
 			if err == auth.ErrUserNotFound {
@@ -54,7 +54,7 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 
 		usecase.WriteCookie(c, "jwt", token, 60*60*24, "/", "localhost", false, true)
 
-		return c.JSON(http.StatusOK, presenter.LogInResponse{Token: token})
+		return c.JSON(http.StatusOK, presenter.LogInResponse{UserId: userId, Username: username, Token: token})
 	}
 }
 

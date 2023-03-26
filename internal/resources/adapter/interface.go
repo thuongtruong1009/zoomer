@@ -1,8 +1,8 @@
 package adapter
 
 import (
-	"io"
 	"github.com/minio/minio-go/v7"
+	"io"
 )
 
 type ResourceAdapter interface {

@@ -19,10 +19,14 @@ type ClientRes struct {
 	Username string `json:"username"`
 }
 
-type Room struct {
-	ID      string             `json:"id"`
-	Name    string             `json:"name"`
-	Clients map[string]*Client `json:"clients"`
+type StatsRes struct {
+	TotalRooms    int `json:"totalRooms"`
+	TotalClients  int `json:"totalClients"`
+	TotalMessages int `json:"totalMessages"`
+}
+
+type Handler struct {
+	hub *Hub
 }
 
 type Hub struct {
@@ -32,11 +36,11 @@ type Hub struct {
 	Broadcast  chan *Message
 }
 
-type Message struct {
-	Content  string `json:"content"`
-	Type    string `json:"type"`
-	RoomID   string `json:"roomId"`
-	Username string `json:"username"`
+type Room struct {
+	ID      string             `json:"id"`
+	Name    string             `json:"name"`
+	Clients map[string]*Client `json:"clients"`
+	Messages []*Message
 }
 
 type Client struct {
@@ -47,12 +51,9 @@ type Client struct {
 	Username string `json:"username"`
 }
 
-type Handler struct {
-	hub *Hub
-}
-
-type StatsRes struct {
-	TotalRooms    int `json:"totalRooms"`
-	TotalClients  int `json:"totalClients"`
-	TotalMessages int `json:"totalMessages"`
+type Message struct {
+	Content  string `json:"content"`
+	Type     string `json:"type"`
+	RoomID   string `json:"roomId"`
+	Username string `json:"username"`
 }

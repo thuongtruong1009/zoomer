@@ -3,21 +3,21 @@ package adapter
 import (
 	"context"
 	"fmt"
-	"io"
-	"log"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/sirupsen/logrus"
+	"io"
+	"log"
 	"zoomer/configs"
 )
 
 var (
-	endpoint = configs.NewConfig().MinIOEndpoint //minio.example.com:9000
-	accessKey = configs.NewConfig().MinIOAccessKey
-	secretKey = configs.NewConfig().MinIOSecretKey
-	useSSL = false
+	endpoint    = configs.NewConfig().MinIOEndpoint //minio.example.com:9000
+	accessKey   = configs.NewConfig().MinIOAccessKey
+	secretKey   = configs.NewConfig().MinIOSecretKey
+	useSSL      = false
 	contentType = "application/octet-stream" // "image/png"
-	location = "us-east-1"
+	location    = "us-east-1"
 )
 
 func MinioClient() (c *minio.Client, err error) {

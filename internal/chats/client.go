@@ -1,8 +1,9 @@
 package chats
 
 import (
-	"github.com/gorilla/websocket"
 	"log"
+	"github.com/gorilla/websocket"
+	"zoomer/internal/chats/constants"
 )
 
 func (c *Client) writeMessage() {
@@ -37,7 +38,7 @@ func (c *Client) readMessage(hub *Hub) {
 
 		msg := &Message{
 			Content:  string(m),
-			Type:    "text",
+			Type:     constants.MsgTypeText,
 			RoomID:   c.RoomID,
 			Username: c.Username,
 		}

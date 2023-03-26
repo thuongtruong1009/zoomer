@@ -1,2 +1,0 @@
-example: 2023/03/21 00:12:49 logger.go:22: Time: 2023-03-21T00:12:49+07:00 Id: CZwtbCbajoB8UjLeEQ1dzdLynqKK4wWm Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 502 Latency: 2.3308681s Bytes_in: 63 Bytes_out: 183
-example: 2023/03/21 00:15:16 logger.go:22: Time: 2023-03-21T00:15:16+07:00 Id: S7nDB5hFtmvIKwBVseRr2iYwuX0abtt2 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 502 Latency: 2.3269263s Bytes_in: 63 Bytes_out: 183

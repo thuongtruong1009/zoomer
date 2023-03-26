@@ -9,7 +9,7 @@ import (
 )
 
 type resourceUsecase struct {
-	resourceRepo repository.ResourceRepository
+	resourceRepo    repository.ResourceRepository
 	resourceAdapter adapter.ResourceAdapter
 }
 

@@ -1,7 +1,9 @@
 package presenter
 
 type LogInResponse struct {
-	Token string `json:"token"`
+	UserId   string `json:"userId"`
+	Username string `json:"username"`
+	Token    string `json:"token"`
 }
 
 type LoginInput struct {

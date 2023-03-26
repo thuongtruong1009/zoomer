@@ -63,14 +63,14 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	return a.userRepo.GetUserByUsername(ctx, fmtusername)
 }
 
-func (a *authUseCase) SignIn(ctx context.Context, username string, password string) (string, error) {
+func (a *authUseCase) SignIn(ctx context.Context, username string, password string) (string, string, string, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
-		return "", auth.ErrUserNotFound
+		return "", "", "", auth.ErrUserNotFound
 	}
 
 	if !user.ComparePassword(password) {
-		return "", auth.ErrWrongPassword
+		return "", "", "", auth.ErrWrongPassword
 	}
 
 	claims := AuthClaims{
@@ -90,7 +90,12 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 	// 	return &LoginUserRes{}, err
 	// }
 
-	return token.SignedString(a.signingKey)
+	tmp, err := token.SignedString(a.signingKey)
+	if err != nil {
+		return "", "", "", err
+	}
+
+	return user.Id, user.Username, tmp, err
 }
 
 func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {

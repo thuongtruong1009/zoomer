@@ -47,9 +47,10 @@ func HttpMiddleware(e *echo.Echo) {
 	// e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
 	// 	TokenLookup: "header:X-XSRF-TOKEN",
 	// }))
-	CheckOrigin(e)
 
-	configs.ProxyConfig(e)
+	HttpCORS(e)
+
+	// configs.ProxyConfig(e)
 	configs.RateLimit(e)
 
 	e.Use(middleware.Timeout())

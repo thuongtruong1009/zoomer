@@ -4,8 +4,8 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"zoomer/internal/chats/constants"
 	"zoomer/utils"
-	"zoomer/constants"
 )
 
 func NewChatHandler(h *Hub) *Handler {
@@ -24,7 +24,6 @@ var upgrader = websocket.Upgrader{
 
 func (h *Handler) CreateRoom() echo.HandlerFunc {
 	return func(c echo.Context) error {
-
 		req := &CreateRoomReq{}
 
 		if err := utils.ReadRequest(c, req); err != nil {
@@ -62,7 +61,7 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 
 		m := &Message{
 			Content:  username + " " + constants.MsgContentJoin,
-			Type:   constants.MsgTypeText,
+			Type:     constants.MsgTypeDesc,
 			RoomID:   roomID,
 			Username: username,
 		}
@@ -70,8 +69,9 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 		h.hub.Register <- client
 		h.hub.Broadcast <- m
 
+		go client.readMessage(h.hub)
+		
 		go client.writeMessage()
-		client.readMessage(h.hub)
 
 		return c.JSON(http.StatusOK, nil)
 	}
