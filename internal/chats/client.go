@@ -3,7 +3,7 @@ package chats
 import (
 	"log"
 	"github.com/gorilla/websocket"
-	"zoomer/constants"
+	"zoomer/internal/chats/constants"
 )
 
 func (c *Client) writeMessage() {

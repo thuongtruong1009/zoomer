@@ -2,17 +2,16 @@ package db
 
 import (
 	"context"
-	"log"
-	"time"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+	"log"
+	"time"
 	"zoomer/configs"
 )
 
 type RedisClient struct {
 	client *redis.Client
 }
-
 
 func NewRedisClient(cfg *configs.Configuration) *RedisClient {
 	conn := redis.NewClient(&redis.Options{

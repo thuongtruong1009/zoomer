@@ -29,14 +29,19 @@ const index = () => {
       return;
     }
 
-    const roomId = conn.url.split("/")[5];
+    const roomId = conn.url.split("/")[6].split("?")[0];
+
     async function getUsers() {
       try {
-        const res = await fetch(`${API_URL}/api/chats/getClients/${roomId}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        const res = await fetch(
+          `http://localhost:8081/api/chats/getClients/${roomId}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const data = await res.json();
+        console.log("res", data);
 
         setUsers(data);
       } catch (e) {
@@ -58,11 +63,11 @@ const index = () => {
 
     conn.onmessage = (message) => {
       const m: Message = JSON.parse(message.data);
-      if (m.content == "A new user has joined the room") {
+      if (m.content.includes("joined")) {
         setUsers([...users, { username: m.username }]);
       }
 
-      if (m.content == "user left the chat") {
+      if (m.content.includes("left")) {
         const deleteUser = users.filter((user) => user.username != m.username);
         setUsers([...deleteUser]);
         setMessage([...messages, m]);
@@ -95,9 +100,9 @@ const index = () => {
         <div className="p-4 md:mx-6 mb-14">
           <ChatBody data={messages} />
         </div>
-        <div className="fixed bottom-0 mt-4 w-full">
-          <div className="flex md:flex-row px-4 py-2 bg-grey md:mx-4 rounded-md">
-            <div className="flex w-full mr-4 rounded-md border border-blue">
+        <div className="fixed bottom-0 w-full mt-4">
+          <div className="flex px-4 py-2 rounded-md md:flex-row bg-grey md:mx-4">
+            <div className="flex w-full mr-4 border rounded-md border-blue">
               <textarea
                 ref={textarea}
                 placeholder="type your message here"
@@ -107,7 +112,7 @@ const index = () => {
             </div>
             <div className="flex items-center">
               <button
-                className="p-2 rounded-md bg-blue text-white"
+                className="p-2 text-white rounded-md bg-blue"
                 onClick={sendMessage}
               >
                 Send

@@ -1,5 +1,9 @@
 package chats
 
+import (
+	"zoomer/internal/chats/constants"
+)
+
 func NewHub() *Hub {
 	return &Hub{
 		Rooms:      make(map[string]*Room),
@@ -25,7 +29,8 @@ func (h *Hub) Run() {
 				if _, ok := h.Rooms[client.RoomID].Clients[client.ID]; ok {
 					if len(h.Rooms[client.RoomID].Clients) != 0 {
 						h.Broadcast <- &Message{
-							Content:  "user left the chat",
+							Content:  client.Username + " " + constants.MsgContentLeft,
+							Type:     constants.MsgTypeDesc,
 							RoomID:   client.RoomID,
 							Username: client.Username,
 						}

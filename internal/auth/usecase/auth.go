@@ -70,7 +70,7 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 	}
 
 	if !user.ComparePassword(password) {
-		return "","", "", auth.ErrWrongPassword
+		return "", "", "", auth.ErrWrongPassword
 	}
 
 	claims := AuthClaims{

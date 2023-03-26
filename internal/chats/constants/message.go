@@ -9,4 +9,5 @@ const (
 
 const (
 	MsgContentJoin = "has joined the room"
+	MsgContentLeft = "has left the room"
 )

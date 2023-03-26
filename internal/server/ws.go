@@ -1,25 +1,22 @@
 package server
 
 import (
-	chatWs "zoomer/internal/chats"
-
 	"github.com/labstack/echo/v4"
+	chatWs "zoomer/internal/chats"
 	middlewares "zoomer/internal/middlewares"
 )
 
-func WsMapHandlers(port string) error {
+func WsMapHandlers(port string) {
 	e := echo.New()
+	defer e.Close()
+
 	e.Use(middlewares.WsCORS)
 	wsUC := chatWs.NewHub()
+	go wsUC.Run()
 
 	wsHandler := chatWs.NewChatHandler(wsUC)
 
 	chatWs.MapChatRoutes(e, wsHandler, "/api/chats")
 
 	e.Logger.Fatal(e.Start(port))
-
-	defer e.Close()
-	go wsUC.Run()
-
-	return nil
 }

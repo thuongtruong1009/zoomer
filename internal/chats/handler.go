@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/constants"
+	"zoomer/internal/chats/constants"
 	"zoomer/utils"
 )
 
@@ -61,7 +61,7 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 
 		m := &Message{
 			Content:  username + " " + constants.MsgContentJoin,
-			Type:     constants.MsgTypeText,
+			Type:     constants.MsgTypeDesc,
 			RoomID:   roomID,
 			Username: username,
 		}
@@ -70,7 +70,8 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 		h.hub.Broadcast <- m
 
 		go client.writeMessage()
-		client.readMessage(h.hub)
+
+		go client.readMessage(h.hub)
 
 		return c.JSON(http.StatusOK, nil)
 	}

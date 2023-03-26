@@ -15,11 +15,10 @@ func HttpCORS(e *echo.Echo) {
 }
 
 func WsCORS(next echo.HandlerFunc) echo.HandlerFunc {
-    return func(c echo.Context) error {
-        c.Response().Header().Set(echo.HeaderAccessControlAllowHeaders, "Content-Type, Authorization")
-        c.Response().Header().Set(echo.HeaderAccessControlAllowMethods, "GET, POST, PUT, DELETE")
-        c.Response().Header().Set(echo.HeaderAccessControlAllowOrigin, "*")
-        return next(c)
-    }
+	return func(c echo.Context) error {
+		c.Response().Header().Set(echo.HeaderAccessControlAllowHeaders, "Content-Type, Authorization")
+		c.Response().Header().Set(echo.HeaderAccessControlAllowMethods, "GET, POST, PUT, DELETE")
+		c.Response().Header().Set(echo.HeaderAccessControlAllowOrigin, "*")
+		return next(c)
+	}
 }
-
