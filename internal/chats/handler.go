@@ -69,9 +69,9 @@ func (h *Handler) JoinRoom() echo.HandlerFunc {
 		h.hub.Register <- client
 		h.hub.Broadcast <- m
 
-		go client.writeMessage()
-
 		go client.readMessage(h.hub)
+		
+		go client.writeMessage()
 
 		return c.JSON(http.StatusOK, nil)
 	}

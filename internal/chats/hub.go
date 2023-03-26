@@ -28,16 +28,16 @@ func (h *Hub) Run() {
 			if _, ok := h.Rooms[client.RoomID]; ok {
 				if _, ok := h.Rooms[client.RoomID].Clients[client.ID]; ok {
 					if len(h.Rooms[client.RoomID].Clients) != 0 {
-						h.Broadcast <- &Message{
-							Content:  client.Username + " " + constants.MsgContentLeft,
+						client.Message <- &Message{
+							Content:  "left the room",
 							Type:     constants.MsgTypeDesc,
 							RoomID:   client.RoomID,
 							Username: client.Username,
 						}
 					}
 
-					delete(h.Rooms[client.RoomID].Clients, client.ID)
-					close(client.Message)
+					// delete(h.Rooms[client.RoomID].Clients, client.ID)
+					// close(client.Message)
 				}
 			}
 		case m := <-h.Broadcast:

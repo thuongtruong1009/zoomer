@@ -11,7 +11,7 @@ export type Message = {
   client_id: string;
   username: string;
   room_id: string;
-  type: "recv" | "self";
+  type: "recv" | "self" | "other";
 };
 
 const index = () => {
@@ -74,7 +74,19 @@ const index = () => {
         return;
       }
 
-      user?.username == m.username ? (m.type = "self") : (m.type = "recv");
+      let msgType: string = m.type;
+
+      // user?.username == m.username ? (m.type = "self") : (m.type = "recv");
+      if (msgType == "text") {
+        user?.username == m.username ? (m.type = "self") : (m.type = "recv");
+        // if (user?.username == m.username) {
+        //   m.type = "self";
+        // } else if (user?.username != m.username) {
+        //   m.type = "recv";
+        // }
+      } else {
+        m.type = "other";
+      }
       setMessage([...messages, m]);
     };
 
