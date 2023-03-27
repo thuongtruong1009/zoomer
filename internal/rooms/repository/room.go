@@ -2,8 +2,11 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"gorm.io/gorm"
+	"zoomer/db"
 	"zoomer/internal/models"
+	chatAdapter "zoomer/internal/chats/adapter"
 )
 
 type roomRepository struct {
@@ -54,4 +57,19 @@ func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, e
 	}
 
 	return count, nil
+}
+
+//sync to redis
+func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
+	query := fmt.Sprintf("@from:{%s} @to:{%s} @timestamp:[%s TO %s]", username1, username2, fromTS, toTS)
+
+	res, err := db.GetRedisInstance().Do(ctx, "FT.SEARCH", chatAdapter.ChatIndex(), query, "SORTBY", "timestamp", "DESC").Result()
+
+	if err != nil {
+		return nil, err
+	}
+
+	data := chatAdapter.Deserialise(res)
+	chats := chatAdapter.DeserialiseChat(data)
+	return chats, nil
 }

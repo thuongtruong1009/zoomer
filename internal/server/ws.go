@@ -1,22 +1,15 @@
 package server
 
 import (
-	"github.com/labstack/echo/v4"
-	chatWs "zoomer/internal/chats"
-	middlewares "zoomer/internal/middlewares"
+	"fmt"
+	"zoomer/internal/chats/hub"
+	"zoomer/internal/chats/httpserver"
 )
 
 func WsMapHandlers(port string) {
-	e := echo.New()
-	defer e.Close()
+		fmt.Println("http server is starting on :8080")
+		httpserver.StartHTTPServer()
 
-	e.Use(middlewares.WsCORS)
-	wsUC := chatWs.NewHub()
-	go wsUC.Run()
-
-	wsHandler := chatWs.NewChatHandler(wsUC)
-
-	chatWs.MapChatRoutes(e, wsHandler, "/api/chats")
-
-	e.Logger.Fatal(e.Start(port))
+		fmt.Println("websocket server is starting on :8081")
+		hub.StatWebSocketServer()
 }

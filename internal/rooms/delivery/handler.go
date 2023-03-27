@@ -79,5 +79,24 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusCreated, nil)
+	}4
+}
+
+//sync to redis
+func (rh *roomHandler) ChatHistoryHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		u1 := c.Query("u1")
+		u2 := c.Query("u2")
+
+		fromTS, toTS := "0" "+inf"
+
+		if c.Query("from-ts") != ""  && c.Query("to-ts") != "" {
+			fromTS = c.Query("from-ts")
+			toTS = c.Query("to-ts")
+		}
+
+		chat := rh.roomUC.GetChatHistory(c.Request().Context(), u1, u2, fromTS, toTS)
+
+		return c.JSON(http.StatusOK, chat)
 	}
 }

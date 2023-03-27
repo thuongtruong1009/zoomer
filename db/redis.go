@@ -9,14 +9,13 @@ import (
 	"zoomer/configs"
 )
 
-type RedisClient struct {
-	client *redis.Client
-}
+var RedisClient *redis.Client
 
-func NewRedisClient(cfg *configs.Configuration) *RedisClient {
+func GetRedisInstance() *redis.Client {
+	fmt.Println("Redis connection successful", cfg.RedisURI, cfg.RedisPassword)
 	conn := redis.NewClient(&redis.Options{
-		Addr:     cfg.RedisURI,
-		Password: cfg.RedisPassword,
+		Addr:     configs.Configuration.RedisURI,
+		Password: configs.Configuration.RedisPassword,
 		DB:       0,
 	})
 
@@ -30,5 +29,7 @@ func NewRedisClient(cfg *configs.Configuration) *RedisClient {
 
 	log.Println("Redis connection successful", pong)
 
-	return &RedisClient{conn}
+	RedisClient = conn
+
+	return RedisClient
 }

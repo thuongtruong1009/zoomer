@@ -13,7 +13,7 @@ func MapResourceRoutes(resourceGroup *echo.Group, rh ResourceHandler) {
 	if err != nil {
 		log.Println(err)
 	}
-	bucketName := "todolist"
+	bucketName := "zoomer"
 
 	err = adapter.CreateBucket(Client, bucketName)
 	if err != nil {

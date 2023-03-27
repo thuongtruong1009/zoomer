@@ -5,9 +5,11 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"time"
-	auth "zoomer/internal/auth/repository"
+	"fmt"
 	"zoomer/internal/models"
+	auth "zoomer/internal/auth/repository"
 	"zoomer/internal/rooms/repository"
+	"zoomer/internal/rooms/presenter"
 )
 
 type roomUsecase struct {
@@ -64,4 +66,37 @@ func (ru roomUsecase) GetAllRooms(ctx context.Context) ([]*models.Room, error) {
 	}
 
 	return rooms, nil
+}
+
+// sync to redis
+func (ru roomUsecase) VerifyContact(ctx context.Context, username string) bool {
+	_, err := ru.userRepo.GetUserByUsername(context.Background(), username)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+//sync to redis
+func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, fromTS, toTS string) *presenter.ChatResponse {
+	res := &presenter.ChatResponse{}
+
+	fmt.Println(username1, username2)
+	//check if user exist
+	if !ru.VerifyContact(username1) || !re.VerifyContact(username2) {
+		res.Message = "User not found"
+		return res
+	}
+
+	chats, err := ru.roomRepo.FetchChatBetween(username1, username2, fromTS, toTS)
+	if err != nil {
+		log.Println("error in fetching chat history betweeen", err)
+		res.Message = "unable to fetch chat history. please try again later"
+		return res
+	}
+
+	res.Status = true
+	res.Data = chats
+	res.Total = len(chats)
+	return res
 }
