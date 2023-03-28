@@ -28,7 +28,7 @@ class Chat extends Component {
       message: '',
       to: '',
       isInvalid: false,
-      endpoint: 'http://localhost:8080',
+      endpoint: 'http://localhost:8080/api/rooms',
       contact: '',
       contacts: [],
       renderContactList: [],
@@ -86,6 +86,8 @@ class Chat extends Component {
         },
       };
 
+      console.log(msg);
+
       this.state.socketConn.sendMsg(msg);
       this.setState({ message: '' });
       // on error change isInvalid to true and message
@@ -105,7 +107,7 @@ class Chat extends Component {
 
   fetchChatHistory = async (u1 = 'user1', u2 = 'user2') => {
     const res = await axios.get(
-      `http://localhost:8080/chat-history?u1=${u1}&u2=${u2}`
+      `http://localhost:8080/api/rooms/chat-history?u1=${u1}&u2=${u2}`
     );
 
     console.log(res.data, res.data.data.reverse());
@@ -120,9 +122,12 @@ class Chat extends Component {
   addContact = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${this.state.endpoint}/verify-contact`, {
-        username: this.state.contact,
-      });
+      // const res = await axios.post(`${this.state.endpoint}/verify-contact`, {
+      //   username: this.state.contact,
+      // });
+
+      //we asum that the contact is valid -> true
+      const res = { data: { status: true } };
 
       console.log(res.data);
       if (!res.data.status) {

@@ -27,3 +27,9 @@ main
 
 **/node_modules
 **/.next
+**/.nuxt
+**/.cache
+**/.idea
+**/.vscode
+
+*.log

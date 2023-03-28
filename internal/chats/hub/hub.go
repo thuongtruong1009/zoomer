@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"time"
 	"github.com/gorilla/websocket"
-	"zoomer/db"
-	"zoomer/configs"
 	"zoomer/internal/models"
 	"zoomer/internal/chats/repository"
 )
@@ -33,7 +31,7 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-func serveWs(w http.ResponseWriter, r *http.Request) {
+func ServeWs(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Host, r.URL.Query())
 
 	ws, err := upgrader.Upgrade(w, r, nil)
@@ -44,13 +42,13 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	client := &Client{Conn: ws}
 	clients[client] = true
 	fmt.Println("clients", len(clients), clients, ws.RemoteAddr())
-	receiver(client)
+	Receiver(client)
 
 	fmt.Println("existing", ws.RemoteAddr().String())
 	delete(clients, client)
 }
 
-func receiver(client *Client) {
+func Receiver(client *Client) {
 	for {
 		_, p, err := client.Conn.ReadMessage()
 		if err != nil {
@@ -86,7 +84,7 @@ func receiver(client *Client) {
 	}
 }
 
-func broadcaster() {
+func Broadcaster() {
 	for {
 		message := <-broadcast
 		fmt.Println("new message", message)
@@ -105,17 +103,3 @@ func broadcaster() {
 		}
 	}
 }
-
-func setupRoutes() {
-	http.HandleFunc("/ws", serveWs)
-}
-
-func StatWebSocketServer() {
-	redisClient := db.GetRedisInstance(configs.NewConfig())
-	defer redisClient.Close()
-
-	go broadcaster()
-	setupRoutes()
-	http.ListenAndServe(":8081", nil)
-}
-

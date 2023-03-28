@@ -1,6 +1,26 @@
 There is the most valuable changes log:
 
-### v1.0.0
+### v1.1
+
+**1.Architecture**
+
+- Connect to Redis database for chat service
+- Connect done to client
+
+**2. Features**
+
+- Add/Connect to new user
+- Send real-time messages to user with timestamp record
+- Save/Load messages to database
+- Rejoin room but not remove old messages
+- Load recent friend contact list
+
+**3. Bugfixes**
+
+- fix: reload old messages when rejoin room
+- fix: reconnect to websocket when rejoin room
+
+### v1.0
 
 **1. Architecture**
 
@@ -25,8 +45,10 @@ There is the most valuable changes log:
 
 **2. Features**
 
-- Send message to specific user in specific room
-- Send message to all users in specific room
+- Initial connect to client
+- Register new user and login
+- Create/Join/Leave room
+- Send messages to all users in all room
 
 **3. Bugfixes**
 

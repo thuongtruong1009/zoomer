@@ -24,7 +24,7 @@ class Login extends Component {
       password: '',
       message: '',
       isInvalid: false,
-      endpoint: 'http://localhost:8080/login',
+      endpoint: 'http://localhost:8080/api/auth/signin',
       redirect: false,
       redirectTo: '/chat?u=',
     };
@@ -45,7 +45,7 @@ class Login extends Component {
       });
 
       console.log('register', res);
-      if (res.data.status) {
+      if (res.data) {
         const redirectTo = this.state.redirectTo + this.state.username;
         this.setState({ redirect: true, redirectTo });
       } else {

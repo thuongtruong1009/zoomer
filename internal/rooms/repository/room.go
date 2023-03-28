@@ -62,7 +62,7 @@ func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, e
 
 //sync to redis
 func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
-	query := fmt.Sprintf("@from:{%s} @to:{%s} @timestamp:[%s TO %s]", username1, username2, fromTS, toTS)
+	query := fmt.Sprintf("@from:{%s|%s} @to:{%s|%s} @timestamp:[%s %s]", username1, username2, username1, username2, fromTS, toTS)
 
 	res, err := db.GetRedisInstance().Do(ctx, "FT.SEARCH", chatAdapter.ChatIndex(), query, "SORTBY", "timestamp", "DESC").Result()
 
