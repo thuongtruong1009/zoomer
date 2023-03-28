@@ -12,10 +12,11 @@ import (
 var RedisClient *redis.Client
 
 func GetRedisInstance() *redis.Client {
+	cfg := configs.NewConfig() //cfg := &configs.Configuration{}
 	fmt.Println("Redis connection successful", cfg.RedisURI, cfg.RedisPassword)
 	conn := redis.NewClient(&redis.Options{
-		Addr:     configs.Configuration.RedisURI,
-		Password: configs.Configuration.RedisPassword,
+		Addr:     cfg.RedisURI,
+		Password: cfg.RedisPassword,
 		DB:       0,
 	})
 

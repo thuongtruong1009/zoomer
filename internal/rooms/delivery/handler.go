@@ -79,24 +79,40 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusCreated, nil)
-	}4
+	}
 }
 
 //sync to redis
 func (rh *roomHandler) ChatHistoryHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		u1 := c.Query("u1")
-		u2 := c.Query("u2")
+		u1 := c.QueryParam("u1")
+		u2 := c.QueryParam("u2")
 
-		fromTS, toTS := "0" "+inf"
+		fromTS, toTS := "0", "+inf"
 
-		if c.Query("from-ts") != ""  && c.Query("to-ts") != "" {
-			fromTS = c.Query("from-ts")
-			toTS = c.Query("to-ts")
+		if c.QueryParam("from-ts") != ""  && c.QueryParam("to-ts") != "" {
+			fromTS = c.QueryParam("from-ts")
+			toTS = c.QueryParam("to-ts")
 		}
 
 		chat := rh.roomUC.GetChatHistory(c.Request().Context(), u1, u2, fromTS, toTS)
 
 		return c.JSON(http.StatusOK, chat)
+	}
+}
+
+func (rh *roomHandler) ContactListHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		u := c.QueryParam("username")
+		res := rh.roomUC.ContactList(c.Request().Context(), u)
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (rh *roomHandler) CreateFetchChatBetweenIndexHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		rh.roomUC.GetFetchChatBetweenIndex(c.Request().Context())
+		return c.JSON(http.StatusOK, nil)
 	}
 }

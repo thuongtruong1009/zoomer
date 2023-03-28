@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gorm.io/gorm"
+	"github.com/go-redis/redis/v8"
 	"zoomer/db"
 	"zoomer/internal/models"
 	chatAdapter "zoomer/internal/chats/adapter"
@@ -72,4 +73,26 @@ func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, usern
 	data := chatAdapter.Deserialise(res)
 	chats := chatAdapter.DeserialiseChat(data)
 	return chats, nil
+}
+
+func (cr *roomRepository) FetchContactList(ctx context.Context, username string) ([]models.ContactList, error) {
+	zRangeArg := redis.ZRangeArgs {
+		Key: chatAdapter.ContactListZKey(username),
+		Start: 0,
+		Stop: -1,
+		Rev: true,
+	}
+
+	res, err := db.GetRedisInstance().ZRangeArgsWithScores(ctx, zRangeArg).Result()
+	if err != nil {
+		return nil, err
+	}
+	contactList := chatAdapter.DeserialiseContactList(res)
+	return contactList, nil
+}
+
+func (cr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context){
+	res, err := db.GetRedisInstance().Do(ctx, "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON", "PREFIX", "1", "chat#", "SCHEMA", "$.from", "AS", "from", "TAG", "$.to", "TAG", "$.timestamp", "AS", "timestamp", "NUMERIC", "SORTABLE").Result()
+
+	fmt.Println(res, err)
 }

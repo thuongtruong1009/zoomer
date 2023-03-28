@@ -10,5 +10,10 @@ func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.MiddlewareM
 	roomGroup.GET("/:userId", h.GetUserRooms(), mw.JWTValidation)
 	roomGroup.GET("/", h.GetAll())
 	//sync to redis
-	roomGroup.GET("/chat-history", h.ChatHistoryHandler(), mw.JWTValidation)
+
+	h.CreateFetchChatBetweenIndexHandler()
+
+	roomGroup.GET("/chat-history", h.ChatHistoryHandler())
+
+	roomGroup.GET("/contact-list", h.ContactListHandler())
 }

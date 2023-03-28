@@ -8,4 +8,6 @@ type Handler interface {
 	AddRoom() echo.HandlerFunc
 	//sync to redis
 	ChatHistoryHandler() echo.HandlerFunc
+	ContactListHandler() echo.HandlerFunc
+	CreateFetchChatBetweenIndexHandler() echo.HandlerFunc
 }
