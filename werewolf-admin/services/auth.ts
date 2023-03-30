@@ -1,16 +1,16 @@
-import { LoginPayload } from '@/models'
-import { axiosClient } from './axios'
+import { ISignUpRequest, ISignInRequest } from '@/models'
+import axiosInstance from './axios'
 
-export const authApi = {
-    login(payload: LoginPayload) {
-        return axiosClient.post('/login', payload)
+export const AuthServices = {
+    signup(payload: ISignUpRequest) {
+        return axiosInstance.post('/auth/signup', payload)
+    },
+
+    signin(payload: ISignInRequest) {
+        return axiosInstance.post('/auth/signin', payload)
     },
 
     logout() {
-        return axiosClient.post('/logout')
-    },
-
-    getProfile() {
-        return axiosClient.get('/profile')
+        return axiosInstance.post('/logout')
     },
 }

@@ -1,13 +1,26 @@
 import axios from 'axios'
 
-export const axiosClient = axios.create({
-    baseURL: '/api',
+const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
 })
 
-axiosClient.interceptors.response.use(
+axiosInstance.interceptors.request.use(
+    function (config: any) {
+        const token = localStorage.getItem('token')
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    },
+    function (error: any) {
+        return Promise.reject(error)
+    }
+)
+
+axiosInstance.interceptors.response.use(
     function (response: any) {
         return response.data
     },
@@ -15,3 +28,5 @@ axiosClient.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+export default axiosInstance
