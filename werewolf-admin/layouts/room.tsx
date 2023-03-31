@@ -1,19 +1,20 @@
 import { LayoutProps } from '@/models/common'
 import { Stack } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
-import { Footer, Header } from '@/components'
+import Grid from '@mui/material/Grid'
+import { Panel } from '@/components'
 
 export function RoomLayout({ children }: LayoutProps) {
     return (
-        <Stack minHeight="100vh">
-            <Header />
-
-            <Box component="main" flexGrow={1}>
-                {children}
-            </Box>
-
-            <Footer />
+        <Stack maxHeight="100vh" overflow="hidden">
+            <Grid container>
+                <Grid item xs={3} sx={{ borderRight: '1px solid #e9e9e9' }}>
+                    <Panel />
+                </Grid>
+                <Grid item xs={9}>
+                    <>{children}</>
+                </Grid>
+            </Grid>
         </Stack>
     )
 }
