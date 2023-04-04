@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,6 +8,9 @@ import PersonIcon from '@mui/icons-material/Person'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import IconButton from '@mui/material/IconButton'
 import { useRouter } from 'next/router'
+import { ListSubheader, Paper, Typography } from '@mui/material'
+import { BasicPopover } from '@/components'
+import ContactOption from './contact/ContactOption'
 
 export function ContactList() {
     const router = useRouter()
@@ -29,7 +31,7 @@ export function ContactList() {
             sx={{
                 position: 'relative',
                 overflowY: 'auto',
-                maxHeight: '80vh',
+                maxHeight: 'calc(100vh - 8rem)',
                 px: 1,
             }}
         >
@@ -39,12 +41,21 @@ export function ContactList() {
                     selected={selectedIndex === idx}
                     onClick={(event) => handleListItemClick(event, idx)}
                     sx={{
-                        borderRadius: '10px',
+                        borderRadius: '0.8rem',
+                        position: 'relative',
+                        bgcolor: 'white',
+                        my: 0.9,
                         '.btn': {
                             visibility: 'hidden',
                         },
-                        '&:hover, &.Mui-selected, &.Mui-mousedown': {
-                            backgroundColor: '#EAF5FC',
+                        '&.Mui-selected': {
+                            backgroundColor: '#F5CA9D',
+                            '&:hover': {
+                                backgroundColor: '#F5CA9D',
+                            },
+                        },
+                        '&:hover, &.Mui-mousedown': {
+                            backgroundColor: 'transparent',
                             '&:hover .btn': {
                                 visibility: 'visible',
                             },
@@ -52,21 +63,48 @@ export function ContactList() {
                     }}
                 >
                     <ListItemAvatar>
-                        <Avatar>
+                        <Avatar sx={{ boxShadow: '0 0 0 1px #fff' }}>
                             <PersonIcon />
                         </Avatar>
                     </ListItemAvatar>
+
                     <ListItemText
-                        primary="User 02"
-                        secondary="July 20, 2014"
-                        sx={{
-                            span: { fontWeight: '500' },
-                            '.MuiListItemText-secondary': { fontSize: '12px' },
-                        }}
+                        primary={
+                            <React.Fragment>
+                                <span
+                                    style={{
+                                        position: 'absolute',
+                                        top: '2px',
+                                        right: '9px',
+                                        fontWeight: 400,
+                                        color: '#0009',
+                                        fontSize: '0.8em',
+                                    }}
+                                >
+                                    · 1 hour <br />
+                                </span>
+                                <Typography
+                                    sx={{
+                                        fontWeight: '500',
+                                    }}
+                                    component="span"
+                                    variant="body2"
+                                    color="text.primary"
+                                >
+                                    User 02
+                                </Typography>
+                            </React.Fragment>
+                        }
+                        secondary={
+                            <React.Fragment>
+                                {" — I'll be in your neighborhood doing errands this…"}
+                            </React.Fragment>
+                        }
                     />
 
-                    <IconButton edge="end" aria-label="more" color="secondary" className="btn">
-                        <MoreHorizIcon />
+                    <IconButton edge="end" aria-label="more" className="btn">
+                        {/* <MoreHorizIcon /> */}
+                        <BasicPopover title={<MoreHorizIcon />} content={<ContactOption />} />
                     </IconButton>
                 </ListItemButton>
             ))}

@@ -13,6 +13,26 @@ a {
     text-decoration: none;
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 50rem;
+    background: rgb(177, 214, 254);
+    box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(157, 204, 255);
 }

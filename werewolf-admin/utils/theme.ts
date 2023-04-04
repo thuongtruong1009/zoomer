@@ -8,14 +8,15 @@ export let theme = createTheme({
     },
     palette: {
         primary: {
-            main: '#FF6464',
+            main: '#EAF5FC',
         },
         secondary: {
             light: '#EDF7FA',
             main: '#00A8CC',
+            dark: '#142850',
         },
         error: {
-            main: red.A400,
+            main: '#FF6464',
         },
         text: {
             primary: '#21243D',

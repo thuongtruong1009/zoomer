@@ -6,7 +6,7 @@ import { Panel } from '@/components'
 
 export function RoomLayout({ children }: LayoutProps) {
     return (
-        <Stack maxHeight="100vh" overflow="hidden">
+        <Stack maxHeight="100vh" height="100vh" overflow="hidden" sx={{ bgcolor: 'primary.main' }}>
             <Grid container>
                 <Grid item xs={3} sx={{ borderRight: '1px solid #e9e9e9' }}>
                     <Panel />

@@ -15,6 +15,7 @@
         "@emotion/server": "^11.10.0",
         "@emotion/styled": "^11.10.6",
         "@hookform/resolvers": "^2.9.8",
+        "@mui-treasury/components": "^1.10.1",
         "@mui/icons-material": "^5.1.0",
         "@mui/material": "^5.11.15",
         "autoprefixer": "^10.4.0",

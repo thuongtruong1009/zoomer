@@ -1,14 +1,18 @@
 import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import Divider from '@mui/material/Divider'
-import Tooltip from '@mui/material/Tooltip'
+import {
+    AppBar,
+    Button,
+    ListItemText,
+    Tooltip,
+    Divider,
+    ListItemIcon,
+    Menu,
+    MenuItem,
+    Avatar,
+} from '@mui/material'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
-import { Button, ListItemText } from '@mui/material'
 
 export function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -20,7 +24,19 @@ export function AccountMenu() {
         setAnchorEl(null)
     }
     return (
-        <React.Fragment>
+        <AppBar
+            position="fixed"
+            sx={{
+                top: 'auto',
+                left: 0,
+                bottom: 0,
+                maxWidth: '25%',
+                py: 1,
+                px: 2,
+                borderTopRightRadius: '3rem',
+                background: '#ADA2FF',
+            }}
+        >
             <Tooltip title="Account settings">
                 <Button
                     onClick={handleClick}
@@ -29,12 +45,11 @@ export function AccountMenu() {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     sx={{
-                        m: 1,
-                        p: 1,
                         borderRadius: '0.5rem',
                         display: 'flex',
                         alignItems: 'center',
                         textAlign: 'left',
+                        color: 'red',
                     }}
                 >
                     <Avatar sx={{ width: 40, height: 40 }}>M</Avatar>
@@ -111,6 +126,6 @@ export function AccountMenu() {
                     Logout
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </AppBar>
     )
 }
