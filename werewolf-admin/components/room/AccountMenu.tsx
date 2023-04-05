@@ -9,10 +9,13 @@ import {
     Menu,
     MenuItem,
     Avatar,
+    Stack,
+    IconButton,
 } from '@mui/material'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
+import { ToggleColorMode } from '../ToggleColorMode'
 
 export function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -31,101 +34,113 @@ export function AccountMenu() {
                 left: 0,
                 bottom: 0,
                 maxWidth: '25%',
+                maxHeight: '4rem',
                 py: 1,
                 px: 2,
-                borderTopRightRadius: '3rem',
-                background: '#ADA2FF',
+                background: 'white',
             }}
         >
-            <Tooltip title="Account settings">
-                <Button
-                    onClick={handleClick}
-                    size="small"
-                    aria-controls={open ? 'account-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    sx={{
-                        borderRadius: '0.5rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        textAlign: 'left',
-                        color: 'red',
-                    }}
-                >
-                    <Avatar sx={{ width: 40, height: 40 }}>M</Avatar>
-                    <ListItemText
-                        primary="User 02"
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Tooltip title="Account settings">
+                    <Button
+                        onClick={handleClick}
+                        size="small"
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
                         sx={{
-                            ml: 1.5,
-                            span: { fontWeight: '500' },
-                            '.MuiListItemText-secondary': { fontSize: '12px' },
+                            borderRadius: '0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            textAlign: 'left',
+                            color: 'red',
+                            '&:hover': { background: '#C0DEFF' },
                         }}
-                    />
-                </Button>
-            </Tooltip>
+                    >
+                        <Avatar sx={{ width: 34, height: 34 }}>M</Avatar>
+                        <ListItemText
+                            primary="User 02"
+                            sx={{
+                                mx: 1.5,
+                                span: { fontWeight: '500' },
+                                '.MuiListItemText-secondary': { fontSize: '12px' },
+                            }}
+                        />
+                    </Button>
+                </Tooltip>
 
-            <Menu
-                anchorEl={anchorEl}
-                id="account-menu"
-                open={open}
-                onClose={handleClose}
-                onClick={handleClose}
-                PaperProps={{
-                    elevation: 0,
-                    sx: {
-                        ml: 7,
-                        borderRadius: '0.5rem',
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        '& .MuiAvatar-root': {
-                            width: 32,
-                            height: 32,
-                            ml: -0.5,
-                            mr: 1,
+                <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={{
+                        elevation: 0,
+                        sx: {
+                            ml: 7,
+                            borderRadius: '0.5rem',
+                            overflow: 'visible',
+                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                            '& .MuiAvatar-root': {
+                                width: 32,
+                                height: 32,
+                                ml: -0.5,
+                                mr: 1,
+                            },
+                            '&:before': {
+                                content: '""',
+                                display: 'block',
+                                position: 'absolute',
+                                bottom: 20,
+                                left: 0,
+                                width: 10,
+                                height: 10,
+                                bgcolor: 'background.paper',
+                                transform: 'translateX(-50%) rotate(45deg)',
+                                zIndex: 0,
+                            },
                         },
-                        '&:before': {
-                            content: '""',
-                            display: 'block',
-                            position: 'absolute',
-                            bottom: 20,
-                            left: 0,
-                            width: 10,
-                            height: 10,
-                            bgcolor: 'background.paper',
-                            transform: 'translateX(-50%) rotate(45deg)',
-                            zIndex: 0,
-                        },
-                    },
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
-                <MenuItem onClick={handleClose}>
-                    <Avatar /> Profile
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Avatar /> My account
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <PersonAdd fontSize="small" />
-                    </ListItemIcon>
-                    Add another account
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
+                    }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                    <MenuItem onClick={handleClose}>
+                        <Avatar /> Profile
+                    </MenuItem>
+
+                    <Divider />
+
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <PersonAdd fontSize="small" />
+                        </ListItemIcon>
+                        Add another account
+                    </MenuItem>
+
+                    {/* <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <Tooltip title="Dark/Light mode">
+                                <ToggleColorMode />
+                            </Tooltip>
+                        </ListItemIcon>
+                        {`Dark/Light mode`}
+                    </MenuItem> */}
+
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <Logout fontSize="small" />
+                        </ListItemIcon>
+                        Logout
+                    </MenuItem>
+                </Menu>
+
+                <Tooltip title="Setting">
+                    <IconButton>
                         <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Settings
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                    </ListItemIcon>
-                    Logout
-                </MenuItem>
-            </Menu>
+                    </IconButton>
+                </Tooltip>
+            </Stack>
         </AppBar>
     )
 }

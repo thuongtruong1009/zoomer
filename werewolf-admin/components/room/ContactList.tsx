@@ -14,7 +14,7 @@ import ContactOption from './contact/ContactOption'
 
 export function ContactList() {
     const router = useRouter()
-    const [selectedIndex, setSelectedIndex] = React.useState(1)
+    const [selectedIndex, setSelectedIndex] = React.useState(0)
 
     const handleListItemClick = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,

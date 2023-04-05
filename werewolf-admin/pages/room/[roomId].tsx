@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import { RoomLayout } from '@/layouts'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { ChatHeader } from '@/components'
+import { ChatHeader, ChatBody } from '@/components'
 
 const RoomSpecify: NextPageWithLayout = () => {
     const router = useRouter()
@@ -19,6 +19,7 @@ const RoomSpecify: NextPageWithLayout = () => {
         <Box>
             {/* <h1>Room List Page {roomId}</h1> */}
             <ChatHeader />
+            <ChatBody />
         </Box>
     )
 }
