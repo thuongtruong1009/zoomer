@@ -3,7 +3,7 @@ import { Avatar, IconButton, Paper, Stack, Typography } from '@mui/material'
 import VideocamSharpIcon from '@mui/icons-material/VideocamSharp'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import WallpaperIcon from '@mui/icons-material/Wallpaper'
-import WidgetsIcon from '@mui/icons-material/Widgets'
+import MenuIcon from '@mui/icons-material/Menu'
 
 export const ChatHeader = () => {
     return (
@@ -38,7 +38,7 @@ export const ChatHeader = () => {
                 </IconButton>
 
                 <IconButton aria-label="call" component="label">
-                    <WidgetsIcon />
+                    <MenuIcon />
                 </IconButton>
             </Stack>
         </Paper>

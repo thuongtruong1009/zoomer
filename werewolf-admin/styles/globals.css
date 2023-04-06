@@ -13,10 +13,19 @@ a {
     text-decoration: none;
 }
 
+input,
+select,
+textarea,
+button {
+    outline: none;
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+    scroll-behavior: smooth;
+    user-select: rgb(157, 204, 255);
 }
 
 ::-webkit-scrollbar {

@@ -23,6 +23,16 @@ export function ChatBody() {
     const ref = React.useRef<HTMLDivElement>(null)
     const [messages, setMessages] = React.useState(() => refreshMessages())
 
+    const sendMessage = (message: string) => {
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+                secondary: message,
+                person: '/static/images/avatar/1.jpg',
+            },
+        ])
+    }
+
     React.useEffect(() => {
         ;(ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0
         setMessages(refreshMessages())
@@ -66,10 +76,20 @@ export function ChatBody() {
             </List>
 
             <Paper
-                sx={{ position: 'fixed', bottom: 0, right: 0, width: '75%', height: '4rem' }}
+                sx={{
+                    position: 'fixed',
+                    bottom: 0,
+                    right: 0,
+                    width: '75%',
+                    minHeight: '4rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'end',
+                    p: 1,
+                }}
                 elevation={3}
             >
-                <ChatInput />
+                <ChatInput onData={sendMessage} />
             </Paper>
         </Box>
     )
