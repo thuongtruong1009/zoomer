@@ -60,9 +60,10 @@ const StyledTextareaElement = styled(TextareaAutosize)(
     padding: 0.5rem 1rem;
     color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
     box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
-    background: ${theme.palette.mode === 'dark' ? grey[900] : '#f0f0f0'};
+    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
     border-radius: 2rem;
     overflow: scroll;
+    border: 0.5px solid ${theme.palette.mode === 'dark' ? grey[700] : '#e9e9e9'};
   `
 )
 

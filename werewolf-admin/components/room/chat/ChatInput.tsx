@@ -15,35 +15,30 @@ export const ChatInput: React.FC<IStyledElement> = (
 ) => {
     const [input, setInput] = React.useState('')
 
-    React.useEffect(() => {
-        console.log('input: ', input)
-    }, [input])
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement> | any) => {
-        e.preventDefault()
+    const handleSubmit = (e: any) => {
+        setInput(e.target.value)
         if (e.key === 'Enter') {
-            console.log('child: ', input)
+            e.preventDefault()
             props.onData(input)
             setInput('')
         }
     }
+
     return (
         <>
             <IconButton sx={{ p: '0.5rem', mb: '0.25rem' }} aria-label="menu">
                 <WidgetsIcon />
             </IconButton>
 
-            <form onSubmit={handleSubmit}>
-                <InputTemplate
-                    aria-label="Demo input"
-                    // multiline
-                    placeholder="Aa"
-                    style={{ width: '100%', maxHeight: '8rem', marginLeft: '1rem' }}
-                    value={input}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-                    onKeyDown={handleSubmit}
-                />
-            </form>
+            <InputTemplate
+                aria-label="Demo input"
+                multiline
+                placeholder="Aa"
+                style={{ width: '100%', maxHeight: '8rem', marginLeft: '1rem' }}
+                value={input}
+                onChange={handleSubmit}
+                onKeyDown={handleSubmit}
+            />
 
             <IconButton type="button" sx={{ p: '0.5rem', mb: '0.25rem' }} aria-label="icon">
                 <EmojiEmotionsIcon />

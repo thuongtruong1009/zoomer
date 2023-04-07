@@ -44,6 +44,9 @@ export function ContactList() {
                         borderRadius: '0.8rem',
                         position: 'relative',
                         bgcolor: 'white',
+                        boxShadow:
+                            '5px 5px 10px #EAF5FC, -2px -2px 5px rgba(9,148,255,0.05), inset -2px -2px 5px #EAF5FC',
+                        border: '0.5px solid #e9e9e9',
                         my: 0.9,
                         '.btn': {
                             visibility: 'hidden',

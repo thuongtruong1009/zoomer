@@ -44,8 +44,6 @@ export function ChatBody() {
         <Box
             sx={{
                 pb: 7,
-                background:
-                    'linear-gradient(45deg, #97DEFF 5%,  #E5D1FA 30%, #DFFFD8 60%, #FFC8C8 90%)',
             }}
             ref={ref}
         >
@@ -69,6 +67,9 @@ export function ChatBody() {
                                 backgroundColor: 'white',
                                 borderRadius: '2rem',
                                 maxWidth: 'fit-content',
+                                boxShadow:
+                                    '5px 5px 10px #EAF5FC, -2px -2px 5px rgba(9,148,255,0.05), inset -2px -2px 5px #EAF5FC',
+                                border: '0.5px solid #e9e9e9',
                             }}
                         />
                     </ListItem>
@@ -86,6 +87,8 @@ export function ChatBody() {
                     justifyContent: 'center',
                     alignItems: 'end',
                     p: 1,
+                    background:
+                        'linear-gradient(45deg, #97DEFF 5%,  #E5D1FA 30%, #DFFFD8 60%, #FFC8C8 90%)',
                 }}
                 elevation={3}
             >
