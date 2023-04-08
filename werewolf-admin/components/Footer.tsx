@@ -3,7 +3,7 @@ import { Icon, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import * as React from 'react'
 
-export function Footer() {
+export const Footer = () => {
     const socialLinks = [
         { icon: Facebook, url: 'https://google.com' },
         { icon: Instagram, url: 'https://google.com' },

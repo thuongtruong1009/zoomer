@@ -109,7 +109,7 @@ interface IModalProps {
     closeBtn: React.ReactNode
 }
 
-export function Modal({ openBtn, dialog, closeBtn }: IModalProps) {
+export const Modal = ({ openBtn, dialog, closeBtn }: IModalProps) => {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState('')
 

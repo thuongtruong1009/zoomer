@@ -10,7 +10,7 @@ interface IPopoverProps {
     content: React.ReactNode
 }
 
-export function BasicPopover({ title, content }: IPopoverProps) {
+export const BasicPopover = ({ title, content }: IPopoverProps) => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement | any>): void => {

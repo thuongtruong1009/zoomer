@@ -6,21 +6,18 @@ export let theme = createTheme({
     typography: {
         fontFamily: 'Heebo, sans-serif',
     },
+
     palette: {
         primary: {
             main: '#EAF5FC',
         },
         secondary: {
-            light: '#EDF7FA',
-            main: '#00A8CC',
-            dark: '#142850',
-        },
-        error: {
-            main: '#FF6464',
+            main: '#2979ff',
         },
         text: {
             primary: '#21243D',
         },
+        // mode: 'dark',
     },
     components: {
         MuiContainer: {

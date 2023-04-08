@@ -10,9 +10,9 @@ import IconButton from '@mui/material/IconButton'
 import { useRouter } from 'next/router'
 import { ListSubheader, Paper, Typography } from '@mui/material'
 import { BasicPopover } from '@/components'
-import ContactOption from './contact/ContactOption'
+import ContactOption from './ContactOption'
 
-export function ContactList() {
+export const ContactList = () => {
     const router = useRouter()
     const [selectedIndex, setSelectedIndex] = React.useState(0)
 
@@ -53,6 +53,9 @@ export function ContactList() {
                         },
                         '&.Mui-selected': {
                             backgroundColor: '#F5CA9D',
+                            boxShadow:
+                                '-10px -10px 20px rgba(255, 255, 255, 0.5), 10px 10px 20px rgba(0, 0, 0, 0.1)',
+                            border: 'none',
                             '&:hover': {
                                 backgroundColor: '#F5CA9D',
                             },

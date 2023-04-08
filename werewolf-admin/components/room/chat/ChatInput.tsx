@@ -4,6 +4,7 @@ import WidgetsIcon from '@mui/icons-material/Widgets'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import { InputTemplate } from '@/components'
+import { theme } from '@/utils'
 
 interface IStyledElement extends React.HTMLAttributes<HTMLElement> {
     style?: React.CSSProperties
@@ -44,7 +45,15 @@ export const ChatInput: React.FC<IStyledElement> = (
                 <EmojiEmotionsIcon />
             </IconButton>
 
-            <IconButton type="button" sx={{ p: '0.5rem', mb: '0.25rem' }} aria-label="like">
+            <IconButton
+                type="button"
+                sx={{
+                    p: '0.5rem',
+                    mb: '0.25rem',
+                    color: theme.palette.secondary.main,
+                }}
+                aria-label="like"
+            >
                 <ThumbUpIcon />
             </IconButton>
         </>

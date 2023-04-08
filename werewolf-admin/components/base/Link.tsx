@@ -5,7 +5,7 @@ interface Props {
     url: string
 }
 
-export function Link({ url, text }: Props) {
+export const Link = ({ url, text }: Props) => {
     return (
         <a
             href={url}
