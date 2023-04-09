@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import { SearchField, ContactList, AccountMenu } from '@/components'
-import { Head } from '@/components/room/head'
+import { Head } from '@/components/room/RoomHeader'
 import { Paper } from '@mui/material'
 
 export function Panel() {

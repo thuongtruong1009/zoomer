@@ -11,10 +11,24 @@ import { useRouter } from 'next/router'
 import { ListSubheader, Paper, Typography } from '@mui/material'
 import { BasicPopover } from '@/components'
 import ContactOption from './ContactOption'
+import { useEffect } from 'react'
+import { RoomServices } from '@/services'
+import { localStore } from '@/utils'
+import moment from 'moment'
 
 export const ContactList = () => {
     const router = useRouter()
     const [selectedIndex, setSelectedIndex] = React.useState(0)
+    const [contacts, setContacts] = React.useState<any>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await RoomServices.getContactsList(localStore.get('user').username)
+            setContacts(res.data)
+        }
+
+        fetchData().catch(console.error)
+    }, [])
 
     const handleListItemClick = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -35,7 +49,7 @@ export const ContactList = () => {
                 px: 1,
             }}
         >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((value, idx) => (
+            {contacts.map((contact: string, idx: number) => (
                 <ListItemButton
                     key={idx}
                     selected={selectedIndex === idx}
@@ -87,7 +101,9 @@ export const ContactList = () => {
                                         fontSize: '0.8em',
                                     }}
                                 >
-                                    · 1 hour <br />
+                                    {'· '}
+                                    {moment().startOf('hour').fromNow()}
+                                    <br />
                                 </span>
                                 <Typography
                                     sx={{
@@ -97,7 +113,7 @@ export const ContactList = () => {
                                     variant="body2"
                                     color="text.primary"
                                 >
-                                    User 02
+                                    {contact.username}
                                 </Typography>
                             </React.Fragment>
                         }

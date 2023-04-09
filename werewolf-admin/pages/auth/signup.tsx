@@ -14,23 +14,25 @@ const Home: NextPageWithLayout = () => {
     const [usernameValid, setUsernameValid] = useState(false)
     const [passwordValid, setPasswordValid] = useState(false)
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        if (name !== '') {
-            setUsername(value)
+    const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value)
+        if (username !== '') {
             setUsernameValid(true)
-        } else if (password !== '') {
-            setPassword(value)
+        }
+    }
+
+    const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+        if (password !== '') {
             setPasswordValid(true)
         }
     }
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const onSubmit = async () => {
         if (usernameValid && passwordValid) {
             try {
                 const res = await AuthServices.signup({ username, password })
-                if (res.data) {
+                if (res) {
                     router.push('/auth/signin')
                 } else {
                     console.log(res)
@@ -59,7 +61,7 @@ const Home: NextPageWithLayout = () => {
                     color="secondary"
                     helperText="Your username must be at least 3 characters"
                     value={username}
-                    onChange={onChange}
+                    onChange={onChangeUsername}
                 />
                 <TextField
                     id="outlined-password-input"
@@ -69,11 +71,11 @@ const Home: NextPageWithLayout = () => {
                     autoComplete="current-password"
                     helperText="Your password must be at least 8 characters"
                     value={password}
-                    onChange={onChange}
+                    onChange={onChangePassword}
                 />
 
                 <Button variant="contained" onClick={onSubmit}>
-                    Register
+                    Signup
                 </Button>
             </FormControl>
         </Box>

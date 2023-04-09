@@ -8,6 +8,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
 import { ChatInput } from '@/components'
+import { RoomServices } from '@/services'
 
 function refreshMessages(): MessageExample[] {
     const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max))
@@ -19,6 +20,38 @@ function refreshMessages(): MessageExample[] {
 
 export function ChatBody() {
     const isSelf = (authorId: string): boolean => authorId === '0'
+
+    //ws
+    // const fetchChatHistory = async(u1: string, u2: string) => {
+    //     const res = await RoomServices.getChatHistory(u1, u2)
+    //     console.log(res)
+    //     setChatHistory(res)
+    // }
+
+    const [to, setTo] = React.useState('1')
+    const [from, setFrom] = React.useState('0')
+    const [username, setUsername] = React.useState('0')
+    const [msg, setMsg] = React.useState('')
+    const [chats, setChats] = React.useState<any>([])
+    const [chatHistory, setChatHistory] = React.useState<any>([])
+
+    const [socketConn, setSocketConn] = React.useState<SocketConnection | null>(null)
+
+    const handleWs = () => {
+        const conn = new SocketConnection()
+        setSocketConn(conn)
+
+        conn.connect((message) => {
+            console.log(message)
+            const msg = JSON.parse(message.data)
+            if (to === msg.from || username === msg.from) {
+                setChats([...chats, msg])
+                // setChatHistory([...chatHistory, msg])
+            }
+        })
+    }
+
+    // ------------------------------
 
     const [messages, setMessages] = React.useState(() => refreshMessages())
 

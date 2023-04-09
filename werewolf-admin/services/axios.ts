@@ -1,7 +1,8 @@
+import { localStore } from '@/utils'
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -9,7 +10,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     function (config: any) {
-        const token = localStorage.getItem('token')
+        const token = localStore.get('user').token
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
