@@ -17,7 +17,6 @@ const RoomSpecify: NextPageWithLayout = () => {
 
     return (
         <Box>
-            {/* <h1>Room List Page {roomId}</h1> */}
             <ChatHeader />
             <ChatBody />
         </Box>

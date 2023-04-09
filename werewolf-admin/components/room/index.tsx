@@ -1,5 +1,4 @@
 export * from './SearchField'
-export * from './Panel'
 export * from './SearchField'
 export * from './AccountMenu'
 export * from './RoomHeader'

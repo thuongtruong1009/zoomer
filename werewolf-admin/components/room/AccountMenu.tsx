@@ -17,7 +17,7 @@ import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import { ToggleColorMode } from '../ToggleColorMode'
 
-export function AccountMenu() {
+export function AccountMenu(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +57,7 @@ export function AccountMenu() {
                             '&:hover': { background: '#C0DEFF' },
                         }}
                     >
-                        <Avatar sx={{ width: 34, height: 34 }}>M</Avatar>
+                        <Avatar sx={{ width: 34, height: 34 }}>M</Avatar> {props.data}
                         <ListItemText
                             primary="User 02"
                             sx={{

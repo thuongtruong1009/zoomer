@@ -1,17 +1,17 @@
-class SocketConnection {
+export class SocketConnection {
     socket: WebSocket
 
     constructor() {
         this.socket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8081/api')
     }
 
-    connect = (cb: (arg0: any) => void) => {
+    connect = (cb: any) => {
         this.socket.onopen = () => {
             console.log('Connected to websocket')
         }
 
-        this.socket.onmessage = (event: any) => {
-            cb(event.data)
+        this.socket.onmessage = (msg: any) => {
+            cb(msg)
         }
 
         this.socket.onclose = (event: any) => {
@@ -23,7 +23,7 @@ class SocketConnection {
         }
     }
 
-    sendMsg = (msg: string | ArrayBufferLike | Blob | ArrayBufferView) => {
+    sendMsg = (msg: any) => {
         console.log(msg)
         this.socket.send(JSON.stringify(msg))
     }

@@ -49,11 +49,11 @@ export const ContactList = () => {
                 px: 1,
             }}
         >
-            {contacts.map((contact: string, idx: number) => (
+            {contacts.map((contact: any, idx: number) => (
                 <ListItemButton
                     key={idx}
-                    selected={selectedIndex === idx}
-                    onClick={(event) => handleListItemClick(event, idx)}
+                    selected={selectedIndex === contact.username}
+                    onClick={(event) => handleListItemClick(event, contact.username)}
                     sx={{
                         borderRadius: '0.8rem',
                         position: 'relative',
