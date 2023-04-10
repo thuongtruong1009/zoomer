@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   postgres:
@@ -35,6 +35,21 @@ services:
     command: server --console-address ":9001" /var/lib/minio
     restart: unless-stopped
 
+	broker:
+		image: rabbitmq:3.8.9-management-alpine
+		container_name: broker
+		ports:
+			- "5672:5672"
+			- "15672:15672"
+		environment:
+			AMQP_SERVER_URL: amqp://guest:guest@broker:5672/
+		volumes:
+			- ./.docker/rabbitmq/data:/var/lib/rabbitmq
+			- ./.docker/rabbitmq/log:/var/log/rabbitmq
+		restart: unless-stopped
+		networks:
+			- broker-network
+
   app:
     image: zoomer
     container_name: zoomer
@@ -50,6 +65,7 @@ services:
     depends_on:
       - postgres
       - minio
+			- broker
     volumes:
       - .:/app
       - $GOPATH/pkg/mod:/go/pkg/mod
@@ -74,6 +90,8 @@ networks:
     driver: bridge
   minio-network:
     driver: bridge
+	broker-network:
+		driver: bridge
 # volumes:
 #   minio:
 

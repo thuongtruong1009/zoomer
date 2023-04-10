@@ -10,7 +10,7 @@ type RoomResponse struct {
 }
 
 type RoomRequest struct {
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required,name"`
 }
 
 //sync to redis

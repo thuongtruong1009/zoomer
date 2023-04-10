@@ -6,5 +6,9 @@ func ReadRequest(ctx echo.Context, request interface{}) error {
 	if err := ctx.Bind(request); err != nil {
 		return err
 	}
-	return validate.StructCtx(ctx.Request().Context(), request)
+
+	if err := ctx.Validate(request); err != nil {
+		return err
+	}
+	return ValidateStruct(ctx.Request().Context(), request)
 }
