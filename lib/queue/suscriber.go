@@ -13,9 +13,10 @@ type Consumer struct {
 
 func NewConsumer(conn *amqp.Connection, queueName string) (*Consumer, error) {
     ch, err := conn.Channel()
-    if err != nil {
-        return nil, err
-    }
+	defer ch.Close()
+
+	FailOnError(err, "Failed to open a channel")
+
     q, err := ch.QueueDeclare(
         queueName, // name
         false,     // durable
@@ -24,9 +25,7 @@ func NewConsumer(conn *amqp.Connection, queueName string) (*Consumer, error) {
         false,     // no-wait
         nil,       // arguments
     )
-    if err != nil {
-        return nil, err
-    }
+    FailOnError(err, "Failed to declare a queue")
 
 	prefetchCount := 1 * 4 // 4 messages at a time
 	err = ch.Qos(prefetchCount, 0, false)
@@ -43,11 +42,9 @@ func NewConsumer(conn *amqp.Connection, queueName string) (*Consumer, error) {
         false,  // no-wait
         nil,    // arguments
     )
-    if err != nil {
-        return nil, err
-    }
+    FailOnError(err, "Failed to register a consumer")
 
-	log.Println("Waiting for messages")
+	log.Println("::: Waiting for messages")
 
     return &Consumer{
         channel:  ch,

@@ -10,9 +10,10 @@ type Publisher struct {
 
 func NewPublisher(conn *amqp.Connection) (*Publisher, error) {
     ch, err := conn.Channel()
-    if err != nil {
-        return nil, err
-    }
+	defer ch.Close()
+
+    FailOnError(err, "Failed to open a channel")
+
     return &Publisher{
         channel: ch,
     }, nil
@@ -31,3 +32,4 @@ func (p *Publisher) Publish(queueName string, body []byte) error {
         })
     return err
 }
+

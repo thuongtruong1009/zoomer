@@ -33,4 +33,4 @@ main
 **/.idea
 **/.vscode
 
-*.log
+logs
