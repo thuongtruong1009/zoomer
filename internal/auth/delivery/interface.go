@@ -2,7 +2,7 @@ package delivery
 
 import "github.com/labstack/echo/v4"
 
-type Handler interface {
+type AuthHandler interface {
 	SignUp() echo.HandlerFunc
 
 	SignIn() echo.HandlerFunc

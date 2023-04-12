@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/gorilla/websocket"
+)
+
 type Chat struct {
 	ID string `json:"id"`
 	From string `json:"from" validate:"required,from"`
@@ -12,4 +16,15 @@ type Chat struct {
 type ContactList struct {
 	Username string `json:"username"`
 	LastActivity int64 `json:"last_activity"`
+}
+
+type Client struct {
+	Conn *websocket.Conn
+	Username string
+}
+
+type Message struct {
+	Type string `json:"type"`
+	User string `json:"user,omitempty"`
+	Chat Chat `json:"chat,omitempty"`
 }

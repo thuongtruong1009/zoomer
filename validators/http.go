@@ -7,8 +7,10 @@ func ReadRequest(ctx echo.Context, request interface{}) error {
 		return err
 	}
 
-	if err := ctx.Validate(request); err != nil {
-		return err
-	}
-	return ValidateStruct(ctx.Request().Context(), request)
+	return validate.StructCtx(ctx.Request().Context(), request)
+
+	// if err := ctx.Validate(request); err != nil {
+	// 	return err
+	// }
+	// return ValidateStruct(ctx.Request().Context(), request)
 }

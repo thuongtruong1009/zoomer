@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
 
 	broker:
-		image: rabbitmq:3.8.9-management-alpine
+		image: rabbitmq:3.11.3-management-alpine
 		container_name: broker
 		ports:
 			- "5672:5672"

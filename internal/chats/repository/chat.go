@@ -12,7 +12,13 @@ import (
 	"zoomer/internal/chats/adapter"
 )
 
-func UpdateContactList(username, contact string) error {
+type chatRepository struct{}
+
+func NewChatRepository() *chatRepository {
+	return &chatRepository{}
+}
+
+func (cr *chatRepository) UpdateContactList(ctx context.Context, username, contact string) error {
 	zs := &redis.Z{Score: float64(time.Now().Unix()), Member: contact}
 
 	err := db.RedisClient.ZAdd(context.Background(), adapter.ContactListZKey(username), zs).Err()
@@ -23,7 +29,7 @@ func UpdateContactList(username, contact string) error {
 	return nil
 }
 
-func CreateChat(c *models.Chat) (string, error) {
+func (cr *chatRepository) CreateChat(ctx context.Context, c *models.Chat) (string, error) {
 	chatKey := adapter.ChatKey()
 	fmt.Println("chat key", chatKey)
 
@@ -37,12 +43,12 @@ func CreateChat(c *models.Chat) (string, error) {
 	}
 	log.Println("chat succesfully set", res)
 
-	err = UpdateContactList(c.From, c.To)
+	err = cr.UpdateContactList(ctx, c.From, c.To)
 	if err != nil {
 		log.Println("error while updating contact list of", c.From)
 	}
 
-	err = UpdateContactList(c.To, c.From)
+	err = cr.UpdateContactList(ctx, c.To, c.From)
 	if err != nil {
 		log.Println("error while updating contact list of", c.To)
 	}

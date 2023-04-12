@@ -4,51 +4,36 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"time"
-	"github.com/gorilla/websocket"
+	"context"
 	"zoomer/internal/models"
 	"zoomer/internal/chats/repository"
 )
 
-type Client struct {
-	Conn *websocket.Conn
-	Username string
+var (
+	Clients = make(map[*models.Client]bool)
+	Broadcast = make(chan *models.Chat)
+)
+
+type Hub struct {
+	chatRepo repository.ChatRepository
 }
 
-type Message struct {
-	Type string `json:"type"`
-	User string `json:"user,omitempty"`
-	Chat models.Chat `json:"chat,omitempty"`
-}
+// func NewHub(chatRepo repository.ChatRepository) *Hub {
+// 	return &Hub{
+// 		Clients: make(map[*models.Client]bool),
+// 		Broadcast: make(chan *models.Chat),
+// 		chatRepo: chatRepo,
+// 	}
+// }
 
-var clients = make(map[*Client]bool)
-var broadcast = make(chan *models.Chat)
-
-var upgrader = websocket.Upgrader{
-	ReadBufferSize: 1024,
-	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool { return true },
-}
-
-func ServeWs(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Host, r.URL.Query())
-
-	ws, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
+func NewChatHub(chatRepo repository.ChatRepository) IHub {
+	return &Hub{
+		chatRepo: chatRepo,
 	}
-
-	client := &Client{Conn: ws}
-	clients[client] = true
-	fmt.Println("clients", len(clients), clients, ws.RemoteAddr())
-	Receiver(client)
-
-	fmt.Println("existing", ws.RemoteAddr().String())
-	delete(clients, client)
 }
 
-func Receiver(client *Client) {
+func (h *Hub) Receiver(ctx context.Context, client *models.Client) {
 	for {
 		_, p, err := client.Conn.ReadMessage()
 		if err != nil {
@@ -56,7 +41,7 @@ func Receiver(client *Client) {
 			return
 		}
 
-		m := &Message{}
+		m := &models.Message{}
 
 		err = json.Unmarshal(p, m)
 		if err != nil {
@@ -72,32 +57,32 @@ func Receiver(client *Client) {
 			c := m.Chat
 			c.Timestamp = time.Now().Unix()
 
-			id, err := repository.CreateChat(&c)
+			id, err := h.chatRepo.CreateChat(ctx, &c)
 			if err != nil {
 				log.Println("error while saving chat in redis", err)
 				return
 			}
 
 			c.ID = id
-			broadcast <- &c
+			Broadcast <- &c
 		}
 	}
 }
 
-func Broadcaster() {
+func (h *Hub) Broadcaster(ctx context.Context) {
 	for {
-		message := <-broadcast
+		message := <-Broadcast
 		fmt.Println("new message", message)
 
-		for client := range clients {
+		for client := range Clients {
 			fmt.Println("username:", client.Username, "from:", message.From, "to:", message.To)
-			
+
 			if client.Username == message.From || client.Username == message.To {
 				err := client.Conn.WriteJSON(message)
 				if err != nil {
 					log.Printf("websocket error: %s", err)
 					client.Conn.Close()
-					delete(clients, client)
+					delete(Clients, client)
 				}
 			}
 		}
