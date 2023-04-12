@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"zoomer/internal/search/presenter"
 	"zoomer/internal/search/usecase"
-	"zoomer/utils"
+	"zoomer/validators"
 )
 
 type searchHandler struct {
@@ -24,7 +24,7 @@ func (h *searchHandler) SearchRoom() echo.HandlerFunc {
 		input.Name = c.QueryParam("name")
 		input.Description = c.QueryParam("description")
 		input.Category = c.QueryParam("category")
-		if err := utils.ReadRequest(c, input); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 

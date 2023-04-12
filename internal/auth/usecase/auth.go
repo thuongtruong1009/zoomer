@@ -3,12 +3,12 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
 	"time"
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
@@ -60,10 +60,11 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	if err != nil {
 		return nil, err
 	}
+
 	return a.userRepo.GetUserByUsername(ctx, fmtusername)
 }
 
-func (a *authUseCase) SignIn(ctx context.Context, username string, password string) (string, string, string, error) {
+func (a *authUseCase) SignIn(ctx context.Context, username, password string) (string, string, string, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
 		return "", "", "", auth.ErrUserNotFound
@@ -84,11 +85,6 @@ func (a *authUseCase) SignIn(ctx context.Context, username string, password stri
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	// ss, err := token.SignedString([]byte(secretKey))
-	// if err != nil {
-	// 	return &LoginUserRes{}, err
-	// }
 
 	tmp, err := token.SignedString(a.signingKey)
 	if err != nil {

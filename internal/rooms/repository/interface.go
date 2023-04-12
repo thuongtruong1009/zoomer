@@ -13,4 +13,11 @@ type RoomRepository interface {
 	GetAllRooms(ctx context.Context) ([]*models.Room, error)
 
 	CountRooms(ctx context.Context, userId string) (int, error)
+
+	//sync to redis
+	FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error)
+
+	FetchContactList(ctx context.Context, username string) ([]models.ContactList, error)
+
+	CreateFetchChatBetweenIndex(ctx context.Context)
 }

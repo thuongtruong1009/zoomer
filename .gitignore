@@ -21,9 +21,16 @@ main
 
 .env
 
-.docker/**/*
+.docker/**/*.*
 !.docker/**/.gitkeep
 !.docker/**/nginx.conf
+!.docker/**/**/.gitkeep
 
 **/node_modules
 **/.next
+**/.nuxt
+**/.cache
+**/.idea
+**/.vscode
+
+logs

@@ -20,7 +20,7 @@ import (
 	searchHttp "zoomer/internal/search/delivery"
 )
 
-func (s *Server) HttpMapHandlers(e *echo.Echo) error {
+func (s *Server) HttpMapServer(e *echo.Echo) error {
 	userRepo := authRepository.NewUserRepository(s.db)
 	roomRepo := roomRepository.NewRoomRepository(s.db)
 	searchRepo := searchRepository.NewSearchRepository(s.db)

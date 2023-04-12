@@ -9,4 +9,11 @@ func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.MiddlewareM
 	roomGroup.POST("/", h.AddRoom(), mw.JWTValidation)
 	roomGroup.GET("/:userId", h.GetUserRooms(), mw.JWTValidation)
 	roomGroup.GET("/", h.GetAll())
+	//sync to redis
+
+	h.CreateFetchChatBetweenIndexHandler()
+
+	roomGroup.GET("/chat-history", h.ChatHistoryHandler())
+
+	roomGroup.GET("/contact-list", h.ContactListHandler())
 }

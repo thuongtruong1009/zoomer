@@ -1,9 +1,9 @@
 package middlewares
 
 import (
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
+	"github.com/labstack/echo/v4"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
 )
@@ -35,6 +35,7 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 		}
 
 		c.Set(repository.CtxUserKey, userId)
+
 		return next(c)
 	}
 }

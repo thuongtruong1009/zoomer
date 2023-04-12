@@ -10,5 +10,19 @@ type RoomResponse struct {
 }
 
 type RoomRequest struct {
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required,name"`
+}
+
+//sync to redis
+// type userReq struct {
+// 	Username string `json:"username"`
+// 	Password string `json:"password"`
+// 	Client   string `json:"client"`
+// }
+
+type ChatResponse struct {
+	Status  bool        `json:"status"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
+	Total   int         `json:"total,omitempty"`
 }

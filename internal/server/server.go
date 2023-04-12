@@ -11,6 +11,7 @@ import (
 	"syscall"
 	"time"
 	"zoomer/configs"
+	"fmt"
 	// "log"
 	// "golang.org/x/net/http2"
 )
@@ -31,13 +32,12 @@ func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, r
 
 func (s *Server) Run() error {
 	httpServer := &http.Server{
-		Addr:         ":" + s.cfg.HttpPort,
+		Addr:         ":"+ s.cfg.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
 	go func() {
-		// s.echo.Logger.Fatal(e.Start(":" + port))
 		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.HttpPort)
 
 		// http1.1
@@ -51,11 +51,12 @@ func (s *Server) Run() error {
 		//   }
 	}()
 
-	if err := s.HttpMapHandlers(s.echo); err != nil {
+	if err := s.HttpMapServer(s.echo); err != nil {
 		return err
 	}
 
-	go WsMapHandlers(":" + s.cfg.WsPort)
+	WsMapServer(":" + s.cfg.WsPort)
+	fmt.Println("websocket server is starting on :" + s.cfg.WsPort)
 
 	if s.ready != nil {
 		s.ready <- true

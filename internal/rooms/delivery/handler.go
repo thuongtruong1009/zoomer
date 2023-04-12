@@ -9,7 +9,7 @@ import (
 	"zoomer/internal/models"
 	"zoomer/internal/rooms/presenter"
 	"zoomer/internal/rooms/usecase"
-	"zoomer/utils"
+	"zoomer/validators"
 )
 
 type roomHandler struct {
@@ -69,7 +69,7 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		userId := c.Get(repository.CtxUserKey)
 		input := &presenter.RoomRequest{}
 
-		if err := utils.ReadRequest(c, input); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 
@@ -79,5 +79,40 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusCreated, nil)
+	}
+}
+
+//sync to redis
+func (rh *roomHandler) ChatHistoryHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		u1 := c.QueryParam("u1")
+		u2 := c.QueryParam("u2")
+
+		fromTS, toTS := "0", "+inf"
+
+		if c.QueryParam("from-ts") != ""  && c.QueryParam("to-ts") != "" {
+			fromTS = c.QueryParam("from-ts")
+			toTS = c.QueryParam("to-ts")
+		}
+
+		chat := rh.roomUC.GetChatHistory(c.Request().Context(), u1, u2, fromTS, toTS)
+
+		return c.JSON(http.StatusOK, chat)
+	}
+}
+
+func (rh *roomHandler) ContactListHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		u := c.QueryParam("username")
+		res := rh.roomUC.ContactList(c.Request().Context(), u)
+
+		return c.JSON(http.StatusOK, res)
+	}
+}
+
+func (rh *roomHandler) CreateFetchChatBetweenIndexHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		rh.roomUC.GetFetchChatBetweenIndex(c.Request().Context())
+		return c.JSON(http.StatusOK, nil)
 	}
 }

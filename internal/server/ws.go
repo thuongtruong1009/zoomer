@@ -1,22 +1,20 @@
 package server
 
 import (
-	"github.com/labstack/echo/v4"
-	chatWs "zoomer/internal/chats"
-	middlewares "zoomer/internal/middlewares"
+	"fmt"
+	"net/http"
+	"zoomer/db"
+	"zoomer/internal/chats/hub"
+	"zoomer/internal/chats/delivery"
 )
 
-func WsMapHandlers(port string) {
-	e := echo.New()
-	defer e.Close()
+func WsMapServer(port string) {
+	redisClient := db.GetRedisInstance()
+	defer redisClient.Close()
 
-	e.Use(middlewares.WsCORS)
-	wsUC := chatWs.NewHub()
-	go wsUC.Run()
+	go hub.Broadcaster()
+	delivery.MapChatRoutes()
 
-	wsHandler := chatWs.NewChatHandler(wsUC)
-
-	chatWs.MapChatRoutes(e, wsHandler, "/api/chats")
-
-	e.Logger.Fatal(e.Start(port))
+	http.ListenAndServe(port, nil)
+	fmt.Println("websocket server is starting on :8081")
 }

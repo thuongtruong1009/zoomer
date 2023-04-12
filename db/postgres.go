@@ -1,21 +1,26 @@
 package db
 
 import (
-	"fmt"
+	"log"
+	"time"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"time"
+	"gorm.io/gorm/schema"
+
 	"zoomer/configs"
 	"zoomer/internal/models"
 )
 
 func GetPostgresInstance(cfg *configs.Configuration, migrate bool) *gorm.DB {
 	dsn := cfg.DatabaseConnectionURL
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		NamingStrategy: &schema.NamingStrategy{
+			SingularTable: true,
+		},
+	})
 
 	if err != nil {
-		fmt.Println(err)
-		panic(err)
+		log.Fatal(err)
 	}
 
 	if migrate {

@@ -6,7 +6,7 @@ import (
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
-	"zoomer/utils"
+	"zoomer/validators"
 )
 
 type authHandler struct {
@@ -22,7 +22,7 @@ func NewAuthHandler(useCase usecase.UseCase) Handler {
 func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
-		if err := utils.ReadRequest(c, input); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 
@@ -37,7 +37,7 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 func (h *authHandler) SignIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.LoginInput{}
-		if err := utils.ReadRequest(c, input); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 		userId, username, token, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
