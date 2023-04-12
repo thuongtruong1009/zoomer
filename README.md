@@ -1,5 +1,8 @@
-ref:
-https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223
+[Status user ref](https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223)
+
+[v1 ref](https://www.thepolyglotdeveloper.com/2016/12/create-real-time-chat-app-golang-angular-2-websockets/)
+
+[RabbitMQ ref](https://github.com/ong-gtp/go-chat)
 
 ## **Technical stuff**
 

@@ -3,14 +3,10 @@ package middlewares
 import (
 	"net/http"
 	"strings"
-	"time"
 	"github.com/labstack/echo/v4"
-	"github.com/patrickmn/go-cache"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
 )
-
-var caching = cache.New(5*time.Minute, 10*time.Minute)
 
 func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -28,11 +24,6 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 			return echo.NewHTTPError(http.StatusUnauthorized)
 		}
 
-		//check if token is present in the cache
-		if _, found := caching.Get(headerParts[1]); found {
-			return next(c)
-		}
-
 		userId, err := mw.authUC.ParseToken(c.Request().Context(), headerParts[1])
 
 		if err != nil {
@@ -44,9 +35,6 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 		}
 
 		c.Set(repository.CtxUserKey, userId)
-
-		//cache token
-		caching.Set(headerParts[1], userId, cache.DefaultExpiration)
 
 		return next(c)
 	}

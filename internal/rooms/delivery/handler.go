@@ -9,7 +9,7 @@ import (
 	"zoomer/internal/models"
 	"zoomer/internal/rooms/presenter"
 	"zoomer/internal/rooms/usecase"
-	"zoomer/utils"
+	"zoomer/validators"
 )
 
 type roomHandler struct {
@@ -69,7 +69,7 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 		userId := c.Get(repository.CtxUserKey)
 		input := &presenter.RoomRequest{}
 
-		if err := utils.ReadRequest(c, input); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest)
 		}
 

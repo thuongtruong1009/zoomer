@@ -38,7 +38,6 @@ func (s *Server) Run() error {
 	}
 
 	go func() {
-		// s.echo.Logger.Fatal(e.Start(":" + port))
 		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.HttpPort)
 
 		// http1.1

@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 	"github.com/go-redis/redis/v8"
 	"zoomer/db"
+	"zoomer/lib/cache"
 	"zoomer/internal/models"
 	chatAdapter "zoomer/internal/chats/adapter"
 )
@@ -28,6 +29,12 @@ func (cr *roomRepository) CreateRoom(ctx context.Context, room *models.Room) err
 }
 
 func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
+	//check in cache
+	UsernameInCache := cache.GetCache(cache.UserRoomKey(userId))
+	if UsernameInCache != nil {
+		return UsernameInCache.([]*models.Room), nil
+	}
+
 	var rooms []*models.Room
 	err := cr.db.WithContext(ctx).Where(&models.Room{
 		CreatedBy: userId}).Find(&rooms).Error
@@ -35,6 +42,10 @@ func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) (
 	if err != nil {
 		return nil, err
 	}
+
+	//set to cache
+	cache.SetCache(cache.UserRoomKey(userId), rooms, 0)
+
 	return rooms, nil
 }
 

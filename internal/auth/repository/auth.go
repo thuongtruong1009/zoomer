@@ -4,6 +4,7 @@ import (
 	"context"
 	"gorm.io/gorm"
 	"strings"
+	"zoomer/lib/cache"
 	"zoomer/internal/models"
 )
 
@@ -26,6 +27,12 @@ func (ur *userRepository) CreateUser(ctx context.Context, user *models.User) err
 }
 
 func (ur *userRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
+	//check in cache
+	UsernameInCache := cache.GetCache(cache.UsernameKey(username))
+	if UsernameInCache != nil {
+		return UsernameInCache.(*models.User), nil
+	}
+
 	var user models.User
 	err := ur.db.WithContext(ctx).Where(&models.User{
 		Username: strings.ToLower(username),
@@ -35,10 +42,18 @@ func (ur *userRepository) GetUserByUsername(ctx context.Context, username string
 		return nil, err
 	}
 
+	//set in cache
+	cache.SetCache(cache.UsernameKey(username), &user, 0)
+
 	return &user, nil
 }
 
 func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*models.User, error) {
+	UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
+	if UsernameInCache != nil {
+		return UsernameInCache.(*models.User), nil
+	}
+
 	var user models.User
 	err := ur.db.WithContext(ctx).Where(&models.User{
 		Id: userId,
@@ -47,6 +62,9 @@ func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*mode
 	if err != nil {
 		return nil, err
 	}
+
+	//set in cache
+	cache.SetCache(cache.UserIdKey(userId), &user, 0)
 
 	return &user, nil
 }
