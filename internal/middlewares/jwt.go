@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
-	"zoomer/internal/auth"
+	"zoomer/constants"
 	"zoomer/internal/auth/repository"
 )
 
@@ -28,7 +28,7 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 
 		if err != nil {
 			status := http.StatusInternalServerError
-			if err == auth.ErrInvalidAccessToken {
+			if err == constants.ErrInvalidAccessToken {
 				status = http.StatusUnauthorized
 			}
 			return echo.NewHTTPError(status)

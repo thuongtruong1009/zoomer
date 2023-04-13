@@ -3,19 +3,22 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/auth"
+	"zoomer/validators"
+	"zoomer/constants"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
-	"zoomer/validators"
+	"zoomer/internal/base/interceptor"
 )
 
 type authHandler struct {
 	useCase usecase.UseCase
+	inter interceptor.IInterceptor
 }
 
-func NewAuthHandler(useCase usecase.UseCase) AuthHandler {
+func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) AuthHandler {
 	return &authHandler{
 		useCase: useCase,
+		inter: inter,
 	}
 }
 
@@ -23,14 +26,15 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
 		if err := validators.ReadRequest(c, input); err != nil {
-			return echo.NewHTTPError(http.StatusBadRequest)
+			return h.inter.Error(c, http.StatusBadRequest, err)
 		}
 
 		user, err := h.useCase.SignUp(c.Request().Context(), input.Username, input.Password, input.Limit)
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+			return h.inter.Error(c, http.StatusInternalServerError, err)
 		}
-		return c.JSON(http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
+
+		return h.inter.Data(c, http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
 	}
 }
 
@@ -43,10 +47,10 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 		userId, username, token, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
 
 		if err != nil {
-			if err == auth.ErrUserNotFound {
+			if err == constants.ErrUserNotFound {
 				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 			}
-			if err == auth.ErrWrongPassword {
+			if err == constants.ErrWrongPassword {
 				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 			}
 			return echo.NewHTTPError(http.StatusInternalServerError)

@@ -1,23 +1,20 @@
 package middlewares
 
 import (
-	"errors"
+	"net/http"
 	"github.com/labstack/echo/v4"
+	"zoomer/constants"
+	"zoomer/internal/base/interceptor"
 )
 
-func RecoverMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+func RecoveryMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		base := interceptor.NewInterceptor()
+
 		defer func() {
 			if err := recover(); err != nil {
-				// c.Logger().Error(err)
-				friendlyErrorToClient := errors.New("Error occured in our own server. Sorry")
-				if v, ok := err.(error); ok {
-					base.Error(c, http.StatusInternalServerError,
-						friendlyErrorToClient, v.Error())
-				} else {
-					base.Error(c, http.StatusInternalServerError,
-						friendlyErrorToClient, err.(string))
-				}
+				v, _ := err.(error)
+				base.Error(c, http.StatusInternalServerError, string(constants.ErrInternalServer), v)
 			}
 		}()
 		return next(c)

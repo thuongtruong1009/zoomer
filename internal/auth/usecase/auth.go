@@ -3,13 +3,13 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
 	"time"
-	"zoomer/internal/auth"
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
+	"zoomer/constants"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
 )
@@ -45,7 +45,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	euser, _ := a.userRepo.GetUserByUsername(ctx, fmtusername)
 
 	if euser != nil {
-		return nil, auth.ErrUserExisted
+		return nil, constants.ErrUserExisted
 	}
 
 	user := &models.User{
@@ -67,11 +67,11 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 func (a *authUseCase) SignIn(ctx context.Context, username, password string) (string, string, string, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
-		return "", "", "", auth.ErrUserNotFound
+		return "", "", "", constants.ErrUserNotFound
 	}
 
 	if !user.ComparePassword(password) {
-		return "", "", "", auth.ErrWrongPassword
+		return "", "", "", constants.ErrWrongPassword
 	}
 
 	claims := AuthClaims{
@@ -110,7 +110,7 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 		return claims.UserId, nil
 	}
 
-	return "", auth.ErrInvalidAccessToken
+	return "", constants.ErrInvalidAccessToken
 }
 
 func WriteCookie(c echo.Context, name string, value string, expire time.Duration, path string, domain string, secure bool, httpOnly bool) {

@@ -1,9 +1,6 @@
-name: CI/CD
+name: CI
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -12,17 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.17.x
+          go-version: 1.20.x
+
       - name: Install Dependencies
         run: go mod download
+
       - name: Build and Test
         run: |
           go build -o ./... cmd/main.go
           go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v2
         with:
@@ -34,23 +35,25 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Setup Go
-        uses: actions/setup-go@v2
+			- name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          go-version: 1.17.x
-      - name: Install Dependencies
-        run: go mod download
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: username/repo:${{ github.sha }}
-      - name: Deploy to Kubernetes
-        uses: appleboy/kubectl-action@master
-        with:
-          args: apply -f kubernetes/deployment.yaml
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest # $(date + %s)
+
+      # - name: Deploy to Kubernetes
+      #   uses: appleboy/kubectl-action@master
+      #   with:
+      #     args: apply -f kubernetes/deployment.yaml
+      #   env:
+      #     KUBECONFIG: ${{ secrets.KUBECONFIG }}

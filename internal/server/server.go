@@ -35,6 +35,7 @@ func (s *Server) Run() error {
 		Addr:         ":" + s.cfg.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
+		IdeleTimeout: 60 * time.Second,
 	}
 
 	go func() {
@@ -64,6 +65,7 @@ func (s *Server) Run() error {
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(quit, os.Kill)
 
 	<-quit
 

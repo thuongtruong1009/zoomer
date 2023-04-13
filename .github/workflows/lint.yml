@@ -9,6 +9,8 @@ on:
       - "!db/**"
       - "!internal/**"
       - "!utils/**"
+			- "!lib/**"
+			- "!validators/**"
   pull_request:
     paths-ignore:
       - "!cmd/**"
@@ -16,6 +18,8 @@ on:
       - "!db/**"
       - "!internal/**"
       - "!utils/**"
+			- "!lib/**"
+			- "!validators/**"
 permissions:
   contents: read
 
@@ -28,7 +32,7 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           stable: "false"
-          go-version: "1.19"
+          go-version: "1.20"
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3

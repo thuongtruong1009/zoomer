@@ -24,6 +24,7 @@ func HttpMiddleware(e *echo.Echo) {
 	e.Use(serverHeader)
 
 	e.Use(LoggerMiddleware)
+	e.Use(RecoveryMiddleware)
 	e.Logger.SetLevel(log.INFO)
 
 	e.Use(middleware.RequestID())
@@ -49,9 +50,6 @@ func HttpMiddleware(e *echo.Echo) {
 	}))
 	e.Use(middleware.Secure())
 	e.Use(middleware.Logger())
-	// e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-	// 	TokenLookup: "header:X-XSRF-TOKEN",
-	// }))
 
 	HttpCORS(e)
 
