@@ -1,9 +1,9 @@
 package middlewares
 
 import (
+	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
-	"github.com/labstack/echo/v4"
 	"zoomer/internal/auth"
 	"zoomer/internal/auth/repository"
 )

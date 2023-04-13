@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func writeRequestLog(filePath string, logMessage string) {
+func writeRequestLog(filePath string, logID, logMessage string) {
 	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
 	if err != nil {
 		log.Fatal("Failed to open log file: ", err)
@@ -16,7 +16,7 @@ func writeRequestLog(filePath string, logMessage string) {
 	defer file.Close()
 
 	// Create a new logger that writes to the log file
-	logger := log.New(file, "example: ", log.Ldate|log.Ltime|log.Lshortfile)
+	logger := log.New(file, logID, log.Ldate|log.Ltime|log.Lshortfile)
 
 	// Write some log messages
 	logger.Println(logMessage)
@@ -48,7 +48,7 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		c.Logger().Infof("%s %s %s %s %d %s", protocol, host, address, remoteIP, method, path, status, size, latency)
 
 		writeRequestLog("logs/requests.log",
-			"Time: "+stop.Format(time.RFC3339)+" Id: "+id+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut))
+			"[Id: "+id+"]", " Time: "+stop.Format(time.RFC3339)+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut)+"\n")
 		return nil
 	}
 }

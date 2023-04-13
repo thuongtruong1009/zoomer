@@ -2,11 +2,11 @@ package delivery
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/models"
+	"net/http"
 	"zoomer/internal/chats/adapter"
 	"zoomer/internal/chats/hub"
+	"zoomer/internal/models"
 )
 
 type chatHandler struct {

@@ -1,15 +1,15 @@
 package repository
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"log"
-	"context"
-	"time"
 	"github.com/go-redis/redis/v8"
+	"log"
+	"time"
 	"zoomer/db"
-	"zoomer/internal/models"
 	"zoomer/internal/chats/adapter"
+	"zoomer/internal/models"
 )
 
 type chatRepository struct{}

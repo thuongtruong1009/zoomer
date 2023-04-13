@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"time"
 	"github.com/patrickmn/go-cache"
+	"time"
 )
 
 var caching = cache.New(24*time.Hour, 24*time.Hour)

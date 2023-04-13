@@ -1,35 +1,33 @@
 package queue
 
 import (
-    "github.com/streadway/amqp"
+	"context"
+	"github.com/streadway/amqp"
 )
 
-type Publisher struct {
-    channel *amqp.Channel
-}
+// func NewPublisher(conn *amqp.Connection) (*Publisher, error) {
+//     ch, err := conn.Channel()
+// 	defer ch.Close()
 
-func NewPublisher(conn *amqp.Connection) (*Publisher, error) {
-    ch, err := conn.Channel()
-	defer ch.Close()
+//     FailOnError(err, "Failed to open a channel")
 
-    FailOnError(err, "Failed to open a channel")
+//     return &Publisher{
+//         channel: ch,
+//     }, nil
+// }
 
-    return &Publisher{
-        channel: ch,
-    }, nil
-}
-
-func (p *Publisher) Publish(queueName string, body []byte) error {
-    err := p.channel.Publish(
-        "",     // exchange
-        queueName, // routing key
-        false,  // mandatory
-        false,  // immediate
-        amqp.Publishing{
-            ContentType: "text/plain",
-            Body:        body,
+func (p *IPublisher) Publish(ctx context.Context, ch *amqp.Channel, queueName string, body []byte) error {
+	err := ch.Publish(
+		"",        // exchange
+		queueName, // routing key
+		false,     // mandatory
+		false,     // immediate
+		amqp.Publishing{
+			ContentType:  "text/plain",
+			Body:         body,
 			DeliveryMode: amqp.Persistent,
-        })
-    return err
-}
+		})
 
+	FailOnError(err, "Failed to publish a message")
+	return nil
+}

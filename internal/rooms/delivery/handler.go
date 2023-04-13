@@ -82,7 +82,7 @@ func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 	}
 }
 
-//sync to redis
+// sync to redis
 func (rh *roomHandler) ChatHistoryHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		u1 := c.QueryParam("u1")
@@ -90,7 +90,7 @@ func (rh *roomHandler) ChatHistoryHandler() echo.HandlerFunc {
 
 		fromTS, toTS := "0", "+inf"
 
-		if c.QueryParam("from-ts") != ""  && c.QueryParam("to-ts") != "" {
+		if c.QueryParam("from-ts") != "" && c.QueryParam("to-ts") != "" {
 			fromTS = c.QueryParam("from-ts")
 			toTS = c.QueryParam("to-ts")
 		}

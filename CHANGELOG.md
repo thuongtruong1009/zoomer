@@ -6,6 +6,7 @@ There is the most valuable changes log:
 
 - Connect to Redis database for chat service
 - Connect done to client
+- Config Cache adapter with Redis
 
 **2. Features**
 
@@ -14,6 +15,7 @@ There is the most valuable changes log:
 - Save/Load messages to database
 - Rejoin room but not remove old messages
 - Load recent friend contact list
+- Cache response userid, username, roomlist
 
 **3. Bugfixes**
 

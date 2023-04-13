@@ -1,28 +1,20 @@
 package middlewares
 
 import (
-	"strings"
-	"zoomer/configs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	"strings"
+	"zoomer/configs"
 )
 
 func serverHeader(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Response().Header().Set(echo.HeaderServer, "Zoomer/1.0")
-		// c.Response().Header().Set("X-Frame-Options", "SAMEORIGIN")
-		// c.Response().Header().Set("X-XSS-Protection", "1; mode=block")
-		// c.Response().Header().Set("X-Content-Type-Options", "nosniff")
-		// c.Response().Header().Set("Referrer-Policy", "same-origin")
-		// c.Response().Header().Set("Content-Security-Policy", "default-src 'self'")
-		// c.Response().Header().Set("X-Permitted-Cross-Domain-Policies", "none")
-		// c.Response().Header().Set("X-Download-Options", "noopen")
-		// c.Response().Header().Set("X-Content-Security-Policy", "default-src 'self'")
-		// c.Response().Header().Set("X-WebKit-CSP", "default-src 'self'")
-		// c.Response().Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
-		// c.Response().Header().Set("X-Content-Type-Options", "nosniff")
-		// c.Response().Header().Set("Access-Control-Max-Age", "3600")
+		c.Response().Header().Set(echo.HeaderServer, "Zoomer/1.1")
+		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		c.Response().Header().Set("X-XSS-Protection", "1; mode=block")
+		c.Response().Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+		c.Response().Header().Set("Access-Control-Max-Age", "3600")
 
 		return next(c)
 	}

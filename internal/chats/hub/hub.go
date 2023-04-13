@@ -1,17 +1,17 @@
 package hub
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"time"
-	"context"
-	"zoomer/internal/models"
 	"zoomer/internal/chats/repository"
+	"zoomer/internal/models"
 )
 
 var (
-	Clients = make(map[*models.Client]bool)
+	Clients   = make(map[*models.Client]bool)
 	Broadcast = make(chan *models.Chat)
 )
 

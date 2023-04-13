@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
@@ -11,7 +12,6 @@ import (
 	"syscall"
 	"time"
 	"zoomer/configs"
-	"fmt"
 	// "log"
 	// "golang.org/x/net/http2"
 )
@@ -32,7 +32,7 @@ func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, r
 
 func (s *Server) Run() error {
 	httpServer := &http.Server{
-		Addr:         ":"+ s.cfg.HttpPort,
+		Addr:         ":" + s.cfg.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
