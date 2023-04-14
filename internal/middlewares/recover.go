@@ -14,7 +14,7 @@ func RecoveryMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		defer func() {
 			if err := recover(); err != nil {
 				v, _ := err.(error)
-				base.Error(c, http.StatusInternalServerError, string(constants.ErrInternalServer), v)
+				base.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, v)
 			}
 		}()
 		return next(c)

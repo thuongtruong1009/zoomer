@@ -7,10 +7,10 @@ import (
 type IInterceptor interface {
 	Data(c echo.Context, code int, data interface{}) error
 
-	Error(c echo.Context, code int, msg string, err error) error
+	Error(c echo.Context, code int, msg error, err error) error
 }
 
 type InterceptorProps struct {
 	Data interface{} `json:"data"`
-	Message string `json:"message"`
+	Message interface{} `json:"message"`
 }

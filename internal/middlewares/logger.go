@@ -48,7 +48,7 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		c.Logger().Infof("%s %s %s %s %d %s", protocol, host, address, remoteIP, method, path, status, size, latency)
 
 		writeRequestLog("logs/requests.log",
-			"[Id: "+id+"]", " Time: "+stop.Format(time.RFC3339)+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut)+"\n")
+			"[Id: "+id+"] ", " Time: "+stop.Format(time.RFC3339)+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut)+"\n")
 		return nil
 	}
 }

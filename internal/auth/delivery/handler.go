@@ -26,12 +26,12 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
 		if err := validators.ReadRequest(c, input); err != nil {
-			return h.inter.Error(c, http.StatusBadRequest, err)
+			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
 		user, err := h.useCase.SignUp(c.Request().Context(), input.Username, input.Password, input.Limit)
 		if err != nil {
-			return h.inter.Error(c, http.StatusInternalServerError, err)
+			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
 
 		return h.inter.Data(c, http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})

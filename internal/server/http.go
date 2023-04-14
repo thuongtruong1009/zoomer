@@ -18,9 +18,13 @@ import (
 	resourceHttp "zoomer/internal/resources/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
+
+	"zoomer/internal/base/interceptor"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
+	base := interceptor.NewInterceptor()
+
 	userRepo := authRepository.NewUserRepository(s.db)
 	roomRepo := roomRepository.NewRoomRepository(s.db)
 	searchRepo := searchRepository.NewSearchRepository(s.db)
@@ -31,7 +35,7 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)
 
-	authHandler := authHttp.NewAuthHandler(authUC)
+	authHandler := authHttp.NewAuthHandler(authUC, base)
 	roomHandler := roomHttp.NewRoomHandler(roomUC)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
 	resourceHandler := resourceHttp.NewResourceHandler(resourceUC)

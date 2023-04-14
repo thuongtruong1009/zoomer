@@ -14,5 +14,6 @@ var (
 	ErrChatAccessDenied = errors.New("chat access denied")
 
 	//other
-	ErrInternalServer = errors.New("Error occured in our own server")
+	ErrorInternalServer = errors.New("Error occured in our own server")
+	ErrorBadRequest   = errors.New("Bad request")
 )

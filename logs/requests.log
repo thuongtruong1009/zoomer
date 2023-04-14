@@ -1,0 +1,26 @@
+[Id: 9oVY4LawaAShA71mdvlfmCvbK2lMwRnj]2023/04/14 08:38:49 logger.go:22:  Time: 2023-04-14T08:38:49+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.5782ms Bytes_in: 63 Bytes_out: 26
+
+[Id: UEJrisuvZ2wHtsjJIK8mHsmgPl3zxVVR]2023/04/14 08:42:13 logger.go:22:  Time: 2023-04-14T08:42:13+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 1.5901ms Bytes_in: 81 Bytes_out: 63
+
+[Id: K4sCqKkyxkChYp8o9aCu8kv2wHvTLGU3] 2023/04/14 08:44:43 logger.go:22:  Time: 2023-04-14T08:44:43+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 2.7452ms Bytes_in: 81 Bytes_out: 63
+
+[Id: h4Tndqi4vTux6IWUqWjBhJmg6f8fOblE] 2023/04/14 08:44:51 logger.go:22:  Time: 2023-04-14T08:44:51+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 4.0116ms Bytes_in: 81 Bytes_out: 63
+
+[Id: RR2zYaFqOG5w6AF25W4I9jCbNdOJVlAo] 2023/04/14 08:57:45 logger.go:22:  Time: 2023-04-14T08:57:45+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 633.7101ms Bytes_in: 81 Bytes_out: 100
+
+[Id: 1HghhXzhtHpBNX6MKOCjQXwxVYeCxjRf] 2023/04/14 09:28:52 logger.go:22:  Time: 2023-04-14T09:28:52+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 3.1272ms Bytes_in: 81 Bytes_out: 63
+
+[Id: DtJBk4DIdxn0pjnHlTMYx0vydkGPwThg] 2023/04/14 09:30:47 logger.go:22:  Time: 2023-04-14T09:30:47+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.7046ms Bytes_in: 63 Bytes_out: 26
+
+[Id: ovoB1ZTrFtLgz3LhYMaw5sYHNUTKDuJm] 2023/04/14 09:30:53 logger.go:22:  Time: 2023-04-14T09:30:53+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 9.0027ms Bytes_in: 81 Bytes_out: 63
+
+[Id: 25BR7O2IzVrCKGkpM2cwAinq6Zuk5uwT] 2023/04/14 09:31:09 logger.go:22:  Time: 2023-04-14T09:31:09+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.6557ms Bytes_in: 63 Bytes_out: 26
+
+[Id: dLVUu2JP608tMJzSd3ZNbd4C79rA72sH] 2023/04/14 09:31:41 logger.go:22:  Time: 2023-04-14T09:31:41+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 400 Latency: 2.8527ms Bytes_in: 81 Bytes_out: 63
+
+[Id: n1yoXaHWbKLkJteBlFTcXFno4Z3l2H29] 2023/04/14 09:31:47 logger.go:22:  Time: 2023-04-14T09:31:47+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.5738ms Bytes_in: 63 Bytes_out: 26
+
+[Id: GHM34ZNMQ77FSgZNowoj0xk5ocuszl7p] 2023/04/14 09:33:18 logger.go:22:  Time: 2023-04-14T09:33:18+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 416.3516ms Bytes_in: 63 Bytes_out: 362
+
+[Id: uMNWtU8uc991gG9j2HxA2ldMv5pw2voZ] 2023/04/14 09:33:50 logger.go:22:  Time: 2023-04-14T09:33:50+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 406.5453ms Bytes_in: 81 Bytes_out: 71
+

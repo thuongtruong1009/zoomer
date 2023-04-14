@@ -35,7 +35,6 @@ func (s *Server) Run() error {
 		Addr:         ":" + s.cfg.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
-		IdeleTimeout: 60 * time.Second,
 	}
 
 	go func() {
