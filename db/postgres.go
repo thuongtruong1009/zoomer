@@ -1,11 +1,11 @@
 package db
 
 import (
+	"time"
+	"log"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
-	"log"
-	"time"
 
 	"zoomer/configs"
 	"zoomer/internal/models"
@@ -24,10 +24,11 @@ func GetPostgresInstance(cfg *configs.Configuration, migrate bool) *gorm.DB {
 	}
 
 	if migrate {
-		db.Debug().AutoMigrate(&models.User{}, &models.Room{})
+		db.AutoMigrate(&models.User{}, &models.Room{})
 		if err != nil {
 			panic("Error when run migrations")
 		}
+		log.Println("Migration successful")
 	}
 	return db
 }

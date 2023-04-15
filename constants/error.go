@@ -14,6 +14,14 @@ var (
 	ErrChatAccessDenied = errors.New("chat access denied")
 
 	//other
-	ErrorInternalServer = errors.New("Error occured in our own server")
-	ErrorBadRequest   = errors.New("Bad request")
+	ErrorInternalServer = errors.New("We had a problem with our server. Try again later")
+	ErrorBadRequest   = errors.New("Something went wrong")
+	ErrorUnauthorized = errors.New("Your API key is wrong. Try re-authenticating")
+	ErrorForbidden    = errors.New("You do not have permission to access this resource")
+	ErrorNotFound     = errors.New("The specified resource could not be found")
+	ErrorMethodNotAllowed = errors.New("You tried to access a resource with an invalid method")
+	ErrorNotAcceptable = errors.New("You requested a format that isn't json")
+	ErrorUnprocessableEntity = errors.New("Your input failed validation")
+	ErrorTooManyRequests = errors.New("Too many requests")
+	// ErrorServiceUnavailable = errors.New("We're temporarily offline for maintenance. Please try again later")
 )

@@ -3,32 +3,61 @@ on:
   push:
     branches:
       - main
+		paths-ignore:
+      - "!cmd/**"
+      - "!configs/**"
+      - "!db/**"
+      - "!internal/**"
+      - "!utils/**"
+			- "!lib/**"
+			- "!validators/**"
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
 
+		services:
+			postgres:
+				image: postgres:14-alpine
+				env:
+					POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
+					POSTGRES_PASSWORD: ${{ secrets.POSTGRES_USERNAME }}
+					POSTGRES_DB: zoomer
+				ports:
+					- 5432:5432
+				options: >-
+					--health-cmd pg_isready
+					--health-interval 10s
+					--health-timeout 5s
+					--health-retries 5
+    steps:
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.20.x
+
+			- name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Install Dependencies
         run: go mod download
 
       - name: Build and Test
         run: |
-          go build -o ./... cmd/main.go
-          go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+          go build -o -v ./... cmd/main.go
+          go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
           path: ./coverage.txt
+
+			- name: Upload Coverage Report
+				uses: actions/upload-artifact@v2
+				with:
+					name: coverage-report
+					path: ./coverage.txt
 
   deploy:
     needs: build-and-test

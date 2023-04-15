@@ -11,6 +11,6 @@ type MiddlewareManager struct {
 	// origins []string
 }
 
-func AuthMiddlewareManager(authUC usecase.UseCase) *MiddlewareManager {
+func BaseMiddlewareManager(authUC usecase.UseCase) *MiddlewareManager {
 	return &MiddlewareManager{authUC}
 }

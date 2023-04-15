@@ -2,19 +2,20 @@ package middlewares
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
-func HttpCORS(e *echo.Echo) {
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:3001"},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderContentLength, echo.HeaderAuthorization, echo.HeaderAccessControlAllowHeaders},
-		AllowCredentials: true,
-		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS, echo.HEAD},
-	}))
+func HttpHeader(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		c.Response().Header().Set(echo.HeaderServer, "Zoomer/1.1")
+		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		c.Response().Header().Set("X-XSS-Protection", "1; mode=block")
+		c.Response().Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+		c.Response().Header().Set("Access-Control-Max-Age", "3600")
+		return next(c)
+	}
 }
 
-func WsCORS(next echo.HandlerFunc) echo.HandlerFunc {
+func WsHeader(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		c.Response().Header().Set(echo.HeaderAccessControlAllowHeaders, "Content-Type, Authorization")
 		c.Response().Header().Set(echo.HeaderAccessControlAllowMethods, "GET, POST, PUT, DELETE")

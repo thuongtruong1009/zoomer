@@ -48,17 +48,17 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 
 		if err != nil {
 			if err == constants.ErrUserNotFound {
-				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
+				return h.inter.Error(c, http.StatusNotFound, constants.ErrUserNotFound, err)
 			}
 			if err == constants.ErrWrongPassword {
-				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
+				return h.inter.Error(c, http.StatusNotFound, constants.ErrWrongPassword, err)
 			}
-			return echo.NewHTTPError(http.StatusInternalServerError)
+			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
 
 		usecase.WriteCookie(c, "jwt", token, 60*60*24, "/", "localhost", false, true)
 
-		return c.JSON(http.StatusOK, presenter.LogInResponse{UserId: userId, Username: username, Token: token})
+		return h.inter.Data(c, http.StatusOK, presenter.LogInResponse{UserId: userId, Username: username, Token: token})
 	}
 }
 

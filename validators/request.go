@@ -1,7 +1,6 @@
 package validators
 
 import (
-	"context"
 	"net/http"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
@@ -13,9 +12,13 @@ func init() {
 	validate = validator.New()
 }
 
-func ValidateStruct(ctx context.Context, i interface{}) error {
-	if err := validate.StructCtx(ctx, i); err != nil {
+func ReadRequest(ctx echo.Context, request interface{}) error {
+	if err := ctx.Bind(request); err != nil {
+		return err
+	}
+
+	if err := validate.StructCtx(ctx.Request().Context(), request); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	return validate.StructCtx(ctx, i)
+	return validate.StructCtx(ctx.Request().Context(), request)
 }

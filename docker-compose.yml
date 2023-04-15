@@ -2,21 +2,21 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:12.2
+    image: postgres:14-alpine
     container_name: postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./.docker/postgres/data:/var/lib/postgresql/data
+    networks:
+      - postgres-network
     environment:
-      # POSTGRES_USER: postgres
-      # POSTGRES_PASSWORD: 123456789
-      # POSTGRES_DB: zoomer
-
       - POSTGRES_DB=${POSTGRES_DB:-zoomer}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456789}
-    volumes:
-      - ./.docker/postgres:/var/lib/postgresql/data
-    restart: unless-stopped
 
   minio:
     image: minio/minio
@@ -25,30 +25,30 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: "${MINIO_ROOT_USER}"
-      MINIO_ROOT_PASSWORD: "${MINIO_ROOT_PASSWORD}"
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     networks:
       - minio-network
     volumes:
       # - ./storage:/data
-      - minio:/var/lib/minio
+      - ./.docker/minio:/var/lib/minio
     command: server --console-address ":9001" /var/lib/minio
     restart: unless-stopped
 
-	broker:
-		image: rabbitmq:3.11.3-management-alpine
-		container_name: broker
-		ports:
-			- "5672:5672"
-			- "15672:15672"
-		environment:
-			AMQP_SERVER_URL: amqp://guest:guest@broker:5672/
-		volumes:
-			- ./.docker/rabbitmq/data:/var/lib/rabbitmq
-			- ./.docker/rabbitmq/log:/var/log/rabbitmq
-		restart: unless-stopped
-		networks:
-			- broker-network
+  broker:
+    image: rabbitmq:3.11.3-management-alpine
+    container_name: broker
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      AMQP_SERVER_URL: amqp://guest:guest@broker:5672/
+    volumes:
+      - ./.docker/rabbitmq/data:/var/lib/rabbitmq
+      - ./.docker/rabbitmq/log:/var/log/rabbitmq
+    restart: unless-stopped
+    networks:
+      - broker-network
 
   app:
     image: zoomer
@@ -65,7 +65,7 @@ services:
     depends_on:
       - postgres
       - minio
-			- broker
+      - broker
     volumes:
       - .:/app
       - $GOPATH/pkg/mod:/go/pkg/mod
@@ -74,24 +74,26 @@ services:
     # command: reflex -r '(\.go$$|go\.mod)' -s go run .
     restart: on-failure
 
-  nginx:
-    image: nginx:1.21.6-alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf/default.conf
-    depends_on:
-      - app
-    networks:
-      - nginx-network
+  # nginx:
+  #   image: nginx:1.21.6-alpine
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf/default.conf
+  #   depends_on:
+  #     - app
+  #   networks:
+  #     - nginx-network
 
 networks:
-  nginx-network:
+  # nginx-network:
+  #   driver: bridge
+  postgres-network:
     driver: bridge
   minio-network:
     driver: bridge
-	broker-network:
-		driver: bridge
+  broker-network:
+    driver: bridge
 # volumes:
 #   minio:
 

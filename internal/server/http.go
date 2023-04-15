@@ -42,7 +42,7 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 
 	middlewares.HttpMiddleware(e)
 
-	mw := middlewares.AuthMiddlewareManager(authUC)
+	mw := middlewares.BaseMiddlewareManager(authUC)
 
 	e.Static("/", "public")
 
