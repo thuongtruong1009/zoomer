@@ -4,6 +4,7 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: postgres
+    hostname: postgres
     ports:
       - 5432:5432
     env_file:
@@ -14,6 +15,7 @@ services:
     networks:
       - postgres-network
     environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=${POSTGRES_DB:-zoomer}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456789}
@@ -69,7 +71,6 @@ services:
     volumes:
       - .:/app
       - $GOPATH/pkg/mod:/go/pkg/mod
-    command: sh docker-entrypoint.dev.sh
     # working_dir: /app/cmd
     # command: reflex -r '(\.go$$|go\.mod)' -s go run .
     restart: on-failure

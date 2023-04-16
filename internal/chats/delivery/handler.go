@@ -2,9 +2,9 @@ package delivery
 
 import (
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/chats/adapter"
+	"github.com/labstack/echo/v4"
+	"github.com/gorilla/websocket"
 	"zoomer/internal/chats/hub"
 	"zoomer/internal/models"
 )
@@ -19,11 +19,21 @@ func NewChatHandler(hub hub.IHub) ChatHandler {
 	}
 }
 
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin:     func(r *http.Request) bool { return true },
+}
+
+
 func (ch *chatHandler) ChatConnect() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		fmt.Println(c.Request().Host, c.Request().RemoteAddr)
 
-		ws := adapter.HubUpgrader(c.Response(), c.Request())
+		ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
+		if err != nil {
+			c.Logger().Error(err)
+		}
 
 		client := &models.Client{Conn: ws}
 
@@ -31,9 +41,7 @@ func (ch *chatHandler) ChatConnect() echo.HandlerFunc {
 
 		fmt.Println("clients", len(hub.Clients), hub.Clients, ws.RemoteAddr())
 
-		// Receiver(client)
-		go ch.hub.Broadcaster(c.Request().Context())
-		go ch.hub.Receiver(c.Request().Context(), client)
+		ch.hub.Receiver(c.Request().Context(), client)
 
 		fmt.Println("existing", ws.RemoteAddr().String())
 		delete(hub.Clients, client)

@@ -1,0 +1,74 @@
+[Id: cuuFzzfhErPEqdkGQ9FSTHYbyt7S8QOr] 2023/04/16 16:02:55 logger.go:22:  Time: 2023-04-16T16:02:55+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user_05 Status: 204 Latency: 7.8954ms Bytes_in: 0 Bytes_out: 0
+
+[Id: T3OmwTVQwQpb8gGiodwczfS7nm55e4oR] 2023/04/16 16:04:18 logger.go:22:  Time: 2023-04-16T16:04:18+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 16.3028ms Bytes_in: 0 Bytes_out: 0
+
+[Id: uwkx2O4QN2XRl7xocr5lAp7FcBUMGz4N] 2023/04/16 16:05:23 logger.go:22:  Time: 2023-04-16T16:05:22+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 135.6677ms Bytes_in: 0 Bytes_out: 0
+
+[Id: np7WkeUd26f5JvsBXjyW1gQs5rzVMF19] 2023/04/16 16:05:24 logger.go:22:  Time: 2023-04-16T16:05:24+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 1.1069897s Bytes_in: 41 Bytes_out: 58
+
+[Id: v51O3lvIQwGNcKUlMPzWXW5uHfsAxcOI] 2023/04/16 16:05:50 logger.go:22:  Time: 2023-04-16T16:05:50+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 66.3094ms Bytes_in: 47 Bytes_out: 58
+
+[Id: oU2RyuecQRVMxgvzdQYPJamwDRwcUQGB] 2023/04/16 16:26:11 logger.go:22:  Time: 2023-04-16T16:26:11+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 111.1614ms Bytes_in: 41 Bytes_out: 58
+
+[Id: NEJZuXAfEQEvyq7K4VIfLH80ed2OyzFL] 2023/04/16 16:26:50 logger.go:22:  Time: 2023-04-16T16:26:50+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signup Status: 204 Latency: 2.4354ms Bytes_in: 0 Bytes_out: 0
+
+[Id: a80TpaSqJpnEbpK3GP5flT2FJJw2VLLT] 2023/04/16 16:26:50 logger.go:22:  Time: 2023-04-16T16:26:50+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 468.1649ms Bytes_in: 41 Bytes_out: 100
+
+[Id: BikNuSsnmoLMqXbZIkuvS3OWzf9JTaro] 2023/04/16 17:07:29 logger.go:22:  Time: 2023-04-16T17:07:29+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 648.4µs Bytes_in: 0 Bytes_out: 0
+
+[Id: 0pKn0ncLB6GmCGsIjkhJL1IHBZMA0ejf] 2023/04/16 17:07:30 logger.go:22:  Time: 2023-04-16T17:07:30+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 175.058ms Bytes_in: 41 Bytes_out: 58
+
+[Id: FZDJDQTzNdtl7V8EvtVJMeVkbhPbjKpO] 2023/04/16 17:07:47 logger.go:22:  Time: 2023-04-16T17:07:47+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 116.6584ms Bytes_in: 45 Bytes_out: 58
+
+[Id: q4CeAci4i2nH0W197LzXfMk1FOA6uNLn] 2023/04/16 17:07:49 logger.go:22:  Time: 2023-04-16T17:07:49+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 113.7505ms Bytes_in: 45 Bytes_out: 58
+
+[Id: 7J1tkmsfcj50VSjuAvRyrJz76bYJHT2u] 2023/04/16 17:08:00 logger.go:22:  Time: 2023-04-16T17:08:00+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 70.2483ms Bytes_in: 43 Bytes_out: 58
+
+[Id: agLv8470ehdLfghununSMKpHZ4Wd6NKU] 2023/04/16 17:08:20 logger.go:22:  Time: 2023-04-16T17:08:20+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 80.5604ms Bytes_in: 41 Bytes_out: 91
+
+[Id: FvTxjkbN1RnuhjB3QRxrsTSHE1q9lyGD] 2023/04/16 17:09:19 logger.go:22:  Time: 2023-04-16T17:09:19+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 413.4212ms Bytes_in: 41 Bytes_out: 100
+
+[Id: nYCycZjLIFbeszWgOksHGngyGrxfaMJE] 2023/04/16 17:09:20 logger.go:22:  Time: 2023-04-16T17:09:20+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.1519094s Bytes_in: 0 Bytes_out: 39
+
+[Id: 4qmq5pCrAUtqOtQGjRuwgmEfXFqfMzIW] 2023/04/16 17:09:22 logger.go:22:  Time: 2023-04-16T17:09:22+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.1433969s Bytes_in: 0 Bytes_out: 39
+
+[Id: N90adagliPPqbi2Ksw1U4ZnC48ejdkCw] 2023/04/16 17:09:34 logger.go:22:  Time: 2023-04-16T17:09:34+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.2176308s Bytes_in: 0 Bytes_out: 39
+
+[Id: fSocv5jVsQuRDiDxXsVOnJPAPfXQOpIa] 2023/04/16 17:09:35 logger.go:22:  Time: 2023-04-16T17:09:35+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.1386195s Bytes_in: 0 Bytes_out: 39
+
+[Id: yfyK8r3RJil54JI5FnEVdY3OnXClPE5K] 2023/04/16 17:09:52 logger.go:22:  Time: 2023-04-16T17:09:52+07:00 Remote_IP: ::1 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 2.5386ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 2Lxli0cO9uh8U0nrGtliO2jV9XWRu1bL] 2023/04/16 17:09:53 logger.go:22:  Time: 2023-04-16T17:09:53+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 154.9518ms Bytes_in: 41 Bytes_out: 384
+
+[Id: YcaB4lRCzLk1847UTN9DS51Z1qlbARlC] 2023/04/16 17:09:54 logger.go:22:  Time: 2023-04-16T17:09:54+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 1.419196s Bytes_in: 0 Bytes_out: 39
+
+[Id: RcGFwYnZDwrXOoGZvv9CLrKW4imzzQiw] 2023/04/16 17:09:55 logger.go:22:  Time: 2023-04-16T17:09:55+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 1.1295813s Bytes_in: 0 Bytes_out: 39
+
+[Id: y9fiKdbi3C6AB5RKSUmRCPJqqs7O6672] 2023/04/16 17:10:00 logger.go:22:  Time: 2023-04-16T17:10:00+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user09 Status: 200 Latency: 1.2507315s Bytes_in: 0 Bytes_out: 39
+
+[Id: sGtgtkFo7Tvk3DBmMS5vGZbF0ow5yUmd] 2023/04/16 17:10:18 logger.go:22:  Time: 2023-04-16T17:10:18+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user09 Status: 200 Latency: 1.3034349s Bytes_in: 0 Bytes_out: 152
+
+[Id: CsqeBg9Avb0WDJ1CjNeBhbIAESd5XYtK] 2023/04/16 17:10:27 logger.go:22:  Time: 2023-04-16T17:10:27+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user09 Status: 200 Latency: 1.2189886s Bytes_in: 0 Bytes_out: 256
+
+[Id: IaFgmE7wrZ45GfdABSpPnn2kWWI7UGtE] 2023/04/16 17:10:40 logger.go:22:  Time: 2023-04-16T17:10:40+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.6620408s Bytes_in: 0 Bytes_out: 97
+
+[Id: NzxFYVo1oSr5npEI2iQG5MDswAjwNlp0] 2023/04/16 17:10:41 logger.go:22:  Time: 2023-04-16T17:10:41+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.1298448s Bytes_in: 0 Bytes_out: 97
+
+[Id: cHQ48xbwCt9Ej7EemRU8UqzdfLmXc3Ns] 2023/04/16 17:10:42 logger.go:22:  Time: 2023-04-16T17:10:42+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user09&u2=user07 Status: 200 Latency: 1.0511186s Bytes_in: 0 Bytes_out: 256
+
+[Id: xIl7rh3NIfQ8D0zZvvqg07CnZyVWXyFS] 2023/04/16 17:33:06 logger.go:22:  Time: 2023-04-16T17:33:06+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.3163879s Bytes_in: 0 Bytes_out: 97
+
+[Id: 8CrCVf6zFUPtqGetaTAhtLfv70fMSCeJ] 2023/04/16 17:33:07 logger.go:22:  Time: 2023-04-16T17:33:07+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user09 Status: 200 Latency: 1.1737005s Bytes_in: 0 Bytes_out: 97
+
+[Id: 2q5e7CTgE3yiCHn60A06bAX0Fu672Y01] 2023/04/16 17:33:08 logger.go:22:  Time: 2023-04-16T17:33:08+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user09&u2=user07 Status: 200 Latency: 1.1898945s Bytes_in: 0 Bytes_out: 256
+
+[Id: NWxE4AGKFucNKC1EOnqofjghrB26IH8m] 2023/04/16 17:33:16 logger.go:22:  Time: 2023-04-16T17:33:16+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 2.0285308s Bytes_in: 0 Bytes_out: 97
+
+[Id: coVQbPaAsSulCZFkTuFjyx3kvclVSAf1] 2023/04/16 17:33:17 logger.go:22:  Time: 2023-04-16T17:33:17+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 1.1581687s Bytes_in: 0 Bytes_out: 97
+
+[Id: YvFYih20hLCZgANKA6hsFen0SuCyMWUU] 2023/04/16 17:33:18 logger.go:22:  Time: 2023-04-16T17:33:18+07:00 Remote_IP: ::1 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user09 Status: 200 Latency: 1.0628084s Bytes_in: 0 Bytes_out: 256
+
+[Id: Izf0EJptabg8e0BV55wGgcg3fJeeXPal] 2023/04/16 17:58:53 logger.go:22:  Time: 2023-04-16T17:58:53+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/search Status: 405 Latency: 3.4566ms Bytes_in: 74 Bytes_out: 33
+
+[Id: PRfK8gNmKH9KZnV94com80018mkcuSrN] 2023/04/16 17:59:24 logger.go:22:  Time: 2023-04-16T17:59:24+07:00 Remote_IP: ::1 Host: localhost:8080 Method: POST Uri: /api/search/room Status: 200 Latency: 65.3801ms Bytes_in: 74 Bytes_out: 110
+

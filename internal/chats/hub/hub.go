@@ -69,7 +69,7 @@ func (h *Hub) Receiver(ctx context.Context, client *models.Client) {
 	}
 }
 
-func (h *Hub) Broadcaster(ctx context.Context) {
+func (h *Hub) Broadcaster() {
 	for {
 		message := <-Broadcast
 		fmt.Println("new message", message)

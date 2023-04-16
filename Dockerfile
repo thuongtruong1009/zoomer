@@ -29,8 +29,8 @@ COPY --from=builder /app/.env .
 # RUN go get -v golang.org/x/tools/gopls
 
 # ENTRYPOINT CompileDaemon --build="go build -a -installsuffix cgo -o main ." --command=./main
-# ENTRYPOINT ["./main"]
-CMD ["/app/main"]
+ENTRYPOINT ["./main"]
+CMD ["./main"]
 
 # CMD ["air", "-c", ".air.toml"]
 

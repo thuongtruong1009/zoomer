@@ -13,6 +13,9 @@ _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 dev:
 	gofmt -w . && go run ${ENTRYPOINT}
 
+air:
+	air -c .air.toml -d
+
 test:
 	go test -v -race -coverprofile=coverage -covermode=atomic -short ./...
 
@@ -30,4 +33,4 @@ docker_release:
 	docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_RELEASE_TAG}
 
-.PHONY: dev_run dev_test dev_build docker_build docker_push docker_release
+.PHONY: dev air test build docker_build docker_push docker_release

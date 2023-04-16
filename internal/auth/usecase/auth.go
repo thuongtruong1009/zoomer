@@ -125,3 +125,11 @@ func WriteCookie(c echo.Context, name string, value string, expire time.Duration
 	}
 	c.SetCookie(&cookie)
 }
+
+// func (a *authUseCase) SearchUserByMatch(c echo.Context, username string) {
+// 	users, err := a.userRepo.QueryMatchingFields(c.Request().Context(), username)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
+// }

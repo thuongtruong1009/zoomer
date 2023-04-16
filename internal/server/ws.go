@@ -1,8 +1,6 @@
 package server
 
 import (
-	// "fmt"
-	// "net/http"
 	"github.com/labstack/echo/v4"
 	"zoomer/db"
 	"zoomer/internal/chats/delivery"
@@ -20,10 +18,7 @@ func WsMapServer(port string) {
 	wsUC := hub.NewChatHub(repository.NewChatRepository())
 	wsHandler := delivery.NewChatHandler(wsUC)
 
-	// go hub.Broadcaster()
-
-	// http.ListenAndServe(port, nil)
-	// fmt.Println("websocket server is starting on :8081")
+	go wsUC.Broadcaster()
 
 	delivery.MapChatRoutes(e, wsHandler, "/ws")
 

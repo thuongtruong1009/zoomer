@@ -8,5 +8,5 @@ import (
 type IHub interface {
 	Receiver(ctx context.Context, client *models.Client)
 
-	Broadcaster(ctx context.Context)
+	Broadcaster()
 }
