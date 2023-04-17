@@ -11,7 +11,7 @@ _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
 dev:
-	gofmt -w . && go run ${ENTRYPOINT}
+	go run ${ENTRYPOINT}
 
 air:
 	air -c .air.toml -d
@@ -21,6 +21,29 @@ test:
 
 build:
 	go build -o ${APPLICATION_NAME} ${ENTRYPOINT}
+
+# Migration
+
+migration-create:
+	migrate create -ext sql -dir migrations/sql $(name)
+
+migration-up:
+	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" up
+
+migration-down:
+	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
+
+setup:
+	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/swaggo/swag/cmd/swag@latest
+
+docs:
+	swag i --dir ./cmd/api/,\
+	./modules/,\
+	./pkg/wrapper,\
+	./pkg/contexts
+
+# Docker
 
 docker_build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
@@ -33,4 +56,11 @@ docker_release:
 	docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_RELEASE_TAG}
 
-.PHONY: dev air test build docker_build docker_push docker_release
+git-hooks:
+	echo "Installing git hooks..." && \
+	rm -rf .git/hooks/pre-commit && \
+	ln -s ../../scripts/pre-commit.sh .git/hooks/pre-commit && \
+	chmod +x .git/hooks/pre-commit && \
+	echo "Done!"
+
+.PHONY: dev air test build docker_build docker_push docker_release git-hooks

@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/middlewares"
+	"zoomer/pkg/middlewares"
 
 	authRepository "zoomer/internal/auth/repository"
 	resourceRepository "zoomer/internal/resources/repository"
@@ -19,7 +19,8 @@ import (
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
 
-	"zoomer/internal/base/interceptor"
+	"zoomer/pkg/interceptor"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
@@ -47,6 +48,8 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	e.Static("/", "public")
 
 	httpGr := e.Group("/api")
+
+	e.GET("/docs/*", echoSwagger.WrapHandler)
 
 	authGroup := httpGr.Group("/auth")
 	authHttp.MapAuthRoutes(authGroup, authHandler)
