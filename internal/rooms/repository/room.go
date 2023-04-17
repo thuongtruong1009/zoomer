@@ -8,7 +8,7 @@ import (
 	"zoomer/db"
 	chatAdapter "zoomer/internal/chats/adapter"
 	"zoomer/internal/models"
-	"zoomer/lib/cache"
+	"zoomer/pkg/cache"
 )
 
 type roomRepository struct {

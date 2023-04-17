@@ -4,10 +4,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"zoomer/validators"
-	"zoomer/constants"
+	"zoomer/pkg/constants"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
-	"zoomer/internal/base/interceptor"
+	"zoomer/pkg/interceptor"
 )
 
 type authHandler struct {

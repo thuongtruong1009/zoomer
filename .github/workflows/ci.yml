@@ -8,8 +8,7 @@ on:
       - "!configs/**"
       - "!db/**"
       - "!internal/**"
-      - "!utils/**"
-			- "!lib/**"
+      - "!pkg/**"
 			- "!validators/**"
 
 jobs:

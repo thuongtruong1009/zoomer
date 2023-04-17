@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	"gorm.io/gorm"
 	"strings"
-	"zoomer/lib/cache"
+	"gorm.io/gorm"
+	"zoomer/pkg/cache"
 	"zoomer/internal/models"
 )
 

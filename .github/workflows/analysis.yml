@@ -9,8 +9,7 @@ on:
       - "!configs/**"
       - "!db/**"
       - "!internal/**"
-      - "!utils/**"
-			- "!lib/**"
+      - "!pkg/**"
 			- "!validators/**"
   pull_request:
     paths-ignore:
@@ -18,8 +17,7 @@ on:
       - "!configs/**"
       - "!db/**"
       - "!internal/**"
-      - "!utils/**"
-			- "!lib/**"
+      - "!pkg/**"
 			- "!validators/**"
 jobs:
   analyze:

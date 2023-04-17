@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/sirupsen/logrus"
 	"log"
 	"zoomer/configs"
 	"zoomer/db"
-	"zoomer/internal/server"
 	"zoomer/migrations"
+	"zoomer/internal/server"
+	"github.com/sirupsen/logrus"
 )
 
 // @title Echo REST API
@@ -41,7 +41,11 @@ func main() {
 	db.SetConnectionPool(instance, cfg)
 
 	if cfg.AutoMigrate {
-		migrations.RunAutoMigration(instance)
+		sqlDB, err := instance.DB()
+		if err != nil {
+			log.Fatalf("Failed to get sql.DB: %v", err)
+		}
+		migrations.RunAutoMigration(sqlDB, logrus.New())
 	}
 
 	s := server.NewServer(cfg, instance, logrus.New(), nil)

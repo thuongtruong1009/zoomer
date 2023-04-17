@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
-	"zoomer/constants"
+	"zoomer/pkg/constants"
 	"zoomer/internal/auth/repository"
 )
 

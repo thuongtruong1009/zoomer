@@ -9,7 +9,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"zoomer/constants"
+	"zoomer/pkg/constants"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
 )
