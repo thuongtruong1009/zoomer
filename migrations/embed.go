@@ -3,10 +3,10 @@ package migrations
 import (
 	"database/sql"
 	"embed"
-	"github.com/sirupsen/logrus"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/golang-migrate/migrate/v4/source/iofs"
+	"github.com/sirupsen/logrus"
 )
 
 var fs embed.FS

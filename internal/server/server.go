@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 	"zoomer/configs"
+	"zoomer/pkg/constants"
 	// "log"
 	// "golang.org/x/net/http2"
 )
@@ -40,17 +41,20 @@ func (s *Server) Run() error {
 	go func() {
 		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.HttpPort)
 
-		// http1.1
-		if err := s.echo.StartServer(httpServer); err != nil {
-			s.logger.Fatalln("Error starting server: ", err)
+		// https
+		if s.cfg.HttpsMode == "true" {
+			if err := s.echo.StartTLS(httpServer.Addr, constants.CertPath, constants.KeyPath); err != http.ErrServerClosed {
+				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
+			}
 		}
 
-		// https
-		// if err := s.echo.StartTLS(":8080", ".docker/nginx/cert.pem", ".docker/nginx/key.pem"); err != http.ErrServerClosed {
-		// 	log.Fatal(err)
-		//   }
+		// http1.1
+		if err := s.echo.StartServer(httpServer); err != nil {
+			s.logger.Fatalln("Error occurred while starting the http server: ", err)
+		}
 	}()
 
+	s.logger.Log(logrusInfoLevel, "Setting up routers")
 	if err := s.HttpMapServer(s.echo); err != nil {
 		return err
 	}

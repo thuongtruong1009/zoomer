@@ -1,9 +1,5 @@
 package presenter
 
-import (
-
-)
-
 type SearchResquest struct {
 	Username string `json:"search"`
 }

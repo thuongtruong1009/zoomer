@@ -1,19 +1,19 @@
 package interceptor
 
 import (
+	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"errors"
 )
 
 var (
-	e = echo.New()
+	e   = echo.New()
 	req = httptest.NewRequest(http.MethodGet, "/", nil)
 	rec = httptest.NewRecorder()
-	c = e.NewContext(req, rec)
+	c   = e.NewContext(req, rec)
 
 	i = &interceptor{}
 )
@@ -51,4 +51,3 @@ func TestInterceptor_Error(t *testing.T) {
 		t.Errorf("Expected message '%s', but got '%s'", expectedMessage, props.Message)
 	}
 }
-

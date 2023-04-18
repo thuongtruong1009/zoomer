@@ -11,6 +11,6 @@ type IInterceptor interface {
 }
 
 type InterceptorProps struct {
-	Data interface{} `json:"data"`
+	Data    interface{} `json:"data"`
 	Message interface{} `json:"message"`
 }

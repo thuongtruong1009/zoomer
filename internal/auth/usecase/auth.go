@@ -3,15 +3,15 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"strings"
-	"time"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"zoomer/pkg/constants"
+	"net/http"
+	"strings"
+	"time"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
+	"zoomer/pkg/constants"
 )
 
 type AuthClaims struct {

@@ -2,9 +2,9 @@ package delivery
 
 import (
 	"fmt"
-	"net/http"
-	"github.com/labstack/echo/v4"
 	"github.com/gorilla/websocket"
+	"github.com/labstack/echo/v4"
+	"net/http"
 	"zoomer/internal/chats/hub"
 	"zoomer/internal/models"
 )
@@ -24,7 +24,6 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
-
 
 func (ch *chatHandler) ChatConnect() echo.HandlerFunc {
 	return func(c echo.Context) error {

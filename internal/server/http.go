@@ -19,8 +19,8 @@ import (
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
 
-	"zoomer/pkg/interceptor"
 	echoSwagger "github.com/swaggo/echo-swagger"
+	"zoomer/pkg/interceptor"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {

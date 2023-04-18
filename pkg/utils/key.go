@@ -16,17 +16,17 @@ import (
 	"os"
 	"strings"
 	"time"
+	"zoomer/pkg/constants"
 )
 
 var (
-	host        = flag.String("host", "443", "Comma-separated hostnames and IPs to generate a certificate for")
-	validFrom   = flag.String("start-date", "", "Creation date formatted as Jan 1 15:04:05 2011")
-	validFor    = flag.Duration("duration", 365*24*time.Hour, "Duration that certificate is valid for")
-	isCA        = flag.Bool("ca", false, "whether this cert should be its own Certificate Authority")
-	rsaBits     = flag.Int("rsa-bits", 2048, "Size of RSA key to generate. Ignored if --ecdsa-curve is set")
-	ecdsaCurve  = flag.String("ecdsa-curve", "", "ECDSA curve to use to generate a key. Valid values are P224, P256 (recommended), P384, P521")
-	ed25519Key  = flag.Bool("ed25519", false, "Generate an Ed25519 key")
-	pemLocation = ".docker/nginx"
+	host       = flag.String("host", "443", "Comma-separated hostnames and IPs to generate a certificate for")
+	validFrom  = flag.String("start-date", "", "Creation date formatted as Jan 1 15:04:05 2011")
+	validFor   = flag.Duration("duration", 365*24*time.Hour, "Duration that certificate is valid for")
+	isCA       = flag.Bool("ca", false, "whether this cert should be its own Certificate Authority")
+	rsaBits    = flag.Int("rsa-bits", 2048, "Size of RSA key to generate. Ignored if --ecdsa-curve is set")
+	ecdsaCurve = flag.String("ecdsa-curve", "", "ECDSA curve to use to generate a key. Valid values are P224, P256 (recommended), P384, P521")
+	ed25519Key = flag.Bool("ed25519", false, "Generate an Ed25519 key")
 )
 
 func publicKey(priv any) any {
@@ -133,7 +133,7 @@ func init() {
 		log.Fatalf("Failed to create certificate: %v", err)
 	}
 
-	certOut, err := os.Create(pemLocation + "/cert.pem")
+	certOut, err := os.Create(constants.CertPath)
 	if err != nil {
 		log.Fatalf("Failed to open cert.pem for writing: %v", err)
 	}
@@ -146,7 +146,7 @@ func init() {
 	}
 	log.Print("wrote cert.pem\n")
 
-	keyOut, err := os.OpenFile(pemLocation+"/key.pem", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	keyOut, err := os.OpenFile(constants.KeyPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		log.Fatalf("Failed to open key.pem for writing: %v", err)
 	}

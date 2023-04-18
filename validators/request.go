@@ -1,9 +1,9 @@
 package validators
 
 import (
-	"net/http"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
+	"net/http"
 )
 
 var validate *validator.Validate

@@ -2,10 +2,10 @@ package repository
 
 import (
 	"context"
-	"strings"
 	"gorm.io/gorm"
-	"zoomer/pkg/cache"
+	"strings"
 	"zoomer/internal/models"
+	"zoomer/pkg/cache"
 )
 
 type userRepository struct {
@@ -70,11 +70,9 @@ func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*mode
 	return &user, nil
 }
 
-
 func (ur *userRepository) QueryMatchingFields(ctx context.Context, match string) (*[]models.User, error) {
 	var user []models.User
 	err := ur.db.WithContext(ctx).Where("username LIKE ?", "%"+match+"%").First(&user).Error
-
 
 	if err != nil {
 		return nil, err

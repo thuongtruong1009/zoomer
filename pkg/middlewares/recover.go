@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"net/http"
 	"github.com/labstack/echo/v4"
+	"net/http"
 	"zoomer/pkg/constants"
 	"zoomer/pkg/interceptor"
 )

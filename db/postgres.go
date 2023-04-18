@@ -1,11 +1,11 @@
 package db
 
 import (
-	"time"
-	"log"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
+	"log"
+	"time"
 
 	"zoomer/configs"
 	"zoomer/internal/models"

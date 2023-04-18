@@ -17,13 +17,13 @@ type Proxy struct {
 }
 
 type Backend struct {
-	URL string `json:"url"`
+	URL    string `json:"url"`
 	IsDead bool
-	mutex sync.RWMutex
+	mutex  sync.RWMutex
 }
 
 type Config struct {
-	Proxy Proxy `json:"proxy"`
+	Proxy    Proxy     `json:"proxy"`
 	Backends []Backend `json:"backends"`
 }
 
@@ -111,7 +111,7 @@ func LoadBalancer() {
 	go healthCheck()
 
 	s := http.Server{
-		Addr: ":"+ cfg.Proxy.Port,
+		Addr:    ":" + cfg.Proxy.Port,
 		Handler: http.HandlerFunc(lbHandler),
 	}
 	if err = s.ListenAndServe(); err != nil {

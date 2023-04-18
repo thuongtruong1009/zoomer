@@ -3,22 +3,22 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/validators"
-	"zoomer/pkg/constants"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
+	"zoomer/pkg/constants"
 	"zoomer/pkg/interceptor"
+	"zoomer/validators"
 )
 
 type authHandler struct {
 	useCase usecase.UseCase
-	inter interceptor.IInterceptor
+	inter   interceptor.IInterceptor
 }
 
 func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) AuthHandler {
 	return &authHandler{
 		useCase: useCase,
-		inter: inter,
+		inter:   inter,
 	}
 }
 

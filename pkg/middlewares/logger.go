@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"time"
+	"zoomer/pkg/constants"
 )
 
 func writeRequestLog(filePath string, logID, logMessage string) {
@@ -37,6 +38,7 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		address := req.RemoteAddr
 		id := res.Header().Get(echo.HeaderXRequestID)
 		remoteIP := c.RealIP()
+		agent := req.UserAgent()
 		method := req.Method
 		path := req.URL.Path
 		status := res.Status
@@ -45,10 +47,10 @@ func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		bytesIn := req.ContentLength
 		bytesOut := res.Size
 
-		c.Logger().Infof("%s %s %s %s %d %s", protocol, host, address, remoteIP, method, path, status, size, latency)
+		c.Logger().Infof("%s %s %s %s %d %s\n", protocol, host, address, remoteIP, method, path, status, size, latency)
 
-		writeRequestLog("logs/requests.log",
-			"[Id: "+id+"] ", " Time: "+stop.Format(time.RFC3339)+" Remote_IP: "+remoteIP+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut)+"\n")
+		writeRequestLog(constants.RequestLogPath,
+			"[Id: "+id+"] ", " Time: "+stop.Format(time.RFC3339)+" Remote_IP: "+remoteIP+" Agent: "+agent+" Host: "+host+" Method: "+method+" Uri: "+uri+" Status: "+fmt.Sprint(status)+" Latency: "+fmt.Sprint(latency)+" Bytes_in: "+fmt.Sprint(bytesIn)+" Bytes_out: "+fmt.Sprint(bytesOut)+"\n")
 		return nil
 	}
 }

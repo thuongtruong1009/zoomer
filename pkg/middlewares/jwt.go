@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
-	"zoomer/pkg/constants"
 	"zoomer/internal/auth/repository"
+	"zoomer/pkg/constants"
 )
 
 func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc {

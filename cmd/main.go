@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/sirupsen/logrus"
 	"log"
 	"zoomer/configs"
 	"zoomer/db"
-	"zoomer/migrations"
 	"zoomer/internal/server"
-	"github.com/sirupsen/logrus"
+	"zoomer/migrations"
 )
 
 // @title Echo REST API
@@ -32,6 +32,10 @@ import (
 // @in                          header
 // @name                        Authorization
 // @description					Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
+
+// func init() {
+// 	echo.SetMode(echo.ReleaseMode)
+// }
 
 func main() {
 	cfg := configs.NewConfig()
