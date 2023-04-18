@@ -113,7 +113,7 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 	return "", constants.ErrInvalidAccessToken
 }
 
-func WriteCookie(c echo.Context, name string, value string, expire time.Duration, path string, domain string, secure bool, httpOnly bool) {
+func WriteCookie(c echo.Context, name, value string, expire time.Duration, path, domain string, secure, httpOnly bool) {
 	cookie := http.Cookie{
 		Name:     name,
 		Value:    value,

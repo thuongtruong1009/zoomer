@@ -48,6 +48,5 @@ func HttpMiddleware(e *echo.Echo) {
 		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS, echo.HEAD},
 	}))
 
-	// configs.ProxyConfig(e)
 	configs.RateLimit(e)
 }

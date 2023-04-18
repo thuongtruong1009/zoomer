@@ -9,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+//go:embed sql/*
 var fs embed.FS
 
 type MLog struct {
@@ -27,7 +28,7 @@ func (m *MLog) Errorf(format string, v ...interface{}) {
 	m.log.Errorf(format, v...)
 }
 
-func RunAutoMigration(db *sql.DB, log *logrus.Logger) {
+func RunAutoMigrate(db *sql.DB, log *logrus.Logger) {
 	d, err := iofs.New(fs, "sql")
 	if err != nil {
 		log.Fatalln("auto migration - new iofs", "err", err.Error())
@@ -38,7 +39,6 @@ func RunAutoMigration(db *sql.DB, log *logrus.Logger) {
 		log.Fatalln("auto migration - new postgres driver", "err", err.Error())
 	}
 
-	// m, err := migrate.NewWithSourceInstance("iofs", iofs.New(fs, "migrations"), "postgres", driver)
 	m, err := migrate.NewWithInstance("iofs", d, "postgres", driver)
 	if err != nil {
 		log.Fatalln("auto migration - new migrate", "err", err.Error())
@@ -46,17 +46,23 @@ func RunAutoMigration(db *sql.DB, log *logrus.Logger) {
 
 	defer m.Close()
 	m.Log = &MLog{
-		// log: logger.Log()
 		log: logrus.NewEntry(log),
 	}
-	err = m.Up()
-	if err != nil && err != migrate.ErrNoChange {
-		log.Fatalln("auto migration - error migrate up", "err", err.Error())
-	}
-	dbversion, dirty, err := m.Version()
-	if err != nil {
-		log.Fatalln("auto migration - error get version", "err", err.Error())
-	}
+	// 	err = m.Down()
+	// if err != nil && err != migrate.ErrNoChange {
+	//     log.Fatalln("auto migration - error migrate down", "err", err.Error())
+	// }
 
-	log.Infof("auto migration - db version: %d, dirty: %t", dbversion, dirty)
+	// err = m.Up()
+	// if err != nil && err != migrate.ErrNoChange {
+	//     log.Fatalln("auto migration - error migrate up", "err", err.Error())
+	// }
+	// 	log.Info("step 6")
+
+	// 	dbversion, dirty, err := m.Version()
+	// 	if err != nil {
+	// 		log.Fatalln("auto migration - error get version", "err", err.Error())
+	// 	}
+
+	// log.Infof("Currentdb version: %d, dirty: %t", dbversion, dirty)
 }

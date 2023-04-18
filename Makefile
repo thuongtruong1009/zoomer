@@ -1,5 +1,5 @@
-include .env.example
-export $(shell sed 's/=.*//' .env.example)
+include .env
+export $(shell sed 's/=.*//' .env)
 
 DOCKER_USERNAME ?= thuongtruong1009
 APPLICATION_NAME ?= zoomer
@@ -9,6 +9,10 @@ ENTRYPOINT ?= cmd/main.go
 _BUILD_ARGS_TAG ?= ${GIT_HASH}
 _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
+
+setup:
+	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/swaggo/swag/cmd/swag@latest
 
 dev:
 	go run ${ENTRYPOINT}
@@ -38,7 +42,7 @@ setup:
 	go install github.com/swaggo/swag/cmd/swag@latest
 
 docs:
-	swag i --dir ./cmd/api/,\
+	swag i --dir ./cmd/,\
 	./modules/,\
 	./pkg/wrapper,\
 	./pkg/contexts

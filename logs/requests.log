@@ -1,0 +1,92 @@
+[Id: 46ppzNScnm76p4Pv7gjmZ0A4NwHR0rGL] 2023/04/18 21:21:10 logger.go:23:  Time: 2023-04-18T21:21:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 1.9186ms Bytes_in: 0 Bytes_out: 0
+
+[Id: e4vuOa0HSHuF9yjyWXnAYC7xYrg8Njqa] 2023/04/18 21:21:10 logger.go:23:  Time: 2023-04-18T21:21:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 4.4176ms Bytes_in: 41 Bytes_out: 58
+
+[Id: wx8uzcFhfNhgHexyNdzWf4naMBUACW1T] 2023/04/18 21:22:25 logger.go:23:  Time: 2023-04-18T21:22:25+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 10.5836ms Bytes_in: 41 Bytes_out: 58
+
+[Id: pOUB5UgYEJihTQysEt3s2YsliNFMJlzP] 2023/04/18 21:23:32 logger.go:23:  Time: 2023-04-18T21:23:32+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.7041ms Bytes_in: 43 Bytes_out: 58
+
+[Id: 9oGne5xGi6ksJ3NX9Nl4jp2teppoo8xP] 2023/04/18 21:23:43 logger.go:23:  Time: 2023-04-18T21:23:43+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.28ms Bytes_in: 45 Bytes_out: 58
+
+[Id: yxDul0xPDKpDdHX9WoIGDkXAoNnBmKOO] 2023/04/18 21:23:48 logger.go:23:  Time: 2023-04-18T21:23:48+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 7.141ms Bytes_in: 41 Bytes_out: 58
+
+[Id: 3VIufHTuOYe8I907pctZa4wIZCD0Tq8o] 2023/04/18 21:26:06 logger.go:23:  Time: 2023-04-18T21:26:06+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.8434ms Bytes_in: 63 Bytes_out: 58
+
+[Id: Hhv914uPdiRA39uT3JgpjaYCvAi3vOl7] 2023/04/18 21:26:22 logger.go:23:  Time: 2023-04-18T21:26:22+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 64.9986ms Bytes_in: 61 Bytes_out: 58
+
+[Id: o2aGTZ9IHgb9iEW7zQ1lMrGnZbjm138d] 2023/04/18 21:26:56 logger.go:23:  Time: 2023-04-18T21:26:56+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.0581ms Bytes_in: 61 Bytes_out: 58
+
+[Id: H2QsZyWPYOwpkAoQZoRMDsKs5G0n7GhK] 2023/04/18 21:27:01 logger.go:23:  Time: 2023-04-18T21:27:01+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 2.5189ms Bytes_in: 57 Bytes_out: 58
+
+[Id: yiiuB6jQTCPn8f4wEhHRL3W4eWazOajU] 2023/04/18 21:27:12 logger.go:23:  Time: 2023-04-18T21:27:12+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 20.0054ms Bytes_in: 57 Bytes_out: 58
+
+[Id: BfUyKDC9pLs1R6sExKDG1fLVRXtiaK6l] 2023/04/18 21:27:59 logger.go:23:  Time: 2023-04-18T21:27:59+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 93.6492ms Bytes_in: 79 Bytes_out: 102
+
+[Id: eccX5HEnVnzg3owtQ4M0Sp5TRSnbb2T5] 2023/04/18 21:29:17 logger.go:23:  Time: 2023-04-18T21:29:17+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 99.4196ms Bytes_in: 79 Bytes_out: 102
+
+[Id: TAG7IEEJleUk29WE2fr6KqPGwB9uFPz6] 2023/04/18 21:35:17 logger.go:23:  Time: 2023-04-18T21:35:17+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 103.4278ms Bytes_in: 79 Bytes_out: 102
+
+[Id: 4KbdzrnBL5n1hJI6yaGFXDd1KcKKunMu] 2023/04/18 21:40:07 logger.go:23:  Time: 2023-04-18T21:40:07+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 92.5811ms Bytes_in: 79 Bytes_out: 36
+
+[Id: 3pa6rO5IeYeqdUsQ8EpaAESjhniP8LSz] 2023/04/18 22:20:31 logger.go:23:  Time: 2023-04-18T22:20:31+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 258.0656ms Bytes_in: 57 Bytes_out: 384
+
+[Id: oIcykQCfTdqcuJ6g5sXFF3wIUz6NeIHr] 2023/04/18 22:21:55 logger.go:23:  Time: 2023-04-18T22:21:55+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 2.8812ms Bytes_in: 0 Bytes_out: 0
+
+[Id: NoVB0Kyg2KWTXgusSjnwhNLZkFpjtr0I] 2023/04/18 22:21:56 logger.go:23:  Time: 2023-04-18T22:21:56+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 100.2396ms Bytes_in: 41 Bytes_out: 58
+
+[Id: HMxJCiS5E2aNsHDt4gicUxZDD9EvGDA3] 2023/04/18 22:22:24 logger.go:23:  Time: 2023-04-18T22:22:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 163.2725ms Bytes_in: 41 Bytes_out: 384
+
+[Id: taaSqZp5ecww2RjYrdm23u3J8iMXsALt] 2023/04/18 22:22:28 logger.go:23:  Time: 2023-04-18T22:22:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list Status: 200 Latency: 1.3991212s Bytes_in: 0 Bytes_out: 39
+
+[Id: YMf2KnsMTb7pS7ej2plDUATnpr7CPih2] 2023/04/18 22:25:06 logger.go:23:  Time: 2023-04-18T22:25:06+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 4.5559ms Bytes_in: 57 Bytes_out: 58
+
+[Id: j9dZ109A31q3UsxoDy6U3Ib4JNzVkapV] 2023/04/18 22:41:28 logger.go:23:  Time: 2023-04-18T22:41:28+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.1317ms Bytes_in: 57 Bytes_out: 58
+
+[Id: m8z9v7pBwdMnq8ijD7kPfqvXFCwvWPXM] 2023/04/18 22:44:32 logger.go:23:  Time: 2023-04-18T22:44:32+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.677ms Bytes_in: 57 Bytes_out: 58
+
+[Id: mFwQARh72cnPguhLEu1uLH9BLyxqyU7Y] 2023/04/18 22:51:09 logger.go:23:  Time: 2023-04-18T22:51:09+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 4.5875ms Bytes_in: 57 Bytes_out: 58
+
+[Id: wU4056WWTA2wJ9TVQsW1H6Umh9MN01n5] 2023/04/18 23:13:21 logger.go:23:  Time: 2023-04-18T23:13:21+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 500 Latency: 7.8656ms Bytes_in: 57 Bytes_out: 36
+
+[Id: afCOp9MquwWhhhdHcwNicTtLtXLidzOl] 2023/04/18 23:15:55 logger.go:23:  Time: 2023-04-18T23:15:55+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 500 Latency: 7.1673ms Bytes_in: 57 Bytes_out: 36
+
+[Id: GAFkh0YjRO4ajaz3Cuuuy5AcdqmTx9mT] 2023/04/18 23:35:54 logger.go:23:  Time: 2023-04-18T23:35:54+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 69.4012ms Bytes_in: 57 Bytes_out: 58
+
+[Id: tXD9h06v0MiZXav3s0OVRjmhFEdfw61B] 2023/04/18 23:43:39 logger.go:23:  Time: 2023-04-18T23:43:39+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 145.7436ms Bytes_in: 57 Bytes_out: 384
+
+[Id: VkRctEsyvM8Ibc3wYyM1uFlhfwbFoLBD] 2023/04/18 23:46:29 logger.go:23:  Time: 2023-04-18T23:46:29+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 66.1196ms Bytes_in: 79 Bytes_out: 91
+
+[Id: yMgBUoWF3KUEpDqdVFFQIdbz7JQ8XRFL] 2023/04/19 00:10:02 logger.go:23:  Time: 2023-04-19T00:10:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: / Status: 404 Latency: 9.3155ms Bytes_in: 0 Bytes_out: 24
+
+[Id: VJ00FMm73jKyTBDofr5zzEsgFoGkka8F] 2023/04/19 00:10:04 logger.go:23:  Time: 2023-04-19T00:10:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /favicon.ico Status: 404 Latency: 2.0959ms Bytes_in: 0 Bytes_out: 24
+
+[Id: gdxHPuhZE8MmShogd7l2Deu0InTJYBTy] 2023/04/19 00:10:07 logger.go:23:  Time: 2023-04-19T00:10:07+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /api/docs Status: 404 Latency: 2.0468ms Bytes_in: 0 Bytes_out: 24
+
+[Id: 1EG5Gg36Hmj9VYugRiT8tF02dGqfPAny] 2023/04/19 00:10:13 logger.go:23:  Time: 2023-04-19T00:10:13+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /api/docs/index.html Status: 404 Latency: 2.0817ms Bytes_in: 0 Bytes_out: 24
+
+[Id: 1DXxeXE7JuixxI2etgKf1jWQY8itqpeR] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/index.html Status: 200 Latency: 10.399ms Bytes_in: 0 Bytes_out: 0
+
+[Id: IXtqmLdGPFgFfCxfhws9RvCQrNHT5KjY] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/swagger-ui.css Status: 200 Latency: 21.3461ms Bytes_in: 0 Bytes_out: 144966
+
+[Id: tO7nUfoR6blhcWj6dRJdacqOxeDNgEdO] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/swagger-ui-standalone-preset.js Status: 200 Latency: 61.4754ms Bytes_in: 0 Bytes_out: 312217
+
+[Id: ocy5n04HEtd4J6uYbf5quS9Wh0i8ARKM] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/swagger-ui-bundle.js Status: 200 Latency: 178.3185ms Bytes_in: 0 Bytes_out: 1061579
+
+[Id: heq18L0baMNStALtvvnyNPapsTUT5KNK] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/doc.json Status: 500 Latency: 2.9735ms Bytes_in: 0 Bytes_out: 36
+
+[Id: wJQw22emH3s0vveJNhxHMTjHiWeIhdEK] 2023/04/19 00:11:10 logger.go:23:  Time: 2023-04-19T00:11:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48 Host: localhost:8080 Method: GET Uri: /docs/favicon-32x32.png Status: 200 Latency: 3.093ms Bytes_in: 0 Bytes_out: 628
+
+[Id: tPVd64cA5BKrtg2sedQVzFrytWL2Hpra] 2023/04/19 00:53:00 logger.go:23:  Time: 2023-04-19T00:53:00+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 502 Latency: 2.347336s Bytes_in: 57 Bytes_out: 183
+
+[Id: ghYm3Rpn5yVbTf0CZqYMiQkXnBJHeRak] 2023/04/19 00:54:26 logger.go:23:  Time: 2023-04-19T00:54:26+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 502 Latency: 2.3624581s Bytes_in: 57 Bytes_out: 183
+
+[Id: 0mESZ6U1uzK96KIzixw9MWaxeBW6s8RJ] 2023/04/19 00:54:26 logger.go:23:  Time: 2023-04-19T00:54:26+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 502 Latency: 2.3883857s Bytes_in: 57 Bytes_out: 183
+
+[Id: GIIcpIA7uYH1OHEADZFdfhHoK00dN0x8] 2023/04/19 00:54:49 logger.go:23:  Time: 2023-04-19T00:54:49+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 3.441ms Bytes_in: 57 Bytes_out: 24
+
+[Id: 8D5PSmLnuiZ3maw9KaNDXvMbIONQqFTR] 2023/04/19 00:54:49 logger.go:23:  Time: 2023-04-19T00:54:49+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 11.3172ms Bytes_in: 57 Bytes_out: 24
+
+[Id: xGLqjweLnTcHq3LMKfsndQr1Zg6IaQ9Z] 2023/04/19 00:55:12 logger.go:23:  Time: 2023-04-19T00:55:12+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 18.0202ms Bytes_in: 57 Bytes_out: 24
+
+[Id: 6besdlR4rLTfX2xg6ri5r9rx8p5L4GGv] 2023/04/19 00:55:12 logger.go:23:  Time: 2023-04-19T00:55:12+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 31.0681ms Bytes_in: 57 Bytes_out: 24
+

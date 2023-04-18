@@ -54,7 +54,7 @@ func (s *Server) Run() error {
 		}
 	}()
 
-	s.logger.Log(logrusInfoLevel, "Setting up routers")
+	s.logger.Log(logrus.InfoLevel, "Setting up routers")
 	if err := s.HttpMapServer(s.echo); err != nil {
 		return err
 	}

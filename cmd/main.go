@@ -6,7 +6,6 @@ import (
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/server"
-	"zoomer/migrations"
 )
 
 // @title Echo REST API
@@ -39,20 +38,10 @@ import (
 
 func main() {
 	cfg := configs.NewConfig()
-
-	instance := db.GetPostgresInstance(cfg, true)
-
-	db.SetConnectionPool(instance, cfg)
-
-	if cfg.AutoMigrate {
-		sqlDB, err := instance.DB()
-		if err != nil {
-			log.Fatalf("Failed to get sql.DB: %v", err)
-		}
-		migrations.RunAutoMigration(sqlDB, logrus.New())
-	}
+	instance := db.GetPostgresInstance(cfg)
 
 	s := server.NewServer(cfg, instance, logrus.New(), nil)
+
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
