@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"sync"
 	"time"
+	"os"
 )
 
 type Proxy struct {
@@ -79,7 +80,7 @@ func isAlive(url *url.URL) bool {
 	return true
 }
 
-func healthCheck() {
+func HealthCheck() {
 	t := time.NewTicker(time.Minute * 1)
 	for {
 		select {
@@ -102,13 +103,19 @@ func healthCheck() {
 }
 
 func LoadBalancer() {
-	data, err := ioutil.ReadFile("./config.json")
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	filePath := wd + "/pkg/load_balancer/config.json"
+
+	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	json.Unmarshal(data, &cfg)
 
-	go healthCheck()
+	go HealthCheck()
 
 	s := http.Server{
 		Addr:    ":" + cfg.Proxy.Port,

@@ -90,3 +90,49 @@
 
 [Id: 6besdlR4rLTfX2xg6ri5r9rx8p5L4GGv] 2023/04/19 00:55:12 logger.go:23:  Time: 2023-04-19T00:55:12+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 31.0681ms Bytes_in: 57 Bytes_out: 24
 
+[Id: 2SRiPL8a20oiXFyoj4FU9h8CYqnWqydR] 2023/04/19 23:07:56 logger.go:23:  Time: 2023-04-19T23:07:56+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 12.486ms Bytes_in: 57 Bytes_out: 39
+
+[Id: Bkhm2bkmpmz1k6fhhBP12Pauy6yaLJmo] 2023/04/19 23:08:03 logger.go:23:  Time: 2023-04-19T23:08:03+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.0254ms Bytes_in: 57 Bytes_out: 39
+
+[Id: a2HWwNMjFg72S86iN4caAe80z5cp1jVp] 2023/04/19 23:08:10 logger.go:23:  Time: 2023-04-19T23:08:10+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 3.8077ms Bytes_in: 57 Bytes_out: 39
+
+[Id: 4QC9ckpfCyjpWBYz5ni3j7KgdA8IVw4I] 2023/04/19 23:08:17 logger.go:23:  Time: 2023-04-19T23:08:17+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 9.0407ms Bytes_in: 57 Bytes_out: 39
+
+[Id: 0rttGGYPRWfldOgM3D24XibUzJLfdSoH] 2023/04/19 23:08:24 logger.go:23:  Time: 2023-04-19T23:08:24+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 1.8109ms Bytes_in: 57 Bytes_out: 39
+
+[Id: cPWJduEkGSkuCBP65dzdmAoZuBfxiq07] 2023/04/19 23:08:31 logger.go:23:  Time: 2023-04-19T23:08:31+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 3.7111ms Bytes_in: 57 Bytes_out: 39
+
+[Id: 8LmB9ilsddcsU7OkeRT2RlruXBeZrusr] 2023/04/19 23:08:39 logger.go:23:  Time: 2023-04-19T23:08:38+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.6023ms Bytes_in: 57 Bytes_out: 39
+
+[Id: j8NuX4dV5p6psI5v5AsA7JvQgrlxgBLD] 2023/04/19 23:08:46 logger.go:23:  Time: 2023-04-19T23:08:46+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 4.6114ms Bytes_in: 57 Bytes_out: 39
+
+[Id: s77vCAzhBBKRRIeJOgJ9g3rkyjYbGkBp] 2023/04/19 23:08:53 logger.go:23:  Time: 2023-04-19T23:08:53+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 6.2455ms Bytes_in: 57 Bytes_out: 39
+
+[Id: KeAcmH0sZ9m7ZXvbgyx79Z2rhgSLv23x] 2023/04/19 23:09:00 logger.go:23:  Time: 2023-04-19T23:09:00+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.0471ms Bytes_in: 57 Bytes_out: 39
+
+[Id: 1tkq6gDWy3EYQlwmy1UJZrBE2Tdxj5X4] 2023/04/19 23:09:07 logger.go:23:  Time: 2023-04-19T23:09:07+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 1.3115ms Bytes_in: 57 Bytes_out: 39
+
+[Id: ouCyRJOt4ihM6faZyqZJgQpUWiA29XL2] 2023/04/19 23:09:14 logger.go:23:  Time: 2023-04-19T23:09:14+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 3.45ms Bytes_in: 57 Bytes_out: 39
+
+[Id: bljVGWgrN8Nml9rrrczrMtURlDhXj5hn] 2023/04/19 23:09:21 logger.go:23:  Time: 2023-04-19T23:09:21+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 12.0643ms Bytes_in: 57 Bytes_out: 39
+
+[Id: d4kXzCBr2VejczKB9kgIYnksKWn43TpF] 2023/04/19 23:13:25 logger.go:23:  Time: 2023-04-19T23:13:25+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:63910 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.9361ms Bytes_in: 57 Bytes_out: 39
+
+[Id: Q9R5zOU34hICBxPT6KEF839PF3lEKWhv] 2023/04/19 23:14:38 logger.go:23:  Time: 2023-04-19T23:14:38+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8084 Method: POST Uri: /api/auth/signin Status: 200 Latency: 198.4256ms Bytes_in: 57 Bytes_out: 384
+
+[Id: BqBGF6LHKf7WC42f9qlyfsgBzomjF7Fg] 2023/04/19 23:30:29 logger.go:23:  Time: 2023-04-19T23:30:29+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8084 Method: POST Uri: /api/auth/signin Status: 200 Latency: 189.1135ms Bytes_in: 57 Bytes_out: 384
+
+[Id: dZNt7FhUAOece0h44w7tAC4wqb0CV1Z5] 2023/04/19 23:30:40 logger.go:23:  Time: 2023-04-19T23:30:40+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 1.6728ms Bytes_in: 57 Bytes_out: 26
+
+[Id: 96weJYt1k2AqgyL1wk6XkYItoBmwOLeL] 2023/04/19 23:30:47 logger.go:23:  Time: 2023-04-19T23:30:47+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 2.8558ms Bytes_in: 57 Bytes_out: 26
+
+[Id: gfESrvDKJHo9H4u2D63GaJdMWnqwV50y] 2023/04/19 23:30:54 logger.go:23:  Time: 2023-04-19T23:30:54+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 3.3446ms Bytes_in: 57 Bytes_out: 26
+
+[Id: VJXe7mfoT8deWNYfvls9G0l4eOnZWpjn] 2023/04/19 23:31:01 logger.go:23:  Time: 2023-04-19T23:31:01+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 8.0132ms Bytes_in: 57 Bytes_out: 26
+
+[Id: ETBsVpkkD7DMZ6EUwveBMTauexiOLhV7] 2023/04/19 23:31:08 logger.go:23:  Time: 2023-04-19T23:31:08+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 3.3251ms Bytes_in: 57 Bytes_out: 26
+
+[Id: FtFZngtqWnRnyoEYKwt4rks2Di5WD74y] 2023/04/19 23:31:15 logger.go:23:  Time: 2023-04-19T23:31:15+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 400 Latency: 5.6802ms Bytes_in: 57 Bytes_out: 26
+
+[Id: 7tbxMeuEkmpRWEn3ktnrwjGHut29pIHy] 2023/04/19 23:31:36 logger.go:23:  Time: 2023-04-19T23:31:36+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8084 Method: POST Uri: /api/auth/signin Status: 200 Latency: 350.4592ms Bytes_in: 57 Bytes_out: 384
+

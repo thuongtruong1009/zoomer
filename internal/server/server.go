@@ -104,7 +104,7 @@ func loadBalancer(s *Server) {
 
 	loadBalancerPorts := [3]string{"8082", "8083", "8084"}
 
-	for i := 0; i < len(loadBalancerPorts); i++ {
+	for i := 0; i < len(loadBalancerPorts)-1; i++ {
 		go func() {
 			http11ApiStart(s, loadBalancerPorts[i])
 			wg.Done()

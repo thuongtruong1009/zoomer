@@ -58,6 +58,9 @@ jobs:
 					name: coverage-report
 					path: ./coverage.txt
 
+			- name: Run Static Analyzer
+        run: go vet -v ./...
+
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
