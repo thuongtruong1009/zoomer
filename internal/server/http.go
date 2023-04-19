@@ -24,7 +24,7 @@ import (
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
-	base := interceptor.NewInterceptor()
+	inter := interceptor.NewInterceptor()
 
 	userRepo := authRepository.NewUserRepository(s.db)
 	roomRepo := roomRepository.NewRoomRepository(s.db)
@@ -36,14 +36,14 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)
 
-	authHandler := authHttp.NewAuthHandler(authUC, base)
-	roomHandler := roomHttp.NewRoomHandler(roomUC)
+	authHandler := authHttp.NewAuthHandler(authUC, inter)
+	roomHandler := roomHttp.NewRoomHandler(roomUC, inter)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
 	resourceHandler := resourceHttp.NewResourceHandler(resourceUC)
 
-	middlewares.HttpMiddleware(e)
+	middlewares.HttpMiddleware(e, inter)
 
-	mw := middlewares.BaseMiddlewareManager(authUC)
+	mw := middlewares.BaseMiddlewareManager(authUC, inter)
 
 	e.Static("/", "public")
 

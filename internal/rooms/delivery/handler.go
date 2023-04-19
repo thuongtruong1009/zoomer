@@ -9,15 +9,18 @@ import (
 	"zoomer/internal/models"
 	"zoomer/internal/rooms/presenter"
 	"zoomer/internal/rooms/usecase"
+	"zoomer/pkg/constants"
+	"zoomer/pkg/interceptor"
 	"zoomer/validators"
 )
 
 type roomHandler struct {
 	roomUC usecase.UseCase
+	inter  interceptor.IInterceptor
 }
 
-func NewRoomHandler(roomUC usecase.UseCase) *roomHandler {
-	return &roomHandler{roomUC: roomUC}
+func NewRoomHandler(roomUC usecase.UseCase, inter interceptor.IInterceptor) *roomHandler {
+	return &roomHandler{roomUC: roomUC, inter: inter}
 }
 
 func mapRoom(r *models.Room) *presenter.RoomResponse {
@@ -42,9 +45,9 @@ func (rh *roomHandler) GetAll() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		rooms, err := rh.roomUC.GetAllRooms(c.Request().Context())
 		if err != nil {
-			return echo.NewHTTPError(http.StatusNotFound, err.Error())
+			return rh.inter.Error(c, http.StatusNotFound, constants.ErrorNotFound, err)
 		}
-		return c.JSON(http.StatusOK, mapRooms(rooms))
+		return rh.inter.Data(c, http.StatusOK, mapRooms(rooms))
 	}
 }
 
@@ -53,13 +56,13 @@ func (rh *roomHandler) GetUserRooms() echo.HandlerFunc {
 		rawId := c.Param(repository.CtxUserKey)
 		userId, err := uuid.Parse(rawId)
 		if err != nil {
-			return c.JSON(http.StatusBadRequest, err.Error())
+			return rh.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 		rooms, err := rh.roomUC.GetRoomsByUserId(c.Request().Context(), userId.String())
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+			return rh.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
-		return c.JSON(http.StatusOK, mapRooms(rooms))
+		return rh.inter.Data(c, http.StatusOK, mapRooms(rooms))
 	}
 }
 

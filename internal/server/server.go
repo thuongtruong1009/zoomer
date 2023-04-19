@@ -9,10 +9,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 	"zoomer/configs"
 	"zoomer/pkg/constants"
+	"zoomer/pkg/load_balancer"
 	// "log"
 	// "golang.org/x/net/http2"
 )
@@ -49,9 +51,10 @@ func (s *Server) Run() error {
 		}
 
 		// http1.1
-		if err := s.echo.StartServer(httpServer); err != nil {
-			s.logger.Fatalln("Error occurred while starting the http server: ", err)
-		}
+		// if err := s.echo.StartServer(httpServer); err != nil {
+		// 	s.logger.Fatalln("Error occurred while starting the http server: ", err)
+		// }
+		loadBalancer(s)
 	}()
 
 	s.logger.Log(logrus.InfoLevel, "Setting up routers")
@@ -78,4 +81,34 @@ func (s *Server) Run() error {
 
 	s.logger.Fatalln("Server is exited properly")
 	return s.echo.Server.Shutdown(ctx)
+}
+
+func http11ApiStart(s *Server, port string) {
+	if err := s.echo.StartServer(&http.Server{
+		Addr:         ":" + port,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}); err != nil {
+		s.logger.Fatalln("Error occurred while starting the http server: ", err)
+	}
+}
+
+func loadBalancer(s *Server) {
+	wg := new(sync.WaitGroup)
+	wg.Add(5)
+
+	go func() {
+		load_balancer.LoadBalancer()
+		wg.Done()
+	}()
+
+	loadBalancerPorts := [3]string{"8082", "8083", "8084"}
+
+	for i := 0; i < len(loadBalancerPorts); i++ {
+		go func() {
+			http11ApiStart(s, loadBalancerPorts[i])
+			wg.Done()
+		}()
+	}
+	wg.Wait()
 }

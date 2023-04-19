@@ -5,10 +5,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 	"strings"
-	"zoomer/configs"
+	"zoomer/pkg/interceptor"
 )
 
-func HttpMiddleware(e *echo.Echo) {
+func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {
 	e.Use(HttpHeader)
 	e.Use(LoggerMiddleware)
 	e.Use(RecoveryMiddleware)
@@ -48,5 +48,5 @@ func HttpMiddleware(e *echo.Echo) {
 		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS, echo.HEAD},
 	}))
 
-	configs.RateLimit(e)
+	RateLimit(e, inter)
 }
