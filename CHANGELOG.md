@@ -5,19 +5,29 @@ There is the most valuable changes log:
 **1.Architecture**
 
 - Connect to Redis database for chat service
-- Connect done to client
 - Config Cache adapter with Redis
+- Config RabbitMQ for chat service
 
-**2. Features**
+**2. News**
 
+- Update CI for test, build, deploy and publish image
+- Set and Read cache for userid, username, roomlist response
+- Wakeup socket x2 faster with goroutine
+- Wrap context function with custom interceptor
+- Refactor code
+- Generate swagger document and UI
+- Config migration for database
+
+**3. Features**
+
+- Connect done to client
 - Add/Connect to new user
 - Send real-time messages to user with timestamp record
 - Save/Load messages to database
 - Rejoin room but not remove old messages
 - Load recent friend contact list
-- Cache response userid, username, roomlist
 
-**3. Bugfixes**
+**4. Bugfixes**
 
 - fix: reload old messages when rejoin room
 - fix: reconnect to websocket when rejoin room
@@ -41,7 +51,7 @@ There is the most valuable changes log:
 - Load balancer with nginx
 - Credential & certificate authentication with JWT
 - Setup CI/CD
-- Apply HTTP2
+- Setup HTTP2
 - Auto migrate in debug mode
 - Connect pool for database
 

@@ -1,4 +1,4 @@
-package utils
+package configs
 
 import (
 	"crypto/ecdsa"
@@ -16,7 +16,7 @@ import (
 	"os"
 	"strings"
 	"time"
-	"zoomer/pkg/constants"
+	// "zoomer/pkg/constants"
 )
 
 var (
@@ -42,7 +42,7 @@ func publicKey(priv any) any {
 	}
 }
 
-func init() {
+func TLSConfig(certPath, keyPath string) {
 	flag.Parse()
 
 	if len(*host) == 0 {
@@ -133,7 +133,7 @@ func init() {
 		log.Fatalf("Failed to create certificate: %v", err)
 	}
 
-	certOut, err := os.Create(constants.CertPath)
+	certOut, err := os.Create(certPath)
 	if err != nil {
 		log.Fatalf("Failed to open cert.pem for writing: %v", err)
 	}
@@ -146,7 +146,7 @@ func init() {
 	}
 	log.Print("wrote cert.pem\n")
 
-	keyOut, err := os.OpenFile(constants.KeyPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	keyOut, err := os.OpenFile(keyPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		log.Fatalf("Failed to open key.pem for writing: %v", err)
 	}

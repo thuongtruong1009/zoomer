@@ -2,9 +2,10 @@ package configs
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
-	"log"
 )
 
 type Configuration struct {
@@ -49,4 +50,8 @@ func NewConfig(files ...string) *Configuration {
 	}
 
 	return &cfg
+}
+
+func GetEnvKey(key string) string {
+	return os.Getenv(key)
 }

@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/sirupsen/logrus"
 	"log"
+	"github.com/labstack/echo/v4"
+	"github.com/sirupsen/logrus"
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/server"
@@ -40,7 +41,7 @@ func main() {
 	cfg := configs.NewConfig()
 	instance := db.GetPostgresInstance(cfg)
 
-	s := server.NewServer(cfg, instance, logrus.New(), nil)
+	s := server.NewServer(echo.New(), cfg, instance, logrus.New(), nil)
 
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
