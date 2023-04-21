@@ -63,4 +63,3 @@ package oauth
 // }
 
 // e.GET("/protected", protectedRouteHandler, authMiddleware)
-

@@ -3,9 +3,12 @@ package server
 import (
 	"github.com/labstack/echo/v4"
 	"zoomer/db"
-	"zoomer/internal/chats/delivery"
-	"zoomer/internal/chats/hub"
-	"zoomer/internal/chats/repository"
+	chatDelivery "zoomer/internal/chats/delivery"
+	chatHub "zoomer/internal/chats/hub"
+	chatRepository "zoomer/internal/chats/repository"
+
+	streamHub "zoomer/internal/stream/hub"
+	streamDelivery "zoomer/internal/stream/delivery"
 )
 
 func WsMapServer(port string) {
@@ -15,12 +18,23 @@ func WsMapServer(port string) {
 	redisClient := db.GetRedisInstance()
 	defer redisClient.Close()
 
-	wsUC := hub.NewChatHub(repository.NewChatRepository())
-	wsHandler := delivery.NewChatHandler(wsUC)
+	//chat
+	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository())
+	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
 
-	go wsUC.Broadcaster()
+	go wsChatUC.Broadcaster()
 
-	delivery.MapChatRoutes(e, wsHandler, "/ws")
+	chatDelivery.MapChatRoutes(e, wsChatHandler, "/ws")
+
+	// stream
+
+	wsStreamUC := streamHub.NewStreamHub()
+	wsStreamHandler := streamDelivery.NewStreamHandler(wsStreamUC)
+
+	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
+
+	streamDelivery.Init()
+	go wsStreamUC.Broadcaster()
 
 	e.Logger.Fatal(e.Start(port))
 }

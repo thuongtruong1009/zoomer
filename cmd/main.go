@@ -1,9 +1,9 @@
 package main
 
 import (
-	"log"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
+	"log"
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/server"

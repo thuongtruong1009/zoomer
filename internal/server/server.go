@@ -2,15 +2,15 @@ package server
 
 import (
 	"context"
-	"sync"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+	"net/http"
+	"os"
+	"os/signal"
+	"sync"
+	"syscall"
+	"time"
 	"zoomer/configs"
 	"zoomer/pkg/constants"
 	"zoomer/pkg/utils"
@@ -67,7 +67,7 @@ func (s *Server) Run() error {
 
 	go func() {
 		WsMapServer(":" + s.cfg.WsPort)
-		s.logger.Log(logrus.InfoLevel, "websocket server is starting on :" + s.cfg.WsPort)
+		s.logger.Log(logrus.InfoLevel, "websocket server is starting on :"+s.cfg.WsPort)
 		wg.Done()
 	}()
 

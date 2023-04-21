@@ -20,6 +20,7 @@ There is the most valuable changes log:
 
 **3. Features**
 
+- Setup Video call service
 - Connect done to client
 - Add/Connect to new user
 - Send real-time messages to user with timestamp record
@@ -31,6 +32,7 @@ There is the most valuable changes log:
 
 - fix: reload old messages when rejoin room
 - fix: reconnect to websocket when rejoin room
+- fix: display video partner in chat
 
 ### v1.0
 
