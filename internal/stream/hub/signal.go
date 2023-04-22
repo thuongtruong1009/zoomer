@@ -54,25 +54,6 @@ func (h *hub) DeleteStream(ctx context.Context, roomID string) {
 
 func (h *hub) Receiver(ctx context.Context, roomId string, client *models.Participant) {
 	for {
-		// _, p, err := client.Conn.ReadMessage()
-		// if err != nil {
-		// 	log.Println(err)
-		// 	return
-		// }
-
-		// m := &models.BroadcastMessage{}
-
-		// err = json.Unmarshal(p, m)
-		// if err != nil {
-		// 	log.Println("error while unmarshaling stream broadcast", err)
-		// 	continue
-		// }
-
-		// m.Client = client.Conn
-		// m.RoomID = roomId
-
-		// Broadcast <- m
-
 		var msg models.BroadcastMessage
 		err := client.Conn.ReadJSON(&msg.Message)
 		if err != nil {

@@ -13,6 +13,9 @@ var (
 	ErrChatNotFound     error = errors.New("chat not found")
 	ErrChatAccessDenied error = errors.New("chat access denied")
 
+	// stream
+	ErrStreamIDMissing error = errors.New("roomID is missing")
+
 	//other
 	ErrorInternalServer      error = errors.New("We had a problem with our server. Try again later")
 	ErrorBadRequest          error = errors.New("Something went wrong")

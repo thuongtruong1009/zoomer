@@ -1,6 +1,6 @@
 FROM golang:1.20-alpine as builder
 
-LABEL maintainer="Tran Nguyen Thuong Truong <"
+LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"
 
 Run mkdir -p /app
 WORKDIR /app

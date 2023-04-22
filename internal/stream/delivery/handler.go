@@ -9,19 +9,23 @@ import (
 	"zoomer/internal/stream/hub"
 	"zoomer/internal/models"
 	"zoomer/internal/stream/presenter"
+	"zoomer/pkg/interceptor"
+	"zoomer/pkg/constants"
 )
 
 type streamHandler struct {
 	hub hub.IHub
+	inter interceptor.IInterceptor
 }
 
 func Init(){
 	hub.Mapper.Map =  make(map[string][]*models.Participant)
 }
 
-func NewStreamHandler(hub hub.IHub) StreamHandler {
+func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) StreamHandler {
 	return &streamHandler{
 		hub: hub,
+		inter: inter,
 	}
 }
 
@@ -37,7 +41,7 @@ func (sh *streamHandler) CreateStream() echo.HandlerFunc {
 
 		roomID := sh.hub.CreateStream(c.Request().Context())
 
-		return c.JSON(http.StatusOK, presenter.StreamResponse{
+		return sh.inter.Data(c, http.StatusOK, presenter.StreamResponse{
 			RoomID: roomID})
 	}
 }
@@ -47,8 +51,7 @@ func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 		roomID := c.QueryParam("roomID")
 
 		if roomID == "" {
-			log.Println("Url Param 'roomID' is missing")
-			return c.JSON(http.StatusBadRequest, nil)
+			return sh.inter.Error(c, http.StatusBadRequest, constants.ErrStreamIDMissing, nil)
 		}
 
 		ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
@@ -62,13 +65,11 @@ func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 		}
 
 		sh.hub.InsertIntoStream(c.Request().Context(), roomID, client)
-		fmt.Println("Step 3")
 
 		sh.hub.Receiver(c.Request().Context(), roomID, client)
-		fmt.Println("Step 4")
 
 		defer delete(hub.Mapper.Map, client.Conn.RemoteAddr().String())
 
-		return c.JSON(http.StatusOK, nil)
+		return sh.inter.Data(c, http.StatusOK, nil)
 	}
 }
