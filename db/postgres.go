@@ -63,8 +63,7 @@ func GetPostgresInstance(cfg *configs.Configuration) *gorm.DB {
 	}(dsn)
 
 	if cfg.AutoMigrate == true {
-		db.AutoMigrate(&models.User{}, &models.Room{})
-		if err != nil {
+		if err := db.AutoMigrate(&models.User{}, &models.Room{}); err != nil {
 			panic("Error when run migrations")
 		}
 		log.Println("Migration successful")

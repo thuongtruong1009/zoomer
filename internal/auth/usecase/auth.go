@@ -116,13 +116,14 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 func WriteCookie(c echo.Context, name, value string, expire time.Duration, path, domain string, secure, httpOnly bool) {
 	cookie := http.Cookie{
 		Name:     name,
-		Value:    value,
 		Expires:  time.Now().Add(expire),
+		Value:    value,
 		Path:     path,
 		Domain:   domain,
 		Secure:   secure,
 		HttpOnly: httpOnly,
 	}
+
 	c.SetCookie(&cookie)
 }
 

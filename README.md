@@ -1,3 +1,5 @@
+<h1 align="center">ZOOMER</h1>
+
 ## **Technical stuff**
 
 - Architecture: Clean architecture
@@ -84,6 +86,6 @@ go test -v ./integration-tests
 
 - [Chat ref](https://github.com/ong-gtp/go-chat)
 
-# https://dev.to/aseemwangoo/using-redis-for-caching-2022-2og5
+- [Redis Cache](https://dev.to/aseemwangoo/using-redis-for-caching-2022-2og5)
 
-# https://github.dev/dzungtran/echo-rest-api
+- [Sample template](https://github.dev/dzungtran/echo-rest-api)
