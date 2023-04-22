@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/middlewares"
+	"zoomer/pkg/middlewares"
 
 	authRepository "zoomer/internal/auth/repository"
 	resourceRepository "zoomer/internal/resources/repository"
@@ -18,9 +18,14 @@ import (
 	resourceHttp "zoomer/internal/resources/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
+
+	echoSwagger "github.com/swaggo/echo-swagger"
+	"zoomer/pkg/interceptor"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
+	inter := interceptor.NewInterceptor()
+
 	userRepo := authRepository.NewUserRepository(s.db)
 	roomRepo := roomRepository.NewRoomRepository(s.db)
 	searchRepo := searchRepository.NewSearchRepository(s.db)
@@ -31,18 +36,20 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)
 
-	authHandler := authHttp.NewAuthHandler(authUC)
-	roomHandler := roomHttp.NewRoomHandler(roomUC)
+	authHandler := authHttp.NewAuthHandler(authUC, inter)
+	roomHandler := roomHttp.NewRoomHandler(roomUC, inter)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
 	resourceHandler := resourceHttp.NewResourceHandler(resourceUC)
 
-	middlewares.HttpMiddleware(e)
+	middlewares.HttpMiddleware(e, inter)
 
-	mw := middlewares.AuthMiddlewareManager(authUC)
+	mw := middlewares.BaseMiddlewareManager(authUC, inter)
 
 	e.Static("/", "public")
 
 	httpGr := e.Group("/api")
+
+	e.GET("/docs/*", echoSwagger.WrapHandler)
 
 	authGroup := httpGr.Group("/auth")
 	authHttp.MapAuthRoutes(authGroup, authHandler)

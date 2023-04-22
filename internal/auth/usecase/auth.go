@@ -3,15 +3,15 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"strings"
-	"time"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/auth"
+	"net/http"
+	"strings"
+	"time"
 	"zoomer/internal/auth/repository"
 	"zoomer/internal/models"
+	"zoomer/pkg/constants"
 )
 
 type AuthClaims struct {
@@ -45,7 +45,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	euser, _ := a.userRepo.GetUserByUsername(ctx, fmtusername)
 
 	if euser != nil {
-		return nil, auth.ErrUserExisted
+		return nil, constants.ErrUserExisted
 	}
 
 	user := &models.User{
@@ -67,11 +67,11 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 func (a *authUseCase) SignIn(ctx context.Context, username, password string) (string, string, string, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
-		return "", "", "", auth.ErrUserNotFound
+		return "", "", "", constants.ErrUserNotFound
 	}
 
 	if !user.ComparePassword(password) {
-		return "", "", "", auth.ErrWrongPassword
+		return "", "", "", constants.ErrWrongPassword
 	}
 
 	claims := AuthClaims{
@@ -110,10 +110,10 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 		return claims.UserId, nil
 	}
 
-	return "", auth.ErrInvalidAccessToken
+	return "", constants.ErrInvalidAccessToken
 }
 
-func WriteCookie(c echo.Context, name string, value string, expire time.Duration, path string, domain string, secure bool, httpOnly bool) {
+func WriteCookie(c echo.Context, name, value string, expire time.Duration, path, domain string, secure, httpOnly bool) {
 	cookie := http.Cookie{
 		Name:     name,
 		Value:    value,
@@ -125,3 +125,11 @@ func WriteCookie(c echo.Context, name string, value string, expire time.Duration
 	}
 	c.SetCookie(&cookie)
 }
+
+// func (a *authUseCase) SearchUserByMatch(c echo.Context, username string) {
+// 	users, err := a.userRepo.QueryMatchingFields(c.Request().Context(), username)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
+// }

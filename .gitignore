@@ -21,9 +21,12 @@ main
 
 .env
 
-.docker/**/*.*
+.docker/**/**/*.*
+.docker/**/**/mnesia
+.docker/**/data
 !.docker/**/.gitkeep
 !.docker/**/nginx.conf
+!.docker/**/.gitkeep
 !.docker/**/**/.gitkeep
 
 **/node_modules
@@ -32,5 +35,3 @@ main
 **/.cache
 **/.idea
 **/.vscode
-
-logs

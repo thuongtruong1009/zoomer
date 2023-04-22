@@ -1,10 +1,10 @@
 package delivery
 
 import (
-	"net/http"
-	"zoomer/internal/chats/hub"
+	"github.com/labstack/echo/v4"
 )
 
-func MapChatRoutes() {
-	http.HandleFunc("/ws", hub.ServeWs)
+func MapChatRoutes(e *echo.Echo, h ChatHandler, group string) {
+	// http.HandleFunc("/ws", ChatConnect)
+	e.GET(group, h.ChatConnect())
 }

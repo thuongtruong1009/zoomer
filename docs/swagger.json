@@ -1,0 +1,34 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This documentation for Echo REST server.",
+        "title": "Echo REST API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Dzung Tran",
+            "url": "https://docs.api.com/support",
+            "email": "support@api.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {},
+    "securityDefinitions": {
+        "XFirebaseBearer": {
+            "description": "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        },
+        "XUserEmailAuth": {
+            "description": "This method just enabled for local development",
+            "type": "apiKey",
+            "name": "X-User-Email",
+            "in": "header"
+        }
+    }
+}

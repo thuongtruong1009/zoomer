@@ -4,8 +4,8 @@ import (
 	"context"
 	"gorm.io/gorm"
 	"strings"
-	"zoomer/lib/cache"
 	"zoomer/internal/models"
+	// "zoomer/pkg/cache"
 )
 
 type userRepository struct {
@@ -28,10 +28,10 @@ func (ur *userRepository) CreateUser(ctx context.Context, user *models.User) err
 
 func (ur *userRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
 	//check in cache
-	UsernameInCache := cache.GetCache(cache.UsernameKey(username))
-	if UsernameInCache != nil {
-		return UsernameInCache.(*models.User), nil
-	}
+	// UsernameInCache := cache.GetCache(cache.UsernameKey(username))
+	// if UsernameInCache != nil {
+	// 	return UsernameInCache.(*models.User), nil
+	// }
 
 	var user models.User
 	err := ur.db.WithContext(ctx).Where(&models.User{
@@ -43,16 +43,17 @@ func (ur *userRepository) GetUserByUsername(ctx context.Context, username string
 	}
 
 	//set in cache
-	cache.SetCache(cache.UsernameKey(username), &user, 0)
+	// cache.SetCache(cache.UsernameKey(username), &user, 0)
 
 	return &user, nil
 }
 
 func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*models.User, error) {
-	UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
-	if UsernameInCache != nil {
-		return UsernameInCache.(*models.User), nil
-	}
+	//check in cache
+	// UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
+	// if UsernameInCache != nil {
+	// 	return UsernameInCache.(*models.User), nil
+	// }
 
 	var user models.User
 	err := ur.db.WithContext(ctx).Where(&models.User{
@@ -63,8 +64,19 @@ func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*mode
 		return nil, err
 	}
 
-	//set in cache
-	cache.SetCache(cache.UserIdKey(userId), &user, 0)
+	// set in cache
+	// cache.SetCache(cache.UserIdKey(userId), &user, 0)
+
+	return &user, nil
+}
+
+func (ur *userRepository) QueryMatchingFields(ctx context.Context, match string) (*[]models.User, error) {
+	var user []models.User
+	err := ur.db.WithContext(ctx).Where("username LIKE ?", "%"+match+"%").First(&user).Error
+
+	if err != nil {
+		return nil, err
+	}
 
 	return &user, nil
 }

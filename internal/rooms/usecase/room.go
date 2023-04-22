@@ -3,13 +3,13 @@ package usecase
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/google/uuid"
 	"time"
-	"fmt"
-	"zoomer/internal/models"
 	auth "zoomer/internal/auth/repository"
-	"zoomer/internal/rooms/repository"
+	"zoomer/internal/models"
 	"zoomer/internal/rooms/presenter"
+	"zoomer/internal/rooms/repository"
 )
 
 type roomUsecase struct {
@@ -77,7 +77,7 @@ func (ru roomUsecase) VerifyContact(ctx context.Context, username string) bool {
 	return true
 }
 
-//sync to redis
+// sync to redis
 func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, fromTS, toTS string) *presenter.ChatResponse {
 	res := &presenter.ChatResponse{}
 

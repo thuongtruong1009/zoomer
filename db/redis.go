@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	// "crypto/tls"
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"log"
@@ -18,8 +19,10 @@ func GetRedisInstance() *redis.Client {
 		Addr:     cfg.RedisURI,
 		Password: cfg.RedisPassword,
 		DB:       0,
-		DialTimeout:  5 * time.Second,
-		ReadTimeout:  3 * time.Second,
+		// DialTimeout:  100 * time.Millisecond,
+		// ReadTimeout:  100 * time.Millisecond,
+		// WriteTimeout: 100 * time.Millisecond,
+		// TLSConfig:    &tls.Config{MinVersion: tls.VersionTLS12},
 	})
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

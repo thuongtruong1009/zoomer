@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 	"zoomer/configs"
-	"fmt"
-	// "log"
-	// "golang.org/x/net/http2"
+	"zoomer/pkg/constants"
+	"zoomer/pkg/utils"
 )
 
 type Server struct {
@@ -24,39 +24,54 @@ type Server struct {
 	ready  chan bool
 }
 
-func NewServer(cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, ready chan bool) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, ready chan bool) *Server {
 	return &Server{
-		echo: echo.New(), cfg: cfg, db: db, logger: logger, ready: ready,
+		echo: e, cfg: cfg, db: db, logger: logger, ready: ready,
 	}
 }
 
 func (s *Server) Run() error {
-	httpServer := &http.Server{
-		Addr:         ":"+ s.cfg.HttpPort,
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
-	}
+	wg := new(sync.WaitGroup)
+	wg.Add(2)
 
 	go func() {
-		s.logger.Logf(logrus.InfoLevel, "Server is listening on PORT: %s", s.cfg.HttpPort)
+		httpServer := &http.Server{
+			Addr:         ":" + s.cfg.HttpPort,
+			WriteTimeout: 15 * time.Second,
+			ReadTimeout:  15 * time.Second,
+		}
+
+		// https2.0
+		if s.cfg.HttpsMode == "true" {
+			certPath := utils.GetFilePath(constants.CertPath)
+			keyPath := utils.GetFilePath(constants.KeyPath)
+			configs.TLSConfig(certPath, keyPath)
+			if err := s.echo.StartTLS(httpServer.Addr, certPath, keyPath); err != http.ErrServerClosed {
+				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
+			}
+		}
 
 		// http1.1
 		if err := s.echo.StartServer(httpServer); err != nil {
-			s.logger.Fatalln("Error starting server: ", err)
+			s.logger.Fatalln("Error occurred while starting the http server: ", err)
 		}
 
-		// https
-		// if err := s.echo.StartTLS(":8080", ".docker/nginx/cert.pem", ".docker/nginx/key.pem"); err != http.ErrServerClosed {
-		// 	log.Fatal(err)
-		//   }
+		s.logger.Logf(logrus.InfoLevel, "api server is listening on PORT: %s", s.cfg.HttpPort)
+		wg.Done()
 	}()
 
+	s.logger.Log(logrus.InfoLevel, "Setting up routers")
 	if err := s.HttpMapServer(s.echo); err != nil {
-		return err
+		s.logger.Fatalln("Error occurred while setting up routers: ", err)
 	}
 
-	WsMapServer(":" + s.cfg.WsPort)
-	fmt.Println("websocket server is starting on :" + s.cfg.WsPort)
+	go func() {
+		WsMapServer(":" + s.cfg.WsPort)
+		s.logger.Log(logrus.InfoLevel, "websocket server is starting on :"+s.cfg.WsPort)
+		wg.Done()
+	}()
+
+	wg.Wait()
 
 	if s.ready != nil {
 		s.ready <- true
@@ -64,6 +79,7 @@ func (s *Server) Run() error {
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(quit, os.Kill)
 
 	<-quit
 

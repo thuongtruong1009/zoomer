@@ -1,49 +1,70 @@
-include .env.example
-export $(shell sed 's/=.*//' .env.example)
+include .env
+export $(shell sed 's/=.*//' .env)
 
 DOCKER_USERNAME ?= thuongtruong1009
 APPLICATION_NAME ?= zoomer
 GIT_HASH ?= $(shell git log --format="%h" -n 1)
+ENTRYPOINT ?= cmd/main.go
 
 _BUILD_ARGS_TAG ?= ${GIT_HASH}
 _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
-_builder:
+setup:
+	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/swaggo/swag/cmd/swag@latest
+
+dev:
+	go run ${ENTRYPOINT}
+
+air:
+	air -c .air.toml -d
+
+test:
+	go test -v -race -coverprofile=coverage -covermode=atomic -short ./...
+
+build:
+	go build -o ${APPLICATION_NAME} ${ENTRYPOINT}
+
+# Migration
+
+migration-create:
+	migrate create -ext sql -dir migrations/sql $(name)
+
+migration-up:
+	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" up
+
+migration-down:
+	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
+
+setup:
+	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/swaggo/swag/cmd/swag@latest
+
+docs:
+	swag i --dir ./cmd/,\
+	./modules/,\
+	./pkg/wrapper,\
+	./pkg/contexts
+
+# Docker
+
+docker_build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 
-_pusher:
+docker_push:
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}
 
-_releaser:
+docker_release:
 	docker pull ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}
 	docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_RELEASE_TAG}
 
-build:
-	$(MAKE) _builder
+git-hooks:
+	echo "Installing git hooks..." && \
+	rm -rf .git/hooks/pre-commit && \
+	ln -s ../../scripts/pre-commit.sh .git/hooks/pre-commit && \
+	chmod +x .git/hooks/pre-commit && \
+	echo "Done!"
 
-push:
-	$(MAKE) _pusher
-
-release:
-	$(MAKE) _releaser
-
-dev:
-	reflex -r '(\.go$$|go\.mod)' -s go run .
-
-# ##################################################
-
-build_%:
-	$(MAKE) _builder \
-		-e _BUILD_ARGS_TAG="$*-${GIT_HASH}" \
-		-e _BUILD_ARGS_DOCKERFILE="Dockerfile.$*"
-
-push_%:
-	$(MAKE) _pusher \
-		-e _BUILD_ARGS_TAG="$*-${GIT_HASH}"
-
-release_%:
-	$(MAKE) _releaser \
-		-e _BUILD_ARGS_TAG="$*-${GIT_HASH}" \
-		-e _BUILD_ARGS_RELEASE_TAG="$*-latest"
+.PHONY: dev air test build docker_build docker_push docker_release git-hooks

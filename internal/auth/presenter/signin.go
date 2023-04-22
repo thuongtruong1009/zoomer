@@ -1,8 +1,8 @@
 package presenter
 
 type LoginInput struct {
-	Username string `json:"username" validate:"required,username"`
-	Password string `json:"password" validate:"required,password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type LogInResponse struct {

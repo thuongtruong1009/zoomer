@@ -1,0 +1,90 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+		paths-ignore:
+      - "!cmd/**"
+      - "!configs/**"
+      - "!db/**"
+      - "!internal/**"
+      - "!pkg/**"
+			- "!validators/**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+		services:
+			postgres:
+				image: postgres:14-alpine
+				env:
+					POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
+					POSTGRES_PASSWORD: ${{ secrets.POSTGRES_USERNAME }}
+					POSTGRES_DB: zoomer
+				ports:
+					- 5432:5432
+				options: >-
+					--health-cmd pg_isready
+					--health-interval 10s
+					--health-timeout 5s
+					--health-retries 5
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.20.x
+
+			- name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: go mod download
+
+      - name: Build and Test
+        run: |
+          go build -o -v ./... cmd/main.go
+          go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ./coverage.txt
+
+			- name: Upload Coverage Report
+				uses: actions/upload-artifact@v2
+				with:
+					name: coverage-report
+					path: ./coverage.txt
+
+			- name: Run Static Analyzer
+        run: go vet -v ./...
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+			- name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest # $(date + %s)
+
+      # - name: Deploy to Kubernetes
+      #   uses: appleboy/kubectl-action@master
+      #   with:
+      #     args: apply -f kubernetes/deployment.yaml
+      #   env:
+      #     KUBECONFIG: ${{ secrets.KUBECONFIG }}

@@ -3,12 +3,12 @@ package repository
 import (
 	"context"
 	"fmt"
-	"gorm.io/gorm"
 	"github.com/go-redis/redis/v8"
+	"gorm.io/gorm"
 	"zoomer/db"
-	"zoomer/lib/cache"
-	"zoomer/internal/models"
 	chatAdapter "zoomer/internal/chats/adapter"
+	"zoomer/internal/models"
+	"zoomer/pkg/cache"
 )
 
 type roomRepository struct {
@@ -71,7 +71,7 @@ func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, e
 	return count, nil
 }
 
-//sync to redis
+// sync to redis
 func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
 	query := fmt.Sprintf("@from:{%s|%s} @to:{%s|%s} @timestamp:[%s %s]", username1, username2, username1, username2, fromTS, toTS)
 
@@ -87,11 +87,11 @@ func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, usern
 }
 
 func (cr *roomRepository) FetchContactList(ctx context.Context, username string) ([]models.ContactList, error) {
-	zRangeArg := redis.ZRangeArgs {
-		Key: chatAdapter.ContactListZKey(username),
+	zRangeArg := redis.ZRangeArgs{
+		Key:   chatAdapter.ContactListZKey(username),
 		Start: 0,
-		Stop: -1,
-		Rev: true,
+		Stop:  -1,
+		Rev:   true,
 	}
 
 	res, err := db.GetRedisInstance().ZRangeArgsWithScores(ctx, zRangeArg).Result()
@@ -102,7 +102,7 @@ func (cr *roomRepository) FetchContactList(ctx context.Context, username string)
 	return contactList, nil
 }
 
-func (cr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context){
+func (cr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context) {
 	res, err := db.GetRedisInstance().Do(ctx, "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON", "PREFIX", "1", "chat#", "SCHEMA", "$.from", "AS", "from", "TAG", "$.to", "TAG", "$.timestamp", "AS", "timestamp", "NUMERIC", "SORTABLE").Result()
 
 	fmt.Println(res, err)

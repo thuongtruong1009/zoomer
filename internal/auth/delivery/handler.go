@@ -3,19 +3,22 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/auth"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
+	"zoomer/pkg/constants"
+	"zoomer/pkg/interceptor"
 	"zoomer/validators"
 )
 
 type authHandler struct {
 	useCase usecase.UseCase
+	inter   interceptor.IInterceptor
 }
 
-func NewAuthHandler(useCase usecase.UseCase) Handler {
+func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) AuthHandler {
 	return &authHandler{
 		useCase: useCase,
+		inter:   inter,
 	}
 }
 
@@ -23,14 +26,15 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
 		if err := validators.ReadRequest(c, input); err != nil {
-			return echo.NewHTTPError(http.StatusBadRequest)
+			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
 		user, err := h.useCase.SignUp(c.Request().Context(), input.Username, input.Password, input.Limit)
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
-		return c.JSON(http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
+
+		return h.inter.Data(c, http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
 	}
 }
 
@@ -43,18 +47,18 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 		userId, username, token, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
 
 		if err != nil {
-			if err == auth.ErrUserNotFound {
-				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
+			if err == constants.ErrUserNotFound {
+				return h.inter.Error(c, http.StatusNotFound, constants.ErrUserNotFound, err)
 			}
-			if err == auth.ErrWrongPassword {
-				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
+			if err == constants.ErrWrongPassword {
+				return h.inter.Error(c, http.StatusNotFound, constants.ErrWrongPassword, err)
 			}
-			return echo.NewHTTPError(http.StatusInternalServerError)
+			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
 
 		usecase.WriteCookie(c, "jwt", token, 60*60*24, "/", "localhost", false, true)
 
-		return c.JSON(http.StatusOK, presenter.LogInResponse{UserId: userId, Username: username, Token: token})
+		return h.inter.Data(c, http.StatusOK, presenter.LogInResponse{UserId: userId, Username: username, Token: token})
 	}
 }
 

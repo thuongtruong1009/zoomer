@@ -1,33 +1,33 @@
 package adapter
 
 import (
-	"log"
 	"encoding/json"
 	"github.com/go-redis/redis/v8"
+	"log"
 	"zoomer/internal/models"
 )
 
 type Document struct {
-	ID string `json:"_id"`
+	ID      string `json:"_id"`
 	Payload []byte `json:"payload"`
-	Total int64 `json:"total"`
+	Total   int64  `json:"total"`
 }
 
 func Deserialise(res interface{}) []Document {
-	switch v := res.(type){
+	switch v := res.(type) {
 	case []interface{}:
 		if len(v) > 1 {
-			total := len(v) -1
+			total := len(v) - 1
 			var docs = make([]Document, 0, total/2)
 
-			for i := 1; i <= total; i +=2 {
+			for i := 1; i <= total; i += 2 {
 				arrOfValues := v[i+1].([]interface{})
 				value := arrOfValues[len(arrOfValues)-1].(string)
 
 				doc := Document{
-					ID: v[i].(string),
+					ID:      v[i].(string),
 					Payload: []byte(value),
-					Total: v[0].(int64),
+					Total:   v[0].(int64),
 				}
 				docs = append(docs, doc)
 			}
@@ -57,7 +57,7 @@ func DeserialiseContactList(contacts []redis.Z) []models.ContactList {
 
 	for _, contact := range contacts {
 		contactList = append(contactList, models.ContactList{
-			Username: contact.Member.(string),
+			Username:     contact.Member.(string),
 			LastActivity: int64(contact.Score),
 		})
 	}

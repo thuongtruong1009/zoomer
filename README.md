@@ -1,29 +1,30 @@
-[Status user ref](https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223)
-
-[v1 ref](https://www.thepolyglotdeveloper.com/2016/12/create-real-time-chat-app-golang-angular-2-websockets/)
-
-[RabbitMQ ref](https://github.com/ong-gtp/go-chat)
-
 ## **Technical stuff**
 
 - Architecture: Clean architecture
 - Framework: Echo
 - ORM: Gorm
-- DB: Postgres
+- DB: Postgres, Redis
 - Deployment: Docker
+- Hot-Reloader: Air
+- Cache: Redis
+- Message Queue: RabbitMQ
+- Stream: WebRTC
+- Swagger: Echo-Swagger
+- Peer connection: HTTP, WebSocket
+- UML diagram: Diagram.net
 
-## **Features**
+## **What news**
 
-- Hot-Reloader with Air.
-- Support JWT
-- Limit rooms per user in a day
-- Unit tests & integration test
-
-## **What next ?**
-
-- Add role/permission based validation
-- Add missing tests
-- Implement your new features
+- [x] Support JWT
+- [x] Limit rooms per user in a day
+- [x] Users can signup and login
+- [x] The only way the user can message have to know the receiver user name.
+- [x] Users can access their chat history.
+- [x] Users can block each other
+- [x] Dockerize and scalability
+- [ ] Add missing intergration tests and Unit Test Coverage
+- [ ] Add role/permission based validation
+- [ ] Implement new features
 
 ## **Realtime Chat**
 
@@ -59,13 +60,15 @@ Update .env file (change host to postgresql)
 docker-compose up -d
 ```
 
-#### **Unit Test**
+#### **Testing**
+
+- Unit tests
 
 ```bash
-go test ./...
+go test -v -cover ./...
 ```
 
-#### **Integration Test**
+- Integration tests
 
 ```bash
 go test -v ./integration-tests
@@ -74,3 +77,13 @@ go test -v ./integration-tests
 **References**
 
 - [Web socket chat](https://www.youtube.com/watch?v=W9SuX9c40s8)
+
+- [Status user ref](https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223)
+
+- [V1 ref](https://www.thepolyglotdeveloper.com/2016/12/create-real-time-chat-app-golang-angular-2-websockets/)
+
+- [Chat ref](https://github.com/ong-gtp/go-chat)
+
+# https://dev.to/aseemwangoo/using-redis-for-caching-2022-2og5
+
+# https://github.dev/dzungtran/echo-rest-api
