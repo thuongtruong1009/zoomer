@@ -83,9 +83,9 @@ func (s *Server) Run() error {
 
 	<-quit
 
-	ctx, shutdown := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
-	defer shutdown()
+	defer cancel()
 
 	s.logger.Fatalln("Server is exited properly")
 	return s.echo.Server.Shutdown(ctx)

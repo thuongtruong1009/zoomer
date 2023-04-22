@@ -66,3 +66,19 @@ func RunAutoMigrate(db *sql.DB, log *logrus.Logger) {
 
 	// log.Infof("Currentdb version: %d, dirty: %t", dbversion, dirty)
 }
+
+// func demo1() {
+// 	//_ "github.com/golang-migrate/migrate/v4/source/file"
+// 	driver, err := postgres.WithInstance(db, &postgres.Config{})
+// 	if err != nil {
+// 		log.Fatalf("cannot create postgres driver %v", err)
+// 	}
+
+// 	m, err := migrate.NewWithDatabaseInstance("file://migrations/", "postgres", driver)
+// 	if err != nil {
+// 		log.Fatalf("cannot create migrations instance %v", err)
+// 	}
+// 	if err = m.Up(); err != nil && err.Error() != "no change" {
+// 		log.Fatalf("error running migrations %v", err)
+// 	}
+// }
