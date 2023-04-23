@@ -1,8 +1,9 @@
-root = "." 
+root = "."
 tmp_dir = "tmp"
 
 [build]
-  cmd = "gofmt -w . && go run cmd/main.go"
+  # cmd = "gofmt -w . && go run cmd/main.go"
+  cmd = "go build -o ./tmp/main ."
 
   args_bin = []
   bin = "tmp/main"

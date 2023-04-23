@@ -1,0 +1,43 @@
+minikube start
+
+deploy to minikube: kubectl apply -f k8s-deployment.yml
+deployment.apps/go-hello-world created
+
+
+get the pods in the cluster: kubectl get deployments
+
+
+kubectl port-forward go-hello-world-69b45499fb-7fh87 8080:8080
+
+-> ok, let open the browser and go to http://localhost:8080
+
+stream log: kubectl logs -f go-hello-world-69b45499fb-7fh87
+
+apply after change: kubectl apply -f deployment.yml
+deployment.apps/go-hello-world unchanged
+service/go-hello-world-service created
+
+get list of service: kubectl get services
+
+get url of service: minikube service go-hello-world-service --url
+-> nhận url-port-mới
+
+-> ok, let open the browser and go to url-port-mới
+
+scale replica: kubectl scale --replicas=4 deployment/go-hello-world
+deployment.extensions/go-hello-world scaled
+
+check pod running: kubectl get pods
+delete pod: kubectl delete pod go-hello-world-69b45499fb-7fh87
+delete service: kubectl delete service go-hello-world-service
+delete deployment: kubectl delete deployment go-hello-world
+stop minikube cluster: minikube stop
+delete minikube cluster: minikube delete
+
+ref: https://www.coding-bootcamps.com/blog/build-containerized-applications-with-golang-on-kubernetes.html#:~:text=Build%20and%20Deploy%20Containerized%20Applications%20with%20Golang%20on,app%20%28%20Move%20to%20Top%29%20...%20More%20items
+
+Pods can be restarted for all kinds of reasons like failed liveliness checks, readiness checks or they can be killed if the node they are running on dies.
+Instead of relying on the Pods IP addresses which change, Kubernetes provides services as stable endpoint for pods. The pods that the service exposes are based on a set of labels. If Pods have the correct labels, they are automatically picked up and exposed by our services.
+ClusterIP: Internal only.
+NodePort: Gives each node an external IP that’s accessible from outside the cluster and also opens a Port. A kube-proxy component that runs on each node of the Kubernetes cluster listens for incoming traffic on the port and forwards them to the selected pods in a round-robin fashion.
+LoadBalancer: Adds a load balancer from the cloud provider which forwards traffic from the service to the nodes within it.

@@ -2,7 +2,6 @@ package delivery
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"

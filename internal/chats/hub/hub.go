@@ -72,10 +72,9 @@ func (h *Hub) Receiver(ctx context.Context, client *models.Client) {
 func (h *Hub) Broadcaster() {
 	for {
 		message := <-Broadcast
-		fmt.Println("new message", message)
 
 		for client := range Clients {
-			fmt.Println("username:", client.Username, "from:", message.From, "to:", message.To)
+			fmt.Println("username:", client.Username, " -  message: ", message, " - from:", message.From, " - to:", message.To)
 
 			if client.Username == message.From || client.Username == message.To {
 				err := client.Conn.WriteJSON(message)

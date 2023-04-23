@@ -89,3 +89,9 @@ go test -v ./integration-tests
 - [Redis Cache](https://dev.to/aseemwangoo/using-redis-for-caching-2022-2og5)
 
 - [Sample template](https://github.dev/dzungtran/echo-rest-api)
+
+- [Streaming file with gRPC 1](http://www.inanzzz.com/index.php/post/152g/transferring-files-with-grpc-client-side-streams-using-golang)
+
+- [Streaming file with gRPC 2](https://dev.to/techschoolguru/upload-file-in-chunks-with-client-streaming-grpc-golang-4loc)
+
+- [MinIO uploader](https://dev.to/minhblues/easy-file-uploads-in-go-fiber-with-minio-393c)

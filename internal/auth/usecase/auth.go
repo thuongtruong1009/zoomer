@@ -3,15 +3,16 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
 	"time"
-	"zoomer/internal/auth/repository"
-	"zoomer/internal/models"
+	"github.com/labstack/echo/v4"
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
 	"zoomer/pkg/constants"
+	"zoomer/internal/models"
+	"zoomer/internal/auth/repository"
+	"zoomer/internal/auth/presenter"
 )
 
 type AuthClaims struct {
@@ -64,14 +65,14 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	return a.userRepo.GetUserByUsername(ctx, fmtusername)
 }
 
-func (a *authUseCase) SignIn(ctx context.Context, username, password string) (string, string, string, error) {
+func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.LogInResponse, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
-		return "", "", "", constants.ErrUserNotFound
+		return nil, constants.ErrUserNotFound
 	}
 
 	if !user.ComparePassword(password) {
-		return "", "", "", constants.ErrWrongPassword
+		return nil, constants.ErrWrongPassword
 	}
 
 	claims := AuthClaims{
@@ -87,11 +88,17 @@ func (a *authUseCase) SignIn(ctx context.Context, username, password string) (st
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	tmp, err := token.SignedString(a.signingKey)
+
+	res := &presenter.LogInResponse{
+		UserId:   user.Id,
+		Username: user.Username,
+		Token:    tmp,
+	}
 	if err != nil {
-		return "", "", "", err
+		return nil, err
 	}
 
-	return user.Id, user.Username, tmp, err
+	return res, nil
 }
 
 func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {

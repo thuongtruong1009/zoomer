@@ -1,4 +1,4 @@
-package server
+package app
 
 import (
 	"github.com/labstack/echo/v4"
@@ -50,6 +50,10 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	httpGr := e.Group("/api")
 
 	e.GET("/docs/*", echoSwagger.WrapHandler)
+	/*
+		url := echoSwagger.URL("http://localhost:1323/swagger/doc.json") //The url pointing to API definition
+		e.GET("/docs/*", echoSwagger.EchoWrapHandler(url))
+	*/
 
 	authGroup := httpGr.Group("/auth")
 	authHttp.MapAuthRoutes(authGroup, authHandler)

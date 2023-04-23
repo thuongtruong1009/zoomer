@@ -12,16 +12,16 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 	return func(c echo.Context) error {
 		authHeader := c.Request().Header.Get("Authorization")
 		if authHeader == "" {
-			return echo.NewHTTPError(http.StatusUnauthorized)
+			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
 		headerParts := strings.Split(authHeader, " ")
 		if len(headerParts) != 2 {
-			return echo.NewHTTPError(http.StatusUnauthorized)
+			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
 		if headerParts[0] != "Bearer" {
-			return echo.NewHTTPError(http.StatusUnauthorized)
+			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
 		userId, err := mw.authUC.ParseToken(c.Request().Context(), headerParts[1])
@@ -31,7 +31,30 @@ func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFu
 			if err == constants.ErrInvalidAccessToken {
 				status = http.StatusUnauthorized
 			}
-			return echo.NewHTTPError(status)
+			return mw.inter.Error(c, status, constants.ErrorInternalServer, err)
+		}
+
+		c.Set(repository.CtxUserKey, userId)
+
+		return next(c)
+	}
+}
+
+func (mw *MiddlewareManager) CookieValidation(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cookie, err := c.Cookie(constants.CookieKey)
+		if err != nil {
+			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
+		}
+
+		userId, err := mw.authUC.ParseToken(c.Request().Context(), cookie.Value)
+
+		if err != nil {
+			status := http.StatusInternalServerError
+			if err == constants.ErrInvalidAccessToken {
+				status = http.StatusUnauthorized
+			}
+			return mw.inter.Error(c, status, constants.ErrorInternalServer, err)
 		}
 
 		c.Set(repository.CtxUserKey, userId)

@@ -38,6 +38,7 @@ migration-down:
 	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
 
 setup:
+	go get -u github.com/cosmtrek/air
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 	go install github.com/swaggo/swag/cmd/swag@latest
 

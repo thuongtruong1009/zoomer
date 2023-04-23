@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 	"zoomer/internal/resources/adapter"
+	"zoomer/pkg/constants"
 )
 
 func MapResourceRoutes(resourceGroup *echo.Group, rh ResourceHandler) {
@@ -13,16 +14,15 @@ func MapResourceRoutes(resourceGroup *echo.Group, rh ResourceHandler) {
 	if err != nil {
 		log.Println(err)
 	}
-	bucketName := "zoomer"
 
-	err = adapter.CreateBucket(Client, bucketName)
+	err = adapter.CreateBucket(Client, constants.BucketName)
 	if err != nil {
 		log.Println(err)
 	}
 
-	resourceGroup.GET("/image", rh.GetResource(Client, bucketName))
-	resourceGroup.POST("/image/:uid/:id", rh.CreateResource(Client, bucketName))
-	resourceGroup.PUT("/image/:uid/:id", rh.UploadResource(Client, bucketName))
-	resourceGroup.DELETE("/image/:uid/:id", rh.DeleteResource(Client, bucketName))
+	resourceGroup.GET("/image", rh.GetResource(Client, constants.BucketName))
+	resourceGroup.POST("/image/:uid/:id", rh.CreateResource(Client, constants.BucketName))
+	resourceGroup.PUT("/image/:uid/:id", rh.UploadResource(Client, constants.BucketName))
+	resourceGroup.DELETE("/image/:uid/:id", rh.DeleteResource(Client, constants.BucketName))
 	// resourceGroup.Logger.Fatal(router.Start(port))
 }
