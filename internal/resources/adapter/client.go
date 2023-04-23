@@ -53,7 +53,7 @@ func CreateBucket(client *minio.Client, bucketName string) error {
 			logrus.Infof("We already own %s\n", bucketName)
         } else {
 			logrus.Infof("Failed to create bucket %s\n", bucketName)
-            log.Fatalln(err)
+            // log.Fatalln(err)
         }
     } else {
 		logrus.Infof("Successfully created %s\n", bucketName)

@@ -67,7 +67,7 @@ func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 
 		sh.hub.Receiver(c.Request().Context(), roomID, client)
 
-		defer delete(hub.Mapper.Map, client.Conn.RemoteAddr().String())
+		// defer delete(hub.Mapper.Map, client.Conn.RemoteAddr().String())
 
 		return sh.inter.Data(c, http.StatusOK, nil)
 	}

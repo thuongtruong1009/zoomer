@@ -14,3 +14,8 @@ type BroadcastMessage struct {
 	RoomID  string                 `json:"room_id"`
 	Client  *websocket.Conn        `json:"conn"`
 }
+
+type DisconnectMessage struct {
+	RoomID string
+	Client *Participant
+}

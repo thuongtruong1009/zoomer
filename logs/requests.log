@@ -170,3 +170,5 @@
 
 [Id: uf5IFNmv7yD8M2FHzig8nDHUmNgCgg5Y] 2023/04/21 00:01:56 logger.go:23:  Time: 2023-04-21T00:01:56+07:00 Remote_IP: 127.0.0.1 Agent:  Host: localhost:8080 Method: GET Uri: /api/ws Status: 404 Latency: 1.0377ms Bytes_in: 0 Bytes_out: 24
 
+[Id: 87D9ooF9gj0XP205ATMVI5GtuQi2TFHm] 2023/04/23 20:59:43 logger.go:23:  Time: 2023-04-23T20:59:43+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 224.6113ms Bytes_in: 57 Bytes_out: 384
+
