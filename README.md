@@ -95,3 +95,5 @@ go test -v ./integration-tests
 - [Streaming file with gRPC 2](https://dev.to/techschoolguru/upload-file-in-chunks-with-client-streaming-grpc-golang-4loc)
 
 - [MinIO uploader](https://dev.to/minhblues/easy-file-uploads-in-go-fiber-with-minio-393c)
+
+- [Goapp template](https://github.com/bnkamalesh/goapp)

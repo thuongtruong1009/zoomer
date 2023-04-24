@@ -9,8 +9,8 @@ import (
 	chatHub "zoomer/internal/chats/hub"
 	chatRepository "zoomer/internal/chats/repository"
 
-	streamHub "zoomer/internal/stream/hub"
 	streamDelivery "zoomer/internal/stream/delivery"
+	streamHub "zoomer/internal/stream/hub"
 )
 
 func WsMapServer(port string) {

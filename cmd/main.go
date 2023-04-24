@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
-	"os"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
+	"log"
+	"os"
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/app"

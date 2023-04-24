@@ -3,16 +3,16 @@ package usecase
 import (
 	"context"
 	"fmt"
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"net/http"
 	"strings"
 	"time"
-	"github.com/labstack/echo/v4"
-	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
-	"zoomer/pkg/constants"
-	"zoomer/internal/models"
-	"zoomer/internal/auth/repository"
 	"zoomer/internal/auth/presenter"
+	"zoomer/internal/auth/repository"
+	"zoomer/internal/models"
+	"zoomer/pkg/constants"
 )
 
 type AuthClaims struct {

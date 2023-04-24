@@ -51,13 +51,13 @@ func CreateBucket(client *minio.Client, bucketName string) error {
 		exists, errBucketExists := client.BucketExists(ctx, bucketName)
 		if errBucketExists == nil && exists {
 			logrus.Infof("We already own %s\n", bucketName)
-        } else {
+		} else {
 			logrus.Infof("Failed to create bucket %s\n", bucketName)
-            // log.Fatalln(err)
-        }
-    } else {
+			// log.Fatalln(err)
+		}
+	} else {
 		logrus.Infof("Successfully created %s\n", bucketName)
-    }
+	}
 	return err
 }
 
@@ -67,9 +67,9 @@ func UploadData(client *minio.Client, bucketName string, objectName string, data
 		log.Fatalln(err)
 	}
 	// objectName := file.Filename
-    // fileBuffer := buffer
-    // contentType := file.Header["Content-Type"][0]
-    // fileSize := file.Size
+	// fileBuffer := buffer
+	// contentType := file.Header["Content-Type"][0]
+	// fileSize := file.Size
 	n, err := client.PutObject(context.Background(), bucketName, objectName, data, -1, minio.PutObjectOptions{ContentType: contentType})
 	if err != nil {
 		fmt.Println(err)

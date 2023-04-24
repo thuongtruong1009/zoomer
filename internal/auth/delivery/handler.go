@@ -1,14 +1,14 @@
 package delivery
 
 import (
-	"net/http"
 	"github.com/labstack/echo/v4"
-	"zoomer/pkg/interceptor"
-	"zoomer/validators"
-	"zoomer/internal/models"
-	"zoomer/pkg/constants"
+	"net/http"
 	"zoomer/internal/auth/presenter"
 	"zoomer/internal/auth/usecase"
+	"zoomer/internal/models"
+	"zoomer/pkg/constants"
+	"zoomer/pkg/interceptor"
+	"zoomer/validators"
 )
 
 type authHandler struct {
@@ -22,7 +22,6 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) Aut
 		inter:   inter,
 	}
 }
-
 
 // CreateANewUser godoc
 // @Summary      Create a new user
@@ -78,7 +77,6 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 		}
 
 		user, err := h.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
-
 
 		if err != nil {
 			if err == constants.ErrUserNotFound {

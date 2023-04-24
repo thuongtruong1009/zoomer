@@ -10,10 +10,10 @@ type Resource struct {
 	Name string `json:"name"`
 }
 
-//video
+// video
 type Video struct {
-	Id         string
-	Name       string
-	Url        string
-	CreatedAt  time.Time
+	Id        string
+	Name      string
+	Url       string
+	CreatedAt time.Time
 }

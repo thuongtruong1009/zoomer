@@ -8,7 +8,7 @@ var (
 	ErrWrongPassword      error = errors.New("wrong password")
 	ErrUserExisted        error = errors.New("user existed")
 	ErrInvalidAccessToken error = errors.New("invalid access token")
-	ErrNoRecord		   error = errors.New("no record")
+	ErrNoRecord           error = errors.New("no record")
 	ErrUsernameInvalid    error = errors.New("username invalid")
 	ErrPasswordInvalid    error = errors.New("password invalid")
 

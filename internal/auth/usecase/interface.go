@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"zoomer/internal/models"
 	"zoomer/internal/auth/presenter"
+	"zoomer/internal/models"
 )
 
 type UseCase interface {

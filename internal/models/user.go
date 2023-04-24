@@ -9,7 +9,7 @@ type User struct {
 	Id       string `gorm:"primary_key"`
 	Username string `gorm:"not null;unique" json:"username"`
 	Password string `gorm:"not null" json:"password"`
-	Limit    int   `gorm:"not null" json:"limit"`
+	Limit    int    `gorm:"not null" json:"limit"`
 }
 
 func (u *User) IsUsernameInvalid() bool {

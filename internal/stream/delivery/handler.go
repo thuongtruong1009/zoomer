@@ -2,28 +2,28 @@ package delivery
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/stream/hub"
+	"net/http"
 	"zoomer/internal/models"
+	"zoomer/internal/stream/hub"
 	"zoomer/internal/stream/presenter"
-	"zoomer/pkg/interceptor"
 	"zoomer/pkg/constants"
+	"zoomer/pkg/interceptor"
 )
 
 type streamHandler struct {
-	hub hub.IHub
+	hub   hub.IHub
 	inter interceptor.IInterceptor
 }
 
-func Init(){
-	hub.Mapper.Map =  make(map[string][]*models.Participant)
+func Init() {
+	hub.Mapper.Map = make(map[string][]*models.Participant)
 }
 
 func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) StreamHandler {
 	return &streamHandler{
-		hub: hub,
+		hub:   hub,
 		inter: inter,
 	}
 }

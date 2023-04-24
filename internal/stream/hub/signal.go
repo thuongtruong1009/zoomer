@@ -2,8 +2,8 @@ package hub
 
 import (
 	"context"
-	"sync"
 	"log"
+	"sync"
 	"zoomer/internal/models"
 	"zoomer/pkg/utils"
 )
@@ -14,8 +14,8 @@ type RoomMap struct {
 }
 
 var (
-	Mapper  RoomMap
-	Broadcast = make(chan *models.BroadcastMessage, 100)
+	Mapper     RoomMap
+	Broadcast  = make(chan *models.BroadcastMessage, 100)
 	Disconnect = make(chan *models.DisconnectMessage, 100)
 )
 
