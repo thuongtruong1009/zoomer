@@ -4,9 +4,8 @@ import (
 	"context"
 	"sync"
 	"log"
-	"math/rand"
-	"time"
 	"zoomer/internal/models"
+	"zoomer/pkg/utils"
 )
 
 type RoomMap struct {
@@ -28,15 +27,7 @@ func NewStreamHub() IHub {
 }
 
 func (h *hub) CreateStream(ctx context.Context) string {
-	rand.Seed(time.Now().UnixNano())
-	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
-	b := make([]rune, 8)
-
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-
-	roomID := string(b)
+	roomID := utils.RandomString(8)
 	Mapper.mux.Lock()
 	Mapper.Map[roomID] = []*models.Participant{}
 	Mapper.mux.Unlock()

@@ -50,6 +50,15 @@ docs:
 
 # Docker
 
+docker-run:
+	docker-compose up -d
+
+docker-stop:
+	docker-compose down
+
+docker-log:
+	docker-compose logs -f
+
 docker_build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 

@@ -23,6 +23,16 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) Aut
 	}
 }
 
+
+// CreateANewUser godoc
+// @Summary      Create a new user
+// @Description  Create a new user
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  wrapper.SuccessResponse{data=presenter.SignUpResponse}
+// @Router       /api/auth/signup [post]
+
 func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
@@ -48,6 +58,17 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 		return h.inter.Data(c, http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
 	}
 }
+
+// GetUserInfo godoc
+// @Summary      Get user info
+// @Description  Get user info by ID
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        userId   path      int  true  "User ID"
+// @Success      200  {object}  wrapper.SuccessResponse{data=domains.User}
+// @Security     XFirebaseBearer
+// @Router       /auth/signin/users/{userId} [get]
 
 func (h *authHandler) SignIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
