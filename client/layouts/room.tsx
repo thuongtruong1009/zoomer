@@ -2,8 +2,7 @@ import { LayoutProps } from '@/models/common'
 import { Box, Stack } from '@mui/material'
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { AccountMenu, ContactList, Head, Panel } from '@/components'
-import RoomSpecify from '@/pages/room/[roomId]'
+import { AccountMenu, ContactList, Head } from '@/components'
 
 export function RoomLayout({ children }: LayoutProps) {
     return (

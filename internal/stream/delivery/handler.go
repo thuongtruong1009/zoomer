@@ -47,7 +47,7 @@ func (sh *streamHandler) CreateStream() echo.HandlerFunc {
 
 func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		roomID := c.QueryParam("roomID")
+		roomID := c.QueryParam("streamID")
 
 		if roomID == "" {
 			return sh.inter.Error(c, http.StatusBadRequest, constants.ErrStreamIDMissing, nil)

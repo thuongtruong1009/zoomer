@@ -32,7 +32,7 @@ const getFirebaseToken = async () => {
     })
 }
 
-const axiosInstance = axios.create({
+export const axiosHttpInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
     headers: {
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const axiosInstance = axios.create({
     paramsSerializer: (params: any) => querystring.stringify(params),
 })
 
-axiosInstance.interceptors.request.use(
+axiosHttpInstance.interceptors.request.use(
     async (config: any) => {
         // local token
         // const token = localStore.get('user').token
@@ -58,7 +58,7 @@ axiosInstance.interceptors.request.use(
     }
 )
 
-axiosInstance.interceptors.response.use(
+axiosHttpInstance.interceptors.response.use(
     (response: any) => {
         if (response && response.data) {
             return response.data
@@ -69,5 +69,3 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-
-export default axiosInstance
