@@ -97,3 +97,11 @@ go test -v ./integration-tests
 - [MinIO uploader](https://dev.to/minhblues/easy-file-uploads-in-go-fiber-with-minio-393c)
 
 - [Goapp template](https://github.com/bnkamalesh/goapp)
+
+- [RabbitMQ docs](https://topdev.vn/blog/ket-noi-amqp-client-voi-rabbitmq-server/)
+
+- [RabbitMQ example 1](https://github.com/lakhinsu/rabbitmq-go-example)
+
+- [Gin template](https://github.com/lakhinsu/gin-boilerplate)
+
+- [Elastic search](https://github.dev/NooBeeID/simple-go-search/tree/develop)

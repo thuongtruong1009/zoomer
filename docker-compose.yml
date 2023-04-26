@@ -6,59 +6,84 @@ services:
     container_name: postgres
     hostname: postgres
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:5432"
     restart: always
     volumes:
       - ./.docker/postgres/data:/var/lib/postgresql/data
     networks:
       - postgres-network
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-      - POSTGRES_DB=${POSTGRES_DB:-zoomer}
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456789}
+      - POSTGRES_HOST=postgres
+      # - POSTGRES_PORT=${PG_PORT}
+      - POSTGRES_DB=${PG_DBNAME}
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      # - POSTGRES_HOST_AUTH_METHOD=trust
+      # - POSTGRES_DB=${POSTGRES_DB:-zoomer}
+    #   - POSTGRES_USER=${POSTGRES_USER:-postgres}
+    #   - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456789}
+    healthcheck:
+      test: pg_isready
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dockette/adminer:pgsql
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - postgres-network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./.docker/postgres/pgadmin:/var/lib/pgadmin
 
   redis-master:
     image: redis:7.0-alpine
     container_name: redis-master
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
     networks:
       - redis-network
     volumes:
       - ./.docker/redis/data/master:/data
-    command: redis-server --appendonly yes
+      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     restart: always
 
   redis-slave:
     image: redis:7.0-alpine
     container_name: redis-slave
-    ports:
-      - "6380:6379"
-    command: redis-server --appendonly yes --slaveof redis-master 6379
-    depends_on:
-      - redis-master
+    # ports:
+    #   - "6380:6379"
+    command: redis-server --appendonly yes --slaveof redis-master ${REDIS_PORT} --masterauth ${REDIS_PASSWORD}
     networks:
       - redis-network
     volumes:
       - ./.docker/redis/data/slave:/data
+      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
     restart: always
 
   redis-sentinel:
     image: redis:7.0-alpine
     container_name: redis-sentinel
-    ports:
-      - "26379:26379"
+    # ports:
+    #   - "${SENTINEL_PORT}:26379"
     command: redis-sentinel /etc/redis/sentinel.conf
-    # command: redis-sentinel /usr/local/etc/redis/sentinel.conf
     depends_on:
       - redis-master
       - redis-slave
     networks:
       - redis-network
     volumes:
-      - ./.docker/redis/sentinel:/etc/redis
-      - ./.docker/redis/config/sentinel.conf:/usr/local/etc/redis/sentinel.conf
+      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
     restart: always
 
   redis-commander:
@@ -75,7 +100,7 @@ services:
     image: minio/minio
     container_name: minio
     ports:
-      - "9000:9000"
+      - "${MINIO_PORT}:9000"
       - "9001:9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
@@ -93,10 +118,17 @@ services:
     image: rabbitmq:3.11.3-management-alpine
     container_name: rabbitmq
     ports:
-      - "5672:5672"
+      - "${RMQ_PORT}:5672"
       - "15672:15672"
-    environment:
-      AMQP_SERVER_URL: amqp://guest:guest@rabbitmq:5672/
+    # environment:
+    #   - RABBITMQ_DEFAULT_USER=${RMQ_USER}
+    #   - RABBITMQ_DEFAULT_PASS=${RMQ_PASSWORD}
+    #   - RABBITMQ_DEFAULT_VHOST=${RMQ_VHOST}
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 5s
+      timeout: 15s
+      retries: 5
     volumes:
       - ./.docker/rabbitmq/data:/var/lib/rabbitmq
       - ./.docker/rabbitmq/log:/var/log/rabbitmq
@@ -114,8 +146,8 @@ services:
     env_file:
       - .env
     ports:
-      - "8080:8080"
-      - "8081:8080"
+      - "${HTTP_PORT}:8080"
+      - "${WS_PORT}:8081"
     depends_on:
       - postgres
       - redis-master
@@ -123,8 +155,6 @@ services:
       - rabbitmq
     volumes:
       - .:/app
-      # - $GOPATH/pkg/mod:/go/pkg/mod
-    # working_dir: /app/cmd
     networks:
       - postgres-network
       - minio-network
@@ -166,4 +196,3 @@ networks:
     driver: bridge
   redis-network:
     driver: bridge
-# https://github.dev/NooBeeID/simple-go-search/tree/develop

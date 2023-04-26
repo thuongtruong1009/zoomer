@@ -2,14 +2,13 @@ package queue
 
 import (
 	"context"
-	"fmt"
 	"github.com/streadway/amqp"
 	"log"
 )
 
 func RabbitMQAdapter(ctx context.Context, queueName string, body []byte) (<-chan IDelivery, error) {
 
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/zoomer")
 	FailOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 

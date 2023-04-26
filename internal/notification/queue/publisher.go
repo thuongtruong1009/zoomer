@@ -28,6 +28,6 @@ func (p *IPublisher) Publish(ctx context.Context, ch *amqp.Channel, queueName st
 			DeliveryMode: amqp.Persistent,
 		})
 
-	FailOnError(err, "Failed to publish a message")
+		FailOnError(err, "Failed to publish a message")
 	return nil
 }

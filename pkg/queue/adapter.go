@@ -1,4 +1,4 @@
-package queue
+package main
 
 import (
 	"context"
@@ -37,7 +37,7 @@ func FailOnError(err error, msg string) {
 	}
 }
 
-func check() {
+func main() {
 	ctx := context.Background()
 	deliveries, _ := RabbitMQAdapter(ctx, "test", []byte("Hello World!"))
 
