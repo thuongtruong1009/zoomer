@@ -17,6 +17,7 @@ var (
 	Mapper     RoomMap
 	Broadcast  = make(chan *models.BroadcastMessage, 100)
 	Disconnect = make(chan *models.DisconnectMessage, 100)
+	Rejoin     = make(chan *models.RejoinMessage, 100)
 )
 
 type hub struct{}
@@ -36,8 +37,6 @@ func (h *hub) CreateStream(ctx context.Context) string {
 }
 
 func (h *hub) GetParticipants(ctx context.Context, roomID string) []*models.Participant {
-	Mapper.mux.RLock()
-	defer Mapper.mux.RUnlock()
 	return Mapper.Map[roomID]
 }
 
@@ -107,7 +106,7 @@ func (h *hub) Broadcaster() {
 					clients = append(clients[:i], clients[i+1:]...)
 					Mapper.Map[roomID] = clients
 					log.Println("client disconnected from room", roomID)
-					break
+					// break
 				}
 			}
 		}

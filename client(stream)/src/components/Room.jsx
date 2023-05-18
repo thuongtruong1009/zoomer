@@ -99,7 +99,7 @@ const Room = () => {
       userStream.current = stream;
 
       webSocketRef.current = new WebSocket(
-        `ws://localhost:8081/join?roomID=${roomID}`
+        `ws://localhost:8081/join?streamID=${roomID}`
       );
 
       webSocketRef.current.addEventListener("open", () => {

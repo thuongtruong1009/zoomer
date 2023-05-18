@@ -13,11 +13,10 @@ services:
     networks:
       - postgres-network
     environment:
-      - POSTGRES_HOST=postgres
-      # - POSTGRES_PORT=${PG_PORT}
-      - POSTGRES_DB=${PG_DBNAME}
-      - POSTGRES_USER=${PG_USER}
-      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_DB=zoomer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
       # - POSTGRES_HOST_AUTH_METHOD=trust
       # - POSTGRES_DB=${POSTGRES_DB:-zoomer}
     #   - POSTGRES_USER=${POSTGRES_USER:-postgres}
@@ -54,28 +53,26 @@ services:
       - redis-network
     volumes:
       - ./.docker/redis/data/master:/data
-      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
+      - ./.docker/redis/config/master:/etc/redis/sentinel.conf
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     restart: always
 
   redis-slave:
     image: redis:7.0-alpine
     container_name: redis-slave
-    # ports:
-    #   - "6380:6379"
     command: redis-server --appendonly yes --slaveof redis-master ${REDIS_PORT} --masterauth ${REDIS_PASSWORD}
     networks:
       - redis-network
     volumes:
       - ./.docker/redis/data/slave:/data
-      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
+      - ./.docker/redis/config/slave:/etc/redis/sentinel.conf
     restart: always
 
   redis-sentinel:
     image: redis:7.0-alpine
     container_name: redis-sentinel
-    # ports:
-    #   - "${SENTINEL_PORT}:26379"
+    ports:
+      - "26379:26379"
     command: redis-sentinel /etc/redis/sentinel.conf
     depends_on:
       - redis-master
@@ -83,7 +80,8 @@ services:
     networks:
       - redis-network
     volumes:
-      - ./.docker/redis/config/sentinel.conf:/etc/redis/sentinel.conf
+      - ./.docker/redis/data/sentinel:/data
+      - ./.docker/redis/config/sentinel:/etc/redis/sentinel.conf
     restart: always
 
   redis-commander:
@@ -143,11 +141,17 @@ services:
       context: .
       dockerfile: Dockerfile
       # dockerfile: ../build/Dockerfile.dev.air
+			# args:
+      #   - APP_PATH=./cmd
     env_file:
       - .env
+    environment:
+      - TARGET=development
     ports:
       - "${HTTP_PORT}:8080"
       - "${WS_PORT}:8081"
+    # deploy:
+    #   replicas: 3
     depends_on:
       - postgres
       - redis-master

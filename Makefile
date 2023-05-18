@@ -38,7 +38,6 @@ migration-down:
 	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
 
 setup:
-	go get -u github.com/cosmtrek/air
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 	go install github.com/swaggo/swag/cmd/swag@latest
 
@@ -50,17 +49,14 @@ docs:
 
 # Docker
 
-docker-run:
-	docker-compose up -d
-
-docker-stop:
-	docker-compose down
-
-docker-log:
-	docker-compose logs -f
-
 docker_build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
+
+docker-dev:
+	docker build -t ${APPLICATION_NAME}:development --build-arg TARGET=production -f Dockerfile .
+
+docker-prod:
+	docker build -t ${APPLICATION_NAME}:production --build-arg TARGET=production -f Dockerfile .
 
 docker_push:
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}

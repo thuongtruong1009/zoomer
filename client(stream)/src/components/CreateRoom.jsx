@@ -8,9 +8,9 @@ const CreateRoom = () => {
     e.preventDefault();
 
     const resp = await fetch("http://localhost:8081/create");
-    const { room_id } = await resp.json();
+    const data = await resp.json();
 
-    navigate(`/room/${room_id}`);
+    navigate(`/room/${data.data.room_id}`);
   };
 
   return (

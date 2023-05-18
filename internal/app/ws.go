@@ -34,10 +34,11 @@ func WsMapServer(port string) {
 	wsStreamUC := streamHub.NewStreamHub()
 	wsStreamHandler := streamDelivery.NewStreamHandler(wsStreamUC, inter)
 
-	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
-
 	streamDelivery.Init()
 	go wsStreamUC.Broadcaster()
+
+	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
+
 
 	e.Logger.Fatal(e.Start(port))
 }

@@ -172,3 +172,17 @@
 
 [Id: 87D9ooF9gj0XP205ATMVI5GtuQi2TFHm] 2023/04/23 20:59:43 logger.go:23:  Time: 2023-04-23T20:59:43+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 224.6113ms Bytes_in: 57 Bytes_out: 384
 
+[Id: X0ZHeb3v3md9U53Ibql4DWBG092WgYIU] 2023/05/18 22:04:53 logger.go:23:  Time: 2023-05-18T22:04:53+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: GET Uri: /resources/image Status: 404 Latency: 29.5538ms Bytes_in: 0 Bytes_out: 24
+
+[Id: oWEHErqvAnqsJUOP8YgbhET0gtKzBPVT] 2023/05/18 22:05:36 logger.go:23:  Time: 2023-05-18T22:05:36+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: GET Uri: /resource/image Status: 404 Latency: 538.3µs Bytes_in: 0 Bytes_out: 24
+
+[Id: JCM0HmioDUBzYFLZK4iqLPbCGHYg0GuA] 2023/05/18 22:14:37 logger.go:23:  Time: 2023-05-18T22:14:37+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42 Host: localhost:8080 Method: OPTIONS Uri: /resource/image/1/1 Status: 204 Latency: 4.1584ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 7SqUQm5BOmaLko95hAX3W8UVoBwOEAwb] 2023/05/18 22:14:37 logger.go:23:  Time: 2023-05-18T22:14:37+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42 Host: localhost:8080 Method: POST Uri: /resource/image/1/1 Status: 405 Latency: 2.9384ms Bytes_in: 96735 Bytes_out: 33
+
+[Id: sePGge2RnKN9KtdRpKoJFg6936aWMSzW] 2023/05/18 22:21:50 logger.go:23:  Time: 2023-05-18T22:21:50+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42 Host: localhost:8080 Method: POST Uri: /resource/image/1/1 Status: 405 Latency: 4.6708ms Bytes_in: 96744 Bytes_out: 33
+
+[Id: rQkonkur8nsT7DaXid0myFKxYnHKRzLc] 2023/05/18 22:22:05 logger.go:23:  Time: 2023-05-18T22:22:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42 Host: localhost:8080 Method: OPTIONS Uri: /resource/image Status: 204 Latency: 3.6049ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 7JU4LHjcebsRquX12btDnDTMenfKLzf9] 2023/05/18 22:22:05 logger.go:23:  Time: 2023-05-18T22:22:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42 Host: localhost:8080 Method: GET Uri: /resource/image Status: 404 Latency: 1.5993ms Bytes_in: 0 Bytes_out: 24
+
