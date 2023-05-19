@@ -5,4 +5,5 @@ const (
 	KeyPath        string = "/.docker/nginx/key.pem"
 	RequestLogPath string = "logs/requests.log"
 	BucketName     string = "zoomer"
+	UploadPath	 string = "public/upload/"
 )

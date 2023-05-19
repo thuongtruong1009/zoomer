@@ -17,7 +17,6 @@ var (
 	Mapper     RoomMap
 	Broadcast  = make(chan *models.BroadcastMessage, 100)
 	Disconnect = make(chan *models.DisconnectMessage, 100)
-	Rejoin     = make(chan *models.RejoinMessage, 100)
 )
 
 type hub struct{}
@@ -58,9 +57,8 @@ func (h *hub) Receiver(ctx context.Context, roomId string, client *models.Partic
 		var msg models.BroadcastMessage
 		err := client.Conn.ReadJSON(&msg.Message)
 		if err != nil {
-			// log.Fatal("Read failed: ", err)
 			log.Println("Can read messaged: ", err)
-			Disconnect <- &models.DisconnectMessage{RoomID: roomId, Client: client}
+			// Disconnect <- &models.DisconnectMessage{RoomID: roomId, Client: client}
 			return
 		}
 
@@ -91,7 +89,7 @@ func (h *hub) Broadcaster() {
 						// client.Conn.Close()
 						// Mapper.Map = nil
 						// log.Println("Room remain: ", Mapper.Map)
-						Disconnect <- &models.DisconnectMessage{RoomID: msg.RoomID, Client: client}
+						// Disconnect <- &models.DisconnectMessage{RoomID: msg.RoomID, Client: client}
 					}
 				}
 			}

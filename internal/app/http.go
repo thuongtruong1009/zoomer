@@ -10,14 +10,16 @@ import (
 	searchRepository "zoomer/internal/search/repository"
 
 	authUsecase "zoomer/internal/auth/usecase"
-	resourceUsecase "zoomer/internal/resources/usecase"
 	roomUsecase "zoomer/internal/rooms/usecase"
 	searchUsecase "zoomer/internal/search/usecase"
+	resourceUsecase "zoomer/internal/resources/usecase"
+	localResourceUsecase "zoomer/internal/resources/local/usecase"
 
 	authHttp "zoomer/internal/auth/delivery"
-	resourceHttp "zoomer/internal/resources/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
+	minioResourceHttp "zoomer/internal/resources/delivery"
+	localResourceHttp "zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"zoomer/pkg/interceptor"
@@ -35,11 +37,13 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)
+	localResourceUC := localResourceUsecase.NewLocalResourceUseCase()
 
 	authHandler := authHttp.NewAuthHandler(authUC, inter)
 	roomHandler := roomHttp.NewRoomHandler(roomUC, inter)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
-	resourceHandler := resourceHttp.NewResourceHandler(resourceUC)
+	minioResourceHandler := minioResourceHttp.NewResourceHandler(resourceUC)
+	localResourceHandler := localResourceHttp.NewLocalResourceHandler(inter, localResourceUC)
 
 	middlewares.HttpMiddleware(e, inter)
 
@@ -65,7 +69,8 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	searchHttp.MapSearchRoutes(searchGroup, searchHandler)
 
 	resourceGroup := httpGr.Group("/resource")
-	resourceHttp.MapResourceRoutes(resourceGroup, resourceHandler)
+	minioResourceHttp.MapResourceRoutes(resourceGroup, minioResourceHandler)
+	localResourceHttp.MapLocalResourceRoutes(resourceGroup, localResourceHandler)
 
 	return nil
 }

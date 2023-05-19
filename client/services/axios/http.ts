@@ -8,7 +8,7 @@ export const axiosHttpInstance = axios.create({
         'Content-Type': 'application/json',
         // Credentials: 'include',
     },
-    paramsSerializer: (params: any) => querystring.stringify(params),
+    paramsSerializer: ((params: any) => querystring.stringify(params)) as any
 })
 
 axiosHttpInstance.interceptors.request.use(

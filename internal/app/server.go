@@ -41,19 +41,17 @@ func (s *Server) Run() error {
 			ReadTimeout:  15 * time.Second,
 		}
 
-		// https2.0
-		if s.cfg.HttpsMode == "true" {
+		if s.cfg.HttpsMode == "true" {	// https mode 2.0
 			certPath := utils.GetFilePath(constants.CertPath)
 			keyPath := utils.GetFilePath(constants.KeyPath)
 			configs.TLSConfig(certPath, keyPath)
 			if err := s.echo.StartTLS(httpServer.Addr, certPath, keyPath); err != http.ErrServerClosed {
 				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
 			}
-		}
-
-		// http1.1
-		if err := s.echo.StartServer(httpServer); err != nil {
-			s.logger.Fatalln("Error occurred while starting the http server: ", err)
+		}else { // http mode 1.1
+			if err := s.echo.StartServer(httpServer); err != nil {
+				s.logger.Fatalln("Error occurred while starting the http server: ", err)
+			}
 		}
 
 		s.logger.Logf(logrus.InfoLevel, "api server is listening on PORT: %s", s.cfg.HttpPort)

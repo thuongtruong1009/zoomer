@@ -17,7 +17,7 @@ type streamHandler struct {
 	inter interceptor.IInterceptor
 }
 
-func Init() {
+func init() {
 	hub.Mapper.Map = make(map[string][]*models.Participant)
 }
 
@@ -68,7 +68,7 @@ func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 
 		sh.hub.Receiver(c.Request().Context(), roomID, client)
 
-		// defer delete(hub.Mapper.Map, client.Conn.RemoteAddr().String())
+		defer delete(hub.Mapper.Map, client.Conn.RemoteAddr().String())
 
 		return sh.inter.Data(c, http.StatusOK, nil)
 	}

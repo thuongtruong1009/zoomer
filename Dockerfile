@@ -33,17 +33,14 @@ FROM golang:1.20-alpine
 
 WORKDIR /app
 
-COPY --chown=0:0 --from=development /app/app-dev ./app-dev
-COPY --chown=0:0 --from=production  /app/app-prod ./app-prod
+COPY --from=development /app /app/app-dev
+COPY --from=production /app /app/app-prod
 
-ENV TARGET=development
-# ENV TARGET=production
-
-CMD ["./app-dev"]
+# CMD ["/app/app-dev"]
 
 # CMD ["air", "-c", ".air.toml"]
-# CMD if [ "$TARGET" = "development" ]; then \
-#         ./app-dev; \
-#     else \
-#         ./app-prod; \
-#     fi
+CMD if [ "$TARGET" = "development" ]; then \
+        ./app-dev; \
+    else \
+        ./app-prod; \
+    fi

@@ -31,6 +31,7 @@ const Home: NextPageWithLayout = () => {
 
     const onSubmit = async () => {
         if (usernameValid && passwordValid) {
+          console.log({ username, password })
             try {
                 const res = await AuthServices.signin({ username, password })
                 if (res) {
