@@ -19,7 +19,7 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/echo-swagger v1.4.0
-	github.com/swaggo/swag v1.8.12
+	github.com/swaggo/swag v1.16.1
 	golang.org/x/crypto v0.6.0
 	gorm.io/driver/postgres v1.4.7
 	gorm.io/gorm v1.25.0
