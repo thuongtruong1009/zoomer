@@ -18,19 +18,19 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
     return (
-        <CacheProvider value={clientSideEmotionCache}>
+        // <CacheProvider value={clientSideEmotionCache}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
 
-                <SWRConfig
+                {/* <SWRConfig
                     value={{ fetcher: (url: string) => axiosHttpInstance.get(url), shouldRetryOnError: false }}
-                >
+                > */}
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
-                </SWRConfig>
+                {/* </SWRConfig> */}
             </ThemeProvider>
-        </CacheProvider>
+        // </CacheProvider>
     )
 }
 export default MyApp

@@ -1,147 +1,208 @@
-import { NextPageWithLayout } from '@/models'
-import { Box } from '@mui/system'
-import { useRouter } from 'next/router'
-import { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 
-const StreamSpecify: NextPageWithLayout = () => {
-    const router = useRouter()
+const Room: React.FC = () => {
+  const router = useRouter();
+  const { roomID } = router.query;
 
-    const [streamId, setStreamId] = useState<string>('')
-    useEffect(() => {
-        if (router.query) {
-            setStreamId(router.query as string)
+  let userVideo = useRef<HTMLVideoElement>(null);
+  let userStream = useRef<MediaStream | any>(null);
+  let partnerVideo = useRef<HTMLVideoElement>(null);
+  let peerRef = useRef<RTCPeerConnection | null>(null);
+  let webSocketRef = useRef<WebSocket | null>(null);
+
+  const openCamera = async () => {
+    const allDevices = await navigator.mediaDevices.enumerateDevices();
+    const cameras = allDevices.filter((device) => device.kind === "videoinput");
+
+    const constraints = {
+      audio: true,
+      video: {
+        deviceId: cameras[0].deviceId,
+      },
+    };
+
+    try {
+      return await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
+  // close camera
+  // const closeCamera = () => {
+  //   if (userStream.current) {
+  //     userStream.current.getTracks().forEach((track: MediaStreamTrack) => {
+  //       track.stop();
+  //       userVideo.current && userVideo.current.srcObject && (userVideo.current.srcObject = null);
+  //       userStream.current = null;
+  //     });
+  //   }
+  // };
+
+  // close socket
+  // const closeSocket = () => {
+  //   if (webSocketRef.current) {
+  //     webSocketRef.current.close();
+  //   }
+  // };
+
+  //muted audio
+  const changeMuted = () => {
+    if (userStream.current) {
+      userStream.current.getAudioTracks()[0].enabled = false;
+    }
+  };
+
+  //unmuted audio
+  const changeUnMuted = () => {
+    if (userStream.current) {
+      userStream.current.getAudioTracks()[0].enabled = true;
+    }
+  }
+
+  const callUser = () => {
+    console.log("Calling Other User");
+    if (userStream.current) {
+      peerRef.current = createPeer();
+
+      userStream.current.getTracks().forEach((track: MediaStreamTrack) => {
+        if (peerRef.current) {
+          peerRef.current.addTrack(track, userStream.current);
         }
-    }, [router.query.roomID])
+      });
+    }
+  };
 
-    let userVideo = useRef()
-    let userStream = useRef()
-    let partnerVideo = useRef()
-    let peerRef = useRef()
-    let webSocketRef = useRef()
+  const createPeer = () => {
+    console.log("Creating Peer Connection");
+    const peer = new RTCPeerConnection({
+      iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+    });
+    peer.onnegotiationneeded = handleNegotiationNeeded;
+    peer.onicecandidate = handleIceCandidateEvent;
+    peer.ontrack = handleTrackEvent;
+    return peer;
+  };
 
-    const openCamera = async () => {
-        const allDevices = await navigator.mediaDevices.enumerateDevices()
-        const cameras = allDevices.filter((device) => device.kind === 'videoinput')
+  const handleNegotiationNeeded = async () => {
+    console.log("Create offer");
+    if (peerRef.current) {
+      try {
+        const offer = await peerRef.current.createOffer();
+        await peerRef.current.setLocalDescription(offer);
+        if (webSocketRef.current) {
+          webSocketRef.current.send(
+            JSON.stringify({ offer: peerRef.current.localDescription })
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
-        const constraints = {
-            audio: true,
-            video: {
-                deviceId: cameras[0].deviceId,
-            },
+  const handleIceCandidateEvent = (e: RTCPeerConnectionIceEvent) => {
+    console.log("Found Ice Candidate");
+    if (e.candidate && webSocketRef.current) {
+      webSocketRef.current.send(JSON.stringify({ iceCandidate: e.candidate }));
+    }
+  };
+
+  const handleTrackEvent = (e: RTCTrackEvent) => {
+    console.log("Received Tracks");
+    if (partnerVideo.current) {
+      partnerVideo.current.srcObject = e.streams[0];
+    }
+  };
+
+  const handleOffer = async (offer: RTCSessionDescriptionInit) => {
+    console.log("Receiving and setting offer");
+    peerRef.current = createPeer();
+
+    if (peerRef.current && userStream.current) {
+      await peerRef.current.setRemoteDescription(
+        new RTCSessionDescription(offer)
+      );
+
+      userStream.current.getTracks().forEach((track: MediaStreamTrack) => {
+        if (peerRef.current) {
+          peerRef.current.addTrack(track, userStream.current);
+        }
+      });
+
+      const answer = await peerRef.current.createAnswer();
+      await peerRef.current.setLocalDescription(answer);
+
+      if (webSocketRef.current) {
+        webSocketRef.current.send(
+          JSON.stringify({ answer: peerRef.current.localDescription })
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    openCamera().then((stream) => {
+      if (userVideo.current && stream) {
+        userVideo.current.srcObject = stream;
+        userStream.current = stream;
+      }
+
+      webSocketRef.current = new WebSocket(
+        `ws://localhost:8081/join?streamID=${roomID}`
+      );
+
+      webSocketRef.current.addEventListener("open", () => {
+        if (webSocketRef.current) {
+          webSocketRef.current.send(JSON.stringify({ join: "true" }));
+        }
+      });
+
+      webSocketRef.current.addEventListener("message", async (e) => {
+        const message = JSON.parse(e.data);
+        if (message.join) {
+          callUser();
+        }
+        if (message.offer) {
+          handleOffer(message.offer);
         }
 
-        try {
-            return await navigator.mediaDevices.getUserMedia(constraints)
-        } catch (err) {
-            console.log(err)
+        if (message.answer) {
+          console.log("Receiving and setting answer");
+          if (peerRef.current) {
+            peerRef.current.setRemoteDescription(
+              new RTCSessionDescription(message.answer)
+            );
+          }
         }
-    }
-
-    const callUser = () => {
-        console.log('Calling Other User')
-        peerRef.current = createPeer()
-
-        userStream.current.getTracks().forEach((track: any) => {
-            peerRef.current.addTrack(track, userStream.current)
-        })
-    }
-
-    const createPeer = () => {
-        console.log('Creating Peer Connection')
-        const peer: any = new RTCPeerConnection({
-            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-        })
-        peer.onnegotiationneeded = handleNegotiationNeeded
-        peer.onicecandidate = handleIceCandidateEvent
-        peer.ontrack = handleTrackEvent
-        return peer
-    }
-
-    const handleNegotiationNeeded = async () => {
-        console.log('Create offer')
-        try {
-            const offer = await peerRef.current.createOffer()
-            await peerRef.current.setLocalDescription(offer)
-            webSocketRef.current.send(JSON.stringify({ offer: peerRef.current.localDescription }))
-        } catch (err) {
-            console.log(err)
+        if (message.iceCandidate) {
+          console.log("Receiving and adding ICE Candidate");
+          try {
+            if (peerRef.current) {
+              await peerRef.current.addIceCandidate(message.iceCandidate);
+            }
+          } catch (err) {
+            console.log("Error receiving ICE Candidate", err);
+          }
         }
-    }
+      });
+    });
+  }, [roomID]);
 
-    const handleIceCandidateEvent = (e: { candidate: any }) => {
-        console.log('Found Ice Candidate')
-        if (e.candidate) {
-            webSocketRef.current.send(JSON.stringify({ iceCandidate: e.candidate }))
-        }
-    }
+  return (
+    <div>
+      {/* <video autoPlay controls ref={userVideo}></video>
+      <video autoPlay controls ref={partnerVideo}></video> */}
+      <video autoPlay ref={userVideo}></video>
+      <video autoPlay ref={partnerVideo}></video>
+      <button onClick={changeMuted}>turn of audio</button>
+      <button onClick={changeUnMuted}>turn on audio</button>
+      {/* <button onClick={closeCamera}>turnof camera</button>
+      <button onClick={changeVideoOn}>turnon camera</button> */}
+    </div>
+  );
+};
 
-    const handleTrackEvent = (e: { streams: any[] }) => {
-        console.log('Received Tracks')
-        partnerVideo.current.srcObject = e.streams[0]
-    }
-
-    const handleOffer = async (offer: RTCSessionDescriptionInit) => {
-        console.log('Receiving and setting offer')
-        peerRef.current = createPeer()
-
-        await peerRef.current.setRemoteDescription(new RTCSessionDescription(offer))
-
-        userStream.current.getTracks().forEach((track: any) => {
-            peerRef.current.addTrack(track, userStream.current)
-        })
-
-        const answer = await peerRef.current.createAnswer()
-        await peerRef.current.setLocalDescription(answer)
-
-        webSocketRef.current.send(JSON.stringify({ answer: peerRef.current.localDescription }))
-    }
-
-    useEffect(() => {
-        if (streamId) {
-            openCamera().then((stream) => {
-                userVideo.current.srcObject = stream
-                userStream.current = stream
-
-                webSocketRef.current = new WebSocket(`ws://localhost:8081/join?stream=${streamId}`)
-
-                webSocketRef.current.addEventListener('open', () => {
-                    webSocketRef.current.send(JSON.stringify({ join: 'true' }))
-                })
-
-                webSocketRef.current.addEventListener('message', async (e: { data: string }) => {
-                    const message = JSON.parse(e.data)
-                    if (message.join) {
-                        callUser()
-                    }
-                    if (message.offer) {
-                        handleOffer(message.offer)
-                    }
-
-                    if (message.answer) {
-                        console.log('Receiving and setting answer')
-                        peerRef.current.setRemoteDescription(
-                            new RTCSessionDescription(message.answer)
-                        )
-                    }
-                    if (message.iceCandidate) {
-                        console.log('Receiving and adding ICE Candidate')
-                        try {
-                            await peerRef.current.addIceCandidate(message.iceCandidate)
-                        } catch (err) {
-                            console.log('Error receiving ICE Candidate', err)
-                        }
-                    }
-                })
-            })
-        }
-    })
-
-    return (
-        <div>
-            <video autoPlay controls={true} ref={userVideo}></video>
-            <video autoPlay controls={true} ref={partnerVideo}></video>
-        </div>
-    )
-}
-
-export default StreamSpecify
+export default Room;

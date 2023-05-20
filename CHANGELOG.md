@@ -1,6 +1,6 @@
 There is the most valuable changes log:
 
-### v1.1
+### v2.0
 
 **1.Architecture**
 
@@ -33,8 +33,9 @@ There is the most valuable changes log:
 - fix: reload old messages when rejoin room
 - fix: reconnect to websocket when rejoin room
 - fix: display video partner in chat
+- fix: reconnect to websocket when rejoin room
 
-### v1.0
+### [v1.0 - 28-03-2023](https://github.com/thuongtruong1009/zoomer/releases/tag/v1.0)
 
 **1. Architecture**
 
