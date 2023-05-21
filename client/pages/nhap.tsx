@@ -12,6 +12,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
 
 enum EVIEW_MODE {
   GRID = 'grid',
@@ -161,6 +162,16 @@ const BasicCard: NextPageWithLayout = () => {
     findAndClick('[aria-label="Turn off camera (⌘ + E)"]');
   }, [isMuted, isVideoOn])
 
+  const checkMatchMode  =  (mode: string) => {
+    if(viewMode === mode) {
+      return {
+        color: '#3f51b5',
+        fontWeight: 'bold',
+        backgroundColor: '#E7F3FF'
+      }
+    }
+  }
+
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',  background: '#E7F3FF', padding: '1rem'}}>
       <Box
@@ -214,7 +225,7 @@ const BasicCard: NextPageWithLayout = () => {
           aria-label='more'
           sx={{m: 0, p: 0}}
         >
-          <Item><MoreHorizIcon /></Item>
+          <Item><AutoAwesomeMosaicIcon /></Item>
         </Button>
         <Popper
           open={open}
@@ -223,6 +234,7 @@ const BasicCard: NextPageWithLayout = () => {
           placement="bottom-start"
           transition
           disablePortal
+          style={{zIndex: 3}}
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -240,9 +252,9 @@ const BasicCard: NextPageWithLayout = () => {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.FLEX)}><DnsIcon /> {EVIEW_MODE.FLEX}</MenuItem>
-                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.NEST)}><LaptopChromebookIcon /> {EVIEW_MODE.NEST}</MenuItem>
-                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.GRID)}><ViewCarouselIcon /> {EVIEW_MODE.GRID}</MenuItem>
+                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.FLEX)} sx={checkMatchMode(EVIEW_MODE.FLEX)}><ViewCarouselIcon sx={{mr: 1}} /><h5>{EVIEW_MODE.FLEX}</h5></MenuItem>
+                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.NEST)} sx={checkMatchMode(EVIEW_MODE.NEST)}><LaptopChromebookIcon sx={{mr: 1}} /> {EVIEW_MODE.NEST}</MenuItem>
+                    <MenuItem onClick={(e) => handleViewMode(e, EVIEW_MODE.GRID)} sx={checkMatchMode(EVIEW_MODE.GRID)}><DnsIcon sx={{mr: 1}} /> {EVIEW_MODE.GRID}</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
