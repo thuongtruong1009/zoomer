@@ -4,21 +4,24 @@ import VideocamSharpIcon from '@mui/icons-material/VideocamSharp'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import WallpaperIcon from '@mui/icons-material/Wallpaper'
 import MenuIcon from '@mui/icons-material/Menu'
-import { StreamSevices } from '@/services'
+
+const WindowOptions = () => {
+  const width = 1000;
+  const height = 600;
+  const left = (window.innerWidth / 2) - (width / 2);
+  const top = (window.innerHeight / 2) - (height / 2);
+  const size = 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top;
+  const options = size + ', toolbar=yes, scrollbars=yes, resizable=yes';
+  return options;
+}
 
 export const ChatHeader = () => {
     const createStream = async () => {
-        const { data } = await StreamSevices.createStream()
-        if (!data) return
+      const resp = await fetch("http://localhost:8081/create");
+      const { data } = await resp.json();
 
-        console.log(data)
-
-        window.open(
-            `${process.env.NEXT_PUBLIC_WS_URL}/stream/${data.streamID}`,
-            '_blank',
-            'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400'
-        )
-    }
+      window.open(`/stream/${data.room_id}`, '_blank', WindowOptions())
+    };
 
     return (
         <Paper

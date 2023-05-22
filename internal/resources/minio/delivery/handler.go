@@ -5,7 +5,7 @@ import (
 	"github.com/minio/minio-go/v7"
 	"log"
 	"zoomer/internal/models"
-	"zoomer/internal/resources/usecase"
+	"zoomer/internal/resources/minio/usecase"
 )
 
 type resourceHandler struct {
@@ -30,7 +30,7 @@ func (rh *resourceHandler) CreateResource(Client *minio.Client, bucketName strin
 		if err != nil {
 			log.Fatal(err)
 		}
-		res := rh.resourceUC.AddImage(Client, bucketName, c.Param("id")+".json", c.Param("id"), todo.Name)
+		res := rh.resourceUC.AddImage(Client, bucketName, c.Param("uid"), c.Param("id"), todo.Name)
 		return c.JSON(200, res)
 	}
 }

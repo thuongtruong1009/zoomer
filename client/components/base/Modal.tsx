@@ -1,141 +1,61 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import Dialog from '@mui/material/Dialog'
-import RadioGroup from '@mui/material/RadioGroup'
-import Radio from '@mui/material/Radio'
-import FormControlLabel from '@mui/material/FormControlLabel'
+import { theme } from '@/utils'
 
-const options = [
-    'None',
-    'Atria',
-    'Callisto',
-    'Dione',
-    'Ganymede',
-    'Hangouts Call',
-    'Luna',
-    'Oberon',
-    'Phobos',
-    'Pyxis',
-    'Sedna',
-    'Titania',
-    'Triton',
-    'Umbriel',
-]
-
-export interface ConfirmationDialogRawProps {
-    id: string
-    keepMounted: boolean
-    value: string
-    open: boolean
-    onClose: (value?: string) => void
-}
-
-function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
-    const { onClose, value: valueProp, open, ...other } = props
-    const [value, setValue] = React.useState(valueProp)
-    const radioGroupRef = React.useRef<HTMLElement>(null)
-
-    React.useEffect(() => {
-        if (!open) {
-            setValue(valueProp)
-        }
-    }, [valueProp, open])
-
-    const handleEntering = () => {
-        if (radioGroupRef.current != null) {
-            radioGroupRef.current.focus()
-        }
-    }
-
-    const handleCancel = () => {
-        onClose()
-    }
-
-    const handleOk = () => {
-        onClose(value)
-    }
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value)
-    }
-
-    return (
-        <Dialog
-            sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-            maxWidth="xs"
-            TransitionProps={{ onEntering: handleEntering }}
-            open={open}
-            {...other}
-        >
-            <DialogTitle>Phone Ringtone</DialogTitle>
-            <DialogContent dividers>
-                <RadioGroup
-                    ref={radioGroupRef}
-                    aria-label="ringtone"
-                    name="ringtone"
-                    value={value}
-                    onChange={handleChange}
-                >
-                    {options.map((option) => (
-                        <FormControlLabel
-                            value={option}
-                            key={option}
-                            control={<Radio />}
-                            label={option}
-                        />
-                    ))}
-                </RadioGroup>
-            </DialogContent>
-            <DialogActions>
-                <Button autoFocus onClick={handleCancel}>
-                    Cancel
-                </Button>
-                <Button onClick={handleOk}>Ok</Button>
-            </DialogActions>
-        </Dialog>
-    )
-}
-
-interface IModalProps {
+export interface IModalProps {
     openBtn: React.ReactNode
-    dialog: React.ReactNode
-    closeBtn: React.ReactNode
+    head?: React.ReactNode
+    body?: React.ReactNode
+    closeBtn?: React.ReactNode
+    okBtn?: React.ReactNode
+    isClickAwayClose?: boolean
 }
 
-export const Modal = ({ openBtn, dialog, closeBtn }: IModalProps) => {
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState('')
+export const Modal = (props: IModalProps) => {
+    const [open, setOpen] = React.useState(props.isClickAwayClose ? true : false)
 
     const handleClickListItem = () => {
         setOpen(true)
     }
 
-    const handleClose = (newValue?: string) => {
+    const handleClose = () => {
         setOpen(false)
-
-        if (newValue) {
-            setValue(newValue)
-        }
     }
+
+    // React.useEffect(() => {
+    //   handleClose()
+    // }, [props.isClickAwayClose])
 
     return (
         <Box>
-            <div onClick={handleClickListItem}>{openBtn}</div>
+            <div onClick={handleClickListItem}>{props.openBtn}</div>
 
-            <ConfirmationDialogRaw
-                id="ringtone-menu"
-                keepMounted
+            <Dialog
+                sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+                maxWidth="xs"
                 open={open}
-                onClose={handleClose}
-                value={value}
-            />
+            >
+                <DialogTitle>
+                  {props.head && props.head}
+                </DialogTitle>
+                <DialogContent dividers={props.head ? true : false} sx={{overflow: 'hidden'}}>
+                    {props.body}
+                </DialogContent>
+                  <DialogActions>
+                    {props.closeBtn && <Button autoFocus onClick={handleClose} sx={{color: '#757575'}}>
+                        {props.closeBtn}
+                      </Button>
+                    }
+                    { props.okBtn &&
+                      <Button sx={{display: 'flex', alignItems: 'center', color: '#2196f3'}}>{props.okBtn}</Button>
+                    }
+                  </DialogActions>
+            </Dialog>
         </Box>
     )
 }

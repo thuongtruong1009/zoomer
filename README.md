@@ -1,5 +1,12 @@
 <h1 align="center">ZOOMER</h1>
 
+## Preview
+
+<div>
+  <img src="./public/demo/signup.PNG" alt="signup" width="400" /><img src="./public/demo/signin.PNG" alt="signin" width="400" />
+</div>
+
+
 ## **Technical stuff**
 
 - Architecture: Clean architecture

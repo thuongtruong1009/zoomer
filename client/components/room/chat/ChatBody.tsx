@@ -8,9 +8,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
 import { ChatInput } from '@/components'
-import { RoomServices, SocketConnection } from '@/services'
+import { RoomServices } from '@/services'
 import { localStore } from '@/utils'
 import { useRouter } from 'next/router'
+import { SocketConnection } from '@/services/websocket'
 
 export function ChatBody() {
     const router = useRouter()

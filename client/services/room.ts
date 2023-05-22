@@ -1,4 +1,4 @@
-import { axiosHttpInstance } from './axios'
+import { axiosHttpInstance } from './http'
 
 export const RoomServices = {
     getAllRooms() {

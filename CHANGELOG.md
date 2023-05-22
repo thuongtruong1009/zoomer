@@ -27,6 +27,7 @@ There is the most valuable changes log:
 - Save/Load messages to database
 - Rejoin room but not remove old messages
 - Load recent friend contact list
+- Search and connect new contact
 
 **4. Bugfixes**
 

@@ -16,6 +16,7 @@ export let theme = createTheme({
         },
         text: {
             primary: '#21243D',
+            secondary: '#6E7191',
         },
         // mode: 'dark',
     },

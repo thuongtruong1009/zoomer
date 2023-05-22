@@ -1,5 +1,5 @@
 import { ISignUpRequest, ISignInRequest } from '@/models'
-import { axiosHttpInstance } from './axios'
+import { axiosHttpInstance } from './http'
 
 export const AuthServices = {
     signup(payload: ISignUpRequest) {

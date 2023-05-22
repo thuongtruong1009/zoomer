@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"github.com/minio/minio-go/v7"
 	"zoomer/internal/models"
-	"zoomer/internal/resources/adapter"
-	"zoomer/internal/resources/repository"
+	"zoomer/internal/resources/minio/adapter"
+	"zoomer/internal/resources/minio/repository"
 )
 
 type resourceUsecase struct {

@@ -26,6 +26,7 @@ export function AccountMenu(props: any) {
     const handleClose = () => {
         setAnchorEl(null)
     }
+
     return (
         <AppBar
             position="fixed"
@@ -57,9 +58,9 @@ export function AccountMenu(props: any) {
                             '&:hover': { background: '#C0DEFF' },
                         }}
                     >
-                        <Avatar sx={{ width: 34, height: 34 }}>M</Avatar> {props.data}
+                        <Avatar sx={{ width: 34, height: 34 }}></Avatar>
                         <ListItemText
-                            primary="User 02"
+                            primary={props.username}
                             sx={{
                                 mx: 1.5,
                                 span: { fontWeight: '500' },

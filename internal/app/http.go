@@ -5,20 +5,20 @@ import (
 	"zoomer/pkg/middlewares"
 
 	authRepository "zoomer/internal/auth/repository"
-	resourceRepository "zoomer/internal/resources/repository"
 	roomRepository "zoomer/internal/rooms/repository"
 	searchRepository "zoomer/internal/search/repository"
+	resourceRepository "zoomer/internal/resources/minio/repository"
 
 	authUsecase "zoomer/internal/auth/usecase"
 	roomUsecase "zoomer/internal/rooms/usecase"
 	searchUsecase "zoomer/internal/search/usecase"
-	resourceUsecase "zoomer/internal/resources/usecase"
+	resourceUsecase "zoomer/internal/resources/minio/usecase"
 	localResourceUsecase "zoomer/internal/resources/local/usecase"
 
 	authHttp "zoomer/internal/auth/delivery"
 	roomHttp "zoomer/internal/rooms/delivery"
 	searchHttp "zoomer/internal/search/delivery"
-	minioResourceHttp "zoomer/internal/resources/delivery"
+	minioResourceHttp "zoomer/internal/resources/minio/delivery"
 	localResourceHttp "zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"

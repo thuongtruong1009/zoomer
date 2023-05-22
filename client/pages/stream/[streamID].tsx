@@ -387,6 +387,7 @@ const Room: React.FC = () => {
           onClick={handleToggle}
           aria-label='more'
           sx={{m: 0, p: 0}}
+          color="secondary"
         >
           <Item><AutoAwesomeMosaicIcon /></Item>
         </Button>

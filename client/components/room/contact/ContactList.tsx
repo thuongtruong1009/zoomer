@@ -15,19 +15,34 @@ import { useEffect } from 'react'
 import { RoomServices } from '@/services'
 import { localStore } from '@/utils'
 import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
+import { addAll } from '@/store';
+import { RootState } from '@/store/configureStore'
+import { set } from 'react-hook-form'
 
 export const ContactList = () => {
-    const router = useRouter()
-    const [selectedIndex, setSelectedIndex] = React.useState(0)
-    const [contacts, setContacts] = React.useState<any>([])
+  const router = useRouter()
+  const dispatch = useDispatch();
+
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [contacts, setContacts] = React.useState<any>()
+
+  const items =  useSelector((state: RootState) => state.my.items);
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await RoomServices.getContactsList(localStore.get('user').username)
-            setContacts(res.data)
+            // setContacts(res.data)
+
+            dispatch(addAll(res.data))
+
+            //mock add fake contact user01
+            // setContacts((prev: any) => [{ username: 'user02', last_activity: Date.now() / 1000 }, ...prev])
         }
 
         fetchData().catch(console.error)
+
+        setContacts(items);
     }, [])
 
     const handleListItemClick = (
