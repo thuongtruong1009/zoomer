@@ -7,7 +7,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { SWRConfig } from 'swr'
 import '../styles/globals.css'
-import firebase from '@/lib/firebase'
 import { Provider } from 'react-redux'
 import { store } from '@/store/configureStore'
 
@@ -17,21 +16,22 @@ const clientSideEmotionCache = createEmotionCache()
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const Layout = Component.Layout ?? DefaultLayout
 
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
-
     return (
         <CacheProvider value={clientSideEmotionCache}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
 
                 <SWRConfig
-                    value={{ fetcher: (url: string) => axiosHttpInstance.get(url), shouldRetryOnError: false }}
+                    value={{
+                        fetcher: (url: string) => axiosHttpInstance.get(url),
+                        shouldRetryOnError: false,
+                    }}
                 >
-                <Provider store={store}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </Provider>
+                    <Provider store={store}>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </Provider>
                 </SWRConfig>
             </ThemeProvider>
         </CacheProvider>

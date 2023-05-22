@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import Paper from '@mui/material/Paper'
@@ -8,37 +8,36 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
 import { ChatInput } from '@/components'
-import { RoomServices } from '@/services'
+import { RoomServices, SocketConnection } from '@/services'
 import { localStore } from '@/utils'
 import { useRouter } from 'next/router'
-import { SocketConnection } from '@/services/websocket'
 
 export function ChatBody() {
     const router = useRouter()
     const isSelf = (authorId: string): boolean => authorId === localStore.get('user').username
 
-    const [to, setTo] = React.useState<any>([])
-    const [from, setFrom] = React.useState<any>([])
-    const [msg, setMsg] = React.useState([])
-    const [chats, setChats] = React.useState<any>([])
-    const [chatHistory, setChatHistory] = React.useState<any>([])
+    const [to, setTo] = useState<any>([])
+    const [from, setFrom] = useState<any>([])
+    const [msg, setMsg] = useState([])
+    const [chats, setChats] = useState<any>([])
+    const [chatHistory, setChatHistory] = useState<any>([])
 
-    const conn = new SocketConnection()
+    const conn = useRef(new SocketConnection())
 
-    function handleWs() {
+    const handleWs = () => {
         try {
-            conn.connect((message: any) => {
+            conn.current.connect((message: any) => {
                 const msg = JSON.parse(JSON.stringify(message))
                 if (
                     router.query.roomId === msg.from ||
                     localStore.get('user').username === msg.from
                 ) {
                     console.log('step 1')
-                    setChats([...chats, msg])
+                    setChats((prevChats: any) => [...prevChats, msg])
                     // setChatHistory([...chatHistory, msg])
                 }
             })
-            conn.connected(localStore.get('user').username)
+            conn.current.connected(localStore.get('user').username)
         } catch (err) {
             console.log('Error: ', err)
         }
@@ -67,7 +66,7 @@ export function ChatBody() {
                 msg_type: 'text',
             },
         }
-        conn.sendMsg(msg)
+        conn.current.sendMsg(msg)
     }
 
     const sendMessageTo = (to: any) => {
@@ -75,7 +74,7 @@ export function ChatBody() {
         fetchChatHistory(localStore.get('user').username, to)
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         handleWs()
         if (router.query.roomId) {
             console.log(router.query.roomId)
@@ -83,8 +82,8 @@ export function ChatBody() {
         }
     }, [router.query.roomId])
 
-    const containerRef = React.useRef<HTMLUListElement>(null)
-    React.useEffect(() => {
+    const containerRef = useRef<HTMLUListElement>(null)
+    useEffect(() => {
         const container = containerRef.current
         if (container) {
             container.scrollTop = container.scrollHeight

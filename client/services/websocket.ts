@@ -1,43 +1,44 @@
+import { io } from 'socket.io-client';
+
 export class SocketConnection {
-  socket: WebSocket
+  socket: any;
 
   constructor() {
-      this.socket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8081/api')
+    this.socket = io('http://localhost:8080');
   }
 
   connect = (cb: any) => {
-      this.socket.onopen = () => {
-          console.log('Connected to websocket')
-      }
+    this.socket.on('connect', () => {
+      console.log('Connected to WebSocket');
+    });
 
-      this.socket.onmessage = (msg: any) => {
-          cb(msg)
-      }
+    this.socket.on('message', (msg: any) => {
+      cb(msg);
+    });
 
-      this.socket.onclose = (event: any) => {
-          console.log('Socket closed connection: ', event)
-      }
+    this.socket.on('disconnect', (event: any) => {
+      console.log('Socket closed connection:', event);
+    });
 
-      this.socket.onerror = (error: any) => {
-          console.log('Socket error: ', error)
-      }
-  }
+    this.socket.on('error', (error: any) => {
+      console.log('Socket error:', error);
+    });
+  };
 
   sendMsg = (msg: any) => {
-      console.log(msg)
-      this.socket.send(JSON.stringify(msg))
-  }
+    console.log(msg);
+    this.socket.send(JSON.stringify(msg));
+  };
 
   connected = (user: any) => {
-      this.socket.onopen = () => {
-          console.log('Successfully Connected', user)
-          // initiate mapping
-          this.mapConnection(user)
-      }
-  }
+    this.socket.on('connect', () => {
+      console.log('Successfully connected:', user);
+      this.mapConnection(user);
+    });
+  };
 
   mapConnection = (user: any) => {
-      console.log('mapping', user)
-      this.socket.send(JSON.stringify({ type: 'bootup', user: user }))
-  }
+    console.log('Mapping:', user);
+    this.socket.send(JSON.stringify({ type: 'bootup', user: user }));
+  };
 }
