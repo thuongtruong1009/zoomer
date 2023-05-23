@@ -14,7 +14,9 @@ var RedisClient *redis.Client
 
 func GetRedisInstance() *redis.Client {
 	cfg := configs.NewConfig()
-	fmt.Println("Redis connection successful", cfg.RedisURI, cfg.RedisPassword)
+
+	fmt.Println("Redis initial successful", cfg.RedisURI, cfg.RedisPassword)
+
 	conn := redis.NewClient(&redis.Options{
 		Addr:     cfg.RedisURI,
 		Password: cfg.RedisPassword,

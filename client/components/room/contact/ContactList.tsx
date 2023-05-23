@@ -15,24 +15,23 @@ import { useEffect } from 'react'
 import { RoomServices } from '@/services'
 import { localStore } from '@/utils'
 import moment from 'moment'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { addAll } from '@/store';
-import { RootState } from '@/store/configureStore'
-import { set } from 'react-hook-form'
+import { RootState, useAppDispatch } from '@/store/configureStore'
 
 export const ContactList = () => {
   const router = useRouter()
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [contacts, setContacts] = React.useState<any>()
 
-  const items =  useSelector((state: RootState) => state.my.items);
+  const items =  useSelector((state: RootState) => state.contactReducer.items);
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await RoomServices.getContactsList(localStore.get('user').username)
-            // setContacts(res.data)
+            const res = await RoomServices.getContactsList(localStore.get('user').data.username)
+            setContacts(res.data)
 
             dispatch(addAll(res.data))
 
@@ -53,6 +52,7 @@ export const ContactList = () => {
         router.push(`/room/${index}`)
     }
 
+
     return (
         <List
             component="nav"
@@ -64,8 +64,8 @@ export const ContactList = () => {
                 px: 1,
             }}
         >
-            {contacts &&
-                contacts.map((contact: any, idx: number) => (
+            {items &&
+                items.map((contact: any, idx: number) => (
                     <ListItemButton
                         key={idx}
                         selected={selectedIndex === contact.username}

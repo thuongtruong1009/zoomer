@@ -8,13 +8,14 @@ export const axiosHttpInstance = axios.create({
         'Content-Type': 'application/json',
         // Credentials: 'include',
     },
+    // paramsSerializer: (params: querystring.ParsedUrlQueryInput | undefined) => querystring.stringify(params),
 })
 
 axiosHttpInstance.interceptors.request.use(
     async (config: any) => {
       config.paramsSerializer = (params: querystring.ParsedUrlQueryInput | undefined) => querystring.stringify(params);
       // local token
-      const token = localStore.get('user').token
+      const token = localStore.get('user').data.token
 
       if (token) {
           config.headers.Authorization = `Bearer ${token}`

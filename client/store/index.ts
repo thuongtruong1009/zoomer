@@ -13,11 +13,11 @@ const initialState: MyState = {
 };
 
 const mySlice = createSlice({
-  name: 'my',
+  name: 'contactReducer',
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<Contact>) => {
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
     },
     addAll: (state, action: PayloadAction<Contact[]>) => {
       state.items = action.payload;

@@ -9,7 +9,7 @@ export const RoomServices = {
         return axiosHttpInstance.get('/rooms/contact-list', { params: { username: username } })
     },
 
-    getChatHistory(user1: string, user2: string) {
-        return axiosHttpInstance.get(`/rooms/chat-history`, { params: { u1: user1, u2: user2 } })
+    getChatHistory(payload: any) {
+        return axiosHttpInstance.get(`/rooms/chat-history`, payload)
     },
 }

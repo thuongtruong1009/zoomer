@@ -4,6 +4,7 @@ import VideocamSharpIcon from '@mui/icons-material/VideocamSharp'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import WallpaperIcon from '@mui/icons-material/Wallpaper'
 import MenuIcon from '@mui/icons-material/Menu'
+import { useRouter } from 'next/router'
 
 const WindowOptions = () => {
   const width = 1000;
@@ -16,12 +17,16 @@ const WindowOptions = () => {
 }
 
 export const ChatHeader = () => {
+    const router = useRouter()
+
     const createStream = async () => {
       const resp = await fetch("http://localhost:8081/create");
       const { data } = await resp.json();
 
       window.open(`/stream/${data.room_id}`, '_blank', WindowOptions())
     };
+
+    const friendName = String(router.query.roomId)
 
     return (
         <Paper
@@ -38,7 +43,7 @@ export const ChatHeader = () => {
             <Stack direction="row" spacing={2} alignItems={'center'}>
                 <Avatar sx={{ width: 34, height: 34 }}>M</Avatar>
                 <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                    Mai
+                    {friendName}
                 </Typography>
             </Stack>
 

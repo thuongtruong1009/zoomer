@@ -191,7 +191,7 @@ const Room: React.FC = () => {
     });
   }, [roomID]);
 
-  const [viewMode, setViewMode] = useState<EVIEW_MODE>(EVIEW_MODE.NEST);
+  const [viewMode, setViewMode] = useState<EVIEW_MODE>(EVIEW_MODE.FLEX);
   const handleViewMode = (event: React.SyntheticEvent, newValue: EVIEW_MODE) => {
     setViewMode(newValue);
     handleClose(event);

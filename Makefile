@@ -53,7 +53,7 @@ docker_build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 
 docker-dev:
-	docker build -t ${APPLICATION_NAME}:development --build-arg TARGET=production -f Dockerfile .
+	docker build -t ${APPLICATION_NAME}:development --build-arg TARGET=development -f Dockerfile .
 
 docker-prod:
 	docker build -t ${APPLICATION_NAME}:production --build-arg TARGET=production -f Dockerfile .

@@ -52,6 +52,8 @@ services:
       - "26380:26379"
     networks:
       - redis-network
+    # environment:
+    #   - REDIS_HOST=redis-master
     volumes:
       - ./.docker/redis/data/master:/data
       - ./.docker/redis/config/master/redis.conf:/etc/redis/sentinel.conf
@@ -94,7 +96,7 @@ services:
     image: rediscommander/redis-commander:latest
     restart: always
     environment:
-      - REDIS_HOSTS=redis-master:6379
+      - REDIS_HOSTS=redis-master:6380
     ports:
       - "6378:8081"
 
@@ -144,15 +146,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
+      # target: development
       # dockerfile: ../build/Dockerfile.dev.air
-			# args:
-      #   - APP_PATH=./cmd
+      # args:
+      #   - TARGET=development
+        # - APP_PATH=./cmd
     env_file:
       - .env
     ports:
       - "${HTTP_PORT}:8080"
-      # - "${WS_PORT}:8081"
+      - "${WS_PORT}:8081"
     # deploy:
     #   replicas: 3
     depends_on:
