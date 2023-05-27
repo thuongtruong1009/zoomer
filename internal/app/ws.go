@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/labstack/echo/v4"
-	"zoomer/db"
+	"github.com/go-redis/redis/v8"
 	"zoomer/pkg/interceptor"
 
 	chatDelivery "zoomer/internal/chats/delivery"
@@ -13,17 +13,9 @@ import (
 	streamHub "zoomer/internal/stream/hub"
 )
 
-func WsMapServer(port string) {
-	e := echo.New()
-	defer e.Close()
-
-	redisClient := db.GetRedisInstance()
-	defer redisClient.Close()
-
-	inter := interceptor.NewInterceptor()
-
+func WsMapServer(e *echo.Echo, port string, redisDB *redis.Client, inter interceptor.IInterceptor) {
 	//chat
-	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository())
+	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(redisDB))
 	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
 
 	go wsChatUC.Broadcaster()

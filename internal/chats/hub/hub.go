@@ -51,7 +51,7 @@ func (h *Hub) Receiver(ctx context.Context, client *models.Client) {
 		fmt.Println("host", client.Conn.RemoteAddr())
 		if m.Type == "bootup" {
 			client.Username = m.User
-			fmt.Println("client succesfully mapped", &client, client, client.Username)
+			fmt.Println("Created succesfully client mapped", &client, client, client.Username)
 		} else {
 			fmt.Println("received message", m.Type, m.Chat)
 			c := m.Chat
@@ -73,11 +73,14 @@ func (h *Hub) Broadcaster() {
 	for {
 		message := <-Broadcast
 
-		for client := range Clients {
-			fmt.Println("username:", client.Username, " -  message: ", message, " - from:", message.From, " - to:", message.To)
+		fmt.Println("---> New message: ", message, " - from:", message.From, " - to:", message.To)
 
+		fmt.Println("Clients: ", Clients)
+		for client := range Clients {
 			if client.Username == message.From || client.Username == message.To {
+				fmt.Println("step 1")
 				err := client.Conn.WriteJSON(message)
+				fmt.Println("step 2")
 				if err != nil {
 					log.Printf("websocket error: %s", err)
 					client.Conn.Close()

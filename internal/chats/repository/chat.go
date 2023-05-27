@@ -4,24 +4,27 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-redis/redis/v8"
 	"log"
 	"time"
-	"zoomer/db"
-	"zoomer/internal/chats/adapter"
+	"github.com/go-redis/redis/v8"
 	"zoomer/internal/models"
+	"zoomer/internal/chats/adapter"
 )
 
-type chatRepository struct{}
+type chatRepository struct{
+	redisDB *redis.Client
+}
 
-func NewChatRepository() *chatRepository {
-	return &chatRepository{}
+func NewChatRepository(redisDB *redis.Client) *chatRepository {
+	return &chatRepository{
+		redisDB: redisDB,
+	}
 }
 
 func (cr *chatRepository) UpdateContactList(ctx context.Context, username, contact string) error {
 	zs := &redis.Z{Score: float64(time.Now().Unix()), Member: contact}
 
-	err := db.GetRedisInstance().ZAdd(context.Background(), adapter.ContactListZKey(username), zs).Err()
+	err := cr.redisDB.ZAdd(context.Background(), adapter.ContactListZKey(username), zs).Err()
 	if err != nil {
 		log.Println("error while adding contact list. username: ", username, "contact: ", contact, err)
 		return err
@@ -40,7 +43,7 @@ func (cr *chatRepository) CreateChat(ctx context.Context, c *models.Chat) (strin
 	}
 
 	// Store chat JSON using HSET command
-	err = db.GetRedisInstance().HSet(context.Background(), chatKey, "$", string(by)).Err()
+	err = cr.redisDB.HSet(context.Background(), chatKey, "$", string(by)).Err()
 	if err != nil {
 		log.Println("error while setting chat JSON in Redis", err)
 		return "", err

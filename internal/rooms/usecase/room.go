@@ -84,7 +84,7 @@ func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, 
 	fmt.Println(username1, username2)
 	//check if user exist
 	if !ru.VerifyContact(ctx, username1) || !ru.VerifyContact(ctx, username2) {
-		res.Message = "(redis) User not found"
+		res.Message = "(redis) User not found in Redis-DB"
 		return res
 	}
 

@@ -5,25 +5,28 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
-	"zoomer/db"
 	chatAdapter "zoomer/internal/chats/adapter"
 	"zoomer/internal/models"
 	"zoomer/pkg/cache"
 	// "strconv"
 	// "math"
-	"github.com/RediSearch/redisearch-go/redisearch"
+	// "github.com/RediSearch/redisearch-go/redisearch"
 )
 
 type roomRepository struct {
-	db *gorm.DB
+	pgDB *gorm.DB
+	redisDB *redis.Client
 }
 
-func NewRoomRepository(db *gorm.DB) RoomRepository {
-	return &roomRepository{db: db}
+func NewRoomRepository(pgDB *gorm.DB, redisDB *redis.Client) RoomRepository {
+	return &roomRepository{
+		pgDB: pgDB,
+		redisDB: redisDB,
+	}
 }
 
-func (cr *roomRepository) CreateRoom(ctx context.Context, room *models.Room) error {
-	result := cr.db.WithContext(ctx).Create(&room)
+func (rr *roomRepository) CreateRoom(ctx context.Context, room *models.Room) error {
+	result := rr.pgDB.WithContext(ctx).Create(&room)
 
 	if result.Error != nil {
 		return result.Error
@@ -31,7 +34,7 @@ func (cr *roomRepository) CreateRoom(ctx context.Context, room *models.Room) err
 	return nil
 }
 
-func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
+func (rr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
 	//check in cache
 	UsernameInCache := cache.GetCache(cache.UserRoomKey(userId))
 	if UsernameInCache != nil {
@@ -39,7 +42,7 @@ func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) (
 	}
 
 	var rooms []*models.Room
-	err := cr.db.WithContext(ctx).Where(&models.Room{
+	err := rr.pgDB.WithContext(ctx).Where(&models.Room{
 		CreatedBy: userId}).Find(&rooms).Error
 
 	if err != nil {
@@ -52,9 +55,9 @@ func (cr *roomRepository) GetRoomsByUserId(ctx context.Context, userId string) (
 	return rooms, nil
 }
 
-func (cr *roomRepository) GetAllRooms(ctx context.Context) ([]*models.Room, error) {
+func (rr *roomRepository) GetAllRooms(ctx context.Context) ([]*models.Room, error) {
 	var chats []*models.Room
-	err := cr.db.WithContext(ctx).Limit(200).Find(&chats).Error
+	err := rr.pgDB.WithContext(ctx).Limit(200).Find(&chats).Error
 
 	if err != nil {
 		return nil, err
@@ -62,10 +65,10 @@ func (cr *roomRepository) GetAllRooms(ctx context.Context) ([]*models.Room, erro
 	return chats, nil
 }
 
-func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, error) {
+func (rr *roomRepository) CountRooms(ctx context.Context, userId string) (int, error) {
 	var count int
 
-	err := cr.db.WithContext(ctx).Raw(`SELECT COUNT(*) FROM rooms WHERE rooms.created_by = ? AND DATE_TRUNC('day', "created_at") = CURRENT_DATE GROUP BY DATE_TRUNC('day', "created_at")`, userId).Scan(&count).Error
+	err := rr.pgDB.WithContext(ctx).Raw(`SELECT COUNT(*) FROM rooms WHERE rooms.created_by = ? AND DATE_TRUNC('day', "created_at") = CURRENT_DATE GROUP BY DATE_TRUNC('day', "created_at")`, userId).Scan(&count).Error
 
 	if err != nil {
 		return 0, err
@@ -75,30 +78,14 @@ func (cr *roomRepository) CountRooms(ctx context.Context, userId string) (int, e
 }
 
 // sync to redis
-
-func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
+func (rr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
 	query := fmt.Sprintf("@from:{%s|%s} @to:{%s|%s} @timestamp:[%s %s]", username1, username2, username1, username2, fromTS, toTS)
 
-	// 1. using go-search
-	// Create a RediSearch query
-	rsQuery := redisearch.NewQuery(query)
-
-	// Create a RediSearch client
-	client := redisearch.NewClient("redis-11503.c275.us-east-1-4.ec2.cloud.redislabs.com", "11503")
-
-	// Execute the RediSearch query
-	res, _, err := client.Search(rsQuery)
+	res, err := rr.redisDB.Do(ctx, "FT.SEARCH", chatAdapter.ChatIndex(), query, "SORTBY", "timestamp", "DESC").Result()
 	if err != nil {
 		return nil, err
 	}
 
-	// 2. using query
-	// res, err := db.GetRedisInstance().Do(ctx, "FT.SEARCH", chatAdapter.ChatIndex(), query, "SORTBY", "timestamp", "DESC").Result()
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// Process the search result
 	data := chatAdapter.Deserialise(res)
 	chats := chatAdapter.DeserialiseChat(data)
 
@@ -160,7 +147,7 @@ func (cr *roomRepository) FetchChatBetween(ctx context.Context, username1, usern
 // }
 
 
-func (cr *roomRepository) FetchContactList(ctx context.Context, username string) ([]models.ContactList, error) {
+func (rr *roomRepository) FetchContactList(ctx context.Context, username string) ([]models.ContactList, error) {
 	zRangeArg := redis.ZRangeArgs{
 		Key:   chatAdapter.ContactListZKey(username),
 		Start: 0,
@@ -168,7 +155,7 @@ func (cr *roomRepository) FetchContactList(ctx context.Context, username string)
 		Rev:   true,
 	}
 
-	res, err := db.GetRedisInstance().ZRangeArgsWithScores(ctx, zRangeArg).Result()
+	res, err := rr.redisDB.ZRangeArgsWithScores(ctx, zRangeArg).Result()
 	if err != nil {
 		return nil, err
 	}
@@ -176,8 +163,8 @@ func (cr *roomRepository) FetchContactList(ctx context.Context, username string)
 	return contactList, nil
 }
 
-func (cr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context) {
-	res, err := db.GetRedisInstance().Do(ctx, "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON",
+func (rr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context) {
+	res, err := rr.redisDB.Do(ctx, "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON",
 	"PREFIX", "1", "chat#",
 	"SCHEMA", "$.from", "AS", "from", "TAG",
 	"$.to", "AS", "to", "TAG",

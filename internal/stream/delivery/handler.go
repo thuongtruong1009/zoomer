@@ -21,7 +21,7 @@ func init() {
 	hub.Mapper.Map = make(map[string][]*models.Participant)
 }
 
-func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) StreamHandler {
+func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) *streamHandler {
 	return &streamHandler{
 		hub:   hub,
 		inter: inter,

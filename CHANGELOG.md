@@ -7,6 +7,7 @@ There is the most valuable changes log:
 - Connect to Redis database for chat service
 - Config Cache adapter with Redis
 - Config RabbitMQ for chat service
+- Combine into one port for websocket and http
 
 **2. News**
 

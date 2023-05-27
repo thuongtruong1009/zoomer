@@ -60,10 +60,9 @@ export function ChatBody() {
       const res = await RoomServices.getChatHistory({ params: { u1: u1, u2: u2 } })
       console.log(res)
 
-      if (res.status && res.data && Array.isArray(res.data.data)) {
-        setChats(res.data.data.slice().reverse())
-        console.log('1', res)
-        setChatHistory(res.data.data.slice().reverse())
+      if (res.status && res.data && Array.isArray(res.data)) {
+        setChats(res.data.slice().reverse())
+        setChatHistory(res.data.slice().reverse())
       } else {
         setChatHistory([])
       }
@@ -85,17 +84,16 @@ export function ChatBody() {
         fetchChatHistory(localStore.get('user').data.username, String(router.query.roomId))
     }
 
-    // const sendMessageTo = (to: any) => {
-    //     setTo(to)
-    //     fetchChatHistory(localStore.get('user').data.username, to)
-    // }
+    const sendMessageTo = (to: any) => {
+        setTo(to)
+        fetchChatHistory(localStore.get('user').data.username, String(router.query.roomId))
+    }
 
     React.useEffect(() => {
         handleWs()
         if (router.query.roomId) {
             console.log(router.query.roomId)
-            // sendMessageTo(router.query.roomId)
-            fetchChatHistory(localStore.get('user').data.username, String(router.query.roomId))
+            sendMessageTo(router.query.roomId)
         }
     }, [router.query.roomId])
 

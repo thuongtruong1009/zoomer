@@ -2,16 +2,18 @@ package app
 
 import (
 	"context"
-	"github.com/labstack/echo/v4"
-	"github.com/sirupsen/logrus"
-	"gorm.io/gorm"
 	"net/http"
 	"os"
 	"os/signal"
 	"sync"
 	"syscall"
 	"time"
+	"gorm.io/gorm"
+	"github.com/labstack/echo/v4"
+	"github.com/sirupsen/logrus"
+	"github.com/go-redis/redis/v8"
 	"zoomer/configs"
+	"zoomer/pkg/interceptor"
 	"zoomer/pkg/constants"
 	"zoomer/pkg/utils"
 )
@@ -19,14 +21,22 @@ import (
 type Server struct {
 	echo   *echo.Echo
 	cfg    *configs.Configuration
-	db     *gorm.DB
+	pgDB     *gorm.DB
+	redisDB  *redis.Client
 	logger *logrus.Logger
 	ready  chan bool
+	inter  interceptor.IInterceptor
 }
 
-func NewServer(e *echo.Echo, cfg *configs.Configuration, db *gorm.DB, logger *logrus.Logger, ready chan bool) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB *gorm.DB, redisDB *redis.Client, logger *logrus.Logger, ready chan bool, inter interceptor.IInterceptor) *Server {
 	return &Server{
-		echo: e, cfg: cfg, db: db, logger: logger, ready: ready,
+		echo: e,
+		cfg: cfg,
+		pgDB: pgDB,
+		redisDB: redisDB,
+		logger: logger,
+		ready: ready,
+		inter: inter,
 	}
 }
 
@@ -64,7 +74,7 @@ func (s *Server) Run() error {
 	}
 
 	go func() {
-		WsMapServer(":" + s.cfg.WsPort)
+		WsMapServer(s.echo, ":" + s.cfg.WsPort, s.redisDB, s.inter)
 		s.logger.Log(logrus.InfoLevel, "websocket server is starting on :"+s.cfg.WsPort)
 		wg.Done()
 	}()

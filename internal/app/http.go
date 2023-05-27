@@ -22,32 +22,29 @@ import (
 	localResourceHttp "zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
-	"zoomer/pkg/interceptor"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
-	inter := interceptor.NewInterceptor()
-
-	userRepo := authRepository.NewUserRepository(s.db)
-	roomRepo := roomRepository.NewRoomRepository(s.db)
-	searchRepo := searchRepository.NewSearchRepository(s.db)
+	authRepo := authRepository.NewAuthRepository(s.pgDB, s.redisDB)
+	roomRepo := roomRepository.NewRoomRepository(s.pgDB, s.redisDB)
+	searchRepo := searchRepository.NewSearchRepository(s.pgDB)
 	resourceRepository := resourceRepository.NewResourceRepository()
 
-	authUC := authUsecase.NewAuthUseCase(userRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
-	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
+	authUC := authUsecase.NewAuthUseCase(authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
+	roomUC := roomUsecase.NewRoomUseCase(roomRepo, authRepo)
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)
 	localResourceUC := localResourceUsecase.NewLocalResourceUseCase()
 
-	authHandler := authHttp.NewAuthHandler(authUC, inter)
-	roomHandler := roomHttp.NewRoomHandler(roomUC, inter)
+	authHandler := authHttp.NewAuthHandler(authUC, s.inter)
+	roomHandler := roomHttp.NewRoomHandler(roomUC, s.inter)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
 	minioResourceHandler := minioResourceHttp.NewResourceHandler(resourceUC)
-	localResourceHandler := localResourceHttp.NewLocalResourceHandler(inter, localResourceUC)
+	localResourceHandler := localResourceHttp.NewLocalResourceHandler(s.inter, localResourceUC)
 
-	middlewares.HttpMiddleware(e, inter)
+	middlewares.HttpMiddleware(e, s.inter)
 
-	mw := middlewares.BaseMiddlewareManager(authUC, inter)
+	mw := middlewares.BaseMiddlewareManager(authUC, s.inter)
 
 	e.Static("/", "public")
 

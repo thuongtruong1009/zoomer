@@ -2,7 +2,7 @@ export class SocketConnection {
   socket: WebSocket
 
   constructor() {
-      this.socket = new WebSocket('ws://localhost:8081/ws')
+      this.socket = new WebSocket('ws://localhost:8080/ws')
   }
 
   connect = (cb: any) => {

@@ -5,6 +5,5 @@ import (
 )
 
 func MapChatRoutes(e *echo.Echo, h ChatHandler, group string) {
-	// http.HandleFunc("/ws", ChatConnect)
 	e.GET(group, h.ChatConnect())
 }

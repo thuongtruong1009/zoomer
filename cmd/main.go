@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/sirupsen/logrus"
 	"log"
 	"os"
+	"github.com/labstack/echo/v4"
+	"github.com/sirupsen/logrus"
 	"zoomer/configs"
 	"zoomer/db"
 	"zoomer/internal/app"
+	"zoomer/pkg/interceptor"
 )
 
 // @title Echo REST API
@@ -40,15 +41,22 @@ import (
 // }
 
 func main() {
-	cfg := configs.NewConfig()
-	instance := db.GetPostgresInstance(cfg)
+	e := echo.New()
+	defer e.Close()
 
-	s := app.NewServer(echo.New(), cfg, instance, logrus.New(), nil)
+	cfg := configs.NewConfig()
+
+	pgInstance := db.GetPostgresInstance(cfg)
+	redisInstance := db.GetRedisInstance(cfg)
+
+	inter := interceptor.NewInterceptor()
+
+	s := app.NewServer(e, cfg, pgInstance, redisInstance, logrus.New(), nil, inter)
 
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 		os.Exit(0)
 	}
 
-	log.Println("Starting api server")
+	log.Println("Starting server")
 }
