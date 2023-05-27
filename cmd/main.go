@@ -1,12 +1,14 @@
 package main
 
 import (
+	"log"
+	"os"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"log"
 	"zoomer/configs"
 	"zoomer/db"
-	"zoomer/internal/server"
+	"zoomer/internal/app"
+	"zoomer/pkg/interceptor"
 )
 
 // @title Echo REST API
@@ -21,7 +23,8 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @BasePath /
+// @host localhost:8080
+// @BasePath /api
 
 // @securityDefinitions.apikey  XUserEmailAuth
 // @in                          header
@@ -38,14 +41,22 @@ import (
 // }
 
 func main() {
-	cfg := configs.NewConfig()
-	instance := db.GetPostgresInstance(cfg)
+	e := echo.New()
+	defer e.Close()
 
-	s := server.NewServer(echo.New(), cfg, instance, logrus.New(), nil)
+	cfg := configs.NewConfig()
+
+	pgInstance := db.GetPostgresInstance(cfg)
+	redisInstance := db.GetRedisInstance(cfg)
+
+	inter := interceptor.NewInterceptor()
+
+	s := app.NewServer(e, cfg, pgInstance, redisInstance, logrus.New(), nil, inter)
 
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
+		os.Exit(0)
 	}
 
-	log.Println("Starting api server")
+	log.Println("Starting server")
 }

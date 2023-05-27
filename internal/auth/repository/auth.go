@@ -4,42 +4,78 @@ import (
 	"context"
 	"gorm.io/gorm"
 	"strings"
+	"time"
+	"log"
+	"github.com/go-redis/redis/v8"
 	"zoomer/internal/models"
+	"zoomer/pkg/constants"
 	// "zoomer/pkg/cache"
+	chatAdapter "zoomer/internal/chats/adapter"
 )
 
-type userRepository struct {
-	db *gorm.DB
+type authRepository struct {
+	pgDB *gorm.DB
+	redisDB *redis.Client
 }
 
-func NewUserRepository(db *gorm.DB) UserRepository {
-	return &userRepository{db: db}
+func NewAuthRepository(pgDB *gorm.DB, redisDB *redis.Client) UserRepository {
+	return &authRepository{
+		pgDB: pgDB,
+		redisDB: redisDB,
+	}
 }
 
-func (ur *userRepository) CreateUser(ctx context.Context, user *models.User) error {
-	result := ur.db.WithContext(ctx).Create(&user)
+func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) error {
+	timeoutCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
 
-	if result.Error != nil {
-		return result.Error
+	if err := ar.pgDB.WithContext(timeoutCtx).Create(&user).Error; err != nil {
+		return err
+	}
+
+	//redis sync
+	err := ar.redisDB.Set(context.Background(), user.Username, user.Password, 0).Err()
+	if err != nil {
+		log.Println("(Redis) while adding new user: ", err)
+		return err
+	}
+
+	err = ar.redisDB.SAdd(context.Background(), chatAdapter.UserSetKey(), user.Username).Err()
+	if err != nil {
+		log.Println("(Redis) while adding new user: ", err)
+		ar.redisDB.Del(context.Background(), user.Username)
+		return err
 	}
 
 	return nil
 }
 
-func (ur *userRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
+func (ar *authRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
 	//check in cache
 	// UsernameInCache := cache.GetCache(cache.UsernameKey(username))
 	// if UsernameInCache != nil {
 	// 	return UsernameInCache.(*models.User), nil
 	// }
 
-	var user models.User
-	err := ur.db.WithContext(ctx).Where(&models.User{
-		Username: strings.ToLower(username),
-	}).First(&user).Error
+	timeoutCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
 
+	var user models.User
+	if err := ar.pgDB.WithContext(timeoutCtx).Where(&models.User{
+		Username: strings.ToLower(username),
+	}).First(&user).Error; err != nil {
+		return nil, constants.ErrNoRecord
+	}
+
+	//redis sync
+	exist, err := ar.redisDB.SIsMember(context.Background(), chatAdapter.UserSetKey(), username).Result()
 	if err != nil {
-		return nil, err
+		log.Fatalln("(Redis) while checking user existance: ", err)
+	}
+
+	if !exist {
+		log.Println("(Redis) user not found in Redis-DB")
+		return nil, constants.ErrNoRecord
 	}
 
 	//set in cache
@@ -48,20 +84,21 @@ func (ur *userRepository) GetUserByUsername(ctx context.Context, username string
 	return &user, nil
 }
 
-func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*models.User, error) {
+func (ar *authRepository) GetUserById(ctx context.Context, userId string) (*models.User, error) {
 	//check in cache
 	// UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
 	// if UsernameInCache != nil {
 	// 	return UsernameInCache.(*models.User), nil
 	// }
 
-	var user models.User
-	err := ur.db.WithContext(ctx).Where(&models.User{
-		Id: userId,
-	}).First(&user).Error
+	timeoutCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
 
-	if err != nil {
-		return nil, err
+	var user models.User
+	if err := ar.pgDB.WithContext(timeoutCtx).Where(&models.User{
+		Id: userId,
+	}).First(&user).Error; err != nil {
+		return nil, constants.ErrNoRecord
 	}
 
 	// set in cache
@@ -70,9 +107,9 @@ func (ur *userRepository) GetUserById(ctx context.Context, userId string) (*mode
 	return &user, nil
 }
 
-func (ur *userRepository) QueryMatchingFields(ctx context.Context, match string) (*[]models.User, error) {
+func (ar *authRepository) QueryMatchingFields(ctx context.Context, match string) (*[]models.User, error) {
 	var user []models.User
-	err := ur.db.WithContext(ctx).Where("username LIKE ?", "%"+match+"%").First(&user).Error
+	err := ar.pgDB.WithContext(ctx).Where("username LIKE ?", "%"+match+"%").First(&user).Error
 
 	if err != nil {
 		return nil, err

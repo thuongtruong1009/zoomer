@@ -1,12 +1,24 @@
 package models
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+	"zoomer/pkg/constants"
+)
 
 type User struct {
 	Id       string `gorm:"primary_key"`
-	Username string
-	Password string
-	Limit    int
+	Username string `gorm:"not null;unique" json:"username"`
+	Password string `gorm:"not null" json:"password"`
+	Limit    int    `gorm:"not null" json:"limit"`
+}
+
+func (u *User) IsUsernameInvalid() bool {
+	return u.Username != ""
+}
+
+func (u *User) IsPasswordInvalid() bool {
+	passLength := len(u.Password)
+	return passLength < constants.MinPasswordLen && passLength > constants.MaxPasswordLen
 }
 
 func (u *User) HashPassword() error {

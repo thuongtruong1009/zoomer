@@ -1,27 +1,52 @@
-FROM golang:1.20-alpine as builder
+FROM golang:1.20-alpine as development
 
-LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"
+RUN apk update && apk add make git build-base bash
 
-Run mkdir -p /app
+RUN mkdir -p /app
 WORKDIR /app
-COPY . .
+COPY go.mod go.sum ./
 
 RUN go mod download
 RUN go install github.com/cosmtrek/air@latest
-# RUN go get github.com/githubnemo/CompileDaemon
-# RUN go get -v golang.org/x/tools/gopls
 RUN go clean --modcache
-RUN apk update && apk add make && apk add --no-cache git && apk add --no-cache bash && apk add build-base
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o main ./cmd/main.go
+COPY . .
+
+RUN go build -o app-dev ./cmd/main.go
 
 FROM golang:1.20-alpine as production
+
+RUN apk update && apk add ca-certificates
 
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY --chown=0:0 --from=builder /app/ ./
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
 
-ENTRYPOINT ["/app/main"]
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o app-prod ./cmd/main.go
 
-# CMD ["air", "-c", ".air.toml"]
+FROM golang:1.20-alpine
+
+WORKDIR /app
+
+COPY --from=development /app /app/app-dev
+COPY --from=production /app /app/app-prod
+
+EXPOSE 8080
+EXPOSE 8081
+
+CMD if [ "$TARGET" = "development" ]; then \
+        ./app-dev; \
+    else \
+        ./app-prod; \
+    fi
+
+LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"
+LABEL org.opencontainers.image.authors="thuongtruong1009"
+LABEL org.opencontainers.image.version="1.0"
+LABEL org.opencontainers.image.description="Official Image of Zoomer application"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.source="https://github.com/thuongtruong1009/zoomer"
+LABEL org.opencontainers.image.documentation="https://github.com/thuongtruong1009/zoomer/blob/main/README.md"

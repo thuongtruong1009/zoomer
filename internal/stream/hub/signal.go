@@ -2,39 +2,35 @@ package hub
 
 import (
 	"context"
-	// "encoding/json"
 	"log"
-	"math/rand"
-	"time"
+	"sync"
 	"zoomer/internal/models"
+	"zoomer/pkg/utils"
 )
 
 type RoomMap struct {
 	Map map[string][]*models.Participant
+	mux sync.RWMutex
 }
 
 var (
-	Mapper  RoomMap
-	Broadcast = make(chan *models.BroadcastMessage, 100)
+	Mapper     RoomMap
+	Broadcast  = make(chan *models.BroadcastMessage, 100)
+	Disconnect = make(chan *models.DisconnectMessage, 100)
 )
 
 type hub struct{}
 
 func NewStreamHub() IHub {
+	Mapper = RoomMap{Map: make(map[string][]*models.Participant)}
 	return &hub{}
 }
 
 func (h *hub) CreateStream(ctx context.Context) string {
-	rand.Seed(time.Now().UnixNano())
-	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
-	b := make([]rune, 8)
-
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-
-	roomID := string(b)
+	roomID := utils.RandomString(8)
+	Mapper.mux.Lock()
 	Mapper.Map[roomID] = []*models.Participant{}
+	Mapper.mux.Unlock()
 
 	return roomID
 }
@@ -44,11 +40,15 @@ func (h *hub) GetParticipants(ctx context.Context, roomID string) []*models.Part
 }
 
 func (h *hub) InsertIntoStream(ctx context.Context, roomID string, client *models.Participant) {
+	Mapper.mux.Lock()
+	defer Mapper.mux.Unlock()
 	Mapper.Map[roomID] = append(Mapper.Map[roomID], client)
 	log.Println("inserted into room", roomID, "client", client)
 }
 
 func (h *hub) DeleteStream(ctx context.Context, roomID string) {
+	Mapper.mux.Lock()
+	defer Mapper.mux.Unlock()
 	delete(Mapper.Map, roomID)
 }
 
@@ -57,7 +57,9 @@ func (h *hub) Receiver(ctx context.Context, roomId string, client *models.Partic
 		var msg models.BroadcastMessage
 		err := client.Conn.ReadJSON(&msg.Message)
 		if err != nil {
-			log.Fatal("Read failed: ", err)
+			log.Println("Can read messaged: ", err)
+			// Disconnect <- &models.DisconnectMessage{RoomID: roomId, Client: client}
+			return
 		}
 
 		msg.Client = client.Conn
@@ -69,19 +71,40 @@ func (h *hub) Receiver(ctx context.Context, roomId string, client *models.Partic
 
 func (h *hub) Broadcaster() {
 	for {
-		msg := <-Broadcast
+		select {
+		case msg := <-Broadcast:
+			Mapper.mux.RLock()
+			participants, ok := Mapper.Map[msg.RoomID]
+			Mapper.mux.RUnlock()
+			if !ok {
+				log.Println("room", msg.RoomID, "not found")
+				continue
+			}
 
-		participants, ok := Mapper.Map[msg.RoomID]
-		if !ok {
-			log.Println("room", msg.RoomID, "not found")
-			continue
-		}
-		for _, client := range participants {
-			if client.Conn != msg.Client {
-				err := client.Conn.WriteJSON(msg.Message)
-				if err != nil {
-					log.Println("error while broadcasting message to client", client.Conn, err)
-					client.Conn.Close()
+			for _, client := range participants {
+				if client.Conn != msg.Client {
+					err := client.Conn.WriteJSON(msg.Message)
+					if err != nil {
+						log.Println("error while broadcasting message to client", client.Conn, err)
+						// client.Conn.Close()
+						// Mapper.Map = nil
+						// log.Println("Room remain: ", Mapper.Map)
+						// Disconnect <- &models.DisconnectMessage{RoomID: msg.RoomID, Client: client}
+					}
+				}
+			}
+		case msg := <-Disconnect:
+			Mapper.mux.Lock()
+			defer Mapper.mux.Unlock()
+			roomID := msg.RoomID
+			client := msg.Client
+			clients := Mapper.Map[roomID]
+			for i, c := range clients {
+				if c.Conn == client.Conn {
+					clients = append(clients[:i], clients[i+1:]...)
+					Mapper.Map[roomID] = clients
+					log.Println("client disconnected from room", roomID)
+					// break
 				}
 			}
 		}

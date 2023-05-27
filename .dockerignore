@@ -20,6 +20,8 @@ SECURITY.md
 build/
 vscode/
 client/
+client_draft/
+client_stream/
 docs/
 examples/
 templates/

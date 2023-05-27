@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-!versions/**.exe
+!release/**.exe
 
 # Test binary, built with `go test -c`
 *.test
@@ -28,6 +28,8 @@ main
 !.docker/**/nginx.conf
 !.docker/**/.gitkeep
 !.docker/**/**/.gitkeep
+.docker/postgres/**
+!.docker/redis/config/sentinel.conf
 
 **/node_modules
 **/.next

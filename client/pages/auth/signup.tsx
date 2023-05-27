@@ -1,13 +1,17 @@
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import { NextPageWithLayout } from '@/models'
-import { Box } from '@mui/system'
 import { AuthLayout } from '@/layouts'
-import { FormControl, TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 import { useState } from 'react'
 import { AuthServices } from '@/services'
 import { useRouter } from 'next/router'
 
-const Home: NextPageWithLayout = () => {
-    const router = useRouter()
+const SignUp: NextPageWithLayout = () => {
+  const router = useRouter()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -28,7 +32,8 @@ const Home: NextPageWithLayout = () => {
         }
     }
 
-    const onSubmit = async () => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         if (usernameValid && passwordValid) {
             try {
                 const res = await AuthServices.signup({ username, password })
@@ -43,45 +48,67 @@ const Home: NextPageWithLayout = () => {
         }
     }
 
-    return (
-        <Box>
-            <FormControl
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-            >
-                <h1>Signup</h1>
-                <TextField
-                    id="outlined-basic"
-                    label="Username"
-                    variant="outlined"
-                    color="secondary"
-                    helperText="Your username must be at least 3 characters"
-                    value={username}
-                    onChange={onChangeUsername}
-                />
-                <TextField
-                    id="outlined-password-input"
-                    label="Password"
-                    type="password"
-                    color="secondary"
-                    autoComplete="current-password"
-                    helperText="Your password must be at least 8 characters"
-                    value={password}
-                    onChange={onChangePassword}
-                />
+  return (
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          boxShadow: 3,
+          borderRadius: 2,
+          px: 4,
+          py: 6,
+          color: "#4dabf5",
+          background: "#fff",
+        }}
 
-                <Button variant="contained" onClick={onSubmit}>
-                    Signup
-                </Button>
-            </FormControl>
+      >
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            helperText={username === "" ? "Your username must be filled" : ""}
+            value={username}
+            onChange={onChangeUsername}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            helperText={password === "" ? "Your password must be filled" : ""}
+            value={password}
+            onChange={onChangePassword}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, background: '#4dabf5', ":hover": { background: '#2196f3' } }}
+          >
+            Sign Up
+          </Button>
         </Box>
-    )
+      </Box>
+    </Container>
+  );
 }
 
-Home.Layout = AuthLayout
+SignUp.Layout = AuthLayout
 
-export default Home
+export default SignUp

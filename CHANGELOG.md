@@ -1,12 +1,13 @@
 There is the most valuable changes log:
 
-### v1.1
+### v2.0
 
 **1.Architecture**
 
 - Connect to Redis database for chat service
 - Config Cache adapter with Redis
 - Config RabbitMQ for chat service
+- Combine into one port for websocket and http
 
 **2. News**
 
@@ -27,14 +28,16 @@ There is the most valuable changes log:
 - Save/Load messages to database
 - Rejoin room but not remove old messages
 - Load recent friend contact list
+- Search and connect new contact
 
 **4. Bugfixes**
 
 - fix: reload old messages when rejoin room
 - fix: reconnect to websocket when rejoin room
 - fix: display video partner in chat
+- fix: reconnect to websocket when rejoin room
 
-### v1.0
+### [v1.0 - 28-03-2023](https://github.com/thuongtruong1009/zoomer/releases/tag/v1.0)
 
 **1. Architecture**
 

@@ -8,13 +8,14 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
 import { ChatInput } from '@/components'
-import { RoomServices, SocketConnection } from '@/services'
+import { RoomServices} from '@/services'
 import { localStore } from '@/utils'
 import { useRouter } from 'next/router'
+import { SocketConnection } from '@/services/websocket'
 
 export function ChatBody() {
     const router = useRouter()
-    const isSelf = (authorId: string): boolean => authorId === localStore.get('user').username
+    const isSelf = (authorId: string): boolean => authorId === localStore.get('user').data.username
 
     const [to, setTo] = React.useState<any>([])
     const [from, setFrom] = React.useState<any>([])
@@ -30,55 +31,69 @@ export function ChatBody() {
                 const msg = JSON.parse(JSON.stringify(message))
                 if (
                     router.query.roomId === msg.from ||
-                    localStore.get('user').username === msg.from
+                    localStore.get('user').data.username === msg.from
                 ) {
-                    console.log('step 1')
                     setChats([...chats, msg])
                     // setChatHistory([...chatHistory, msg])
                 }
             })
-            conn.connected(localStore.get('user').username)
+            conn.connected(localStore.get('user').data.username)
         } catch (err) {
             console.log('Error: ', err)
         }
     }
 
+    // const fetchChatHistory = async (u1: string, u2: string) => {
+    //     // const res = await RoomServices.getChatHistory(u1, u2)
+    //     const res = await RoomServices.getChatHistory({ params: { u1: u1, u2: u2 } })
+    //     console.log(res)
+    //     if (res.status && res['data'].length !== undefined) {
+    //         setChats(res.data.data.reverse())
+    //         console.log('1', res)
+    //         setChatHistory(res.data.data.reverse())
+    //     } else {
+    //         setChatHistory([])
+    //     }
+    // }
+
     const fetchChatHistory = async (u1: string, u2: string) => {
-        const res = await RoomServices.getChatHistory(u1, u2)
-        console.log(res)
-        if (res.status && res['data'].length !== undefined) {
-            setChats(res.data.reverse())
-            console.log(res.data)
-            setChatHistory(res.data.reverse())
-        } else {
-            setChatHistory([])
-        }
+      const res = await RoomServices.getChatHistory({ params: { u1: u1, u2: u2 } })
+      console.log(res)
+
+      if (res.status && res.data && Array.isArray(res.data)) {
+        setChats(res.data.slice().reverse())
+        setChatHistory(res.data.slice().reverse())
+      } else {
+        setChatHistory([])
+      }
     }
+
 
     const sendMessage = (message: string) => {
         const msg = {
             type: 'message',
-            user: localStore.get('user').username,
+            user: localStore.get('user').data.username,
             chat: {
-                from: localStore.get('user').username,
+                from: localStore.get('user').data.username,
                 to: String(router.query.roomId),
                 msg: message,
                 msg_type: 'text',
             },
         }
         conn.sendMsg(msg)
+        fetchChatHistory(localStore.get('user').data.username, String(router.query.roomId))
     }
 
     const sendMessageTo = (to: any) => {
         setTo(to)
-        fetchChatHistory(localStore.get('user').username, to)
+        fetchChatHistory(localStore.get('user').data.username, String(router.query.roomId))
     }
 
     React.useEffect(() => {
         handleWs()
         if (router.query.roomId) {
             console.log(router.query.roomId)
-            fetchChatHistory(localStore.get('user').username, String(router.query.roomId))
+            sendMessageTo(router.query.roomId)
         }
     }, [router.query.roomId])
 

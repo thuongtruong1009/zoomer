@@ -23,7 +23,7 @@ func (p *IPublisher) Publish(ctx context.Context, ch *amqp.Channel, queueName st
 		false,     // mandatory
 		false,     // immediate
 		amqp.Publishing{
-			ContentType:  "text/plain",
+			ContentType:  "text/plain", //"application/json",
 			Body:         body,
 			DeliveryMode: amqp.Persistent,
 		})

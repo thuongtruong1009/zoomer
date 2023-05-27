@@ -2,29 +2,28 @@ package delivery
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/stream/hub"
+	"net/http"
 	"zoomer/internal/models"
+	"zoomer/internal/stream/hub"
 	"zoomer/internal/stream/presenter"
-	"zoomer/pkg/interceptor"
 	"zoomer/pkg/constants"
+	"zoomer/pkg/interceptor"
 )
 
 type streamHandler struct {
-	hub hub.IHub
+	hub   hub.IHub
 	inter interceptor.IInterceptor
 }
 
-func Init(){
-	hub.Mapper.Map =  make(map[string][]*models.Participant)
+func init() {
+	hub.Mapper.Map = make(map[string][]*models.Participant)
 }
 
-func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) StreamHandler {
+func NewStreamHandler(hub hub.IHub, inter interceptor.IInterceptor) *streamHandler {
 	return &streamHandler{
-		hub: hub,
+		hub:   hub,
 		inter: inter,
 	}
 }
@@ -48,7 +47,8 @@ func (sh *streamHandler) CreateStream() echo.HandlerFunc {
 
 func (sh *streamHandler) JoinStream() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		roomID := c.QueryParam("roomID")
+		roomID := c.QueryParam("streamID")
+		fmt.Println("stream id: ", roomID)
 
 		if roomID == "" {
 			return sh.inter.Error(c, http.StatusBadRequest, constants.ErrStreamIDMissing, nil)

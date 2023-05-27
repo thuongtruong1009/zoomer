@@ -6,7 +6,7 @@ import (
 )
 
 func UserSetKey() string {
-	return "user"
+	return "users"
 }
 
 func SessionKey(client string) string {
@@ -22,5 +22,5 @@ func ChatIndex() string {
 }
 
 func ContactListZKey(username string) string {
-	return "contacts#" + username
+	return "contacts:" + username
 }

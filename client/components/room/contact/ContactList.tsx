@@ -15,19 +15,33 @@ import { useEffect } from 'react'
 import { RoomServices } from '@/services'
 import { localStore } from '@/utils'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
+import { addAll } from '@/store';
+import { RootState, useAppDispatch } from '@/store/configureStore'
 
 export const ContactList = () => {
-    const router = useRouter()
-    const [selectedIndex, setSelectedIndex] = React.useState(0)
-    const [contacts, setContacts] = React.useState<any>([])
+  const router = useRouter()
+  const dispatch = useAppDispatch();
+
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [contacts, setContacts] = React.useState<any>()
+
+  const items =  useSelector((state: RootState) => state.contactReducer.items);
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await RoomServices.getContactsList(localStore.get('user').username)
+            const res = await RoomServices.getContactsList(localStore.get('user').data.username)
             setContacts(res.data)
+
+            dispatch(addAll(res.data))
+
+            //mock add fake contact user01
+            // setContacts((prev: any) => [{ username: 'user02', last_activity: Date.now() / 1000 }, ...prev])
         }
 
         fetchData().catch(console.error)
+
+        setContacts(items);
     }, [])
 
     const handleListItemClick = (
@@ -37,6 +51,7 @@ export const ContactList = () => {
         setSelectedIndex(index)
         router.push(`/room/${index}`)
     }
+
 
     return (
         <List
@@ -49,8 +64,8 @@ export const ContactList = () => {
                 px: 1,
             }}
         >
-            {contacts &&
-                contacts.map((contact: any, idx: number) => (
+            {items &&
+                items.map((contact: any, idx: number) => (
                     <ListItemButton
                         key={idx}
                         selected={selectedIndex === contact.username}

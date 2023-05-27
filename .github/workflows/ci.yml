@@ -10,6 +10,7 @@ on:
       - "!internal/**"
       - "!pkg/**"
 			- "!validators/**"
+			- "!kubernetes/**"
 
 jobs:
   build-and-test:
@@ -30,13 +31,13 @@ jobs:
 					--health-timeout 5s
 					--health-retries 5
     steps:
+			- name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.20.x
-
-			- name: Checkout Code
-        uses: actions/checkout@v3
 
       - name: Install Dependencies
         run: go mod download
@@ -44,19 +45,25 @@ jobs:
       - name: Build and Test
         run: |
           go build -o -v ./... cmd/main.go
-          go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+
+			- name: coverage
+				run: bash <(curl -s https://codecov.io/bash)
+
+			- name: go test with coverage
+        run: go tool cover -func coverage.out
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: ./coverage.txt
+          path: ./coverage.out
 
 			- name: Upload Coverage Report
 				uses: actions/upload-artifact@v2
 				with:
 					name: coverage-report
-					path: ./coverage.txt
+					path: ./coverage.out
 
 			- name: Run Static Analyzer
         run: go vet -v ./...
@@ -82,9 +89,9 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest # $(date + %s)
 
-      # - name: Deploy to Kubernetes
-      #   uses: appleboy/kubectl-action@master
-      #   with:
-      #     args: apply -f kubernetes/deployment.yaml
-      #   env:
-      #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      - name: Deploy to Kubernetes
+        uses: appleboy/kubectl-action@master
+        with:
+          args: apply -f kubernetes/deployment.yml
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}

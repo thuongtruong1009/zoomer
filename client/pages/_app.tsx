@@ -1,4 +1,4 @@
-import { axiosClient } from '@/services'
+import { axiosHttpInstance } from '@/services/http'
 import { DefaultLayout } from '@/layouts'
 import { AppPropsWithLayout } from '@/models'
 import { createEmotionCache, theme } from '@/utils'
@@ -7,6 +7,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { SWRConfig } from 'swr'
 import '../styles/globals.css'
+import { Provider } from 'react-redux'
+import { store } from '@/store/configureStore'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -20,11 +22,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <CssBaseline />
 
                 <SWRConfig
-                    value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}
+                    value={{
+                        fetcher: (url: string) => axiosHttpInstance.get(url),
+                        shouldRetryOnError: false,
+                    }}
                 >
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
+                    <Provider store={store}>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </Provider>
                 </SWRConfig>
             </ThemeProvider>
         </CacheProvider>
