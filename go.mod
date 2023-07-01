@@ -15,7 +15,7 @@ require (
 	github.com/labstack/gommon v0.4.0
 	github.com/minio/minio-go/v7 v7.0.52
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.3
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/echo-swagger v1.4.0
