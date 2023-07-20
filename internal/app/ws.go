@@ -13,7 +13,7 @@ import (
 	streamHub "github.com/thuongtruong1009/zoomer/internal/stream/hub"
 )
 
-func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterceptor, port string) error {
+func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterceptor) error {
 	//chat
 	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(redisDB))
 	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
@@ -29,9 +29,6 @@ func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterce
 	go wsStreamUC.Broadcaster()
 
 	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
-
-	e.Logger.Fatal(e.Start(port))
-
 
 	return nil
 }

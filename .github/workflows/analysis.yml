@@ -11,14 +11,6 @@ on:
       - "!internal/**"
       - "!pkg/**"
 			- "!validators/**"
-  pull_request:
-    paths-ignore:
-      - "!cmd/**"
-      - "!configs/**"
-      - "!db/**"
-      - "!internal/**"
-      - "!pkg/**"
-			- "!validators/**"
 jobs:
   analyze:
     name: Analyze

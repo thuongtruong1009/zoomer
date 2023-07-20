@@ -119,4 +119,3 @@ func (rh *roomHandler) CreateFetchChatBetweenIndexHandler() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, nil)
 	}
 }
-

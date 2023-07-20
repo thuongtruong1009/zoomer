@@ -34,7 +34,6 @@ COPY --from=development /app /app/app-dev
 COPY --from=production /app /app/app-prod
 
 EXPOSE 8080
-EXPOSE 8081
 
 CMD if [ "$TARGET" = "development" ]; \
     then ./app-dev; \

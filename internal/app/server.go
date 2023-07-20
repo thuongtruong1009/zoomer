@@ -43,7 +43,7 @@ func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB postgres.PgAdapter
 func (s *Server) Run() error {
 	function1 := func() {
 		httpServer := &http.Server{
-			Addr:         ":" + s.cfg.HttpPort,
+			Addr:         ":" + s.cfg.AppPort,
 			WriteTimeout: 30 * time.Second,
 			ReadTimeout:  30 * time.Second,
 		}
@@ -61,7 +61,7 @@ func (s *Server) Run() error {
 				s.logger.Fatalln("Error occurred while setting up http routers: ", err)
 			}
 
-			s.logger.Logf(logrus.InfoLevel, "api server is listening on PORT: %s", s.cfg.HttpPort)
+			s.logger.Logf(logrus.InfoLevel, "::: Api server is listening on PORT: %s", s.cfg.AppPort)
 
 			if err := s.echo.StartServer(httpServer); err != nil {
 				s.logger.Fatalln("Error occurred while starting the http server: ", err)
@@ -71,7 +71,7 @@ func (s *Server) Run() error {
 
 
 	function2 := func() {
-		if err2 := WsMapServer(echo.New(), s.redisDB, s.inter, ":8080"); err2 != nil {
+		if err2 := WsMapServer(s.echo, s.redisDB, s.inter); err2 != nil {
 			s.logger.Fatalln("Error occurred while setting up websocket routers: ", err2)
 		}
 	}

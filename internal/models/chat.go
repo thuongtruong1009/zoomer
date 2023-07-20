@@ -9,7 +9,7 @@ type Chat struct {
 	From      string `json:"from"`
 	To        string `json:"to"`
 	Msg       string `json:"msg"`
-	MsgType   string `json:"msg_type"`
+	// MsgType   string `json:"msg_type"`
 	Timestamp int64  `json:"timestamp"`
 }
 
@@ -25,6 +25,6 @@ type Client struct {
 
 type Message struct {
 	Type string `json:"type"`
-	User string `json:"user,omitempty"`
-	Chat Chat   `json:"chat,omitempty"`
+	User string `json:"user"`
+	Chat Chat   `json:"chat"`
 }
