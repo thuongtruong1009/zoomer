@@ -27,22 +27,22 @@ services:
       timeout: 5s
       retries: 5
 
-  pgadmin:
-    image: dockette/adminer:pgsql
-    container_name: pgadmin
-    restart: always
-    ports:
-      - "5050:80"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - postgres-network
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - ./.docker/postgres/pgadmin:/var/lib/pgadmin
+  # pgadmin:
+  #   image: dockette/adminer:pgsql
+  #   container_name: pgadmin
+  #   restart: always
+  #   ports:
+  #     - "5050:80"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   networks:
+  #     - postgres-network
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   volumes:
+  #     - ./.docker/postgres/pgadmin:/var/lib/pgadmin
 
   redis-master:
     image: redis:7.0-alpine
@@ -60,45 +60,45 @@ services:
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     restart: always
 
-  redis-slave:
-    image: redis:7.0-alpine
-    container_name: redis-slave
-    ports:
-      - "6381:6379"
-      - "26381:26379"
-    networks:
-      - redis-network
-    volumes:
-      - ./.docker/redis/data/slave:/data
-      - ./.docker/redis/config/slave/redis.conf:/etc/redis/sentinel.conf
-    command: redis-server --slaveof redis-master ${REDIS_PORT} --appendonly yes --masterauth ${REDIS_PASSWORD}
-    restart: always
+  # redis-slave:
+  #   image: redis:7.0-alpine
+  #   container_name: redis-slave
+  #   ports:
+  #     - "6381:6379"
+  #     - "26381:26379"
+  #   networks:
+  #     - redis-network
+  #   volumes:
+  #     - ./.docker/redis/data/slave:/data
+  #     - ./.docker/redis/config/slave/redis.conf:/etc/redis/sentinel.conf
+  #   command: redis-server --slaveof redis-master ${REDIS_PORT} --appendonly yes --masterauth ${REDIS_PASSWORD}
+  #   restart: always
 
-  redis-sentinel:
-    image: redis:7.0-alpine
-    container_name: redis-sentinel
-    ports:
-      - "26379:26379"
-    depends_on:
-      - redis-master
-      - redis-slave
-    networks:
-      - redis-network
-    volumes:
-      - ./.docker/redis/data/sentinel:/data
-      - ./.docker/redis/config/sentinel/sentinel.conf:/etc/redis/sentinel.conf
-    command: redis-sentinel /etc/redis/sentinel.conf
-    restart: always
+  # redis-sentinel:
+  #   image: redis:7.0-alpine
+  #   container_name: redis-sentinel
+  #   ports:
+  #     - "26379:26379"
+  #   depends_on:
+  #     - redis-master
+  #     - redis-slave
+  #   networks:
+  #     - redis-network
+  #   volumes:
+  #     - ./.docker/redis/data/sentinel:/data
+  #     - ./.docker/redis/config/sentinel/sentinel.conf:/etc/redis/sentinel.conf
+  #   command: redis-sentinel /etc/redis/sentinel.conf
+  #   restart: always
 
-  redis-commander:
-    container_name: redis-commander
-    hostname: redis-commander
-    image: rediscommander/redis-commander:latest
-    restart: always
-    environment:
-      - REDIS_HOSTS=redis-master:6380
-    ports:
-      - "6378:8081"
+  # redis-commander:
+  #   container_name: redis-commander
+  #   hostname: redis-commander
+  #   image: rediscommander/redis-commander:latest
+  #   restart: always
+  #   environment:
+  #     - REDIS_HOSTS=redis-master:6380
+  #   ports:
+  #     - "6378:8081"
 
   minio:
     image: minio/minio
@@ -140,37 +140,37 @@ services:
     networks:
       - rabbitmq-network
 
-  app:
-    image: thuongtruong1009/zoomer
-    # platform: linux/amd64
-    build:
-      context: .
-      dockerfile: Dockerfile
-      # target: development
-      # dockerfile: ../build/Dockerfile.dev.air
-      # args:
-      #   - TARGET=development
-        # - APP_PATH=./cmd
-    env_file:
-      - .env
-    ports:
-      - "${HTTP_PORT}:8080"
-      - "${WS_PORT}:8081"
-    # deploy:
-    #   replicas: 3
-    depends_on:
-      - postgres
-      - redis-master
-      - minio
-      - rabbitmq
-    volumes:
-      - .:/app
-    networks:
-      - postgres-network
-      - minio-network
-      - rabbitmq-network
-      - redis-network
-    restart: always
+  # app:
+  #   image: thuongtruong1009/zoomer
+  #   # platform: linux/amd64
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     # target: development
+  #     # dockerfile: ../build/Dockerfile.dev.air
+  #     # args:
+  #     #   - TARGET=development
+  #     # - APP_PATH=./cmd
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "${HTTP_PORT}:8080"
+  #     - "${WS_PORT}:8081"
+  #   # deploy:
+  #   #   replicas: 3
+  #   depends_on:
+  #     - postgres
+  #     - redis-master
+  #     - minio
+  #     - rabbitmq
+  #   volumes:
+  #     - .:/app
+  #   networks:
+  #     - postgres-network
+  #     - minio-network
+  #     - rabbitmq-network
+  #     - redis-network
+  #   restart: always
 
   # app2:
   #   <<: *app

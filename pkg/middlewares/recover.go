@@ -3,8 +3,8 @@ package middlewares
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 func RecoveryMiddleware(next echo.HandlerFunc) echo.HandlerFunc {

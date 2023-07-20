@@ -9,7 +9,7 @@ import (
 	"mime/multipart"
 	"path/filepath"
 	"os"
-	"zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type localResourceUsecase struct {}

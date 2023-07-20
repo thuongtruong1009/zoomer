@@ -2,7 +2,7 @@ package delivery
 
 import (
 	"github.com/labstack/echo/v4"
-	"zoomer/pkg/middlewares"
+	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 )
 
 func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.MiddlewareManager) {

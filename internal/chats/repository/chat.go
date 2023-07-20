@@ -7,8 +7,8 @@ import (
 	"log"
 	"time"
 	"github.com/go-redis/redis/v8"
-	"zoomer/internal/models"
-	"zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 )
 
 type chatRepository struct{

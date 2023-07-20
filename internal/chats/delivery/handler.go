@@ -5,8 +5,8 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/chats/hub"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/chats/hub"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type chatHandler struct {

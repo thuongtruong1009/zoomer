@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
-	chatAdapter "zoomer/internal/chats/adapter"
-	"zoomer/internal/models"
-	"zoomer/pkg/cache"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/cache"
 )
 
 type roomRepository struct {

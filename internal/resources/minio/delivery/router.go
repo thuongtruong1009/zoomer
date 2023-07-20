@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"log"
 	"time"
-	"zoomer/pkg/constants"
-	"zoomer/internal/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
 )
 
 func MapResourceRoutes(resourceGroup *echo.Group, rh ResourceHandler) {

@@ -5,7 +5,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 	"strings"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {

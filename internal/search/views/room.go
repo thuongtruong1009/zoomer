@@ -2,7 +2,7 @@ package views
 
 import (
 	"context"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type RoomFind struct {

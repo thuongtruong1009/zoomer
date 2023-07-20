@@ -3,12 +3,12 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/auth/presenter"
-	"zoomer/internal/auth/usecase"
-	"zoomer/internal/models"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/interceptor"
-	"zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/auth/usecase"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/validators"
 )
 
 type authHandler struct {

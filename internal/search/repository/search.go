@@ -5,8 +5,8 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"strings"
-	"zoomer/internal/models"
-	"zoomer/internal/search/views"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/search/views"
 )
 
 type searchRepository struct {

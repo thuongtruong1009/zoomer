@@ -3,9 +3,9 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/search/presenter"
-	"zoomer/internal/search/usecase"
-	"zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/internal/search/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/search/usecase"
+	"github.com/thuongtruong1009/zoomer/validators"
 )
 
 type searchHandler struct {

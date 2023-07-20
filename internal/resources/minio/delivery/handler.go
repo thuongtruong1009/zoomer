@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/minio/minio-go/v7"
 	"log"
-	"zoomer/internal/models"
-	"zoomer/internal/resources/minio/usecase"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
 )
 
 type resourceHandler struct {

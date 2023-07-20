@@ -1,6 +1,6 @@
-module zoomer
+module github.com/thuongtruong1009/zoomer
 
-go 1.19
+go 1.20
 
 require (
 	github.com/caarlos0/env v3.5.0+incompatible

@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"zoomer/internal/auth/usecase"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/internal/auth/usecase"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 type MiddlewareManager struct {

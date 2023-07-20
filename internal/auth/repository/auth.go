@@ -7,10 +7,10 @@ import (
 	"time"
 	"log"
 	"github.com/go-redis/redis/v8"
-	"zoomer/internal/models"
-	"zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	// "zoomer/pkg/cache"
-	chatAdapter "zoomer/internal/chats/adapter"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 )
 
 type authRepository struct {

@@ -6,7 +6,6 @@
   <img src="./public/demo/signup.PNG" alt="signup" width="400" /><img src="./public/demo/signin.PNG" alt="signin" width="400" />
 </div>
 
-
 ## **Technical stuff**
 
 - Architecture: Clean architecture
@@ -31,6 +30,12 @@
 - [x] Users can access their chat history.
 - [x] Users can block each other
 - [x] Dockerize and scalability
+- [x] Support Redis cache
+- [x] Support Peer connection
+- [ ] Support OAuth2
+- [ ] Support Swagger
+- [ ] Support notification
+- [ ] Support file upload/download
 - [ ] Add missing intergration tests and Unit Test Coverage
 - [ ] Add role/permission based validation
 - [ ] Implement new features
@@ -87,7 +92,7 @@ go test -v -cover ./...
 go test -v ./integration-tests
 ```
 
-**References**
+<!-- **References**
 
 - [Web socket chat](https://www.youtube.com/watch?v=W9SuX9c40s8)
 
@@ -115,4 +120,4 @@ go test -v ./integration-tests
 
 - [Gin template](https://github.com/lakhinsu/gin-boilerplate)
 
-- [Elastic search](https://github.dev/NooBeeID/simple-go-search/tree/develop)
+- [Elastic search](https://github.dev/NooBeeID/simple-go-search/tree/develop) -->

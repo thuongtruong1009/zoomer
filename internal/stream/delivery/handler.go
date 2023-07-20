@@ -5,11 +5,11 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"zoomer/internal/models"
-	"zoomer/internal/stream/hub"
-	"zoomer/internal/stream/presenter"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/stream/hub"
+	"github.com/thuongtruong1009/zoomer/internal/stream/presenter"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 type streamHandler struct {

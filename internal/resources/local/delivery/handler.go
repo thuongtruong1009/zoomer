@@ -6,9 +6,9 @@ import (
 	"os"
 	"errors"
 	"github.com/labstack/echo/v4"
-	"zoomer/pkg/interceptor"
-	"zoomer/pkg/constants"
-	"zoomer/internal/resources/local/usecase"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/resources/local/usecase"
 )
 
 func init() {

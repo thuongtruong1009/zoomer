@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type resourceRepository struct {

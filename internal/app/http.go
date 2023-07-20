@@ -2,24 +2,24 @@ package app
 
 import (
 	"github.com/labstack/echo/v4"
-	"zoomer/pkg/middlewares"
+	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 
-	authRepository "zoomer/internal/auth/repository"
-	roomRepository "zoomer/internal/rooms/repository"
-	searchRepository "zoomer/internal/search/repository"
-	resourceRepository "zoomer/internal/resources/minio/repository"
+	authRepository "github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	roomRepository "github.com/thuongtruong1009/zoomer/internal/rooms/repository"
+	searchRepository "github.com/thuongtruong1009/zoomer/internal/search/repository"
+	resourceRepository "github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
 
-	authUsecase "zoomer/internal/auth/usecase"
-	roomUsecase "zoomer/internal/rooms/usecase"
-	searchUsecase "zoomer/internal/search/usecase"
-	resourceUsecase "zoomer/internal/resources/minio/usecase"
-	localResourceUsecase "zoomer/internal/resources/local/usecase"
+	authUsecase "github.com/thuongtruong1009/zoomer/internal/auth/usecase"
+	roomUsecase "github.com/thuongtruong1009/zoomer/internal/rooms/usecase"
+	searchUsecase "github.com/thuongtruong1009/zoomer/internal/search/usecase"
+	resourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
+	localResourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/local/usecase"
 
-	authHttp "zoomer/internal/auth/delivery"
-	roomHttp "zoomer/internal/rooms/delivery"
-	searchHttp "zoomer/internal/search/delivery"
-	minioResourceHttp "zoomer/internal/resources/minio/delivery"
-	localResourceHttp "zoomer/internal/resources/local/delivery"
+	authHttp "github.com/thuongtruong1009/zoomer/internal/auth/delivery"
+	roomHttp "github.com/thuongtruong1009/zoomer/internal/rooms/delivery"
+	searchHttp "github.com/thuongtruong1009/zoomer/internal/search/delivery"
+	minioResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/minio/delivery"
+	localResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 )

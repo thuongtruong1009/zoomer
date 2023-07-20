@@ -18,6 +18,7 @@ There is the most valuable changes log:
 - Refactor code
 - Generate swagger document and UI
 - Config migration for database
+- Seed data
 
 **3. Features**
 

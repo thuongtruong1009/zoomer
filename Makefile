@@ -2,7 +2,7 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 DOCKER_USERNAME ?= thuongtruong1009
-APPLICATION_NAME ?= zoomer
+APPLICATION_NAME ?= ${APP_NAME}
 GIT_HASH ?= $(shell git log --format="%h" -n 1)
 ENTRYPOINT ?= cmd/main.go
 
@@ -11,20 +11,27 @@ _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
 setup:
-	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/cosmtrek/air@v1.27.3
 	go install github.com/swaggo/swag/cmd/swag@latest
+	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 dev:
 	go run ${ENTRYPOINT}
 
 air:
-	air -c .air.toml -d
+	gofmt -w . && air
 
 test:
 	go test -v -race -coverprofile=coverage -covermode=atomic -short ./...
 
 build:
 	go build -o ${APPLICATION_NAME} ${ENTRYPOINT}
+
+docs:
+	swag i --dir ./cmd/,\
+	./modules/,\
+	./pkg/wrapper,\
+	./pkg/contexts
 
 # Migration
 
@@ -37,19 +44,15 @@ migration-up:
 migration-down:
 	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
 
-setup:
-	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-	go install github.com/swaggo/swag/cmd/swag@latest
+migrate-status:
+	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" status
 
-docs:
-	swag i --dir ./cmd/,\
-	./modules/,\
-	./pkg/wrapper,\
-	./pkg/contexts
+seed:
+	go run ./cmd/seed/main.go
 
 # Docker
 
-docker_build:
+docker-build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 
 docker-dev:
@@ -58,10 +61,10 @@ docker-dev:
 docker-prod:
 	docker build -t ${APPLICATION_NAME}:production --build-arg TARGET=production -f Dockerfile .
 
-docker_push:
+docker-push:
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}
 
-docker_release:
+docker-release:
 	docker pull ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}
 	docker tag  ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} ${DOCKER_USERNAME}/${APPLICATION_NAME}:latest
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_RELEASE_TAG}
@@ -73,4 +76,4 @@ git-hooks:
 	chmod +x .git/hooks/pre-commit && \
 	echo "Done!"
 
-.PHONY: dev air test build docker_build docker_push docker_release git-hooks
+.PHONY: setup dev air test build docs seed migrate-create migrate-up migrate down migrate-down migrate-status docker-build docker-dev docker-prod docker-push docker-release git-hooks

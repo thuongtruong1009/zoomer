@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"zoomer/internal/auth/repository"
-	"zoomer/internal/models"
-	"zoomer/internal/rooms/presenter"
-	"zoomer/internal/rooms/usecase"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/interceptor"
-	"zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/rooms/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/rooms/usecase"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/validators"
 )
 
 type roomHandler struct {
@@ -119,3 +119,4 @@ func (rh *roomHandler) CreateFetchChatBetweenIndexHandler() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, nil)
 	}
 }
+

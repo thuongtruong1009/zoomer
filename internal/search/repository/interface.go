@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type SearchRepository interface {

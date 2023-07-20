@@ -1,0 +1,306 @@
+[Id: CZlUNDaBvcjXQ5UMHul7JidWsUwZhO2D] 2023/07/09 12:49:53 logger.go:23:  Time: 2023-07-09T12:49:53+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 1.4238081s Bytes_in: 79 Bytes_out: 172
+
+[Id: rZrvNSR7pHM1SCGKXFkMBbOlhRxmEDY3] 2023/07/09 12:53:59 logger.go:23:  Time: 2023-07-09T12:53:59+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 2.6096ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 5pD1kOMTjIrGYtgNx5k9HsCvi06nKQHG] 2023/07/09 12:54:00 logger.go:23:  Time: 2023-07-09T12:54:00+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 385.5392ms Bytes_in: 41 Bytes_out: 58
+
+[Id: he8X05sSM4Ys35iw7d7A9dfdv06G4rS9] 2023/07/09 12:54:32 logger.go:23:  Time: 2023-07-09T12:54:32+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 364.0817ms Bytes_in: 57 Bytes_out: 58
+
+[Id: PVaPiZRSxSZHcMABSuWJlPbPhROVTUSg] 2023/07/09 14:27:50 logger.go:23:  Time: 2023-07-09T14:27:50+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 1.8880021s Bytes_in: 79 Bytes_out: 101
+
+[Id: TvL2Xw6n8SrSEQjn3JLv10aLgQPdRM91] 2023/07/09 14:28:23 logger.go:23:  Time: 2023-07-09T14:28:23+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 2.2463ms Bytes_in: 0 Bytes_out: 0
+
+[Id: PtVs52F9I6lOwZ7cthDepl07rpY3VUDF] 2023/07/09 14:28:24 logger.go:23:  Time: 2023-07-09T14:28:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 546.8168ms Bytes_in: 45 Bytes_out: 384
+
+[Id: mzkxGRoWOE1o8fnMabOWPuBLUey6Eh5Z] 2023/07/09 14:28:28 logger.go:23:  Time: 2023-07-09T14:28:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 4.0971ms Bytes_in: 0 Bytes_out: 0
+
+[Id: DWzPjuYks6NIEuIgpqPFvmcfEgmZgO3S] 2023/07/09 14:28:29 logger.go:23:  Time: 2023-07-09T14:28:29+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 666.8243ms Bytes_in: 0 Bytes_out: 39
+
+[Id: 1VVkCdUPWzI1K0J4GUVETgmnKvY43av8] 2023/07/09 14:29:29 logger.go:23:  Time: 2023-07-09T14:29:29+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 777.0503ms Bytes_in: 79 Bytes_out: 172
+
+[Id: t4kM5ZBkEIRMGGyQLSiW6FdzNcr8JD5Q] 2023/07/09 14:29:43 logger.go:23:  Time: 2023-07-09T14:29:43+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 2.2277ms Bytes_in: 0 Bytes_out: 0
+
+[Id: L7O36Ci24B3eLFgZ8J4kxZnp0b1L7LKz] 2023/07/09 14:29:44 logger.go:23:  Time: 2023-07-09T14:29:44+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 597.9108ms Bytes_in: 0 Bytes_out: 64
+
+[Id: PSv46jcQSKAGrkH4QJdRV4F8L2BlktZd] 2023/07/09 14:29:47 logger.go:23:  Time: 2023-07-09T14:29:47+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 4.941ms Bytes_in: 0 Bytes_out: 0
+
+[Id: hKsozqkonwoozcPGQUMY6uhYEDktyAYw] 2023/07/09 14:29:49 logger.go:23:  Time: 2023-07-09T14:29:49+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 1.6344913s Bytes_in: 0 Bytes_out: 64
+
+[Id: 1PPYZTyuRLUsIdNhPgRqpMuISSvaLfLI] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 26.6523622s Bytes_in: 0 Bytes_out: 0
+
+[Id: 0arsAH4odbgIxfNvD0ucfJYK8CXDVI6Y] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 26.5681081s Bytes_in: 0 Bytes_out: 0
+
+[Id: gRh9dD5D1vx79pdbsaRqSCuUWZEqQ4du] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.7774456s Bytes_in: 0 Bytes_out: 0
+
+[Id: yyRW8yJZHWB5cJhaFbd1qXurOWtCdPK8] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.8035899s Bytes_in: 0 Bytes_out: 0
+
+[Id: 1R8XJJS7jH8a9ZL9WqhX1uetMzjQRYwx] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 26.5970369s Bytes_in: 0 Bytes_out: 0
+
+[Id: ZH9kEayWIbSrNLDaqPo5vEU0uETAAKFM] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 25.8991455s Bytes_in: 0 Bytes_out: 0
+
+[Id: rZfIfTSMmANIC3r5bJzsX7NdzACrvXPY] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 25.9246203s Bytes_in: 0 Bytes_out: 0
+
+[Id: FQQI19x6j32X9TjIrgj4Qj3TNZY4ILHo] 2023/07/09 14:30:10 logger.go:23:  Time: 2023-07-09T14:30:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 26.6829715s Bytes_in: 0 Bytes_out: 0
+
+[Id: H3NcXNbc6WmQ034v1i4jhSuoSAGDvQF5] 2023/07/09 14:30:21 logger.go:23:  Time: 2023-07-09T14:30:21+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.6677ms Bytes_in: 0 Bytes_out: 0
+
+[Id: ldZGvNPQ9mbJKBENAh8rIXJFBAWMyddr] 2023/07/09 14:30:22 logger.go:23:  Time: 2023-07-09T14:30:22+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 763.7585ms Bytes_in: 0 Bytes_out: 97
+
+[Id: blwOtI13NMwmj7weGB2cucbTCXQ4NNHm] 2023/07/09 14:30:33 logger.go:23:  Time: 2023-07-09T14:30:33+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 2.0749ms Bytes_in: 0 Bytes_out: 0
+
+[Id: qVbM0dLLk8lkV4XteFLpiWOIcHp5I8LU] 2023/07/09 14:30:33 logger.go:23:  Time: 2023-07-09T14:30:33+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 616.9016ms Bytes_in: 0 Bytes_out: 64
+
+[Id: q7yi9Gw3fi9MBdTsQYb2oHNlujwxnB3v] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.2103196s Bytes_in: 0 Bytes_out: 0
+
+[Id: Q7QC3tWx4Q2FVsP6BoHVQRDgCPLKusuG] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.892846s Bytes_in: 0 Bytes_out: 0
+
+[Id: CrxDszPTvQaFUyHTlAsQsP6T7iukZyyw] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.188322s Bytes_in: 0 Bytes_out: 0
+
+[Id: PICmMZai4lkRXnWfndg2g7mwmGG6fe1C] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.9155652s Bytes_in: 0 Bytes_out: 0
+
+[Id: gwtmkU6NZSGq8sz0xUdoDwPXBgMnBQIh] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 14.0283705s Bytes_in: 0 Bytes_out: 0
+
+[Id: CJBROl4lzZtxbYyD8uKW8xWqctVeU3uy] 2023/07/09 14:30:46 logger.go:23:  Time: 2023-07-09T14:30:46+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 14.0499426s Bytes_in: 0 Bytes_out: 0
+
+[Id: fjH0qC3mghIBj3GghwdgSen2fEcE5PwZ] 2023/07/09 14:31:04 logger.go:23:  Time: 2023-07-09T14:31:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 13.1518ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 7iyFv1XaytxTcABx8EIpjDBJh8QPt38A] 2023/07/09 14:31:05 logger.go:23:  Time: 2023-07-09T14:31:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 760.3401ms Bytes_in: 0 Bytes_out: 97
+
+[Id: p3NZqloBY42XsZp8iBkr3r6Q1nwZUhc5] 2023/07/09 14:31:55 logger.go:23:  Time: 2023-07-09T14:31:55+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.6453ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 4IdBLqBGozGAzMZKD7pn98MLpy7nUc8o] 2023/07/09 14:31:56 logger.go:23:  Time: 2023-07-09T14:31:56+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 625.1122ms Bytes_in: 0 Bytes_out: 97
+
+[Id: kA1LLnKpEmXlP2PYMoPZuaOP3cFY5CnN] 2023/07/09 14:35:59 logger.go:23:  Time: 2023-07-09T14:35:59+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 3.7175ms Bytes_in: 0 Bytes_out: 0
+
+[Id: RmO0lt6jG9USzz2f7t9NXXfha4wajZ5m] 2023/07/09 14:36:00 logger.go:23:  Time: 2023-07-09T14:36:00+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 896.7763ms Bytes_in: 0 Bytes_out: 64
+
+[Id: 6wbPz5LddvexVJSv8goJ72TgrBzzgVEP] 2023/07/09 14:36:42 logger.go:23:  Time: 2023-07-09T14:36:42+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 1.3428631s Bytes_in: 79 Bytes_out: 101
+
+[Id: 4a8yuBRr4cjkm0vFAQ1Wt10irFhjT5w9] 2023/07/09 14:36:56 logger.go:23:  Time: 2023-07-09T14:36:56+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 13.9489ms Bytes_in: 0 Bytes_out: 0
+
+[Id: V2MGfgLtpuoGtGm3dsWu7yUiI2wzTkc4] 2023/07/09 14:36:57 logger.go:23:  Time: 2023-07-09T14:36:57+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 845.4756ms Bytes_in: 0 Bytes_out: 90
+
+[Id: gD5Mmd3rSbYhGLTmQA6UJmsMP0y98tDx] 2023/07/09 14:36:59 logger.go:23:  Time: 2023-07-09T14:36:59+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 3.2815ms Bytes_in: 0 Bytes_out: 0
+
+[Id: orDo9odeBpTp4cPRE1YCNbnPBTS2OtEl] 2023/07/09 14:37:01 logger.go:23:  Time: 2023-07-09T14:37:01+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.4995624s Bytes_in: 0 Bytes_out: 90
+
+[Id: HbSiLOeno3JF4MEWAriIWhkH6swtCNYW] 2023/07/09 14:37:06 logger.go:23:  Time: 2023-07-09T14:37:06+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 6.5506ms Bytes_in: 0 Bytes_out: 0
+
+[Id: LSqO9TPPoh5l9S3clAAtLN9CdE7EGwPL] 2023/07/09 14:37:06 logger.go:23:  Time: 2023-07-09T14:37:06+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 590.2765ms Bytes_in: 0 Bytes_out: 64
+
+[Id: X5eKdlETyCHQYDzeSdLHWXoeXSscpW8I] 2023/07/09 14:37:08 logger.go:23:  Time: 2023-07-09T14:37:08+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 5.4543ms Bytes_in: 0 Bytes_out: 0
+
+[Id: ypGP8M8M5qxa4BjFuAu8BY0yOCuPCYjl] 2023/07/09 14:37:09 logger.go:23:  Time: 2023-07-09T14:37:09+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 844.9947ms Bytes_in: 0 Bytes_out: 90
+
+[Id: ESDBrrh8Qdpw4iCpztR0Brkm9FmeGVDH] 2023/07/09 14:37:19 logger.go:23:  Time: 2023-07-09T14:37:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 3.0965ms Bytes_in: 0 Bytes_out: 0
+
+[Id: bJkUWgz8Nuj672HmDcR2bHBUKsA2koPF] 2023/07/09 14:37:20 logger.go:23:  Time: 2023-07-09T14:37:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 602.6266ms Bytes_in: 0 Bytes_out: 64
+
+[Id: owyWK03n6YME0ak7L8ELymh3awOKtwDC] 2023/07/09 14:37:21 logger.go:23:  Time: 2023-07-09T14:37:21+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 2.4601ms Bytes_in: 0 Bytes_out: 0
+
+[Id: zOElhQjMLoCUZAVTSrnru1DW8FLcIEZL] 2023/07/09 14:37:22 logger.go:23:  Time: 2023-07-09T14:37:22+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.0136981s Bytes_in: 0 Bytes_out: 90
+
+[Id: i5BsElgoDMt8Y5Lselvn04TPAxAth0ct] 2023/07/09 14:37:23 logger.go:23:  Time: 2023-07-09T14:37:23+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 1.5563ms Bytes_in: 0 Bytes_out: 0
+
+[Id: fnVO71Kgm2zpg8ISDE3UbNFbcs7iJgcR] 2023/07/09 14:37:24 logger.go:23:  Time: 2023-07-09T14:37:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 591.4722ms Bytes_in: 0 Bytes_out: 64
+
+[Id: E6ULDBpOYPsmxMl3nNz0MwCnisiqsGcX] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.8877025s Bytes_in: 0 Bytes_out: 0
+
+[Id: yp6uaTcLcCw3vSKRIhRpDXraj2LP9wV0] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 25.3669521s Bytes_in: 0 Bytes_out: 0
+
+[Id: QgDCxobVGwNV4EJqUSzItkmGF8ONGntR] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 25.389614s Bytes_in: 0 Bytes_out: 0
+
+[Id: sV3HKDzKEWSna4O016bAK06sbt2NiLJz] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 29.445758s Bytes_in: 0 Bytes_out: 0
+
+[Id: MuorCeqIxs18Oqsge8fu2qHIaXiYG6jV] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 30.323888s Bytes_in: 0 Bytes_out: 0
+
+[Id: g4ixEX3erX9obGmjKNeVrO9LnKWlcOar] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 6.6311167s Bytes_in: 0 Bytes_out: 0
+
+[Id: M3DXXckVexiwviiQaAZ1JQgw87IXE9Vf] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 30.4677429s Bytes_in: 0 Bytes_out: 0
+
+[Id: X4nFHox6QckeJLRB3jBwKs1QoZro2ZGk] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.8687774s Bytes_in: 0 Bytes_out: 0
+
+[Id: 3MlAVI2148nWPXEbo2NmSge0y7JpMZH9] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m27.2167065s Bytes_in: 0 Bytes_out: 0
+
+[Id: z48JVppUbuUr49kTT17vHaIbYLdPGQ4x] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.2128399s Bytes_in: 0 Bytes_out: 0
+
+[Id: lVkMYJrLrnt72ClO4gugorIw32yirMKs] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.318377s Bytes_in: 0 Bytes_out: 0
+
+[Id: ULn2ZRAhcR7ouftspaWWe1O9qyZsX07A] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.8234951s Bytes_in: 0 Bytes_out: 0
+
+[Id: xe9Ko2X5YnrP8MmG9WXADn8NjukoqCN2] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.2496735s Bytes_in: 0 Bytes_out: 0
+
+[Id: 9jKySpKnhcSNxIcSh6WbyhWdr9La3b25] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m26.254536s Bytes_in: 0 Bytes_out: 0
+
+[Id: LnjQ6dfGTI6fhjFQsnpZZRvewlhXjaMx] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 30.4002303s Bytes_in: 0 Bytes_out: 0
+
+[Id: QXCv2yLAn89SIx80ZfkNozipBm8i0LGr] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m26.2701593s Bytes_in: 0 Bytes_out: 0
+
+[Id: gZmRipgU7neOyKb8MXadSUgdhWSvUewn] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m27.2033966s Bytes_in: 0 Bytes_out: 0
+
+[Id: eMntvFSNl2dybh4lASXpQ0q72Qhbg7Pc] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.3369859s Bytes_in: 0 Bytes_out: 0
+
+[Id: FahGPOdy0LCnNL8mJW9Q0i3AeTbavntI] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.8563455s Bytes_in: 0 Bytes_out: 0
+
+[Id: l9766Oho8Toch9sXxozG46eFcnlxSgIL] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.982908s Bytes_in: 0 Bytes_out: 0
+
+[Id: SF14ZVIJLm8k9magJeN6Ba7Fe7dDcATK] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.8071978s Bytes_in: 0 Bytes_out: 0
+
+[Id: gVBiXCVDux8pQNUn1YxFiVoEYJhabEBs] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.7886337s Bytes_in: 0 Bytes_out: 0
+
+[Id: PNA2dE075wf6EA6cilmgkmQWVUGOW5ti] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.3226097s Bytes_in: 0 Bytes_out: 0
+
+[Id: N3rLyV0jia3A2YBaU8Qb3CIwLQ9GkMuS] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.7686327s Bytes_in: 0 Bytes_out: 0
+
+[Id: K5rYdbr3tX8CW3KTAul2rF5uZBWHMha3] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.9292089s Bytes_in: 0 Bytes_out: 0
+
+[Id: kyhOmEfJcVE5yO009xmPHEyhaDteTfmo] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.9441357s Bytes_in: 0 Bytes_out: 0
+
+[Id: 05vwXtcm8c2uABX96yfhpUbmyNSlY2Fa] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.9731565s Bytes_in: 0 Bytes_out: 0
+
+[Id: KIBNIiZzVY8ndmgknZjRZOHp0iL4NtSD] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.3110619s Bytes_in: 0 Bytes_out: 0
+
+[Id: 5vufs6UqXmZXVHRFTZ0jHQfBWSuz89ZW] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.1174169s Bytes_in: 0 Bytes_out: 0
+
+[Id: InGGPvaIbHY3iA57QBTcvPvrOsDJXnld] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 18.167617s Bytes_in: 0 Bytes_out: 0
+
+[Id: RgVIHhT6MJnhbyjfVc7cS5hpr9YNUjZZ] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 29.5461969s Bytes_in: 0 Bytes_out: 0
+
+[Id: v4z0MMouOAwEc0LYJwKbnvTpJce2pPcu] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.9658393s Bytes_in: 0 Bytes_out: 0
+
+[Id: 1oyd0J1usJub9weHhN5qRV6BOi8ioFvM] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.9790243s Bytes_in: 0 Bytes_out: 0
+
+[Id: JsuBRYYINSc2mZI3xLmarAg9oJKZ7UAh] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 18.150706s Bytes_in: 0 Bytes_out: 0
+
+[Id: KDwgHnkDFHg6ph4vstCwI5D8ekg3f72n] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 18.1933565s Bytes_in: 0 Bytes_out: 0
+
+[Id: 7ZcVv2Z89X4hdpOUAUvu1IGgXNrTxsv6] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.969074s Bytes_in: 0 Bytes_out: 0
+
+[Id: Df8NzY482fGn3YW494h24GCAWxltq8Lb] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 20.145492s Bytes_in: 0 Bytes_out: 0
+
+[Id: DAGLnEfL7U6YVpASV7YhK58lzgMwwoJB] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m27.4886481s Bytes_in: 0 Bytes_out: 0
+
+[Id: oODrFcuYqhzgRFQdFi797mulWX1uplAK] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.4178652s Bytes_in: 0 Bytes_out: 0
+
+[Id: aXbcykVuMZpbRIBoWClTnX0UjT00LFOP] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 30.5221685s Bytes_in: 0 Bytes_out: 0
+
+[Id: otxy3MslVCVzWU9XnJewG5bO5ljLTmPw] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m27.470361s Bytes_in: 0 Bytes_out: 0
+
+[Id: 1iZLNvMgncucCjUh0FV1LdbskS0wvgRn] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 6.6605446s Bytes_in: 0 Bytes_out: 0
+
+[Id: RvvrSjQBmj5azofMx7nzqttf8hUegRJt] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.3908445s Bytes_in: 0 Bytes_out: 0
+
+[Id: 8oQcmCpXzxqAZmtuMkfb1xVQ68q9yTtK] 2023/07/09 14:37:26 logger.go:23:  Time: 2023-07-09T14:37:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 18.1456089s Bytes_in: 0 Bytes_out: 0
+
+[Id: rJGUMqXyo9HfajFRlicwpLX2iWV6ZYu9] 2023/07/09 14:37:39 logger.go:23:  Time: 2023-07-09T14:37:39+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.0603ms Bytes_in: 0 Bytes_out: 0
+
+[Id: xLA3FFIt2hO1oMhmcV1XrzUe4EmMpZVV] 2023/07/09 14:37:39 logger.go:23:  Time: 2023-07-09T14:37:39+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 588.1831ms Bytes_in: 0 Bytes_out: 146
+
+[Id: EtS5CM0Brgox0tVfPhYYqx4Hz5pUt5Ev] 2023/07/09 14:37:56 logger.go:23:  Time: 2023-07-09T14:37:56+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 4.1824ms Bytes_in: 0 Bytes_out: 0
+
+[Id: Bl4FzNk1B14KT1XKUvAsSDSy0rXCCvfN] 2023/07/09 14:37:57 logger.go:23:  Time: 2023-07-09T14:37:57+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 988.2101ms Bytes_in: 0 Bytes_out: 90
+
+[Id: Z1sTpuralUJbZa1QPrWAzNTsqrHDfSc5] 2023/07/09 14:39:47 logger.go:23:  Time: 2023-07-09T14:39:47+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 5.4383ms Bytes_in: 0 Bytes_out: 0
+
+[Id: Twv2UL6OU30dibv5ansBJnu2wmNFpxfu] 2023/07/09 14:39:48 logger.go:23:  Time: 2023-07-09T14:39:48+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 658.3384ms Bytes_in: 0 Bytes_out: 64
+
+[Id: XBHRhRT3s3JxW5cZeKwOtNs06cNfzXTW] 2023/07/09 14:39:48 logger.go:23:  Time: 2023-07-09T14:39:48+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.9578ms Bytes_in: 0 Bytes_out: 0
+
+[Id: XWjsKFW2UFjt7Ei12o0Tx2WC0INnO6G2] 2023/07/09 14:39:50 logger.go:23:  Time: 2023-07-09T14:39:50+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.0818338s Bytes_in: 0 Bytes_out: 90
+
+[Id: OL6KsyD8gaFNG5GsakyF6oIynFEFjmDZ] 2023/07/09 14:51:04 logger.go:23:  Time: 2023-07-09T14:51:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 5.0181ms Bytes_in: 0 Bytes_out: 0
+
+[Id: LTdKyAYdPqSyXTWHsvoXHAR5GbYmLUlL] 2023/07/09 14:51:04 logger.go:23:  Time: 2023-07-09T14:51:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 606.8858ms Bytes_in: 0 Bytes_out: 64
+
+[Id: 0zCjqwP1HZawAW0eUUn6979B9GG8sYkV] 2023/07/09 14:51:04 logger.go:23:  Time: 2023-07-09T14:51:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 4.5443ms Bytes_in: 0 Bytes_out: 0
+
+[Id: mZVrbv4pvAPPsqy90VlQBaqjzgwkXPpk] 2023/07/09 14:51:05 logger.go:23:  Time: 2023-07-09T14:51:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 731.7884ms Bytes_in: 0 Bytes_out: 90
+
+[Id: Tpn0VQUzwqHSVKYBi8T6CrSAjgRthPYg] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.5124667s Bytes_in: 0 Bytes_out: 0
+
+[Id: lkkiLKqXAieAl4IbodHKCOkJaDNIQIAx] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.5540569s Bytes_in: 0 Bytes_out: 0
+
+[Id: CWI6CA4rxG0A4TYJxSjtLHO3Ed3csqa8] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.604901s Bytes_in: 0 Bytes_out: 0
+
+[Id: 6Bj0QcmfHMQgSa7uvvMrAUiLNbl43iDF] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.336096s Bytes_in: 0 Bytes_out: 0
+
+[Id: glDevKzVas78mtRq0VdKIHDp5nG3oa5o] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.3527223s Bytes_in: 0 Bytes_out: 0
+
+[Id: vXKSMrj3EjVgn9fOXeGLRBv5WvUTRbgH] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.6988578s Bytes_in: 0 Bytes_out: 0
+
+[Id: ql2VFfVThBvO5RJwcjd8XTbIeTeMlR9R] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.3962423s Bytes_in: 0 Bytes_out: 0
+
+[Id: iVsMGJcfrzxdcdaV1jcNKgsJnPGfOXfb] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 6.8721356s Bytes_in: 0 Bytes_out: 0
+
+[Id: LZPKucwhZD63QZpvEzkhGtMXdi4Y145p] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.6840907s Bytes_in: 0 Bytes_out: 0
+
+[Id: jJV3f460FvavpprbyIe9D681qaXy7r0x] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 6.8542094s Bytes_in: 0 Bytes_out: 0
+
+[Id: 4LXHWbOVJWr3UAEPpQKCi7WStrJbZjNG] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.6253203s Bytes_in: 0 Bytes_out: 0
+
+[Id: h55oOf5pWEguEQxS5MpYkOFthQAm6aIT] 2023/07/09 14:51:12 logger.go:23:  Time: 2023-07-09T14:51:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.3958631s Bytes_in: 0 Bytes_out: 0
+
+[Id: BQBORi0WvTbj45Zm74IdVPoHMfCYBkLp] 2023/07/09 14:51:23 logger.go:23:  Time: 2023-07-09T14:51:23+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.4276ms Bytes_in: 0 Bytes_out: 0
+
+[Id: v7wwiRnrdZZJrifsa7Eu6fPZNZp5Yyfd] 2023/07/09 14:51:24 logger.go:23:  Time: 2023-07-09T14:51:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 689.3774ms Bytes_in: 0 Bytes_out: 146
+
+[Id: MeIBmFpyaglXof7y8WSo0Oz7kv4WFX2W] 2023/07/09 14:51:26 logger.go:23:  Time: 2023-07-09T14:51:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 4.0037ms Bytes_in: 0 Bytes_out: 0
+
+[Id: OaZshwBrV3vQ5DHIMvsNNDFJJqpTLkm2] 2023/07/09 14:51:27 logger.go:23:  Time: 2023-07-09T14:51:27+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 986.9416ms Bytes_in: 0 Bytes_out: 90
+
+[Id: 7ROiPlJfKU5SjxbLejui7RbsbEy5HqSX] 2023/07/09 14:56:53 logger.go:23:  Time: 2023-07-09T14:56:53+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.7063ms Bytes_in: 0 Bytes_out: 0
+
+[Id: of7CuHlav1XbIY1LFeQVdHuITnupu6KC] 2023/07/09 14:56:54 logger.go:23:  Time: 2023-07-09T14:56:54+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 625.1935ms Bytes_in: 0 Bytes_out: 146
+
+[Id: KkQuXDxW8NG6RmbzHB1lHDetxBGUtDCE] 2023/07/09 14:56:57 logger.go:23:  Time: 2023-07-09T14:56:57+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 6.8417ms Bytes_in: 0 Bytes_out: 0
+
+[Id: U4J9aURxVvAseT7GHksmByuuwpqOHiht] 2023/07/09 14:56:58 logger.go:23:  Time: 2023-07-09T14:56:58+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 842.4486ms Bytes_in: 0 Bytes_out: 90
+
+[Id: kmi7oFaBsHAJ1daL6DAHFiAoBsW0Nx4I] 2023/07/09 15:07:28 logger.go:23:  Time: 2023-07-09T15:07:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 2.8652ms Bytes_in: 0 Bytes_out: 0
+
+[Id: tCKOdHfqh7hOFGRrYzDeTtlIr7oM8E9t] 2023/07/09 15:07:28 logger.go:23:  Time: 2023-07-09T15:07:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 630.6824ms Bytes_in: 0 Bytes_out: 146
+
+[Id: C9vTDIaWqlBYSuV8j4Sx8q56bObEyjuG] 2023/07/09 15:07:33 logger.go:23:  Time: 2023-07-09T15:07:33+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 6.2946ms Bytes_in: 0 Bytes_out: 0
+
+[Id: d0suevYdxkTsJiARkLV8xxWpUYNfO4oZ] 2023/07/09 15:07:34 logger.go:23:  Time: 2023-07-09T15:07:34+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.011238s Bytes_in: 0 Bytes_out: 90
+
+[Id: erH3u31nVsq3ZzhnA3uhjNrQ3KfLQJ38] 2023/07/09 15:07:41 logger.go:23:  Time: 2023-07-09T15:07:41+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 4.4065ms Bytes_in: 0 Bytes_out: 0
+
+[Id: DYdKV4ocTDbALy7Aa3fyAKxmMS1iAtML] 2023/07/09 15:07:43 logger.go:23:  Time: 2023-07-09T15:07:43+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.4970991s Bytes_in: 0 Bytes_out: 90
+
+[Id: 7TzhWNxk5VEuOVH4zucHliaEbHf3ksG0] 2023/07/09 15:33:08 logger.go:23:  Time: 2023-07-09T15:33:08+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.3266ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 1uaMKKuL0kczs7lBJqQRSmNxYfTjEOnV] 2023/07/09 15:33:09 logger.go:23:  Time: 2023-07-09T15:33:09+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 730.696ms Bytes_in: 0 Bytes_out: 146
+
+[Id: PLAhfAPk3XDXACCvJmooh0cdYj8SvKTH] 2023/07/09 15:33:26 logger.go:23:  Time: 2023-07-09T15:33:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 2.7638ms Bytes_in: 0 Bytes_out: 0
+
+[Id: uqmoL1lBGc3k5XP0qFuwfzgxbmjfQwhS] 2023/07/09 15:33:27 logger.go:23:  Time: 2023-07-09T15:33:27+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 917.6553ms Bytes_in: 0 Bytes_out: 90
+
+[Id: D98Rf3gZG0OVHw9UsMIyMJqIdgwcz3D5] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 9.6698368s Bytes_in: 0 Bytes_out: 0
+
+[Id: eJAyne8ESGr7GuY3ih2fs6QrJg8XpHSX] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 9.6523519s Bytes_in: 0 Bytes_out: 0
+
+[Id: Ewtv62ceU6aLl2NXqA8liUjZjAsCvdfs] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 9.7616428s Bytes_in: 0 Bytes_out: 0
+
+[Id: rpmCugLHoKnfALz2nSL5f9ZwVBvlDzP9] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.678037s Bytes_in: 0 Bytes_out: 0
+
+[Id: hBYAfDG6KqBxauTTyXYRYbPdZIG8xtcS] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.7069099s Bytes_in: 0 Bytes_out: 0
+
+[Id: 3SRRNUsubgbZ1JUNL9XOAke68s9C2ugC] 2023/07/09 15:33:36 logger.go:23:  Time: 2023-07-09T15:33:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 9.7528819s Bytes_in: 0 Bytes_out: 0
+
+[Id: 7CrHWrvh91nwMFWwJgI4gHDeBrj9wJ8d] 2023/07/09 15:33:47 logger.go:23:  Time: 2023-07-09T15:33:47+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 8.2088ms Bytes_in: 0 Bytes_out: 0
+
+[Id: P3fGdp9y1u7cybzcXsQBBHuG5BoOqfOd] 2023/07/09 15:33:48 logger.go:23:  Time: 2023-07-09T15:33:48+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 726.5823ms Bytes_in: 0 Bytes_out: 146
+
+[Id: Jdmmxn9pNYW6NnWuYkOFOWGF9poyOhhD] 2023/07/09 15:33:50 logger.go:23:  Time: 2023-07-09T15:33:50+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 9.5129ms Bytes_in: 0 Bytes_out: 0
+
+[Id: FiavxXxX5ExrPthFB09xKXYbU2DxuECC] 2023/07/09 15:33:51 logger.go:23:  Time: 2023-07-09T15:33:51+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 865.0907ms Bytes_in: 0 Bytes_out: 90
+
+[Id: ia4Ej8OiGIOgtSotWeaFaWQ1pfXJMrCB] 2023/07/09 15:42:37 logger.go:23:  Time: 2023-07-09T15:42:37+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.8608ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 8ZMXy6WvQ2HJsOLGF1J07xGqGbirjKxz] 2023/07/09 15:42:37 logger.go:23:  Time: 2023-07-09T15:42:37+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 655.5716ms Bytes_in: 0 Bytes_out: 146
+
+[Id: dJMsXXxflnPbjeg7m8YZ4rMfRKrVXYl4] 2023/07/09 15:42:40 logger.go:23:  Time: 2023-07-09T15:42:40+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 4.6414ms Bytes_in: 0 Bytes_out: 0
+
+[Id: bTsEN8NODd7cy8fs511CoH4ze1NcwpuU] 2023/07/09 15:42:41 logger.go:23:  Time: 2023-07-09T15:42:41+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 999.0203ms Bytes_in: 0 Bytes_out: 90
+

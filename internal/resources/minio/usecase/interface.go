@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/minio/minio-go/v7"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type ResourceUseCase interface {

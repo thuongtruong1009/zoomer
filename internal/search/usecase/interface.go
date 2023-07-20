@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"zoomer/internal/search/presenter"
-	"zoomer/internal/search/views"
+	"github.com/thuongtruong1009/zoomer/internal/search/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/search/views"
 )
 
 type UseCase interface {

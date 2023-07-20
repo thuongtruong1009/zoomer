@@ -1,18 +1,18 @@
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
 import { NextPageWithLayout } from '@/models'
 import { AuthLayout } from '@/layouts'
 import { TextField, Button, FormControlLabel } from '@mui/material'
 import { useState } from 'react'
 import { AuthServices } from '@/services'
 import { useRouter } from 'next/router'
-import { localStore } from "@/utils";
+import { localStore } from '@/utils'
 
 const SignIn: NextPageWithLayout = () => {
-  const router = useRouter()
+    const router = useRouter()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -35,92 +35,96 @@ const SignIn: NextPageWithLayout = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-      if (usernameValid && passwordValid) {
-        console.log({ username, password })
-          try {
-              const res = await AuthServices.signin({ username, password })
-              if (res) {
-                  localStore.set('user', res)
-                  router.push('/room')
-              } else {
-                  console.log(res)
-              }
-          } catch (error) {
-              console.log({ message: 'something went wrong' + error, isInvalid: true })
-          }
-      }
-  }
-  return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          boxShadow: 3,
-          borderRadius: 2,
-          px: 4,
-          py: 6,
-          color: "#4dabf5",
-          background: "#fff",
-        }}
+        if (usernameValid && passwordValid) {
+            console.log({ username, password })
+            try {
+                const res = await AuthServices.signin({ username, password })
+                if (res) {
+                    localStore.set('user', res)
+                    router.push('/room')
+                } else {
+                    console.log(res)
+                }
+            } catch (error) {
+                console.log({ message: 'something went wrong - ' + error, isInvalid: true })
+            }
+        }
+    }
+    return (
+        <Container component="main" maxWidth="xs">
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    boxShadow: 3,
+                    borderRadius: 2,
+                    px: 4,
+                    py: 6,
+                    color: '#4dabf5',
+                    background: '#fff',
+                }}
+            >
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        autoFocus
+                        helperText={username === '' ? 'Your username must be filled' : ''}
+                        value={username}
+                        onChange={onChangeUsername}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        helperText={password === '' ? 'Your password must be filled' : ''}
+                        value={password}
+                        onChange={onChangePassword}
+                    />
 
-      >
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            helperText={username === "" ? "Your username must be filled" : ""}
-            value={username}
-            onChange={onChangeUsername}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            helperText={password === "" ? "Your password must be filled" : ""}
-            value={password}
-            onChange={onChangePassword}
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, background: '#4dabf5', ":hover": { background: '#2196f3' } }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Container>
-  );
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            background: '#4dabf5',
+                            ':hover': { background: '#2196f3' },
+                        }}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
+        </Container>
+    )
 }
 
 SignIn.Layout = AuthLayout

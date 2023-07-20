@@ -9,10 +9,10 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	"zoomer/internal/auth/presenter"
-	"zoomer/internal/auth/repository"
-	"zoomer/internal/models"
-	"zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type AuthClaims struct {

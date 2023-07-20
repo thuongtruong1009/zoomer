@@ -8,19 +8,21 @@ export const axiosHttpInstance = axios.create({
         'Content-Type': 'application/json',
         // Credentials: 'include',
     },
-    // paramsSerializer: (params: querystring.ParsedUrlQueryInput | undefined) => querystring.stringify(params),
+    paramsSerializer: (params: querystring.ParsedUrlQueryInput | undefined) =>
+        querystring.stringify(params),
 })
 
 axiosHttpInstance.interceptors.request.use(
     async (config: any) => {
-      config.paramsSerializer = (params: querystring.ParsedUrlQueryInput | undefined) => querystring.stringify(params);
-      // local token
-      const token = localStore.get('user').data.token
+        // config.paramsSerializer = (params: querystring.ParsedUrlQueryInput | undefined) =>
+        //     querystring.stringify(params)
+        // local token
+        const token = localStore.get('user')?.data?.token
 
-      if (token) {
-          config.headers.Authorization = `Bearer ${token}`
-      }
-      return config
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
     },
     async (error) => {
         return Promise.reject(error)

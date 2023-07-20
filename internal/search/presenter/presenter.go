@@ -1,6 +1,6 @@
 package presenter
 
-import "zoomer/internal/models"
+import "github.com/thuongtruong1009/zoomer/internal/models"
 
 type RoomSearchParams struct {
 	Name        string `json:"name"`

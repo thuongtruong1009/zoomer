@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/go-redis/redis/v8"
 	"log"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type Document struct {

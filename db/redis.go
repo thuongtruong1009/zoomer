@@ -7,7 +7,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"log"
 	"time"
-	"zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/configs"
 )
 
 var RedisClient *redis.Client

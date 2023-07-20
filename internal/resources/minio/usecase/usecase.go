@@ -3,9 +3,9 @@ package usecase
 import (
 	"bytes"
 	"github.com/minio/minio-go/v7"
-	"zoomer/internal/models"
-	"zoomer/internal/resources/minio/adapter"
-	"zoomer/internal/resources/minio/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
 )
 
 type resourceUsecase struct {

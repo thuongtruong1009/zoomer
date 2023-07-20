@@ -5,8 +5,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 	"time"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 func RateLimit(e *echo.Echo, inter interceptor.IInterceptor) {

@@ -2,25 +2,20 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  # cmd = "gofmt -w . && go run cmd/main.go"
-  cmd = "go build -o ./tmp/main ."
-
-  args_bin = []
   bin = "tmp/main"
+  cmd = "go build -o ./tmp/main ./cmd/main.go"
+  args_bin = []
   full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
-
   include_ext = ["go", "tpl", "tmpl", "html"]
-  exclude_dir = ["assets", "tmp", "vendor", "client", "template", "example"]
-
+  exclude_dir = ["assets", "tmp", "vendor", "docker", "bin", "client"]
   include_dir = []
   exclude_file = []
   exclude_regex = ["_test.go"]
-
-  delay = 1000 # ms
+  delay = 1000
   kill_delay = "0s"
-
   stop_on_error = true
   log = "air_errors.log"
+  send_interrupt = false
 
 [log]
   time = false

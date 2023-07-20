@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 	"time"
-	"zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 func writeRequestLog(filePath string, logID, logMessage string) {

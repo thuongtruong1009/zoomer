@@ -1,6 +1,6 @@
 import * as React from 'react'
 import InputBase from '@mui/material/InputBase'
-import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled'
+import InputUnstyled from '@mui/base/Input'
 import { styled } from '@mui/system'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 
@@ -38,11 +38,11 @@ const StyledInputElement = styled('input')(
     background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
     border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
     box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
-  
+
     &:hover {
       border-color: ${blue[400]};
     }
-  
+
     &:focus {
       border-color: ${blue[400]};
       box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[500] : blue[200]};
@@ -68,7 +68,8 @@ const StyledTextareaElement = styled(TextareaAutosize)(
 )
 
 export const InputTemplate = React.forwardRef(function CustomInput(
-    props: InputUnstyledProps,
+    // props: InputUnstyledProps,
+    props: any,
     ref: React.ForwardedRef<HTMLDivElement>
 ) {
     return (

@@ -8,7 +8,7 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/sirupsen/logrus"
-	"zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/configs"
 )
 
 var (

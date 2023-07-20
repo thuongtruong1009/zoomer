@@ -7,8 +7,8 @@ import (
 	"time"
 	// "github.com/sirupsen/logrus"
 
-	"zoomer/configs"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	// "zoomer/migrations"
 )
 

@@ -12,10 +12,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"github.com/go-redis/redis/v8"
-	"zoomer/configs"
-	"zoomer/pkg/interceptor"
-	"zoomer/pkg/constants"
-	"zoomer/pkg/utils"
+	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/utils"
 )
 
 type Server struct {
@@ -41,45 +41,40 @@ func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB *gorm.DB, redisDB 
 }
 
 func (s *Server) Run() error {
-	wg := new(sync.WaitGroup)
-	wg.Add(2)
-
-	go func() {
+	function1 := func() {
 		httpServer := &http.Server{
 			Addr:         ":" + s.cfg.HttpPort,
 			WriteTimeout: 15 * time.Second,
 			ReadTimeout:  15 * time.Second,
 		}
 
-		if s.cfg.HttpsMode == "true" {	// https mode 2.0
+		if s.cfg.HttpsMode == "true" {	// https
 			certPath := utils.GetFilePath(constants.CertPath)
 			keyPath := utils.GetFilePath(constants.KeyPath)
 			configs.TLSConfig(certPath, keyPath)
 			if err := s.echo.StartTLS(httpServer.Addr, certPath, keyPath); err != http.ErrServerClosed {
 				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
 			}
-		}else { // http mode 1.1
+		}else { // http
 			if err := s.echo.StartServer(httpServer); err != nil {
 				s.logger.Fatalln("Error occurred while starting the http server: ", err)
 			}
 		}
 
 		s.logger.Logf(logrus.InfoLevel, "api server is listening on PORT: %s", s.cfg.HttpPort)
-		wg.Done()
-	}()
 
-	s.logger.Log(logrus.InfoLevel, "Setting up routers")
-	if err := s.HttpMapServer(s.echo); err != nil {
-		s.logger.Fatalln("Error occurred while setting up routers: ", err)
+		if err := s.HttpMapServer(s.echo); err != nil {
+			s.logger.Fatalln("Error occurred while setting up http routers: ", err)
+		}
 	}
 
-	go func() {
-		WsMapServer(s.echo, ":" + s.cfg.WsPort, s.redisDB, s.inter)
-		s.logger.Log(logrus.InfoLevel, "websocket server is starting on :"+s.cfg.WsPort)
-		wg.Done()
-	}()
+	function2 := func(){
+		if err2 := WsMapServer(echo.New(), s.redisDB, s.inter, ":8081"); err2 != nil {
+			s.logger.Fatalln("Error occurred while setting up websocket routers: ", err2)
+		}
+	}
 
-	wg.Wait()
+	Parallelize(function1, function2)
 
 	if s.ready != nil {
 		s.ready <- true
@@ -97,4 +92,25 @@ func (s *Server) Run() error {
 
 	s.logger.Fatalln("Server is exited properly")
 	return s.echo.Server.Shutdown(ctx)
+}
+
+func Parallelize(functions ...func()) {
+    var waitGroup sync.WaitGroup
+
+	ch := make(chan struct{}, 2)
+
+    waitGroup.Add(len(functions))
+
+    defer waitGroup.Wait()
+
+    for _, function := range functions {
+		ch <- struct{}{}
+		go func(copyFunc func()) {
+			defer func() {
+				<-ch
+				waitGroup.Done()
+			}()
+			copyFunc()
+		}(function)
+	}
 }

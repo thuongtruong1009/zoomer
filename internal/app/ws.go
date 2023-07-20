@@ -1,19 +1,19 @@
 package app
 
 import (
-	"github.com/labstack/echo/v4"
 	"github.com/go-redis/redis/v8"
-	"zoomer/pkg/interceptor"
+	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 
-	chatDelivery "zoomer/internal/chats/delivery"
-	chatHub "zoomer/internal/chats/hub"
-	chatRepository "zoomer/internal/chats/repository"
+	chatDelivery "github.com/thuongtruong1009/zoomer/internal/chats/delivery"
+	chatHub "github.com/thuongtruong1009/zoomer/internal/chats/hub"
+	chatRepository "github.com/thuongtruong1009/zoomer/internal/chats/repository"
 
-	streamDelivery "zoomer/internal/stream/delivery"
-	streamHub "zoomer/internal/stream/hub"
+	streamDelivery "github.com/thuongtruong1009/zoomer/internal/stream/delivery"
+	streamHub "github.com/thuongtruong1009/zoomer/internal/stream/hub"
 )
 
-func WsMapServer(e *echo.Echo, port string, redisDB *redis.Client, inter interceptor.IInterceptor) {
+func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterceptor, port string) error {
 	//chat
 	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(redisDB))
 	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
@@ -31,4 +31,7 @@ func WsMapServer(e *echo.Echo, port string, redisDB *redis.Client, inter interce
 	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
 
 	e.Logger.Fatal(e.Start(port))
+
+
+	return nil
 }

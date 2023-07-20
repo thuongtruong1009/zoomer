@@ -5,10 +5,10 @@ import (
 	"os"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"zoomer/configs"
-	"zoomer/db"
-	"zoomer/internal/app"
-	"zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/db"
+	"github.com/thuongtruong1009/zoomer/internal/app"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
 // @title Echo REST API

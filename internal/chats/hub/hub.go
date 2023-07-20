@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"time"
-	"zoomer/internal/chats/repository"
-	"zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/chats/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 var (
@@ -18,14 +18,6 @@ var (
 type Hub struct {
 	chatRepo repository.ChatRepository
 }
-
-// func NewHub(chatRepo repository.ChatRepository) *Hub {
-// 	return &Hub{
-// 		Clients: make(map[*models.Client]bool),
-// 		Broadcast: make(chan *models.Chat),
-// 		chatRepo: chatRepo,
-// 	}
-// }
 
 func NewChatHub(chatRepo repository.ChatRepository) IHub {
 	return &Hub{
@@ -73,14 +65,13 @@ func (h *Hub) Broadcaster() {
 	for {
 		message := <-Broadcast
 
-		fmt.Println("---> New message: ", message, " - from:", message.From, " - to:", message.To)
+		// fmt.Println("---> New message: ", message, " - from:", message.From, " - to:", message.To)
 
-		fmt.Println("Clients: ", Clients)
+		// fmt.Println("Clients: ", Clients)
+
 		for client := range Clients {
 			if client.Username == message.From || client.Username == message.To {
-				fmt.Println("step 1")
 				err := client.Conn.WriteJSON(message)
-				fmt.Println("step 2")
 				if err != nil {
 					log.Printf("websocket error: %s", err)
 					client.Conn.Close()

@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"time"
-	auth "zoomer/internal/auth/repository"
-	"zoomer/internal/models"
-	"zoomer/internal/rooms/presenter"
-	"zoomer/internal/rooms/repository"
+	auth "github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/rooms/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/rooms/repository"
 )
 
 type roomUsecase struct {
@@ -81,7 +81,6 @@ func (ru roomUsecase) VerifyContact(ctx context.Context, username string) bool {
 func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, fromTS, toTS string) *presenter.ChatResponse {
 	res := &presenter.ChatResponse{}
 
-	fmt.Println(username1, username2)
 	//check if user exist
 	if !ru.VerifyContact(ctx, username1) || !ru.VerifyContact(ctx, username2) {
 		res.Message = "(redis) User not found in Redis-DB"
@@ -94,6 +93,7 @@ func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, 
 		res.Message = "(redis) unable to fetch chat history. please try again later"
 		return res
 	}
+
 
 	res.Status = true
 	res.Data = chats

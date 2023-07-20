@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 	"sync"
-	"zoomer/internal/models"
-	"zoomer/pkg/utils"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/utils"
 )
 
 type RoomMap struct {
