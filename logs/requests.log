@@ -304,3 +304,25 @@
 
 [Id: bTsEN8NODd7cy8fs511CoH4ze1NcwpuU] 2023/07/09 15:42:41 logger.go:23:  Time: 2023-07-09T15:42:41+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36 Edg/114.0.1823.67 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 999.0203ms Bytes_in: 0 Bytes_out: 90
 
+[Id: eZdRIGQFkAHh0qqmN7SA9HQS830YDLm2] 2023/07/20 18:57:36 logger.go:23:  Time: 2023-07-20T18:57:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /test Status: 200 Latency: 5.7564ms Bytes_in: 0 Bytes_out: 11
+
+[Id: H011cD6wb7TDUNza81EgQX9V5Ii0n0z5] 2023/07/20 18:59:19 logger.go:23:  Time: 2023-07-20T18:59:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /test Status: 200 Latency: 2.1485ms Bytes_in: 0 Bytes_out: 11
+
+[Id: jSa9RrOcWTz9DQwt45stgljEKiMVN98R] 2023/07/20 18:59:20 logger.go:23:  Time: 2023-07-20T18:59:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /test Status: 200 Latency: 4.1661ms Bytes_in: 0 Bytes_out: 11
+
+[Id: Cd0vjSh0mcwuGjak7n0ro48sjJEDUC0m] 2023/07/20 19:20:16 logger.go:23:  Time: 2023-07-20T19:20:16+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 125.4099ms Bytes_in: 79 Bytes_out: 36
+
+[Id: okrf484Ydh2JevB9Zmx89De4ImDnzMrj] 2023/07/20 19:20:57 logger.go:23:  Time: 2023-07-20T19:20:57+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 1.5062ms Bytes_in: 57 Bytes_out: 58
+
+[Id: CrCf9yL5yloSC1J1G4B3JtMRzKavhtxG] 2023/07/20 19:21:11 logger.go:23:  Time: 2023-07-20T19:21:11+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 404 Latency: 14.0743ms Bytes_in: 61 Bytes_out: 58
+
+[Id: Ldx56lAjKWZ2YpHQWApNPcMcB4YZuHnH] 2023/07/20 19:21:33 logger.go:23:  Time: 2023-07-20T19:21:33+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 128.2323ms Bytes_in: 79 Bytes_out: 36
+
+[Id: jpGEE3yT2N9torAtHHKHKfYg9ZpLfcKf] 2023/07/20 19:24:32 logger.go:23:  Time: 2023-07-20T19:24:32+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 501.5804ms Bytes_in: 79 Bytes_out: 36
+
+[Id: S6I6NP2aEnPyP09IgpjA0H1kOwUKgXu5] 2023/07/20 19:31:05 logger.go:23:  Time: 2023-07-20T19:31:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /test Status: 200 Latency: 2.2537ms Bytes_in: 0 Bytes_out: 11
+
+[Id: jrszgJHfDdlF09ZAcWykpWxrVVXcIUyj] 2023/07/20 19:36:45 logger.go:23:  Time: 2023-07-20T19:36:45+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 500 Latency: 562.5898ms Bytes_in: 79 Bytes_out: 172
+
+[Id: FBHt7Kah9i8ldzu7y2UYd0hz6c1FPS4S] 2023/07/20 19:37:02 logger.go:23:  Time: 2023-07-20T19:37:02+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.2 Host: localhost:8080 Method: POST Uri: /api/auth/signup Status: 201 Latency: 1.2104732s Bytes_in: 79 Bytes_out: 101
+

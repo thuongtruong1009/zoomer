@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import (
 	"math/rand"
@@ -15,3 +15,5 @@ func RandomString(n int) string {
 	}
 	return string(b)
 }
+
+

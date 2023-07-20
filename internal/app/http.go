@@ -31,7 +31,7 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	searchRepo := searchRepository.NewSearchRepository(pgInstance)
 	resourceRepository := resourceRepository.NewResourceRepository()
 
-	authUC := authUsecase.NewAuthUseCase(s.pgDB, authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
+	authUC := authUsecase.NewAuthUseCase(authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, authRepo)
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)

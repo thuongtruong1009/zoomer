@@ -3,13 +3,11 @@ package postgres
 import (
 	"log"
 	"time"
+	"errors"
 	"gorm.io/gorm"
 	"gorm.io/driver/postgres"
-	// "github.com/sirupsen/logrus"
-
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/internal/models"
-	// "zoomer/migrations"
 )
 
 type postgresStruct struct {
@@ -21,15 +19,21 @@ func NewPgAdapter() PgAdapter {
 	return &postgresStruct{db: db}
 }
 
-func (pg *postgresStruct) GetInstance(cfg *configs.Configuration) *gorm.DB {
-	dsn := cfg.DatabaseConnectionURL
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+func (pg *postgresStruct) getInstance(uri string) *gorm.DB {
+	db, err := gorm.Open(postgres.Open(uri), &gorm.Config{})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	pg.SetConnectionPool(db, cfg)
+	return db
+}
+
+func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
+	dsn := cfg.DatabaseConnectionURL
+	db := pg.getInstance(dsn)
+
+	pg.setConnectionPool(db, cfg)
 
 	go func(dsn string) {
 		var intervals = []time.Duration{3 * time.Second, 3 * time.Second, 15 * time.Second, 30 * time.Second, 60 * time.Second, 60 * time.Second}
@@ -40,19 +44,16 @@ func (pg *postgresStruct) GetInstance(cfg *configs.Configuration) *gorm.DB {
 			if err != nil {
 				log.Fatal("Error when ping to database: ", err)
 			}
-			defer sqlDB.Close()
 
 			pong := sqlDB.Ping()
 			if pong != nil {
 			L:
 				for i := 0; i < len(intervals); i++ {
-					pong2 := pg.RetryHandler(3, func() (bool, error) {
-						var err error
-						db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+					pong2 := pg.retryHandler(3, func() (bool, error) {
+						db = pg.getInstance(dsn)
 
-						if err != nil {
-							log.Println("Error when reconnect to database: ", err)
-							return false, err
+						if db == nil {
+							return false, errors.New("Error when reconnect to database")
 						}
 
 						log.Println("Reconnect to database successful")
@@ -77,29 +78,33 @@ func (pg *postgresStruct) GetInstance(cfg *configs.Configuration) *gorm.DB {
 		}
 		log.Println("Migration successful")
 
-		// sqlDB, err := db.DB()
+		// sql, err := db.DB()
 		// if err != nil {
-		// 	panic(err)
+		// 	panic("failed to get database connection")
 		// }
-		// log.Println("Step here")
-		// migrations.RunAutoMigrate(sqlDB, logrus.New())
+
+		// sqlString := fmt.Sprintf("CREATE TABLE IF NOT EXISTS users(%s);", db.Migrator().CurrentDatabase().Migrator().GetTable(&User{}))
+		// fmt.Println(sqlString)
 	}
+
+	// sqlDB, _ := db.DB()
+	// sqlDB.Close()
 
 	return db
 }
 
-func (pg *postgresStruct) RetryHandler(n int, f func() (bool, error)) error {
+func (pg *postgresStruct) retryHandler(n int, f func() (bool, error)) error {
 	ok, er := f()
 	if ok && er == nil {
 		return nil
 	}
 	if n-1 > 0 {
-		return pg.RetryHandler(n-1, f)
+		return pg.retryHandler(n-1, f)
 	}
 	return er
 }
 
-func (pg *postgresStruct) SetConnectionPool(d *gorm.DB, cfg *configs.Configuration) {
+func (pg *postgresStruct) setConnectionPool(d *gorm.DB, cfg *configs.Configuration) {
 	maxOpen := cfg.MaxOpenConnection
 	maxLifetime := cfg.MaxLifetimeConnection
 	maxIdleConn := cfg.MaxIdleConnection
@@ -113,28 +118,4 @@ func (pg *postgresStruct) SetConnectionPool(d *gorm.DB, cfg *configs.Configurati
 	db.SetConnMaxLifetime(time.Duration(maxLifetime) * time.Second)
 	db.SetMaxIdleConns(int(maxIdleConn))
 	db.SetConnMaxIdleTime(time.Duration(maxIdleTime) * time.Second)
-}
-
-func (pg *postgresStruct) Transaction(txFunc func(interface{}) (interface{}, error)) (data interface{}, err error) {
-	tx := pg.db.Begin()
-	if tx.Error != nil {
-		return nil, tx.Error
-	}
-
-	defer func() {
-		if p := recover(); p != nil {
-			log.Println("recover from transaction: ", p)
-			tx.Rollback()
-			panic(p)
-		} else if err != nil {
-			log.Print("rollback from transaction: ", err)
-			tx.Rollback()
-			panic(err)
-		} else {
-			err = tx.Commit().Error
-		}
-	}()
-
-	data, err = txFunc(tx)
-	return data, err
 }

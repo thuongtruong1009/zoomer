@@ -16,7 +16,7 @@ type Configuration struct {
 	TokenTTL    int64  `env:"TOKEN_TTL,required"`
 	JwtSecret   string `env:"JWT_SECRET,required"`
 	AutoMigrate bool   `env:"AUTO_MIGRATE" envDefault:"true"`
-	HttpsMode   string `env:"HTTPS_MODE" envDefault:"release"`
+	HttpsMode   string `env:"HTTPS_MODE" envDefault:"false"`
 
 	DatabaseConnectionURL string `env:"PG_URI,required"`
 	MaxOpenConnection     int    `env:"PG_MAX_OPEN_CONN" envDefault:"20"`

@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	db "github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
@@ -23,7 +22,6 @@ type AuthClaims struct {
 }
 
 type authUseCase struct {
-	pgAdapter	  db.PgAdapter
 	userRepo       repository.UserRepository
 	hashSalt       string
 	signingKey     []byte
@@ -31,7 +29,6 @@ type authUseCase struct {
 }
 
 func NewAuthUseCase(
-	pgAdapter db.PgAdapter,
 	userRepo repository.UserRepository,
 	hashSalt string,
 	signingKey []byte,
@@ -61,15 +58,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 
 	user.HashPassword()
 
-	_, err := a.pgAdapter.Transaction(func(i interface{})  (interface{}, error) {
-		err := a.userRepo.CreateUser(ctx, user)
-		return nil, err
-	})
-	// user, ok := data.(*model.User)
-
-	// if !ok {
-	// 	return nil, errors.New("cast error")
-	// }
+	err := a.userRepo.CreateUser(ctx, user)
 
 	if err != nil {
 		return nil, err

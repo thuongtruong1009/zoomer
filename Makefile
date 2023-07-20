@@ -38,16 +38,16 @@ docs:
 # Migration
 
 migration-create:
-	migrate create -ext sql -dir migrations/sql $(name)
+	migrate create -ext sql -dir db/migrations/sql -seq $(name)
 
 migration-up:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" up
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" up
 
 migration-down:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" down
 
 migrate-status:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" status
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" status
 
 seed:
 	go run ./cmd/seed/main.go

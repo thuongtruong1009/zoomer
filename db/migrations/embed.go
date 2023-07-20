@@ -29,6 +29,16 @@ func (m *MLog) Errorf(format string, v ...interface{}) {
 }
 
 func RunAutoMigrate(db *sql.DB, log *logrus.Logger) {
+	// m, err := migrate.New(
+	// 	"file://db/migrations",
+	// 	"postgres://postgres:postgres@localhost:5432/example?sslmode=disable")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// if err := m.Up(); err != nil {
+	// 	log.Fatal(err)
+	// }
+
 	d, err := iofs.New(fs, "sql")
 	if err != nil {
 		log.Fatalln("auto migration - new iofs", "err", err.Error())

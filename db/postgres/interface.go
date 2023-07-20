@@ -6,11 +6,11 @@ import (
 )
 
 type PgAdapter interface {
-	GetInstance(*configs.Configuration) *gorm.DB
+	getInstance(string) *gorm.DB
 
-	RetryHandler(int, func() (bool, error)) error
+	ConnectInstance(*configs.Configuration) *gorm.DB
 
-	SetConnectionPool(*gorm.DB, *configs.Configuration)
+	retryHandler(int, func() (bool, error)) error
 
-	Transaction(func(interface{}) (interface{}, error)) (interface{}, error)
+	setConnectionPool(*gorm.DB, *configs.Configuration)
 }
