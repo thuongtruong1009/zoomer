@@ -7,6 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/db"
+	"github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/internal/app"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
@@ -46,12 +47,13 @@ func main() {
 
 	cfg := configs.NewConfig()
 
-	pgInstance := db.GetPostgresInstance(cfg)
+	pgAdapter := postgres.NewPgAdapter()
+
 	redisInstance := db.GetRedisInstance(cfg)
 
 	inter := interceptor.NewInterceptor()
 
-	s := app.NewServer(e, cfg, pgInstance, redisInstance, logrus.New(), nil, inter)
+	s := app.NewServer(e, cfg, pgAdapter, redisInstance, logrus.New(), nil, inter)
 
 	if err := s.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)

@@ -25,12 +25,13 @@ import (
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
-	authRepo := authRepository.NewAuthRepository(s.pgDB, s.redisDB)
-	roomRepo := roomRepository.NewRoomRepository(s.pgDB, s.redisDB)
-	searchRepo := searchRepository.NewSearchRepository(s.pgDB)
+	pgInstance := s.pgDB.GetInstance(s.cfg)
+	authRepo := authRepository.NewAuthRepository(pgInstance, s.redisDB)
+	roomRepo := roomRepository.NewRoomRepository(pgInstance, s.redisDB)
+	searchRepo := searchRepository.NewSearchRepository(pgInstance)
 	resourceRepository := resourceRepository.NewResourceRepository()
 
-	authUC := authUsecase.NewAuthUseCase(authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
+	authUC := authUsecase.NewAuthUseCase(s.pgDB, authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, authRepo)
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	resourceUC := resourceUsecase.NewResourceUseCase(resourceRepository)

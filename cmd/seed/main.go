@@ -1,25 +1,33 @@
 package main
 
 import (
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	"log"
+	"github.com/thuongtruong1009/zoomer/configs"
+	database "github.com/thuongtruong1009/zoomer/db"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 func main() {
 	config := configs.NewConfig()
 
-	db, err := configs.NewDatabase(config)
+	db := database.GetPostgresInstance(config)
+
+	err := db.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = db.AutoMigrate(&models.User{})
-	if err != nil {
-		log.Fatal(err)
+	u := &models.User{
+		Id: "1",
+		Username: "Tom",
+		Password: "123456",
+		Limit: 1,
+	}
+	if err := db.Create(u).Error; err != nil {
+		log.Fatalf("Failed to seed user data: %v", err)
 	}
 
-	log.Println("Seeding is done")
+	log.Println("::: Seeding is done")
 
 
 }

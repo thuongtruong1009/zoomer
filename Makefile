@@ -11,6 +11,8 @@ _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
 setup:
+  go get -u ./...
+	go mod tidy
 	go install github.com/cosmtrek/air@v1.27.3
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
@@ -56,10 +58,10 @@ docker-build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 
 docker-dev:
-	docker build -t ${APPLICATION_NAME}:development --build-arg TARGET=development -f Dockerfile .
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 docker-prod:
-	docker build -t ${APPLICATION_NAME}:production --build-arg TARGET=production -f Dockerfile .
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 docker-push:
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}

@@ -8,10 +8,10 @@ import (
 	"sync"
 	"syscall"
 	"time"
-	"gorm.io/gorm"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"github.com/go-redis/redis/v8"
+	"github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
@@ -21,14 +21,14 @@ import (
 type Server struct {
 	echo   *echo.Echo
 	cfg    *configs.Configuration
-	pgDB     *gorm.DB
+	pgDB     postgres.PgAdapter
 	redisDB  *redis.Client
 	logger *logrus.Logger
 	ready  chan bool
 	inter  interceptor.IInterceptor
 }
 
-func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB *gorm.DB, redisDB *redis.Client, logger *logrus.Logger, ready chan bool, inter interceptor.IInterceptor) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB postgres.PgAdapter, redisDB *redis.Client, logger *logrus.Logger, ready chan bool, inter interceptor.IInterceptor) *Server {
 	return &Server{
 		echo: e,
 		cfg: cfg,

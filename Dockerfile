@@ -1,13 +1,12 @@
 FROM golang:1.20-alpine as development
 
-RUN apk update && apk add make git build-base bash
+# RUN apk update && apk add make git build-base bash
 
 RUN mkdir -p /app
 WORKDIR /app
 COPY go.mod go.sum ./
-
 RUN go mod download
-RUN go install github.com/cosmtrek/air@latest
+# RUN go install github.com/cosmtrek/air@latest
 RUN go clean --modcache
 
 COPY . .
@@ -16,7 +15,7 @@ RUN go build -o app-dev ./cmd/main.go
 
 FROM golang:1.20-alpine as production
 
-RUN apk update && apk add ca-certificates
+# RUN apk update && apk add ca-certificates
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -37,10 +36,9 @@ COPY --from=production /app /app/app-prod
 EXPOSE 8080
 EXPOSE 8081
 
-CMD if [ "$TARGET" = "development" ]; then \
-        ./app-dev; \
-    else \
-        ./app-prod; \
+CMD if [ "$TARGET" = "development" ]; \
+    then ./app-dev; \
+    else ./app-prod; \
     fi
 
 LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"
