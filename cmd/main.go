@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"os"
+	"runtime"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/configs"
@@ -42,6 +42,9 @@ import (
 // }
 
 func main() {
+	numProcs := runtime.NumCPU()
+	runtime.GOMAXPROCS(numProcs)
+
 	e := echo.New()
 	defer e.Close()
 
@@ -53,12 +56,12 @@ func main() {
 
 	inter := interceptor.NewInterceptor()
 
-	s := app.NewServer(e, cfg, pgAdapter, redisInstance, logrus.New(), nil, inter)
+	logger := logrus.New()
+
+	s := app.NewServer(e, cfg, pgAdapter, redisInstance, logger, nil, inter)
 
 	if err := s.Run(); err != nil {
-		log.Fatalf("Failed to run server: %v", err)
+		logger.Fatalf("Failed to run server: %v", err)
 		os.Exit(0)
 	}
-
-	log.Println("Starting server")
 }

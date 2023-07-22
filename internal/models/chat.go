@@ -9,7 +9,7 @@ type Chat struct {
 	From      string `json:"from"`
 	To        string `json:"to"`
 	Msg       string `json:"msg"`
-	// MsgType   string `json:"msg_type"`
+	MsgType   string `json:"msg_type"`
 	Timestamp int64  `json:"timestamp"`
 }
 

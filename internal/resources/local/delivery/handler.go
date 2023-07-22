@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"fmt"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
@@ -49,7 +50,7 @@ func (lh *localHandler) UploadSingleFile() echo.HandlerFunc {
 			return lh.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
 
-		return lh.inter.Data(c, http.StatusOK, map[string]interface{}{"file": filename})
+		return lh.inter.Data(c, http.StatusOK, map[string]interface{}{"file": fmt.Sprintf("%s%s", constants.UploadPathReturn, filename)})
 	}
 }
 

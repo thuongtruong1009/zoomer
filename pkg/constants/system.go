@@ -6,4 +6,5 @@ const (
 	RequestLogPath string = "logs/requests.log"
 	BucketName     string = "zoomer"
 	UploadPath	 string = "public/upload/"
+	UploadPathReturn string = "/upload/"
 )

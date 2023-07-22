@@ -508,3 +508,323 @@
 
 [Id: SFSRSBviyGaWZBMmuu3guysqqkP7YS5R] 2023/07/21 01:18:19 logger.go:23:  Time: 2023-07-21T01:18:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 22.4902928s Bytes_in: 0 Bytes_out: 0
 
+[Id: nfZ3VYcZSaEjKEF53RqE7aiv9Bh1dpM5] 2023/07/21 09:13:18 logger.go:23:  Time: 2023-07-21T09:13:18+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user07 Status: 204 Latency: 2.5972ms Bytes_in: 0 Bytes_out: 0
+
+[Id: knZ9jLeLEdDvtiU4k7lgdop0dzfPz1eY] 2023/07/21 09:13:18 logger.go:23:  Time: 2023-07-21T09:13:18+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 673.7163ms Bytes_in: 0 Bytes_out: 97
+
+[Id: FFALYqOQ9Wn3zOQMQcr7n91nRP4ofz0D] 2023/07/21 09:13:23 logger.go:23:  Time: 2023-07-21T09:13:23+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 204 Latency: 3.7846ms Bytes_in: 0 Bytes_out: 0
+
+[Id: SKc4PFADLJRL69oAzlGDAas6H0W75sYR] 2023/07/21 09:13:24 logger.go:23:  Time: 2023-07-21T09:13:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 905.1388ms Bytes_in: 0 Bytes_out: 39
+
+[Id: 7Ap0gjH2cq3w6dMj01BLl1qcgoFNsa6S] 2023/07/21 09:13:31 logger.go:23:  Time: 2023-07-21T09:13:31+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 1.8675298s Bytes_in: 0 Bytes_out: 39
+
+[Id: 4u0JII0qqwF82icyGOUITojzDtatTDUp] 2023/07/21 09:18:28 logger.go:23:  Time: 2023-07-21T09:18:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 204 Latency: 2.1226ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 0qfrdoBUEYzutUpcCtEkIiOBSxcne2kp] 2023/07/21 09:18:29 logger.go:23:  Time: 2023-07-21T09:18:29+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 1.0463227s Bytes_in: 0 Bytes_out: 39
+
+[Id: qplzOR16UggQiur5CigIeLZcj7xsnStG] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.9803909s Bytes_in: 0 Bytes_out: 0
+
+[Id: tzj6ugqmLxMzbK0a3nvimSNFsvezwfQS] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.9953251s Bytes_in: 0 Bytes_out: 0
+
+[Id: WK2WQQfhnMcUcozopEy7ChVX46adHhIj] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m11.4652257s Bytes_in: 0 Bytes_out: 0
+
+[Id: EZJK1Omw9KIJHNydgQtd4IQLw1titqgo] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m11.4218933s Bytes_in: 0 Bytes_out: 0
+
+[Id: CILP8J4sydUd7eXJwqNkhC5tgWfZJAiW] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m19.3778348s Bytes_in: 0 Bytes_out: 0
+
+[Id: nVCqmBKOKWT6UBwrLJkPHk88CAyJqhMG] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m18.4322646s Bytes_in: 0 Bytes_out: 0
+
+[Id: buIZx0TIyS7eDbnnqDTlL4sBiJ5BZnbl] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m11.4405636s Bytes_in: 0 Bytes_out: 0
+
+[Id: CVCHI7p9IWQb3p8KAy2KQ7gTcgGWR9ly] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m19.4390108s Bytes_in: 0 Bytes_out: 0
+
+[Id: GJORP6T6hTNcTDu5eKSUktvY0K9KyIzR] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m19.3975427s Bytes_in: 0 Bytes_out: 0
+
+[Id: FztM2kGrWveHTdsDYuYD5yA1d3hIaxVN] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m18.4127839s Bytes_in: 0 Bytes_out: 0
+
+[Id: JKmezsdDkxaWQBevON1dclacaet9wlJr] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.9923638s Bytes_in: 0 Bytes_out: 0
+
+[Id: vtKJm7egeue2fwoFRJ9qMwzIIebRBpbv] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 13.9727862s Bytes_in: 0 Bytes_out: 0
+
+[Id: 8nnqq2q6sV3mExCFnpJsk4uXaXKmcvNB] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m19.4306278s Bytes_in: 0 Bytes_out: 0
+
+[Id: TDcHG4xb9Sbcz47j2S2C5gyaKo6gVqsK] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m18.4579605s Bytes_in: 0 Bytes_out: 0
+
+[Id: MJBq1DCDUPpBgQlrcOkpVF5vTfbqk2G2] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m11.4668251s Bytes_in: 0 Bytes_out: 0
+
+[Id: 1SMRZrgHn4BcwFaQhdQtRNqkn5bZwrzA] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 14.1205777s Bytes_in: 0 Bytes_out: 0
+
+[Id: SkaKyJQYZz4q0WfOaytWERcvtnpXN5hm] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5m18.4358978s Bytes_in: 0 Bytes_out: 0
+
+[Id: tzN9WBstfQRTy7hL3PlJ1Fyw6wP1q7WR] 2023/07/21 09:18:42 logger.go:23:  Time: 2023-07-21T09:18:42+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 14.1367682s Bytes_in: 0 Bytes_out: 0
+
+[Id: agTHBIYHZZmaw92o8aw08No90R4wIg2z] 2023/07/21 09:18:49 logger.go:23:  Time: 2023-07-21T09:18:49+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user07 Status: 204 Latency: 4.2161ms Bytes_in: 0 Bytes_out: 0
+
+[Id: VVJ0GtI95NzL0M7L2zVEj9fn71t6KKWl] 2023/07/21 09:18:49 logger.go:23:  Time: 2023-07-21T09:18:49+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 715.9519ms Bytes_in: 0 Bytes_out: 97
+
+[Id: vvDXCbVuATQpc0C9att8aB8Z8BlhChmB] 2023/07/21 09:19:05 logger.go:23:  Time: 2023-07-21T09:19:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 204 Latency: 6.0617ms Bytes_in: 0 Bytes_out: 0
+
+[Id: m4FM0f71FuH4RLgPlbqMq7MYcwNdRnN0] 2023/07/21 09:19:06 logger.go:23:  Time: 2023-07-21T09:19:06+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 1.0207586s Bytes_in: 0 Bytes_out: 39
+
+[Id: lnZLZxLux7cTJF2HUvLtRzMMlkuRE3AH] 2023/07/21 09:19:28 logger.go:23:  Time: 2023-07-21T09:19:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 204 Latency: 2.9301ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 0VbsK866OXKcUlr5KQH4Oxe5iEOeOMTo] 2023/07/21 09:19:29 logger.go:23:  Time: 2023-07-21T09:19:29+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 1.0546439s Bytes_in: 0 Bytes_out: 39
+
+[Id: TOjgKFIz7TcqgzUv4Uqz9wCnHlS9rpSw] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 32.6798536s Bytes_in: 0 Bytes_out: 0
+
+[Id: gXc7fCJT8ZS9O4UNkWyKUPacBiuPvMz5] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.7763707s Bytes_in: 0 Bytes_out: 0
+
+[Id: vxTPbogXbBry0iMbbIwsZEP36AhExus1] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 56.3955718s Bytes_in: 0 Bytes_out: 0
+
+[Id: fckMRmjyRdffEAgJ4fGwac3jTVBK3RCh] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 56.3504684s Bytes_in: 0 Bytes_out: 0
+
+[Id: L1kWf6gh2EPILlIrSdtecay0Q9TZXJUd] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 56.4122835s Bytes_in: 0 Bytes_out: 0
+
+[Id: lQ218IrgD51V7eNkHy4QsRUAkfVazlsh] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.7554583s Bytes_in: 0 Bytes_out: 0
+
+[Id: X2OTyJn3UMPVcsYQ1JvZaT34rp3v7Dy6] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.7723853s Bytes_in: 0 Bytes_out: 0
+
+[Id: ZN5X4B2oDuIdenYT57nBTBiHn8oJiiLE] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 32.7168635s Bytes_in: 0 Bytes_out: 0
+
+[Id: nrSEkZVxkh0tEBGsRZNhSrj6y9x0JlOb] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 56.3442124s Bytes_in: 0 Bytes_out: 0
+
+[Id: kB9MSLvep7A0B0n2t4UWen9KYdm8yrH1] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.8097436s Bytes_in: 0 Bytes_out: 0
+
+[Id: OKr0tOrJPpX7ZmWv12DoMyvje07MK2tT] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.9390435s Bytes_in: 0 Bytes_out: 0
+
+[Id: YGzjqJVcRpnzFvJiugyMuyuiA0OOqJx3] 2023/07/21 09:20:02 logger.go:23:  Time: 2023-07-21T09:20:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 33.9236616s Bytes_in: 0 Bytes_out: 0
+
+[Id: J4paJOMGSekt2UO6CbjD0HLv88G3XUdD] 2023/07/21 09:20:11 logger.go:23:  Time: 2023-07-21T09:20:11+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user07 Status: 204 Latency: 2.2908ms Bytes_in: 0 Bytes_out: 0
+
+[Id: QC3NWuuYjA3YzqNFRKFSKBB9cuDSXGlh] 2023/07/21 09:20:12 logger.go:23:  Time: 2023-07-21T09:20:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 838.5739ms Bytes_in: 0 Bytes_out: 97
+
+[Id: RZuWpDEwZSGRTxL96muFEVzinskR6kEB] 2023/07/21 09:20:24 logger.go:23:  Time: 2023-07-21T09:20:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 204 Latency: 3.4747ms Bytes_in: 0 Bytes_out: 0
+
+[Id: E0MhcoviSvf81kZlpCM9hAe80asWFAsy] 2023/07/21 09:20:25 logger.go:23:  Time: 2023-07-21T09:20:25+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user07&u2=user08 Status: 200 Latency: 993.6085ms Bytes_in: 0 Bytes_out: 39
+
+[Id: kbNCB1HKXMK7vdMkTrCKL1jA1EFmm930] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 37.5343501s Bytes_in: 0 Bytes_out: 0
+
+[Id: 8lRSRhQSaVxfflFUxTiFBHLOGYE5Ii1l] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 36.509439s Bytes_in: 0 Bytes_out: 0
+
+[Id: kVfiamCxyPuECSnmoJkfX54b31Q47Kjv] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 37.5590457s Bytes_in: 0 Bytes_out: 0
+
+[Id: h1YYM6nHPOXbKF43Fz8NPVeg2f7tOFCc] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 36.5282762s Bytes_in: 0 Bytes_out: 0
+
+[Id: 8w9qhpO6Iss52McKkbzvI8qExZwhloEU] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 37.5944775s Bytes_in: 0 Bytes_out: 0
+
+[Id: atM4vUGNh0lkbsXjuyr8K4SAlYvedfiD] 2023/07/21 09:21:02 logger.go:23:  Time: 2023-07-21T09:21:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 37.6073013s Bytes_in: 0 Bytes_out: 0
+
+[Id: D8lnbXVKgFjIDYgVDO5ykf2GDv6RtGdz] 2023/07/21 09:21:09 logger.go:23:  Time: 2023-07-21T09:21:09+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user07 Status: 204 Latency: 1.6346ms Bytes_in: 0 Bytes_out: 0
+
+[Id: kt21BxQz7dOoM8PRzKAVTgzmZmqYe1D8] 2023/07/21 09:21:10 logger.go:23:  Time: 2023-07-21T09:21:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user07 Status: 200 Latency: 695.1991ms Bytes_in: 0 Bytes_out: 97
+
+[Id: hCYUxRJodFQAT5tgqQXrp06DViWfQtFG] 2023/07/21 09:24:24 logger.go:23:  Time: 2023-07-21T09:24:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/auth/signin Status: 204 Latency: 1.0575ms Bytes_in: 0 Bytes_out: 0
+
+[Id: HDM1KihjQNCZ1zJvgvKWtFDkuHVOsvk4] 2023/07/21 09:24:24 logger.go:23:  Time: 2023-07-21T09:24:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: POST Uri: /api/auth/signin Status: 200 Latency: 472.392ms Bytes_in: 45 Bytes_out: 384
+
+[Id: 5uZMAHpxPBgRNLw58QL8JB0msnwMdeba] 2023/07/21 09:24:25 logger.go:23:  Time: 2023-07-21T09:24:25+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 3.0946ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 1KxaGjGBuuDC9MsxCzPe0ViUNDgcBpYA] 2023/07/21 09:24:25 logger.go:23:  Time: 2023-07-21T09:24:25+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 681.825ms Bytes_in: 0 Bytes_out: 146
+
+[Id: TsPW75wQeKAfEr6MIeMaNqIlQgXn84cJ] 2023/07/21 09:24:28 logger.go:23:  Time: 2023-07-21T09:24:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 3.04ms Bytes_in: 0 Bytes_out: 0
+
+[Id: PuKIBvDdv6AxFfSz4q3OnciI73rXwZuH] 2023/07/21 09:24:29 logger.go:23:  Time: 2023-07-21T09:24:29+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 970ms Bytes_in: 0 Bytes_out: 39
+
+[Id: 1ZvKHGgh3jnpsSkrmTHGpgyNekgM4umL] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m34.9629308s Bytes_in: 0 Bytes_out: 0
+
+[Id: hXTrB7BDSU4FaKxKVuXhKqLcM3aHxJfW] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m33.8801519s Bytes_in: 0 Bytes_out: 0
+
+[Id: Pkg64wdCcfWydzCXQJos0EiGxDWd0p3f] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m34.8862668s Bytes_in: 0 Bytes_out: 0
+
+[Id: IdylkDyotcjqW8GFbThKV2292Ao2Ea7S] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m33.8702442s Bytes_in: 0 Bytes_out: 0
+
+[Id: aWrkCByAZaEkuUTn5lpkZV2cvyEIxNCp] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m34.903314s Bytes_in: 0 Bytes_out: 0
+
+[Id: G2E2O99hQA0TWeQzRdmkLrgvI6WVDihQ] 2023/07/21 09:26:03 logger.go:23:  Time: 2023-07-21T09:26:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1m34.9632597s Bytes_in: 0 Bytes_out: 0
+
+[Id: OPtIVzXxYP2JxFPjrvj63i8Pd0LPglAt] 2023/07/21 09:26:10 logger.go:23:  Time: 2023-07-21T09:26:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.0494ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 8OpoBtKFXctz9Ftips7IF5hmPsJo3SfU] 2023/07/21 09:26:11 logger.go:23:  Time: 2023-07-21T09:26:11+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 712.203ms Bytes_in: 0 Bytes_out: 146
+
+[Id: FFKQAvjwgWrXcdmsiiPqjlITBko6f5gU] 2023/07/21 09:30:36 logger.go:23:  Time: 2023-07-21T09:30:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 2.251ms Bytes_in: 0 Bytes_out: 0
+
+[Id: YyjndqTAR6CTm72porgaYKvxvmOleqtp] 2023/07/21 09:30:37 logger.go:23:  Time: 2023-07-21T09:30:37+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 773.7246ms Bytes_in: 0 Bytes_out: 146
+
+[Id: zX2FC0yTOWJVNB4ePLSPULaBLAs5iiVX] 2023/07/21 09:30:54 logger.go:23:  Time: 2023-07-21T09:30:54+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 795.4µs Bytes_in: 0 Bytes_out: 0
+
+[Id: 98u2Cybb8SlBbZtVqqgiFN2YWU8xXA5r] 2023/07/21 09:30:55 logger.go:23:  Time: 2023-07-21T09:30:55+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 962.6384ms Bytes_in: 0 Bytes_out: 39
+
+[Id: Upsy5PqSgViIy1kETyCtOXpzphBhi2dJ] 2023/07/21 09:34:00 logger.go:23:  Time: 2023-07-21T09:34:00+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 2.6692ms Bytes_in: 0 Bytes_out: 0
+
+[Id: Zw1S8imntxwcPBJ93dc8f2BsqFppIxO6] 2023/07/21 09:34:01 logger.go:23:  Time: 2023-07-21T09:34:01+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.0693201s Bytes_in: 0 Bytes_out: 39
+
+[Id: m6DtoQ20gdHu8osbG6yhJ7VIZxk7Jbzx] 2023/07/21 09:34:17 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.6204112s Bytes_in: 0 Bytes_out: 0
+
+[Id: 3sCcv7QE5MrlcaXT59yE0kPmoevX6dZP] 2023/07/21 09:34:17 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.6365058s Bytes_in: 0 Bytes_out: 0
+
+[Id: x7mQoSdX3QwPAnjTDeJeR0BEkJD7iTpp] 2023/07/21 09:34:17 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.4945395s Bytes_in: 0 Bytes_out: 0
+
+[Id: kmmRPMmyV6jWKNss8YFwPiKRL32GLeyZ] 2023/07/21 09:34:17 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.6537113s Bytes_in: 0 Bytes_out: 0
+
+[Id: Tob48tnyB7PgN0MAOLIjqdrwYA5lvs53] 2023/07/21 09:34:17 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 16.5439677s Bytes_in: 0 Bytes_out: 0
+
+[Id: o9CFniSghhd6ddffsVePB11pUBhQ4m8P] 2023/07/21 09:34:18 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.6117187s Bytes_in: 0 Bytes_out: 0
+
+[Id: Abw8tkqzoqyMWfM45L3cAnUR9YEHrwqv] 2023/07/21 09:34:18 logger.go:23:  Time: 2023-07-21T09:34:17+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 16.5354651s Bytes_in: 0 Bytes_out: 0
+
+[Id: zba5JRJa0wiL0GpzkhOBHiWTUB1k2KAn] 2023/07/21 09:34:18 logger.go:23:  Time: 2023-07-21T09:34:18+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 17.5167018s Bytes_in: 0 Bytes_out: 0
+
+[Id: UDwwj2ghgBj7UEAZkIBromLmcNZLOEAR] 2023/07/21 09:34:24 logger.go:23:  Time: 2023-07-21T09:34:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.592ms Bytes_in: 0 Bytes_out: 0
+
+[Id: HLYUcc8H4r8oTK1MJdYsftyVPlb0uu1r] 2023/07/21 09:34:24 logger.go:23:  Time: 2023-07-21T09:34:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 638.2666ms Bytes_in: 0 Bytes_out: 146
+
+[Id: zfPAfYsZcdBmpL0wTXQTHlt7BDMTWY6H] 2023/07/21 09:34:26 logger.go:23:  Time: 2023-07-21T09:34:26+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.3422ms Bytes_in: 0 Bytes_out: 0
+
+[Id: sc5EV3JiRkfTMRNZyKGBaMlDENyVGM13] 2023/07/21 09:34:27 logger.go:23:  Time: 2023-07-21T09:34:27+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 912.5438ms Bytes_in: 0 Bytes_out: 39
+
+[Id: j4qCZKk1TloNTPtkcfNFZThWrhmx12gh] 2023/07/21 09:34:47 logger.go:23:  Time: 2023-07-21T09:34:47+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.5316ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 5yF1LPthVlQqiNY3KXRl57dxpLyfmUHe] 2023/07/21 09:34:49 logger.go:23:  Time: 2023-07-21T09:34:49+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.7191481s Bytes_in: 0 Bytes_out: 39
+
+[Id: rxYltd819s1HjGM0oTuItO5CS1txOnSh] 2023/07/21 09:34:54 logger.go:23:  Time: 2023-07-21T09:34:54+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.8616ms Bytes_in: 0 Bytes_out: 0
+
+[Id: FlSRkI3jtbGCZBNYg6d4ejMVjACPdM42] 2023/07/21 09:34:55 logger.go:23:  Time: 2023-07-21T09:34:55+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 945.2108ms Bytes_in: 0 Bytes_out: 39
+
+[Id: rMBq1lEyVUmqUuId1olpUtfEdMANeyVG] 2023/07/21 09:34:56 logger.go:23:  Time: 2023-07-21T09:34:56+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 1.2228ms Bytes_in: 0 Bytes_out: 0
+
+[Id: vlAn3NkjVJyEbQ8susHSL5rQY7iAt2SX] 2023/07/21 09:34:57 logger.go:23:  Time: 2023-07-21T09:34:57+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 643.4427ms Bytes_in: 0 Bytes_out: 64
+
+[Id: jxyKMSyOoTBrJDd2Ep9RLB8KymmOm8MB] 2023/07/21 09:34:59 logger.go:23:  Time: 2023-07-21T09:34:59+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.0773ms Bytes_in: 0 Bytes_out: 0
+
+[Id: pIwWxeH574fQBIw2SfwFtyDnxrVd48vA] 2023/07/21 09:35:00 logger.go:23:  Time: 2023-07-21T09:35:00+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 935.6471ms Bytes_in: 0 Bytes_out: 39
+
+[Id: TxdXCeUafMGuCSsrCS7PyjKXIb0obso5] 2023/07/21 09:35:01 logger.go:23:  Time: 2023-07-21T09:35:01+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 204 Latency: 19.0085ms Bytes_in: 0 Bytes_out: 0
+
+[Id: aaiLqW1uhsPtKDpsPFamQatoiFk1KZqL] 2023/07/21 09:35:02 logger.go:23:  Time: 2023-07-21T09:35:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user03 Status: 200 Latency: 635.7313ms Bytes_in: 0 Bytes_out: 64
+
+[Id: iwUVOxcrfkz0LdqyNLn2e2ya6B60qzy4] 2023/07/21 09:35:03 logger.go:23:  Time: 2023-07-21T09:35:03+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.6724ms Bytes_in: 0 Bytes_out: 0
+
+[Id: NVNGwqik8I9K7klxCZrtMoYpWJ6tjO6U] 2023/07/21 09:35:04 logger.go:23:  Time: 2023-07-21T09:35:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 949.0835ms Bytes_in: 0 Bytes_out: 39
+
+[Id: jTGWfAZAampRKRXGaYHAIPW9SvgNqfUM] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.5691302s Bytes_in: 0 Bytes_out: 0
+
+[Id: ryEcGh7C7poaD1IJ7xBnnOyq76bhMhAz] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 38.9674487s Bytes_in: 0 Bytes_out: 0
+
+[Id: xG9PND4wNoDldkJM6Q6p0pQoldDuQUuw] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.2752164s Bytes_in: 0 Bytes_out: 0
+
+[Id: DZzR4OxJTvsYfzC2X8VwGAYy3SbLcZxd] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.9309858s Bytes_in: 0 Bytes_out: 0
+
+[Id: RW8Mhj75j9He5jVeMj20ZP0UOgo226xg] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5.9228548s Bytes_in: 0 Bytes_out: 0
+
+[Id: jLJniyyZCHcZkwhGUVxbNc2kh9mFuDcF] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 39.0480189s Bytes_in: 0 Bytes_out: 0
+
+[Id: qP8BqaywfYfbPuyWhAcNSLhVOrZi5U9l] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5.9154123s Bytes_in: 0 Bytes_out: 0
+
+[Id: 7WsU0SqbvUa5v7UTUhUjhw7b5S29uPGq] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.3225202s Bytes_in: 0 Bytes_out: 0
+
+[Id: v4Jsi3mYx7HayMHn33xvEoXde7enaCmH] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 37.9937141s Bytes_in: 0 Bytes_out: 0
+
+[Id: RLCaFaTPrq0JgMBWxpfxw9ww9d5nhymH] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.2883005s Bytes_in: 0 Bytes_out: 0
+
+[Id: u9HNsx5eDZTqnAvEQtpC3ECzZLlIYCnj] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.9717171s Bytes_in: 0 Bytes_out: 0
+
+[Id: wDxJpnxtZyE3I95oiXP9NpSc3xWQu13t] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 38.0105904s Bytes_in: 0 Bytes_out: 0
+
+[Id: s3bNGPNqaDVl1yR0i8akV74Up5SpuxXv] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1.5702952s Bytes_in: 0 Bytes_out: 0
+
+[Id: 5Ly9KqebPeSKKg4RuQr5uatLlJjajTwa] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1.5992244s Bytes_in: 0 Bytes_out: 0
+
+[Id: Tj16g3TTcVgeIyy2nBv7lk4qYVeEJLro] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.3071036s Bytes_in: 0 Bytes_out: 0
+
+[Id: MiF8smADQvgqVOcfqXEcmidXcX36NP78] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5.9450275s Bytes_in: 0 Bytes_out: 0
+
+[Id: 5bOD6vHkoJfzGL8s3bGTLcUkXDoOlrIT] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 38.9974811s Bytes_in: 0 Bytes_out: 0
+
+[Id: Ud9hCZhGkz3wKfNaNO4uSFWPOWhA0TSg] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.268129s Bytes_in: 0 Bytes_out: 0
+
+[Id: ru1RplJse6rIaTwxTMdlEfVyZz65X88M] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5.975653s Bytes_in: 0 Bytes_out: 0
+
+[Id: 7rEQJt4ZumtX89z8bF6iVETcvOXYZLm3] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.639706s Bytes_in: 0 Bytes_out: 0
+
+[Id: cjxM64WMYI6f3jqeXBeraclPoKoN9NGS] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.9635548s Bytes_in: 0 Bytes_out: 0
+
+[Id: gkvshqI2j6RooOoPUGOxfQy0fC8SbRsA] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 7.6628795s Bytes_in: 0 Bytes_out: 0
+
+[Id: qRNPNCnJCUdxpJOnczeDnFXrcuTQzKyS] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.327682s Bytes_in: 0 Bytes_out: 0
+
+[Id: mvapDxLeFXXWMsfLQucIwgEQWGPJZkGY] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 5.0367126s Bytes_in: 0 Bytes_out: 0
+
+[Id: 9Mhz9i67EFFirdfn17gJSuV8mCPxpamo] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 39.0978241s Bytes_in: 0 Bytes_out: 0
+
+[Id: DM5tf4DuLfs1pxMahD4mAcExPSB4P11X] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 3.3273689s Bytes_in: 0 Bytes_out: 0
+
+[Id: EIlBXaUCD5yKbncSQLJNkgALdle1Md73] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1.6628466s Bytes_in: 0 Bytes_out: 0
+
+[Id: hIWaPVnX8FHCQWmXJCjAMlWD81nTQpM9] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 2.6841834s Bytes_in: 0 Bytes_out: 0
+
+[Id: 3MZI3ISgiBbbQ6o8hMzn2elJAoxJAHbm] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 38.0837366s Bytes_in: 0 Bytes_out: 0
+
+[Id: 7VAJxho7cAUq4goxQ78xQnSfGAZau6oc] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 38.0973228s Bytes_in: 0 Bytes_out: 0
+
+[Id: OSauL3jWT0Uq0pf4PGrJ9qdG8fz21jLz] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 8.3746626s Bytes_in: 0 Bytes_out: 0
+
+[Id: H9Qp1qmSIoHL2vNUK9gZR8RXHEb5Genv] 2023/07/21 09:35:05 logger.go:23:  Time: 2023-07-21T09:35:05+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1.6402155s Bytes_in: 0 Bytes_out: 0
+
+[Id: pDPkCGttftxwugprY9VgdoqtEXn4OHzG] 2023/07/21 09:35:19 logger.go:23:  Time: 2023-07-21T09:35:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 4.407ms Bytes_in: 0 Bytes_out: 0
+
+[Id: AjrexPFbaVNr3n0Ut3b2ujIv8hnE1Ih9] 2023/07/21 09:35:20 logger.go:23:  Time: 2023-07-21T09:35:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 651.6734ms Bytes_in: 0 Bytes_out: 146
+
+[Id: aBOtULmWBKpwfHqj3B25nCUJDBuHWjW4] 2023/07/21 09:35:20 logger.go:23:  Time: 2023-07-21T09:35:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.9384ms Bytes_in: 0 Bytes_out: 0
+
+[Id: kXotFYE3tU30BRx8mpIHwImV9IjoTXtM] 2023/07/21 09:35:21 logger.go:23:  Time: 2023-07-21T09:35:21+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 954.6482ms Bytes_in: 0 Bytes_out: 39
+
+[Id: Qtq6g1PZGmzf0iPZVie8n0sEtseIIjH6] 2023/07/21 09:37:04 logger.go:23:  Time: 2023-07-21T09:37:04+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.5532807s Bytes_in: 0 Bytes_out: 0
+
+[Id: FzKZIkvlfYcSaOkU3QM2tY2Xoa3W4uWU] 2023/07/21 09:37:04 logger.go:23:  Time: 2023-07-21T09:37:04+07:00 Remote_IP: 127.0.0.1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 4.5435475s Bytes_in: 0 Bytes_out: 0
+
+[Id: yUB6eIz6PkvGLmyQ8nkxsxcc4DyoexrB] 2023/07/21 09:37:11 logger.go:23:  Time: 2023-07-21T09:37:11+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.5942ms Bytes_in: 0 Bytes_out: 0
+
+[Id: FXu6sYsQF8q09HCe9cjaTiVKwDoRphJK] 2023/07/21 09:37:12 logger.go:23:  Time: 2023-07-21T09:37:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 670.2939ms Bytes_in: 0 Bytes_out: 146
+
+[Id: U0Mtt6w5FW5K9OX9O2OCdrGqar33Xk3H] 2023/07/21 09:37:19 logger.go:23:  Time: 2023-07-21T09:37:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 2.0212ms Bytes_in: 0 Bytes_out: 0
+
+[Id: ie5E1AlYtbxk9qWu4mCnwiKLlmWMH3TE] 2023/07/21 09:37:20 logger.go:23:  Time: 2023-07-21T09:37:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.0319113s Bytes_in: 0 Bytes_out: 39
+
+[Id: 4uyYGz1dl0wOs0klY13thgV5Q9I1uLOM] 2023/07/21 09:37:31 logger.go:23:  Time: 2023-07-21T09:37:31+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.1827ms Bytes_in: 0 Bytes_out: 0
+
+[Id: QwbmWtMRXJFjQJeNuexxgenh2EYjpqKw] 2023/07/21 09:37:33 logger.go:23:  Time: 2023-07-21T09:37:33+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 1.7902457s Bytes_in: 0 Bytes_out: 39
+
+[Id: TcMNHm6Uq2kF16oEwtKVtDYx7ntbPUBw] 2023/07/21 09:40:22 logger.go:23:  Time: 2023-07-21T09:40:22+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.6447ms Bytes_in: 0 Bytes_out: 0
+
+[Id: pze1ILrDiTcHpk7lcJeSiiFbbvc1p5uM] 2023/07/21 09:40:22 logger.go:23:  Time: 2023-07-21T09:40:22+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 668.8984ms Bytes_in: 0 Bytes_out: 146
+
+[Id: kefkKjgDl0IAWfQnWe6rJAvIXyA0XZk7] 2023/07/21 09:40:24 logger.go:23:  Time: 2023-07-21T09:40:24+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.9464ms Bytes_in: 0 Bytes_out: 0
+
+[Id: ZCs19KqZv0rUTK3jcrwSXbhdT0yNfaGs] 2023/07/21 09:40:25 logger.go:23:  Time: 2023-07-21T09:40:25+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 964.4962ms Bytes_in: 0 Bytes_out: 39
+
+[Id: aA1iyMxQAGvUup5aL6Gu37OPzj0qw1ge] 2023/07/21 09:40:28 logger.go:23:  Time: 2023-07-21T09:40:28+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.2829ms Bytes_in: 0 Bytes_out: 0
+
+[Id: KNyfmehRA18HMraSBSAFeUiyvr2x9JuY] 2023/07/21 09:40:30 logger.go:23:  Time: 2023-07-21T09:40:30+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 2.5745389s Bytes_in: 0 Bytes_out: 39
+
+[Id: OuaiuKjzYgdPeiZ6dSR6dP3nYY2e3xVk] 2023/07/21 09:49:13 logger.go:23:  Time: 2023-07-21T09:49:13+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 2.717ms Bytes_in: 0 Bytes_out: 0
+
+[Id: r7vg2r11yoTjBkegd1f8ZgUEtpzhjHKP] 2023/07/21 09:49:13 logger.go:23:  Time: 2023-07-21T09:49:13+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 685.4474ms Bytes_in: 0 Bytes_out: 146
+
+[Id: 5QcQBTaraoX9eA1JFrcQNfKNRZGJIFbY] 2023/07/21 09:49:19 logger.go:23:  Time: 2023-07-21T09:49:19+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 1.8263ms Bytes_in: 0 Bytes_out: 0
+
+[Id: 3weKN86MejmeDoiVCbPq4D3EWrWbAQXu] 2023/07/21 09:49:20 logger.go:23:  Time: 2023-07-21T09:49:20+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 987.3535ms Bytes_in: 0 Bytes_out: 39
+
+[Id: jgmLJhBls5XbkW8Fub7xyNHjtyXGrPcu] 2023/07/21 09:57:35 logger.go:23:  Time: 2023-07-21T09:57:35+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/contact-list?username=user02 Status: 204 Latency: 1.6628ms Bytes_in: 0 Bytes_out: 0
+
+[Id: RzHDOu425mfuw4EwE9z0NLf3DivjduDl] 2023/07/21 09:57:36 logger.go:23:  Time: 2023-07-21T09:57:36+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/contact-list?username=user02 Status: 200 Latency: 676.1918ms Bytes_in: 0 Bytes_out: 146
+
+[Id: Qui9ZFprjqeLiX9i6WWpQfFFq7RTaDGt] 2023/07/21 09:58:01 logger.go:23:  Time: 2023-07-21T09:58:01+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: OPTIONS Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 204 Latency: 3.282ms Bytes_in: 0 Bytes_out: 0
+
+[Id: nu20yczS8afIGmvmpvslOIecVIcHUlZW] 2023/07/21 09:58:02 logger.go:23:  Time: 2023-07-21T09:58:02+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.82 Host: localhost:8080 Method: GET Uri: /api/rooms/chat-history?u1=user02&u2=user04 Status: 200 Latency: 985.0561ms Bytes_in: 0 Bytes_out: 39
+
+[Id: KK9beC5XAT8oVam2UyDapYKdQnOTvusg] 2023/07/22 14:51:28 logger.go:23:  Time: 2023-07-22T14:51:28+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/single Status: 405 Latency: 3.085ms Bytes_in: 6772 Bytes_out: 33
+
+[Id: CjN91qA6BuNhXFhyPVEnjBS9rGRMpBs2] 2023/07/22 14:52:04 logger.go:23:  Time: 2023-07-22T14:52:04+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 9.2673ms Bytes_in: 6772 Bytes_out: 55
+
+[Id: aySWEKIF1jioFnGzCjhJ6dSHrOKfIDYa] 2023/07/22 15:07:14 logger.go:23:  Time: 2023-07-22T15:07:14+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 4.4793ms Bytes_in: 6772 Bytes_out: 55
+

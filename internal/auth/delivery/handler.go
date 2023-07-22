@@ -8,7 +8,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-	"github.com/thuongtruong1009/zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/pkg/validators"
 )
 
 type authHandler struct {

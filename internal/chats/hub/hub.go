@@ -65,7 +65,7 @@ func (h *Hub) Broadcaster() {
 	for {
 		message := <-Broadcast
 
-		// fmt.Println("---> New message: ", message, " - from:", message.From, " - to:", message.To)
+		fmt.Println("---> New message: ", message, " - from:", message.From, " - to:", message.To)
 
 		// fmt.Println("Clients: ", Clients)
 

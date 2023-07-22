@@ -87,6 +87,7 @@ func (s *Server) Run() error {
 	signal.Notify(quit, os.Kill)
 
 	<-quit
+	s.logger.Println("Server is shutting down...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 

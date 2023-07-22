@@ -5,9 +5,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
-
 	"github.com/labstack/echo/v4"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestReadRequest(t *testing.T) {
@@ -27,8 +25,15 @@ func TestReadRequest(t *testing.T) {
 	}
 	err := ReadRequest(ctx, &request)
 
-	assert.NoError(t, err)
+	if err != nil {
+		t.Errorf("ReadRequest() = %v; want nil", err)
+	}
 
-	assert.Equal(t, "John", request.Name)
-	assert.Equal(t, "john@example.com", request.Email)
+	if request.Name != "John" {
+		t.Errorf("ReadRequest() = %v; want John", request.Name)
+	}
+
+	if request.Email != "john@example.com" {
+		t.Errorf("ReadRequest() = %v; want john@example.com", request.Email)
+	}
 }

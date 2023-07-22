@@ -39,6 +39,7 @@ func (lu *localResourceUsecase) UploadSingleFile(ctx context.Context, file *mult
 	if _, err := io.Copy(dst, src); err != nil {
 		return "", err
 	}
+	fmt.Println(filename)
 	return filename, nil
 }
 

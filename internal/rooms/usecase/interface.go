@@ -19,6 +19,4 @@ type UseCase interface {
 	GetChatHistory(ctx context.Context, username1, username2, fromTS, toTS string) *presenter.ChatResponse
 
 	ContactList(ctx context.Context, username string) *presenter.ChatResponse
-
-	GetFetchChatBetweenIndex(ctx context.Context)
 }

@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 
@@ -29,7 +28,7 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	pgInstance := s.pgDB.ConnectInstance(s.cfg)
 	authRepo := authRepository.NewAuthRepository(pgInstance, s.redisDB)
 	roomRepo := roomRepository.NewRoomRepository(pgInstance, s.redisDB)
-	roomRepo.CreateFetchChatBetweenIndex(context.Background())
+	roomRepo.CreateFetchChatBetweenIndex()
 	searchRepo := searchRepository.NewSearchRepository(pgInstance)
 	resourceRepository := resourceRepository.NewResourceRepository()
 
