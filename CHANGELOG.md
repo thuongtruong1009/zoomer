@@ -8,17 +8,21 @@ There is the most valuable changes log:
 - Config Cache adapter with Redis
 - Config RabbitMQ for chat service
 - Combine into one port for websocket and http
+- Split docker-compose in multi-target
 
 **2. News**
 
 - Update CI for test, build, deploy and publish image
 - Set and Read cache for userid, username, roomlist response
-- Wakeup socket x2 faster with goroutine
 - Wrap context function with custom interceptor
 - Refactor code
 - Generate swagger document and UI
 - Config migration for database
 - Seed data
+- Update more test case
+- Callback function in sync lock mode
+- Concurrently run http and websocket server
+- Combine into one port for websocket and http
 
 **3. Features**
 
@@ -30,6 +34,7 @@ There is the most valuable changes log:
 - Rejoin room but not remove old messages
 - Load recent friend contact list
 - Search and connect new contact
+- Upload single/multi image file
 
 **4. Bugfixes**
 

@@ -30,18 +30,22 @@ func (mw *RWMutexWrapper) rUnLock() {
 	mw.rwMutex.RUnlock()
 }
 
-func LockFuncReturnOne[T any](f func() T) {
+// func LockFuncTwoInOneOut[i1 any, i2 any, o any](f func (i1, i2) o) func (i1, i2) o {
+// 	m := MutexWrapper{}
+
+// 	return func(i1Val i1, i2Val i2) o {
+// 		m.lock()
+// 		defer m.unLock()
+// 		return f(i1Val, i2Val)
+// 	}
+// }
+
+func LockFuncTwoInTwoOut[i1 any, i2 any, o1 any, o2 any](f func (i1, i2) (o1, o2)) func (i1, i2) (o1, o2) {
 	m := MutexWrapper{}
 
-	m.lock()
-	defer m.unLock()
-	f()
-}
-
-func LockFuncReturnTwo[T any](f func() (T, T)) {
-	m := MutexWrapper{}
-
-	m.lock()
-	defer m.unLock()
-	f()
+	return func(i1Val i1, i2Val i2) (o1, o2) {
+		m.lock()
+		defer m.unLock()
+		return f(i1Val, i2Val)
+	}
 }

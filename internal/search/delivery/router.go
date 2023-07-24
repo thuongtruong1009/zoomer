@@ -1,7 +1,10 @@
 package delivery
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+)
 
 func MapSearchRoutes(searchGroup *echo.Group, h Handler) {
-	searchGroup.POST("/room", h.SearchRoom())
+	searchGroup.POST(constants.SearchRoomEndPoint, h.SearchRoom())
 }

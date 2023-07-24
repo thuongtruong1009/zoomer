@@ -14,21 +14,15 @@ import (
 )
 
 func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterceptor) error {
-	//chat
 	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(redisDB))
 	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
-
 	go wsChatUC.Broadcaster()
+	chatDelivery.MapChatRoutes(e, wsChatHandler)
 
-	chatDelivery.MapChatRoutes(e, wsChatHandler, "/ws")
-
-	// stream
 	wsStreamUC := streamHub.NewStreamHub()
 	wsStreamHandler := streamDelivery.NewStreamHandler(wsStreamUC, inter)
-
 	go wsStreamUC.Broadcaster()
-
-	streamDelivery.MapStreamRoutes(e, wsStreamHandler, "/stream")
+	streamDelivery.MapStreamRoutes(e, wsStreamHandler)
 
 	return nil
 }

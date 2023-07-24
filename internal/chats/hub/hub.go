@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"time"
-	"github.com/thuongtruong1009/zoomer/internal/chats/repository"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/chats/repository"
 )
 
 var (
@@ -40,12 +40,12 @@ func (h *Hub) Receiver(ctx context.Context, client *models.Client) {
 			log.Println("error while unmarshaling chat", err)
 			continue
 		}
-		fmt.Println("host", client.Conn.RemoteAddr())
+		// fmt.Println("host", client.Conn.RemoteAddr())
 		if m.Type == "bootup" {
 			client.Username = m.User
-			fmt.Println("Created succesfully client mapped", &client, client, client.Username)
+			// fmt.Println("Created succesfully client mapped", &client, client, client.Username)
 		} else {
-			fmt.Println("received message", m.Type, m.Chat)
+			fmt.Println("Received message", m.Type, m.Chat)
 			c := m.Chat
 			c.Timestamp = time.Now().Unix()
 

@@ -828,3 +828,39 @@
 
 [Id: aySWEKIF1jioFnGzCjhJ6dSHrOKfIDYa] 2023/07/22 15:07:14 logger.go:23:  Time: 2023-07-22T15:07:14+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 4.4793ms Bytes_in: 6772 Bytes_out: 55
 
+[Id: AHPgFOfpxUmKBM3thRoQdES6LyOFLAf8] 2023/07/22 16:36:46 logger.go:23:  Time: 2023-07-22T16:36:46+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 3.8129ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: AET5e76eUI3WrV4uPS7stn5enwQaxGid] 2023/07/22 16:59:00 logger.go:23:  Time: 2023-07-22T16:59:00+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/multi Status: 405 Latency: 1.5134ms Bytes_in: 13488 Bytes_out: 33
+
+[Id: CRnmp8V8hVREsHEoBXh9B6wMcPKAXIZ4] 2023/07/22 16:59:21 logger.go:23:  Time: 2023-07-22T16:59:21+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/multiple Status: 200 Latency: 5.8123ms Bytes_in: 13488 Bytes_out: 37
+
+[Id: TR6eEVuuMRT6xxV657tqADVp6cm5DaJE] 2023/07/22 17:01:24 logger.go:23:  Time: 2023-07-22T17:01:24+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/multiple Status: 200 Latency: 9.7998ms Bytes_in: 13490 Bytes_out: 80
+
+[Id: cT49VxzSroXQ2R1odFG4OQeRizfrnvcx] 2023/07/22 17:03:10 logger.go:23:  Time: 2023-07-22T17:03:10+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 4.7114ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: CmkfrMLo2sHVLdinO2XLvInwUn7l0Bmy] 2023/07/22 17:19:50 logger.go:23:  Time: 2023-07-22T17:19:50+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 2.2747ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: yPV9BqL646Js0K0aglmUrS4DNqS3wfi3] 2023/07/22 17:21:15 logger.go:23:  Time: 2023-07-22T17:21:15+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 23.1804ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: SiS7c7bEUT8re12TxtdM4qrT8NlhmLEC] 2023/07/24 10:41:28 logger.go:23:  Time: 2023-07-24T10:41:28+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 13.1362ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: dKYdTXFIQowA8BelP1Ne95juxnCI5scf] 2023/07/24 11:07:25 logger.go:23:  Time: 2023-07-24T11:07:25+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 24.6205ms Bytes_in: 6772 Bytes_out: 63
+
+[Id: tYmP8CBuICLouaIw7Z6Y5FTi3xMOaQoy] 2023/07/24 11:44:13 logger.go:23:  Time: 2023-07-24T11:44:13+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resource/local/single Status: 200 Latency: 3.8019ms Bytes_in: 6772 Bytes_out: 68
+
+[Id: x94bPBGlgZCGJjceGNq2d5kzieY3VJSW] 2023/07/24 16:03:29 logger.go:23:  Time: 2023-07-24T16:03:29+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 3.1704ms Bytes_in: 13490 Bytes_out: 80
+
+[Id: 2k7gBBvH0HKzfOmbh7VJsH2GtNh4GUNP] 2023/07/24 16:05:17 logger.go:23:  Time: 2023-07-24T16:05:17+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/single Status: 200 Latency: 1.624ms Bytes_in: 6772 Bytes_out: 68
+
+[Id: 4aYmoYsexMkoWXkbgxuR3V6eiRTYH0pi] 2023/07/24 16:41:18 logger.go:23:  Time: 2023-07-24T16:41:18+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 4.075ms Bytes_in: 13490 Bytes_out: 125
+
+[Id: pLhJvj6Qol3TvtIvCnNTe41WQrRJKwvH] 2023/07/24 16:43:08 logger.go:23:  Time: 2023-07-24T16:43:08+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 500 Latency: 1.4758ms Bytes_in: 13490 Bytes_out: 161
+
+[Id: ebhueurFQhK9OEdxZKEW3wrkCqKVooSz] 2023/07/24 16:43:37 logger.go:23:  Time: 2023-07-24T16:43:37+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 2.8443ms Bytes_in: 13490 Bytes_out: 125
+
+[Id: i7lfNBMKw4kusjOGMfEQwc0RHC69xLTz] 2023/07/24 16:44:21 logger.go:23:  Time: 2023-07-24T16:44:21+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 8.3054ms Bytes_in: 13490 Bytes_out: 125
+
+[Id: XI2JJ9qU9ZezhluHQTXiZuZCrccLC4BI] 2023/07/24 16:45:00 logger.go:23:  Time: 2023-07-24T16:45:00+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 2.4142ms Bytes_in: 68826 Bytes_out: 150
+
+[Id: pbKbREq4VEZYXlgtay8QWvG7xEUD97aH] 2023/07/24 16:45:08 logger.go:23:  Time: 2023-07-24T16:45:08+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 3.0674ms Bytes_in: 68826 Bytes_out: 150
+

@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 
 	authRepository "github.com/thuongtruong1009/zoomer/internal/auth/repository"
 	roomRepository "github.com/thuongtruong1009/zoomer/internal/rooms/repository"
@@ -48,26 +49,26 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 
 	mw := middlewares.BaseMiddlewareManager(authUC, s.inter)
 
-	e.Static("/", "public")
+	e.Static(constants.StaticGroupPath, constants.StaticGroupName)
 
-	httpGr := e.Group("/api")
+	httpGr := e.Group(constants.ApiGroup)
 
-	e.GET("/docs/*", echoSwagger.WrapHandler)
+	e.GET(constants.DocGroup, echoSwagger.WrapHandler)
 	/*
 		url := echoSwagger.URL("http://localhost:1323/swagger/doc.json") //The url pointing to API definition
 		e.GET("/docs/*", echoSwagger.EchoWrapHandler(url))
 	*/
 
-	authGroup := httpGr.Group("/auth")
+	authGroup := httpGr.Group(constants.AuthGroupEndPoint)
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 
-	roomGroup := httpGr.Group("/rooms")
+	roomGroup := httpGr.Group(constants.RoomGroupEndPoint)
 	roomHttp.MapRoomRoutes(roomGroup, roomHandler, mw)
 
-	searchGroup := httpGr.Group("/search")
+	searchGroup := httpGr.Group(constants.SearchGroupEndPoint)
 	searchHttp.MapSearchRoutes(searchGroup, searchHandler)
 
-	resourceGroup := httpGr.Group("/resource")
+	resourceGroup := httpGr.Group(constants.ResourceGroupEndPoint)
 	minioResourceHttp.MapResourceRoutes(resourceGroup, minioResourceHandler)
 	localResourceHttp.MapLocalResourceRoutes(resourceGroup, localResourceHandler)
 

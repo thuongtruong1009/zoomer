@@ -38,11 +38,11 @@ func (ch *chatHandler) ChatConnect() echo.HandlerFunc {
 
 		hub.Clients[client] = true
 
-		fmt.Println("clients", len(hub.Clients), hub.Clients, ws.RemoteAddr())
+		// fmt.Println("clients", len(hub.Clients), hub.Clients, ws.RemoteAddr())
 
 		ch.hub.Receiver(c.Request().Context(), client)
 
-		fmt.Println("existing", ws.RemoteAddr().String())
+		// fmt.Println("existing", ws.RemoteAddr().String())
 		delete(hub.Clients, client)
 
 		return c.JSON(http.StatusOK, nil)
