@@ -11,7 +11,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/internal/rooms/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-	"github.com/thuongtruong1009/zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/pkg/validators"
 )
 
 type roomHandler struct {
@@ -112,11 +112,3 @@ func (rh *roomHandler) ContactListHandler() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, res)
 	}
 }
-
-func (rh *roomHandler) CreateFetchChatBetweenIndexHandler() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		rh.roomUC.GetFetchChatBetweenIndex(c.Request().Context())
-		return c.JSON(http.StatusOK, nil)
-	}
-}
-

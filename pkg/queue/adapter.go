@@ -1,9 +1,9 @@
-package main
+package queue
 
 import (
 	"context"
 	"fmt"
-	"github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
 )
 

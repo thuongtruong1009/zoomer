@@ -9,10 +9,10 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type AuthClaims struct {
@@ -57,7 +57,9 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	}
 
 	user.HashPassword()
+
 	err := a.userRepo.CreateUser(ctx, user)
+
 	if err != nil {
 		return nil, err
 	}

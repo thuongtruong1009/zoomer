@@ -9,5 +9,4 @@ type Handler interface {
 	//sync to redis
 	ChatHistoryHandler() echo.HandlerFunc
 	ContactListHandler() echo.HandlerFunc
-	CreateFetchChatBetweenIndexHandler() echo.HandlerFunc
 }

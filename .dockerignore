@@ -3,6 +3,7 @@
 .gitignore
 .gitattributes
 Dockerfile-*
+docker-compose*
 Makefile
 LICENSE
 README.md
@@ -20,9 +21,5 @@ SECURITY.md
 build/
 vscode/
 client/
-client_draft/
-client_stream/
 docs/
-examples/
-templates/
 public/

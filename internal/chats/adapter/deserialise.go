@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/go-redis/redis/v8"
 	"log"
+	"fmt"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
@@ -30,6 +31,7 @@ func Deserialise(res interface{}) []Document {
 					Total:   v[0].(int64),
 				}
 				docs = append(docs, doc)
+				fmt.Println("doc", doc)
 			}
 			return docs
 		}

@@ -94,6 +94,8 @@ go test -v ./integration-tests
 
 <!-- **References**
 
+- [Clean architecture](https://github.dev/manakuro/golang-clean-architecture)
+
 - [Web socket chat](https://www.youtube.com/watch?v=W9SuX9c40s8)
 
 - [Status user ref](https://anonystick.com/blog-developer/check-user-online-hay-offline-nhu-facebook-voi-1-dong-code-javascript-2020112018731223)

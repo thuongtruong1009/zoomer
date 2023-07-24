@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"github.com/thuongtruong1009/zoomer/internal/search/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/search/usecase"
-	"github.com/thuongtruong1009/zoomer/validators"
+	"github.com/thuongtruong1009/zoomer/pkg/validators"
 )
 
 type searchHandler struct {

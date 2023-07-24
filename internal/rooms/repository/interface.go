@@ -19,5 +19,5 @@ type RoomRepository interface {
 
 	FetchContactList(ctx context.Context, username string) ([]models.ContactList, error)
 
-	CreateFetchChatBetweenIndex(ctx context.Context)
+	CreateFetchChatBetweenIndex()
 }

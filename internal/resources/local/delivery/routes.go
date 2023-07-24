@@ -2,12 +2,13 @@ package delivery
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 func MapLocalResourceRoutes(localGroup *echo.Group, lh LocalHandler) {
-	localGroup.POST("/local/single", lh.UploadSingleFile())
-	localGroup.POST("/local/multiple", lh.UploadMultipleFile())
+	localGroup.POST(constants.UploadSingleLocalResourceEndPoint, lh.UploadSingleFile())
+	localGroup.POST(constants.UploadMultipleLocalResourceEndPoint, lh.UploadMultipleFile())
 
-	localGroup.DELETE("/local/single/:fileName", lh.DeleteSingleFile())
-	localGroup.DELETE("/local/multiple", lh.DeleteMultipleFile())
+	localGroup.DELETE(constants.DeleteSingleLocalResourceEndPoint, lh.DeleteSingleFile())
+	localGroup.DELETE(constants.DeleteMultipleLocalResourceEndPoint, lh.DeleteMultipleFile())
 }

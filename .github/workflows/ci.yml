@@ -10,7 +10,6 @@ on:
       - "!internal/**"
       - "!pkg/**"
 			- "!validators/**"
-			- "!kubernetes/**"
 
 jobs:
   build-and-test:
@@ -87,11 +86,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest # $(date + %s)
-
-      - name: Deploy to Kubernetes
-        uses: appleboy/kubectl-action@master
-        with:
-          args: apply -f kubernetes/deployment.yml
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest

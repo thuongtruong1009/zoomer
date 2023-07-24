@@ -83,7 +83,12 @@ func (rr *roomRepository) FetchChatBetween(ctx context.Context, username1, usern
 		return nil, err
 	}
 
+	fmt.Println("step 1: ", res)
+
 	data := chatAdapter.Deserialise(res)
+
+	fmt.Println("step 2: ", data)
+
 	chats := chatAdapter.DeserialiseChat(data)
 
 	return chats, nil
@@ -105,8 +110,8 @@ func (rr *roomRepository) FetchContactList(ctx context.Context, username string)
 	return contactList, nil
 }
 
-func (rr *roomRepository) CreateFetchChatBetweenIndex(ctx context.Context) {
-	res, err := rr.redisDB.Do(ctx, "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON",
+func (rr *roomRepository) CreateFetchChatBetweenIndex() {
+	res, err := rr.redisDB.Do(context.Background(), "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON",
 	"PREFIX", "1", "chat#",
 	"SCHEMA", "$.from", "AS", "from", "TAG",
 	"$.to", "AS", "to", "TAG",

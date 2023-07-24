@@ -11,6 +11,8 @@ _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
 setup:
+  go get -u ./...
+	go mod tidy
 	go install github.com/cosmtrek/air@v1.27.3
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
@@ -36,16 +38,16 @@ docs:
 # Migration
 
 migration-create:
-	migrate create -ext sql -dir migrations/sql $(name)
+	migrate create -ext sql -dir db/migrations/sql -seq $(name)
 
 migration-up:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" up
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" up
 
 migration-down:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" down
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" down
 
 migrate-status:
-	migrate -path migrations/sql -verbose -database "${DATABASE_URL}" status
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" status
 
 seed:
 	go run ./cmd/seed/main.go
@@ -56,10 +58,10 @@ docker-build:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 
 docker-dev:
-	docker build -t ${APPLICATION_NAME}:development --build-arg TARGET=development -f Dockerfile .
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 docker-prod:
-	docker build -t ${APPLICATION_NAME}:production --build-arg TARGET=production -f Dockerfile .
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 docker-push:
 	docker push ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}

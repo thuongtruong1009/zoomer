@@ -7,24 +7,24 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { useRouter } from 'next/router'
 
 const WindowOptions = () => {
-  const width = 1000;
-  const height = 600;
-  const left = (window.innerWidth / 2) - (width / 2);
-  const top = (window.innerHeight / 2) - (height / 2);
-  const size = 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top;
-  const options = size + ', toolbar=yes, scrollbars=yes, resizable=yes';
-  return options;
+    const width = 1000
+    const height = 600
+    const left = window.innerWidth / 2 - width / 2
+    const top = window.innerHeight / 2 - height / 2
+    const size = 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top
+    const options = size + ', toolbar=yes, scrollbars=yes, resizable=yes'
+    return options
 }
 
 export const ChatHeader = () => {
     const router = useRouter()
 
     const createStream = async () => {
-      const resp = await fetch("http://localhost:8081/create");
-      const { data } = await resp.json();
+        const resp = await fetch('http://localhost:8080/create')
+        const { data } = await resp.json()
 
-      window.open(`/stream/${data.room_id}`, '_blank', WindowOptions())
-    };
+        window.open(`/stream/${data.room_id}`, '_blank', WindowOptions())
+    }
 
     const friendName = String(router.query.roomId)
 

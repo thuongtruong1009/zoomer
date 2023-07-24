@@ -2,21 +2,20 @@ package configs
 
 import (
 	"fmt"
+	"os"
+	"log"
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
-	"log"
-	"os"
 )
 
 type Configuration struct {
-	HttpPort    string `env:"HTTP_PORT" envDefault:"8080"`
-	WsPort      string `env:"WS_PORT" envDefault:"8081"`
+	AppPort    string `env:"APP_PORT" envDefault:"8080"`
 	HashSalt    string `env:"HASH_SALT,required"`
 	SigningKey  string `env:"SIGNING_KEY,required"`
 	TokenTTL    int64  `env:"TOKEN_TTL,required"`
 	JwtSecret   string `env:"JWT_SECRET,required"`
 	AutoMigrate bool   `env:"AUTO_MIGRATE" envDefault:"true"`
-	HttpsMode   string `env:"HTTPS_MODE" envDefault:"release"`
+	HttpsMode   string `env:"HTTPS_MODE" envDefault:"false"`
 
 	DatabaseConnectionURL string `env:"PG_URI,required"`
 	MaxOpenConnection     int    `env:"PG_MAX_OPEN_CONN" envDefault:"20"`

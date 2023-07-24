@@ -94,6 +94,7 @@ func (ru roomUsecase) GetChatHistory(ctx context.Context, username1, username2, 
 		return res
 	}
 
+	fmt.Println("history: ", chats)
 
 	res.Status = true
 	res.Data = chats
@@ -120,8 +121,4 @@ func (ru roomUsecase) ContactList(ctx context.Context, username string) *present
 	res.Data = contacts
 	res.Total = len(contacts)
 	return res
-}
-
-func (ru roomUsecase) GetFetchChatBetweenIndex(ctx context.Context) {
-	ru.roomRepo.CreateFetchChatBetweenIndex(ctx)
 }
