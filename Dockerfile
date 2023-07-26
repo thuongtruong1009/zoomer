@@ -1,43 +1,37 @@
-FROM golang:1.20-alpine as development
-
+FROM golang:1.20-alpine AS development
 # RUN apk update && apk add make git build-base bash
-
 RUN mkdir -p /app
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-# RUN go install github.com/cosmtrek/air@latest
+RUN go install github.com/cosmtrek/air@latest
+RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 RUN go clean --modcache
-
 COPY . .
+RUN apk add --no-cache git
+RUN go build -v -o main-dev ./cmd/main.go
 
-RUN go build -o app-dev ./cmd/main.go
-
-FROM golang:1.20-alpine as production
-
-# RUN apk update && apk add ca-certificates
-
+FROM golang:1.20-alpine AS production
+RUN apk update && apk --no-cache add ca-certificates
 RUN mkdir -p /app
 WORKDIR /app
-
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/main.go
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -o app-prod ./cmd/main.go
-
-FROM golang:1.20-alpine
-
+FROM scratch
 WORKDIR /app
-
-COPY --from=development /app /app/app-dev
-COPY --from=production /app /app/app-prod
-
+RUN addgroup -S zoomer
+RUN adduser -S -D -h /app zoomer zoomer
+RUN chown -R zoomer:zoomer /app
+USER zoomer
+COPY --chown=zoomer:zoomer --from=development /app /app/app-dev
+COPY --chown=zoomer:zoomer --from=production /app/main-prod /app
 EXPOSE 8080
-
 CMD if [ "$TARGET" = "development" ]; \
-    then ./app-dev; \
-    else ./app-prod; \
+    then /app/app-dev/main-dev; \
+    else /app/main-prod; \
     fi
 
 LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"

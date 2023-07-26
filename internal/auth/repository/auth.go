@@ -7,9 +7,9 @@ import (
 	"time"
 	"log"
 	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	// "zoomer/pkg/cache"
+	"github.com/thuongtruong1009/zoomer/pkg/cache"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 )
 
@@ -51,11 +51,11 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 }
 
 func (ar *authRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
-	//check in cache
-	// UsernameInCache := cache.GetCache(cache.UsernameKey(username))
-	// if UsernameInCache != nil {
-	// 	return UsernameInCache.(*models.User), nil
-	// }
+	// check in cache
+	UsernameInCache := cache.GetCache(cache.UsernameKey(username))
+	if UsernameInCache != nil {
+		return UsernameInCache.(*models.User), nil
+	}
 
 	timeoutCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
@@ -79,17 +79,17 @@ func (ar *authRepository) GetUserByUsername(ctx context.Context, username string
 	}
 
 	//set in cache
-	// cache.SetCache(cache.UsernameKey(username), &user, 0)
+	cache.SetCache(cache.UsernameKey(username), &user, 0)
 
 	return &user, nil
 }
 
 func (ar *authRepository) GetUserById(ctx context.Context, userId string) (*models.User, error) {
 	//check in cache
-	// UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
-	// if UsernameInCache != nil {
-	// 	return UsernameInCache.(*models.User), nil
-	// }
+	UsernameInCache := cache.GetCache(cache.UserIdKey(userId))
+	if UsernameInCache != nil {
+		return UsernameInCache.(*models.User), nil
+	}
 
 	timeoutCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
@@ -102,7 +102,7 @@ func (ar *authRepository) GetUserById(ctx context.Context, userId string) (*mode
 	}
 
 	// set in cache
-	// cache.SetCache(cache.UserIdKey(userId), &user, 0)
+	cache.SetCache(cache.UserIdKey(userId), &user, 0)
 
 	return &user, nil
 }

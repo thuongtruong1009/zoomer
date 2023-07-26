@@ -1,94 +1,67 @@
 package migrations
 
 import (
-	"database/sql"
-	"embed"
+	"errors"
+	"time"
+	"log"
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/golang-migrate/migrate/v4/source/iofs"
-	"github.com/sirupsen/logrus"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/thuongtruong1009/zoomer/configs"
 )
 
-//go:embed sql/*
-var fs embed.FS
+const (
+	_defaultAttempts = 20
+	_defaultTimeout = time.Second
+)
 
-type MLog struct {
-	log *logrus.Entry
-}
+func init() {
+	databaseURL := configs.LookupEnv("PG_URI") + "?sslmode=disable"
 
-func (MLog) Verbose() bool {
-	return false
-}
+	var (
+		attempts = _defaultAttempts
+		err error
+		m *migrate.Migrate
+	)
 
-func (m *MLog) Printf(format string, v ...interface{}) {
-	m.log.Infof(format, v...)
-}
+	log.Println("Migration - start")
 
-func (m *MLog) Errorf(format string, v ...interface{}) {
-	m.log.Errorf(format, v...)
-}
+	for attempts > 0 {
+		m, err = migrate.New("file://db/migrations", databaseURL)
+		if err == nil {
+			break
+		}
 
-func RunAutoMigrate(db *sql.DB, log *logrus.Logger) {
-	// m, err := migrate.New(
-	// 	"file://db/migrations",
-	// 	"postgres://postgres:postgres@localhost:5432/example?sslmode=disable")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// if err := m.Up(); err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	d, err := iofs.New(fs, "sql")
-	if err != nil {
-		log.Fatalln("auto migration - new iofs", "err", err.Error())
+		log.Println("Migration - trying to reconnect, attempts left:", attempts, "err:", err.Error())
+		time.Sleep(_defaultTimeout)
+		attempts--
 	}
 
-	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
-		log.Fatalln("auto migration - new postgres driver", "err", err.Error())
+		log.Fatalln("Migration - error connect to db", "err: ", err.Error())
 	}
 
-	m, err := migrate.NewWithInstance("iofs", d, "postgres", driver)
-	if err != nil {
-		log.Fatalln("auto migration - new migrate", "err", err.Error())
-	}
-
+	err = m.Up()
 	defer m.Close()
-	m.Log = &MLog{
-		log: logrus.NewEntry(log),
+	if err != nil && err != migrate.ErrNoChange {
+		log.Fatalln("Migration - error migrate up", "err: ", err.Error())
 	}
-	// 	err = m.Down()
-	// if err != nil && err != migrate.ErrNoChange {
-	//     log.Fatalln("auto migration - error migrate down", "err", err.Error())
-	// }
 
-	// err = m.Up()
-	// if err != nil && err != migrate.ErrNoChange {
-	//     log.Fatalln("auto migration - error migrate up", "err", err.Error())
-	// }
-	// 	log.Info("step 6")
+	if errors.Is(err, migrate.ErrNoChange) {
+		log.Println("Migration - up no change")
+	}
 
-	// 	dbversion, dirty, err := m.Version()
-	// 	if err != nil {
-	// 		log.Fatalln("auto migration - error get version", "err", err.Error())
-	// 	}
+	err = m.Down()
+	if err != nil {
+		log.Fatalln("Migration - error migrate down", "err: ", err.Error())
+	}
 
-	// log.Infof("Currentdb version: %d, dirty: %t", dbversion, dirty)
+	dbversion, dirty, err := m.Version()
+	if err != nil {
+		log.Fatalln("auto migration - error get version", "err", err.Error())
+	}
+
+	log.Printf("Currentdb version: %d, dirty: %t", dbversion, dirty)
+
+	log.Println("Migration - success")
 }
-
-// func demo1() {
-// 	//_ "github.com/golang-migrate/migrate/v4/source/file"
-// 	driver, err := postgres.WithInstance(db, &postgres.Config{})
-// 	if err != nil {
-// 		log.Fatalf("cannot create postgres driver %v", err)
-// 	}
-
-// 	m, err := migrate.NewWithDatabaseInstance("file://migrations/", "postgres", driver)
-// 	if err != nil {
-// 		log.Fatalf("cannot create migrations instance %v", err)
-// 	}
-// 	if err = m.Up(); err != nil && err.Error() != "no change" {
-// 		log.Fatalf("error running migrations %v", err)
-// 	}
-// }

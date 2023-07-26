@@ -34,43 +34,30 @@ services:
 
   redis-master:
     image: redis:7.0-alpine
-    container_name: redis-master
     ports:
       - "6380:6379"
-      - "26380:26379"
     networks:
       - redis-network
     volumes:
       - ./.docker/redis/data/master:/data
-      - ./.docker/redis/config/master/redis.conf:/etc/redis/sentinel.conf
     restart: always
 
   redis-slave:
     image: redis:7.0-alpine
-    container_name: redis-slave
-    ports:
-      - "6381:6379"
-      - "26381:26379"
     networks:
       - redis-network
     volumes:
       - ./.docker/redis/data/slave:/data
-      - ./.docker/redis/config/slave/redis.conf:/etc/redis/sentinel.conf
     restart: always
 
   redis-sentinel:
     image: redis:7.0-alpine
-    container_name: redis-sentinel
     ports:
       - "26379:26379"
-    depends_on:
-      - redis-master
-      - redis-slave
     networks:
       - redis-network
     volumes:
-      - ./.docker/redis/data/sentinel:/data
-      - ./.docker/redis/config/sentinel/sentinel.conf:/etc/redis/sentinel.conf
+      - ./.docker/redis/config/sentinel.conf:/usr/local/etc/redis/sentinel.conf
     restart: always
 
   redis-commander:
@@ -100,7 +87,7 @@ services:
     image: rabbitmq:3.11.3-management-alpine
     container_name: rabbitmq
     ports:
-      - "${RMQ_PORT}:5672"
+      - "5672:5672"
       - "15672:15672"
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
@@ -115,8 +102,7 @@ services:
       - rabbitmq-network
 
   app:
-    image: thuongtruong1009/zoomer
-    # platform: linux/amd64
+    # image: thuongtruong1009/zoomer
     build:
       context: .
       dockerfile: Dockerfile

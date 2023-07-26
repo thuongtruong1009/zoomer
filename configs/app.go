@@ -54,3 +54,11 @@ func NewConfig(files ...string) *Configuration {
 func GetEnvKey(key string) string {
 	return os.Getenv(key)
 }
+
+func LookupEnv(key string) string {
+	envVal, ok := os.LookupEnv(key)
+	if !ok || len(envVal) == 0 {
+		log.Fatalf("Environment variable %s is not set", key)
+	}
+	return envVal
+}

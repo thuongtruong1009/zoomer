@@ -7,4 +7,5 @@ const (
 	BucketName     string = "zoomer"
 	UploadPath	 string = "public/upload/"
 	UploadPathReturn string = "/upload/"
+	UploadPathInit string = "public/upload"
 )

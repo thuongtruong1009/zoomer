@@ -74,14 +74,9 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 
 	if cfg.AutoMigrate == true {
 		if err := db.AutoMigrate(&models.User{}, &models.Room{}); err != nil {
-			panic("Error when run migrations")
+			panic("Error when run auto migrations")
 		}
-		log.Println("Migration successful")
-
-		// sql, err := db.DB()
-		// if err != nil {
-		// 	panic("failed to get database connection")
-		// }
+		log.Println("Auto migration successful")
 
 		// sqlString := fmt.Sprintf("CREATE TABLE IF NOT EXISTS users(%s);", db.Migrator().CurrentDatabase().Migrator().GetTable(&User{}))
 		// fmt.Println(sqlString)
