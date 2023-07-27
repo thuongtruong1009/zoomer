@@ -23,15 +23,16 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) Aut
 	}
 }
 
-// CreateANewUser godoc
+// SignUp godoc
 // @Summary      Create a new user
 // @Description  Create a new user
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  wrapper.SuccessResponse{data=presenter.SignUpResponse}
-// @Router       /api/auth/signup [post]
-
+// @Success      200  {object}  presenter.SignUpResponse
+// @Router       /auth/signup [post]
+// @Failure 400 {object} string "Bad Request"
+// @Param user body presenter.SignUpInput true "Create User"
 func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}

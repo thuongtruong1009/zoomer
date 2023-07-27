@@ -94,7 +94,9 @@ go test -v ./integration-tests
 
 <!-- **References**
 
-- [Clean architecture](https://github.dev/manakuro/golang-clean-architecture)
+- [Clean architecture 1](https://github.dev/manakuro/golang-clean-architecture)
+
+- [Clean architecture 2](https://github.dev/evrone/go-clean-template)
 
 - [Web socket chat](https://www.youtube.com/watch?v=W9SuX9c40s8)
 

@@ -11,6 +11,7 @@ import (
 	"mime/multipart"
 	"path/filepath"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"github.com/thuongtruong1009/zoomer/internal/resources/local/presenter"
 )
 
@@ -33,7 +34,7 @@ func (lu *localResourceUsecase) UploadSingleFile(ctx context.Context, file *mult
 	}
 	defer src.Close()
 
-	dst, err := os.Create(constants.UploadPath + filename)
+	dst, err := helpers.LockFuncOneInTwoOut[string, *os.File, error](os.Create)(constants.UploadPath + filename)
 	if err != nil {
 		log.Println("Failed to create file", err)
 		return nil, err
@@ -62,7 +63,7 @@ func (lu *localResourceUsecase) UploadMultipleFile(ctx context.Context, files []
 		now := time.Now()
 		filename := strings.ReplaceAll(strings.ToLower(originalFileName), " ", "-") + "-" + fmt.Sprintf("%v", now.Unix()) + fileExt
 
-		out, err := os.Create(constants.UploadPath + filename)
+		out, err := helpers.LockFuncOneInTwoOut[string, *os.File, error](os.Create)(constants.UploadPath + filename)
 		if err != nil {
 			return nil, err
 		}
@@ -91,7 +92,7 @@ func (lu *localResourceUsecase) UploadMultipleFile(ctx context.Context, files []
 }
 
 func (lu *localResourceUsecase) DeleteSingleFile(ctx context.Context, fileName string) error {
-	err := os.Remove(constants.UploadPath + fileName)
+	err := helpers.LockFuncOneInOneOut[string, error](os.Remove)(constants.UploadPath + fileName)
 	if err != nil {
 		return err
 	}
@@ -100,7 +101,7 @@ func (lu *localResourceUsecase) DeleteSingleFile(ctx context.Context, fileName s
 
 func (lu *localResourceUsecase) DeleteMultipleFile(ctx context.Context, fileNames []string) error {
 	for _, fileName := range fileNames {
-		err := os.Remove(constants.UploadPath + fileName)
+		err := helpers.LockFuncOneInOneOut[string, error](os.Remove)(constants.UploadPath + fileName)
 		if err != nil {
 			return err
 		}

@@ -40,6 +40,28 @@ func TestParallelize(t *testing.T) {
 	}
 }
 
+// Lock
+
+func TestLockFuncOneInOneOut(t *testing.T) {
+	var got int
+
+	func1 := func(i int) int {
+		return i
+	}
+
+	lockedFunc := LockFuncOneInOneOut(func1)
+
+	go func() {
+		got = lockedFunc(1)
+	}()
+
+	time.Sleep(1 * time.Second)
+
+	if got != 1 {
+		t.Errorf("LockFuncOneInOneOut(): got %d; want 1", got)
+	}
+}
+
 func TestLockFuncTwoInTwoOut(t *testing.T) {
 	var got1, got2 int
 

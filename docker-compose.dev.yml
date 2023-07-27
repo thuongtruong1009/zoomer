@@ -5,10 +5,10 @@ services:
     hostname: postgres
     environment:
       # - POSTGRES_HOST=postgres
-      - POSTGRES_DB=zoomer
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456789
       # - POSTGRES_HOST_AUTH_METHOD=trust
+      POSTGRES_DB: zoomer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
 
   pgadmin:
     environment:
@@ -16,15 +16,15 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
 
   redis-master:
-    # environment:
-    #   - REDIS_HOST=redis-master
-    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
+    command: redis-server --requirepass master_password
 
   redis-slave:
-    command: redis-server --slaveof redis-master ${REDIS_PORT} --appendonly yes --masterauth ${REDIS_PASSWORD}
+    command: redis-server --slaveof redis-master 6379 --masterauth master_password --requirepass slave_password
 
   redis-sentinel:
-    command: redis-sentinel /etc/redis/sentinel.conf
+    environment:
+      - REDIS_MASTER_HOST=redis-master
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
 
   redis-commander:
     container_name: redis-commander

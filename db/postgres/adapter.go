@@ -15,8 +15,7 @@ type postgresStruct struct {
 }
 
 func NewPgAdapter() PgAdapter {
-	db := &gorm.DB{}
-	return &postgresStruct{db: db}
+	return &postgresStruct{db: &gorm.DB{}}
 }
 
 func (pg *postgresStruct) getInstance(uri string) *gorm.DB {
@@ -72,23 +71,15 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 		}
 	}(dsn)
 
-	if cfg.AutoMigrate == true {
+	if cfg.AutoMigrate {
 		if err := db.AutoMigrate(&models.User{}, &models.Room{}); err != nil {
-			panic("Error when run migrations")
+			panic("Error when run auto migrations")
 		}
-		log.Println("Migration successful")
-
-		// sql, err := db.DB()
-		// if err != nil {
-		// 	panic("failed to get database connection")
-		// }
+		log.Println("Auto migration successful")
 
 		// sqlString := fmt.Sprintf("CREATE TABLE IF NOT EXISTS users(%s);", db.Migrator().CurrentDatabase().Migrator().GetTable(&User{}))
 		// fmt.Println(sqlString)
 	}
-
-	// sqlDB, _ := db.DB()
-	// sqlDB.Close()
 
 	return db
 }

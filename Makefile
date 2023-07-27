@@ -30,10 +30,8 @@ build:
 	go build -o ${APPLICATION_NAME} ${ENTRYPOINT}
 
 docs:
-	swag i --dir ./cmd/,\
-	./modules/,\
-	./pkg/wrapper,\
-	./pkg/contexts
+	swag i --dir ./cmd/, ./internal/auth/delivery/, ./internal/rooms/delivery/, ./internal/stream/delivery/, ./internal/chats/delivery/, ./internal/resources/delivery/, ./internal/search/delivery
+	swag init -g ./cmd/main.go --output ./docs
 
 # Migration
 

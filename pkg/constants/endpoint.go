@@ -17,8 +17,8 @@ const (
 
 const (
 	RoomGroupEndPoint string = "/rooms"
-	CreateRoomEndPoint string = "/"
-	GetAllRoomsEndPoint string = "/"
+	CreateRoomEndPoint string = ""
+	GetAllRoomsEndPoint string = ""
 	GetRoomsOfUserEndPoint string = "/:userId"
 	GetChatHistoryEndPoint string = "/chat-history"
 	GetContactListEndPoint string = "/contact-list"
@@ -31,7 +31,7 @@ const (
 )
 
 const (
-	ChatConnectEndPoint string = WsGroup + "/"
+	ChatConnectEndPoint string = WsGroup + ""
 )
 
 const (
