@@ -23,6 +23,7 @@ import (
 	localResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
+	_ "github.com/thuongtruong1009/zoomer/docs"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
@@ -45,19 +46,13 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	minioResourceHandler := minioResourceHttp.NewResourceHandler(resourceUC)
 	localResourceHandler := localResourceHttp.NewLocalResourceHandler(s.inter, localResourceUC)
 
-	middlewares.HttpMiddleware(e, s.inter)
+	e.Static(constants.StaticGroupPath, constants.StaticGroupName)
+	e.GET(constants.DocGroup, echoSwagger.WrapHandler)
 
+	middlewares.HttpMiddleware(e, s.inter)
 	mw := middlewares.BaseMiddlewareManager(authUC, s.inter)
 
-	e.Static(constants.StaticGroupPath, constants.StaticGroupName)
-
 	httpGr := e.Group(constants.ApiGroup)
-
-	e.GET(constants.DocGroup, echoSwagger.WrapHandler)
-	/*
-		url := echoSwagger.URL("http://localhost:1323/swagger/doc.json") //The url pointing to API definition
-		e.GET("/docs/*", echoSwagger.EchoWrapHandler(url))
-	*/
 
 	authGroup := httpGr.Group(constants.AuthGroupEndPoint)
 	authHttp.MapAuthRoutes(authGroup, authHandler)

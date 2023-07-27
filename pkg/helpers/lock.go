@@ -48,16 +48,6 @@ func LockFuncOneInTwoOut[i any, o1 any, o2 any](f func (i) (o1, o2)) func (i) (o
 	}
 }
 
-// func LockFuncTwoInOneOut[i1 any, i2 any, o any](f func (i1, i2) o) func (i1, i2) o {
-// 	m := MutexWrapper{}
-
-// 	return func(i1Val i1, i2Val i2) o {
-// 		m.lock()
-// 		defer m.unLock()
-// 		return f(i1Val, i2Val)
-// 	}
-// }
-
 func LockFuncTwoInTwoOut[i1 any, i2 any, o1 any, o2 any](f func (i1, i2) (o1, o2)) func (i1, i2) (o1, o2) {
 	m := MutexWrapper{}
 

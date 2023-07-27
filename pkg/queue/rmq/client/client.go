@@ -8,12 +8,13 @@ import (
 	"encoding/json"
 	"github.com/streadway/amqp"
 	"github.com/google/uuid"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/queue/rmq/adapter"
 )
 
 const (
-	_defaultWaitAttempts = 5 * time.Second
-	_defaultWaitTime = 10
+	_defaultWaitTime = 5 * time.Second
+	_defaultAttempts = 10
 	_defaultTimeOut = 2 * time.Second
 )
 
@@ -44,10 +45,10 @@ type Client struct {
 }
 
 func New(url, serverExchange, clientExchange string, opts ...Option) (*Client, error) {
-	cfg ;= adapter.RmqConfig {
+	cfg := adapter.RmqConfig {
 		URL: url,
 		WaitTime: _defaultWaitTime,
-		Attempts: _defaultWaitAttempts,
+		Attempts: _defaultAttempts,
 	}
 
 	c := &Client {
@@ -87,10 +88,10 @@ func (c *Client) publish(corrID, handler string, request interface{}) error {
 
 	err = c.conn.Channel.Publish(c.serverExchange, "", false, false, amqp.Publishing {
 		ContentType: "application/json",
-		CrrelationId: corrID,
-		ReplyTo: c.conn.ConsummerExchange,
-		type: handler,
-		Body: requestBody
+		CorrelationId: corrID,
+		ReplyTo: c.conn.ConsumerExchange,
+		Type: handler,
+		Body: requestBody,
 	})
 
 	if err != nil {
@@ -103,12 +104,12 @@ func (c *Client) RemoteCall(handler string, request, response interface{}) error
 	select {
 	case <- c.stop:
 		time.Sleep(c.timeout)
-		selecr {
-		case <- c.stop:
+		select {
+		case <-c.stop:
 			return errors.New("Client is stopped")
-			default:
-		}
 		default:
+		}
+	default:
 	}
 
 	corrID := uuid.New().String()
@@ -118,7 +119,7 @@ func (c *Client) RemoteCall(handler string, request, response interface{}) error
 	}
 
 	call := &pendingCall {
-		done: make(chan struct{})
+		done: make(chan struct{}),
 	}
 
 	c.addCall(corrID, call)
@@ -194,7 +195,7 @@ func (c *Client) getCall(d *amqp.Delivery) {
 }
 
 func (c *Client) addCall(corrID string, call *pendingCall) {
-	r.rw.Lock()
+	c.rw.Lock()
 	c.calls[corrID] = call
 	c.rw.Unlock()
 }

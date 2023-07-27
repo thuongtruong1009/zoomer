@@ -23,7 +23,7 @@ func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 		Skipper: func(c echo.Context) bool {
-			skips := [2]string{"auth", "swagger"}
+			skips := [2]string{"auth", "docs"}
 			for _, skip := range skips {
 				if strings.Contains(c.Request().URL.Path, skip) {
 					return true

@@ -104,7 +104,7 @@ func TLSConfig(certPath, keyPath string) {
 	template := x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
-			Organization: []string{"Acme Co"},
+			Organization: []string{"zoomer"},
 		},
 		NotBefore: notBefore,
 		NotAfter:  notAfter,
