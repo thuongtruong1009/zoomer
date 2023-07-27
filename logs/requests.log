@@ -864,3 +864,21 @@
 
 [Id: pbKbREq4VEZYXlgtay8QWvG7xEUD97aH] 2023/07/24 16:45:08 logger.go:23:  Time: 2023-07-24T16:45:08+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/multiple Status: 200 Latency: 3.0674ms Bytes_in: 68826 Bytes_out: 150
 
+[Id: ImH5iweCu70PclhJoGsUUC5JUTOSGjBj] 2023/07/27 16:35:33 logger.go:23:  Time: 2023-07-27T16:35:33+07:00 Remote_IP: 127.0.0.1 Agent:  Host: localhost:8080 Method: GET Uri: /ws Status: 404 Latency: 1.1374ms Bytes_in: 0 Bytes_out: 24
+
+[Id: z48bqIwSq330R5YR7ehrUlcYQHFVUCDw] 2023/07/27 16:35:58 logger.go:23:  Time: 2023-07-27T16:35:58+07:00 Remote_IP: 127.0.0.1 Agent:  Host: localhost:8080 Method: GET Uri: /ws/ Status: 200 Latency: 10.1132347s Bytes_in: 0 Bytes_out: 0
+
+[Id: xp4D71fcsKjl8rNwwl1bRrQv5f1cvls4] 2023/07/27 16:37:10 logger.go:23:  Time: 2023-07-27T16:37:10+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183 Host: localhost:8080 Method: GET Uri: /test Status: 404 Latency: 2.2603ms Bytes_in: 0 Bytes_out: 24
+
+[Id: xipKwGmUaQrkJ7JOyF8tIi4Ftiid9IAO] 2023/07/27 16:37:12 logger.go:23:  Time: 2023-07-27T16:37:12+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183 Host: localhost:8080 Method: GET Uri: /favicon.ico Status: 404 Latency: 1.7055ms Bytes_in: 0 Bytes_out: 24
+
+[Id: 3oLH2MS3DFVdVkNCLNowdxUVYz0BpgBa] 2023/07/27 16:37:13 logger.go:23:  Time: 2023-07-27T16:37:13+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183 Host: localhost:8080 Method: GET Uri: / Status: 404 Latency: 3.6804ms Bytes_in: 0 Bytes_out: 24
+
+[Id: LyASTPiMtvFNQZOOtvysqqNd1yHsEoq8] 2023/07/27 16:37:32 logger.go:23:  Time: 2023-07-27T16:37:32+07:00 Remote_IP: ::1 Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183 Host: localhost:8080 Method: GET Uri: /minio.png Status: 200 Latency: 24.4366ms Bytes_in: 0 Bytes_out: 160910
+
+[Id: fr8dzSs6mbeG0Toraq8UcrJpj2IKxR8i] 2023/07/27 16:38:15 logger.go:23:  Time: 2023-07-27T16:38:15+07:00 Remote_IP: 127.0.0.1 Agent:  Host: localhost:8080 Method: GET Uri: /ws/ Status: 404 Latency: 1.2334ms Bytes_in: 0 Bytes_out: 24
+
+[Id: fIGqBWt3rdO8J8HxcxiCInV2NzFD0a7p] 2023/07/27 16:38:19 logger.go:23:  Time: 2023-07-27T16:38:19+07:00 Remote_IP: 127.0.0.1 Agent:  Host: localhost:8080 Method: GET Uri: /ws Status: 200 Latency: 1.7474152s Bytes_in: 0 Bytes_out: 0
+
+[Id: eHUH2xBNFOFz6bEpbfSIepxibuGV8uAG] 2023/07/27 16:38:28 logger.go:23:  Time: 2023-07-27T16:38:28+07:00 Remote_IP: ::1 Agent: PostmanRuntime/7.32.3 Host: localhost:8080 Method: POST Uri: /api/resources/local/single Status: 200 Latency: 7.2788ms Bytes_in: 6772 Bytes_out: 82
+

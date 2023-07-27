@@ -1,15 +1,12 @@
 package helpers
 
-import (
-	"sync"
-)
+import "sync"
 
 func Parallelize(functions ...func()) {
     var waitGroup sync.WaitGroup
+    waitGroup.Add(len(functions))
 
 	ch := make(chan struct{}, len(functions))
-
-    waitGroup.Add(len(functions))
 
     for _, function := range functions {
 		ch <- struct{}{}
