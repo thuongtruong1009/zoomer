@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
-	"strings"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"strings"
 )
 
 func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {
@@ -19,6 +19,7 @@ func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {
 	e.Use(middleware.Timeout())
 	e.Use(middleware.RequestID())
 	e.Use(middleware.BodyLimit("2M"))
+	e.Use(middleware.Recover())
 
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
@@ -43,8 +44,11 @@ func HttpMiddleware(e *echo.Echo, inter interceptor.IInterceptor) {
 	}))
 
 	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
-		StackSize: 1 << 10, // 1 KB
-		LogLevel:  log.ERROR,
+		StackSize:         1 << 10, // 1 KB
+		LogLevel:          log.ERROR,
+		DisableStackAll:   false,
+		DisablePrintStack: false,
+		LogErrorFunc:      nil,
 	}))
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{

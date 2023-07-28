@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	"io"
 	"log"
 	"os"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type resourceRepository struct {

@@ -2,36 +2,35 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 
 	authRepository "github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	resourceRepository "github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
 	roomRepository "github.com/thuongtruong1009/zoomer/internal/rooms/repository"
 	searchRepository "github.com/thuongtruong1009/zoomer/internal/search/repository"
-	resourceRepository "github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
 
 	authUsecase "github.com/thuongtruong1009/zoomer/internal/auth/usecase"
+	localResourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/local/usecase"
+	resourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
 	roomUsecase "github.com/thuongtruong1009/zoomer/internal/rooms/usecase"
 	searchUsecase "github.com/thuongtruong1009/zoomer/internal/search/usecase"
-	resourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
-	localResourceUsecase "github.com/thuongtruong1009/zoomer/internal/resources/local/usecase"
 
 	authHttp "github.com/thuongtruong1009/zoomer/internal/auth/delivery"
+	localResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/local/delivery"
+	minioResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/minio/delivery"
 	roomHttp "github.com/thuongtruong1009/zoomer/internal/rooms/delivery"
 	searchHttp "github.com/thuongtruong1009/zoomer/internal/search/delivery"
-	minioResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/minio/delivery"
-	localResourceHttp "github.com/thuongtruong1009/zoomer/internal/resources/local/delivery"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 	_ "github.com/thuongtruong1009/zoomer/docs"
 )
 
 func (s *Server) HttpMapServer(e *echo.Echo) error {
-	pgInstance := s.pgDB.ConnectInstance(s.cfg)
-	authRepo := authRepository.NewAuthRepository(pgInstance, s.redisDB)
-	roomRepo := roomRepository.NewRoomRepository(pgInstance, s.redisDB)
+	authRepo := authRepository.NewAuthRepository(s.pgDB, s.redisDB)
+	roomRepo := roomRepository.NewRoomRepository(s.pgDB, s.redisDB)
 	roomRepo.CreateFetchChatBetweenIndex()
-	searchRepo := searchRepository.NewSearchRepository(pgInstance)
+	searchRepo := searchRepository.NewSearchRepository(s.pgDB)
 	resourceRepository := resourceRepository.NewResourceRepository()
 
 	authUC := authUsecase.NewAuthUseCase(authRepo, s.cfg.HashSalt, []byte(s.cfg.SigningKey), s.cfg.TokenTTL)
@@ -47,6 +46,7 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	localResourceHandler := localResourceHttp.NewLocalResourceHandler(s.inter, localResourceUC)
 
 	e.Static(constants.StaticGroupPath, constants.StaticGroupName)
+	// e.Use(middleware.Static("/public"))
 	e.GET(constants.DocGroup, echoSwagger.WrapHandler)
 
 	middlewares.HttpMiddleware(e, s.inter)

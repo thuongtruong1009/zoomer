@@ -3,24 +3,24 @@ package repository
 import (
 	"context"
 	"gorm.io/gorm"
+	"log"
 	"strings"
 	"time"
-	"log"
 	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/pkg/cache"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/cache"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type authRepository struct {
-	pgDB *gorm.DB
+	pgDB    *gorm.DB
 	redisDB *redis.Client
 }
 
 func NewAuthRepository(pgDB *gorm.DB, redisDB *redis.Client) UserRepository {
 	return &authRepository{
-		pgDB: pgDB,
+		pgDB:    pgDB,
 		redisDB: redisDB,
 	}
 }

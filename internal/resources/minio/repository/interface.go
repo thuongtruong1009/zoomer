@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"io"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"io"
 )
 
 type ResourceRepository interface {

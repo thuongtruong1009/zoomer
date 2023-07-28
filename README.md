@@ -21,6 +21,10 @@
 - Peer connection: HTTP, WebSocket
 - UML diagram: Diagram.net
 
+## **Technologies**
+
+[Swagger for Go](https://github.com/swaggo/swag)
+
 ## **What news**
 
 - [x] Support JWT
@@ -93,6 +97,8 @@ go test -v ./integration-tests
 ```
 
 <!-- **References**
+
+- [Status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 - [Clean architecture 1](https://github.dev/manakuro/golang-clean-architecture)
 

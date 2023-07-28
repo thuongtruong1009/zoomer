@@ -1,17 +1,17 @@
 package app
 
 import (
-	"runtime"
-	"os"
-	"os/signal"
-	"syscall"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
+	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/db"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/internal/server"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"os"
+	"os/signal"
+	"runtime"
+	"syscall"
 )
 
 func Run(cfg *configs.Configuration) {
@@ -23,6 +23,7 @@ func Run(cfg *configs.Configuration) {
 	logger.SetLevel(logrus.DebugLevel)
 
 	pgAdapter := postgres.NewPgAdapter()
+	pgInstance := pgAdapter.ConnectInstance(cfg)
 	redisInstance := db.GetRedisInstance(cfg)
 
 	inter := interceptor.NewInterceptor()
@@ -30,23 +31,24 @@ func Run(cfg *configs.Configuration) {
 	e := echo.New()
 	defer e.Close()
 
-	initServer := server.NewServer(e, cfg, pgAdapter, redisInstance, logger, inter)
+	initServer := server.NewServer(e, cfg, pgInstance, redisInstance, logger, inter)
 
-	// Waiting signal
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 	signal.Notify(interrupt, os.Kill)
 
 	select {
 	case s := <-interrupt:
-		logger.Info("Got signal:", s.String())
+		logger.Info("Got terminate signal: ", s.String())
 	case err := <-initServer.Notify():
-		logger.Error("Got server error:", err.Error())
+		logger.Error("Got server error: ", err.Error())
 	}
 
-	// Shutdown server
-	err := initServer.Shutdown()
-	if err != nil {
-		logger.Error("Error shutting down server: ", err)
+	if err := initServer.Shutdown(); err != nil {
+		logger.Errorf("Error shutting down server: %v\n", err)
+		os.Exit(1)
 	}
+
+	os.Exit(0)
 }

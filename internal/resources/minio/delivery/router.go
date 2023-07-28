@@ -2,10 +2,10 @@ package delivery
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"log"
 	"time"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
 )
 
 func MapResourceRoutes(resourceGroup *echo.Group, rh ResourceHandler) {

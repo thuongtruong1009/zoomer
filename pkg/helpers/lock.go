@@ -8,7 +8,7 @@ type MutexWrapper struct {
 	mutex sync.Mutex
 }
 
-func (mw *MutexWrapper) lock(){
+func (mw *MutexWrapper) lock() {
 	mw.mutex.Lock()
 }
 
@@ -30,7 +30,7 @@ func (mw *RWMutexWrapper) rUnLock() {
 	mw.rwMutex.RUnlock()
 }
 
-func LockFuncOneInOneOut[i any, o any](f func (i) o) func (i) o {
+func LockFuncOneInOneOut[i any, o any](f func(i) o) func(i) o {
 	m := MutexWrapper{}
 	return func(iVal i) o {
 		m.lock()
@@ -39,7 +39,7 @@ func LockFuncOneInOneOut[i any, o any](f func (i) o) func (i) o {
 	}
 }
 
-func LockFuncOneInTwoOut[i any, o1 any, o2 any](f func (i) (o1, o2)) func (i) (o1, o2) {
+func LockFuncOneInTwoOut[i any, o1 any, o2 any](f func(i) (o1, o2)) func(i) (o1, o2) {
 	m := MutexWrapper{}
 	return func(iVal i) (o1, o2) {
 		m.lock()
@@ -48,7 +48,7 @@ func LockFuncOneInTwoOut[i any, o1 any, o2 any](f func (i) (o1, o2)) func (i) (o
 	}
 }
 
-func LockFuncTwoInTwoOut[i1 any, i2 any, o1 any, o2 any](f func (i1, i2) (o1, o2)) func (i1, i2) (o1, o2) {
+func LockFuncTwoInTwoOut[i1 any, i2 any, o1 any, o2 any](f func(i1, i2) (o1, o2)) func(i1, i2) (o1, o2) {
 	m := MutexWrapper{}
 
 	return func(i1Val i1, i2Val i2) (o1, o2) {

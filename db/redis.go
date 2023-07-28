@@ -5,9 +5,9 @@ import (
 	// "crypto/tls"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+	"github.com/thuongtruong1009/zoomer/configs"
 	"log"
 	"time"
-	"github.com/thuongtruong1009/zoomer/configs"
 )
 
 var RedisClient *redis.Client

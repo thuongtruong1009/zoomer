@@ -2,13 +2,13 @@ package delivery
 
 import (
 	"github.com/labstack/echo/v4"
-	"net/http"
 	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/auth/usecase"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
+	"net/http"
 )
 
 type authHandler struct {
@@ -26,13 +26,14 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) Aut
 // SignUp godoc
 // @Summary      Create a new user
 // @Description  Create a new user
-// @Tags         users
+// @Tags         auth
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  presenter.SignUpResponse
-// @Router       /auth/signup [post]
-// @Failure 400 {object} string "Bad Request"
 // @Param user body presenter.SignUpInput true "Create User"
+// @Success      201  {object}  presenter.SignUpResponse
+// @Failure 400 {object} string constants.ErrorBadRequest
+// @Failure 500 {object} string constants.ErrorInternalServer
+// @Router       /auth/signup [post]
 func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
@@ -55,21 +56,21 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
 
-		return h.inter.Data(c, http.StatusCreated, presenter.SignUpResponse{Id: user.Id, Username: user.Username, Limit: user.Limit})
+		return h.inter.Data(c, http.StatusCreated, user)
 	}
 }
 
-// GetUserInfo godoc
-// @Summary      Get user info
-// @Description  Get user info by ID
-// @Tags         users
+// SignIn godoc
+// @Summary      Login to user account
+// @Description  Login to user account
+// @Tags         auth
 // @Accept       json
 // @Produce      json
-// @Param        userId   path      int  true  "User ID"
-// @Success      200  {object}  wrapper.SuccessResponse{data=domains.User}
-// @Security     XFirebaseBearer
-// @Router       /auth/signin/users/{userId} [get]
-
+// @Param        body presenter.SignInInput true "Login user"
+// @Success      200  {object}  presenter.SignInResponse
+// @Failure 400 {object} string constants.ErrorBadRequest
+// @Failure 500 {object} string constants.ErrorInternalServer
+// @Router       /auth/signin [post]
 func (h *authHandler) SignIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.LoginInput{}
@@ -91,10 +92,23 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 
 		usecase.WriteCookie(c, constants.CookieKey, user.Token, 60*60*24, "/", "localhost", false, true)
 
-		return h.inter.Data(c, http.StatusOK, presenter.LogInResponse{UserId: user.UserId, Username: user.Username, Token: user.Token})
+		return h.inter.Data(c, http.StatusOK, user)
 	}
 }
 
+// SignOut godoc
+// @Summary      Logout user credentials
+// @Description  Logout user credentials
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        userId   path      int  true  "User ID"
+// @Success      204  {object}  constants.ErrorNoContent
+// @Failure 400 {object} string constants.ErrorBadRequest
+// @Failure 401 {object} string constants.ErrorUnauthorized
+// @Failure 500 {object} string constants.ErrorInternalServer
+// @Security     bearerAuth
+// @Router       /auth/signout [post]
 func (h *authHandler) SignOut() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		usecase.WriteCookie(c, constants.CookieKey, "", -1, "", "", false, true)

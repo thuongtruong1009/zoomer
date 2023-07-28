@@ -1,63 +1,63 @@
 package client
 
 import (
-	"time"
-	"sync"
-	"fmt"
-	"errors"
 	"encoding/json"
-	"github.com/streadway/amqp"
+	"errors"
+	"fmt"
 	"github.com/google/uuid"
+	"github.com/streadway/amqp"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/queue/rmq/adapter"
+	"sync"
+	"time"
 )
 
 const (
 	_defaultWaitTime = 5 * time.Second
 	_defaultAttempts = 10
-	_defaultTimeOut = 2 * time.Second
+	_defaultTimeOut  = 2 * time.Second
 )
 
 type Message struct {
-	Queue string
-	Priority uint8
-	ContentType string
-	Body []byte
-	ReplyTo string
+	Queue         string
+	Priority      uint8
+	ContentType   string
+	Body          []byte
+	ReplyTo       string
 	CorrelationID string
 }
 
 type pendingCall struct {
-	done chan struct{}
+	done   chan struct{}
 	status string
-	body []byte
+	body   []byte
 }
 
 type Client struct {
-	conn *adapter.RmqConnection
+	conn           *adapter.RmqConnection
 	serverExchange string
-	error chan error
-	stop chan struct{}
+	error          chan error
+	stop           chan struct{}
 
-	rw sync.RWMutex
-	calls map[string]*pendingCall
+	rw      sync.RWMutex
+	calls   map[string]*pendingCall
 	timeout time.Duration
 }
 
 func New(url, serverExchange, clientExchange string, opts ...Option) (*Client, error) {
-	cfg := adapter.RmqConfig {
-		URL: url,
+	cfg := adapter.RmqConfig{
+		URL:      url,
 		WaitTime: _defaultWaitTime,
 		Attempts: _defaultAttempts,
 	}
 
-	c := &Client {
-		conn: adapter.New(clientExchange, cfg),
+	c := &Client{
+		conn:           adapter.New(clientExchange, cfg),
 		serverExchange: serverExchange,
-		error: make(chan error),
-		stop: make(chan struct{}),
-		calls: make(map[string]*pendingCall),
-		timeout: _defaultTimeOut,
+		error:          make(chan error),
+		stop:           make(chan struct{}),
+		calls:          make(map[string]*pendingCall),
+		timeout:        _defaultTimeOut,
 	}
 
 	for _, opt := range opts {
@@ -76,7 +76,7 @@ func New(url, serverExchange, clientExchange string, opts ...Option) (*Client, e
 func (c *Client) publish(corrID, handler string, request interface{}) error {
 	var (
 		requestBody []byte
-		err error
+		err         error
 	)
 
 	if request != nil {
@@ -86,12 +86,12 @@ func (c *Client) publish(corrID, handler string, request interface{}) error {
 		}
 	}
 
-	err = c.conn.Channel.Publish(c.serverExchange, "", false, false, amqp.Publishing {
-		ContentType: "application/json",
+	err = c.conn.Channel.Publish(c.serverExchange, "", false, false, amqp.Publishing{
+		ContentType:   "application/json",
 		CorrelationId: corrID,
-		ReplyTo: c.conn.ConsumerExchange,
-		Type: handler,
-		Body: requestBody,
+		ReplyTo:       c.conn.ConsumerExchange,
+		Type:          handler,
+		Body:          requestBody,
 	})
 
 	if err != nil {
@@ -102,7 +102,7 @@ func (c *Client) publish(corrID, handler string, request interface{}) error {
 
 func (c *Client) RemoteCall(handler string, request, response interface{}) error {
 	select {
-	case <- c.stop:
+	case <-c.stop:
 		time.Sleep(c.timeout)
 		select {
 		case <-c.stop:
@@ -118,7 +118,7 @@ func (c *Client) RemoteCall(handler string, request, response interface{}) error
 		return fmt.Errorf("Failed to publish a message: %w", err)
 	}
 
-	call := &pendingCall {
+	call := &pendingCall{
 		done: make(chan struct{}),
 	}
 
@@ -126,9 +126,9 @@ func (c *Client) RemoteCall(handler string, request, response interface{}) error
 	defer c.deleteCall(corrID)
 
 	select {
-	case <- time.After(c.timeout):
+	case <-time.After(c.timeout):
 		return errors.New("Timeout")
-	case <- call.done:
+	case <-call.done:
 	}
 
 	if call.status == constants.Success {
@@ -153,9 +153,9 @@ func (c *Client) RemoteCall(handler string, request, response interface{}) error
 func (c *Client) consumer() {
 	for {
 		select {
-		case <- c.stop:
+		case <-c.stop:
 			return
-		case d, opened := <- c.conn.Delivery:
+		case d, opened := <-c.conn.Delivery:
 			if !opened {
 				c.reconnect()
 				return

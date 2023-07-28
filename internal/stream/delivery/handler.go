@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
-	"net/http"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/stream/hub"
 	"github.com/thuongtruong1009/zoomer/internal/stream/presenter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"net/http"
 )
 
 type streamHandler struct {

@@ -3,10 +3,10 @@ package middlewares
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"net/http"
-	"time"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"net/http"
+	"time"
 )
 
 func RateLimit(e *echo.Echo, inter interceptor.IInterceptor) {

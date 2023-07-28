@@ -11,18 +11,19 @@ func NewInterceptor() IInterceptor {
 }
 
 func (i *interceptor) Data(c echo.Context, code int, data interface{}) error {
-	props := &InterceptorProps{
-		Data:    data,
-		Message: nil,
+	props := &InterceptorSuccessProps{
+		Status: code,
+		Data:   data,
 	}
 
 	return c.JSON(code, props)
 }
 
 func (i *interceptor) Error(c echo.Context, code int, msg error, err error) error {
-	props := &InterceptorProps{
-		Data:    nil,
-		Message: msg.Error() + " - " + err.Error(),
+	props := &InterceptorErrorProps{
+		Status:  code,
+		Message: msg.Error(),
+		Error:   err.Error(),
 	}
 
 	return echo.NewHTTPError(code, props)

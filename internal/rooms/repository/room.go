@@ -4,20 +4,20 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
-	"gorm.io/gorm"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/cache"
+	"gorm.io/gorm"
 )
 
 type roomRepository struct {
-	pgDB *gorm.DB
+	pgDB    *gorm.DB
 	redisDB *redis.Client
 }
 
 func NewRoomRepository(pgDB *gorm.DB, redisDB *redis.Client) RoomRepository {
 	return &roomRepository{
-		pgDB: pgDB,
+		pgDB:    pgDB,
 		redisDB: redisDB,
 	}
 }
@@ -112,10 +112,10 @@ func (rr *roomRepository) FetchContactList(ctx context.Context, username string)
 
 func (rr *roomRepository) CreateFetchChatBetweenIndex() {
 	res, err := rr.redisDB.Do(context.Background(), "FT.CREATE", chatAdapter.ChatIndex(), "ON", "JSON",
-	"PREFIX", "1", "chat#",
-	"SCHEMA", "$.from", "AS", "from", "TAG",
-	"$.to", "AS", "to", "TAG",
-	"$.timestamp", "AS", "timestamp", "NUMERIC", "SORTABLE").Result()
+		"PREFIX", "1", "chat#",
+		"SCHEMA", "$.from", "AS", "from", "TAG",
+		"$.to", "AS", "to", "TAG",
+		"$.timestamp", "AS", "timestamp", "NUMERIC", "SORTABLE").Result()
 
 	fmt.Println(res, err)
 }

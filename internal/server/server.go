@@ -2,45 +2,44 @@ package server
 
 import (
 	"context"
-	"net/http"
-	"time"
+	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/utils"
+	"gorm.io/gorm"
+	"net/http"
+	"time"
 )
 
 const (
-	_defaultReadTimeout  = 5 * time.Second
-	_defaultWriteTimeout = 5 * time.Second
+	_defaultReadTimeout     = 5 * time.Second
+	_defaultWriteTimeout    = 5 * time.Second
 	_defaultShutdownTimeout = 3 * time.Second
 )
 
 type Server struct {
-	echo   *echo.Echo
-	cfg    *configs.Configuration
-	pgDB     postgres.PgAdapter
-	redisDB  *redis.Client
-	logger *logrus.Logger
-	inter  interceptor.IInterceptor
-	notify chan error
-
+	echo    *echo.Echo
+	cfg     *configs.Configuration
+	pgDB    *gorm.DB
+	redisDB *redis.Client
+	logger  *logrus.Logger
+	inter   interceptor.IInterceptor
+	notify  chan error
 }
 
-func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB postgres.PgAdapter, redisDB *redis.Client, logger *logrus.Logger,inter interceptor.IInterceptor) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB *gorm.DB, redisDB *redis.Client, logger *logrus.Logger, inter interceptor.IInterceptor) *Server {
 	s := &Server{
-		echo: e,
-		cfg: cfg,
-		pgDB: pgDB,
+		echo:    e,
+		cfg:     cfg,
+		pgDB:    pgDB,
 		redisDB: redisDB,
-		logger: logger,
-		inter: inter,
-		notify: make(chan error, 1),
+		logger:  logger,
+		inter:   inter,
+		notify:  make(chan error, 1),
 	}
 
 	s.start()
@@ -51,35 +50,37 @@ func (s *Server) start() {
 	function1 := func() {
 		httpServer := &http.Server{
 			Addr:         ":" + s.cfg.AppPort,
-			WriteTimeout: 30 * time.Second,
-			ReadTimeout:  30 * time.Second,
+			WriteTimeout: _defaultWriteTimeout,
+			ReadTimeout:  _defaultReadTimeout,
 		}
 
-		if s.cfg.HttpsMode == "true" {	// https
+		if s.cfg.HttpsMode { // https
 			certPath := utils.GetFilePath(constants.CertPath)
 			keyPath := utils.GetFilePath(constants.KeyPath)
 			configs.TLSConfig(certPath, keyPath)
 			if err := s.echo.StartTLS(httpServer.Addr, certPath, keyPath); err != http.ErrServerClosed {
 				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
+				<-s.notify
 			}
 		} else { // http
-			err := s.HttpMapServer(s.echo)
-			if err != nil {
+			if err := s.HttpMapServer(s.echo); err != nil {
 				s.logger.Fatalln("Error occurred while setting up http routers: ", err)
+				<-s.notify
 			}
 
 			s.logger.Logf(logrus.InfoLevel, "::: Api server is listening on PORT: %s", s.cfg.AppPort)
 
-			if err := s.echo.StartServer(httpServer); err != nil {
+			if err := s.echo.StartServer(httpServer); err != nil && err != http.ErrServerClosed {
 				s.logger.Fatalln("Error occurred while starting the http server: ", err)
+				<-s.notify
 			}
 		}
 	}
 
-
 	function2 := func() {
 		if err2 := WsMapServer(s.echo, s.redisDB, s.inter); err2 != nil {
 			s.logger.Fatalln("Error occurred while setting up websocket routers: ", err2)
+			<-s.notify
 		}
 	}
 

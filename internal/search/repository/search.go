@@ -3,10 +3,10 @@ package repository
 import (
 	"context"
 	"errors"
-	"gorm.io/gorm"
-	"strings"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/search/views"
+	"gorm.io/gorm"
+	"strings"
 )
 
 type searchRepository struct {

@@ -38,3 +38,5 @@ main
 **/.cache
 **/.idea
 **/.vscode
+
+*.log

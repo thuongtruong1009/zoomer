@@ -9,8 +9,3 @@ type IInterceptor interface {
 
 	Error(c echo.Context, code int, msg error, err error) error
 }
-
-type InterceptorProps struct {
-	Data    interface{} `json:"data"`
-	Message interface{} `json:"message"`
-}

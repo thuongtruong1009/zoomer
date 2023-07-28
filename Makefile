@@ -11,23 +11,37 @@ _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 
 setup:
-  go get -u ./...
+	@echo "Installing dependencies..."
+  go get -u -t -d -v ./...
 	go mod tidy
 	go install github.com/cosmtrek/air@v1.27.3
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	@echo "Done!"
 
 dev:
 	go run ${ENTRYPOINT}
 
 air:
-	gofmt -w . && air
+	air -c .air.toml
 
-test:
-	go test -v -race -coverprofile=coverage -covermode=atomic -short ./...
+tests:
+	@echo "Running tests..."
+	cd scripts && ./run-tests.sh
+	@echo "Done!"
+
+lint:
+	@echo "Running linter..."
+	gofmt -w . && goimports -w . && go fmt ./...
+	golangci-lint version
+	golangci-lint run -c .golangci.yml ./...
+	@echo "Done!"
 
 build:
-	go build -o ${APPLICATION_NAME} ${ENTRYPOINT}
+	@ printf "Building ${APPLICATION_NAME}...\n"
+	@ go build -trimpath -o ${APPLICATION_NAME} ${ENTRYPOINT}
+	@ echo "Done!"
 
 docs:
 	swag i --dir ./cmd/, ./internal/auth/delivery/, ./internal/rooms/delivery/, ./internal/stream/delivery/, ./internal/chats/delivery/, ./internal/resources/delivery/, ./internal/search/delivery
@@ -36,10 +50,12 @@ docs:
 # Migration
 
 migration-create:
-	migrate create -ext sql -dir db/migrations/sql -seq $(name)
+	@ read -p "Please provide name for the migration: " Name; \
+	migrate create -ext sql -dir db/migrations/sql -seq $${Name}
 
 migration-up:
-	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" up
+	@ read -p "How many migration you wants to perform (default value: [all]): " N; \
+	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" up ${NN}
 
 migration-down:
 	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" down

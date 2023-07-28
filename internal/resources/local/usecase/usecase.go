@@ -1,21 +1,21 @@
 package usecase
 
 import (
-	"io"
-	"strings"
-	"time"
-	"fmt"
-	"os"
-	"log"
 	"context"
-	"mime/multipart"
-	"path/filepath"
+	"fmt"
+	"github.com/thuongtruong1009/zoomer/internal/resources/local/presenter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"github.com/thuongtruong1009/zoomer/internal/resources/local/presenter"
+	"io"
+	"log"
+	"mime/multipart"
+	"os"
+	"path/filepath"
+	"strings"
+	"time"
 )
 
-type localResourceUsecase struct {}
+type localResourceUsecase struct{}
 
 func NewLocalResourceUseCase() ILocalResourceUseCase {
 	return &localResourceUsecase{}
@@ -41,7 +41,7 @@ func (lu *localResourceUsecase) UploadSingleFile(ctx context.Context, file *mult
 	}
 	defer dst.Close()
 
-	fileSize, err := io.Copy(dst, src);
+	fileSize, err := io.Copy(dst, src)
 	if err != nil {
 		log.Println("Failed to calculate file size", err)
 		return nil, err
@@ -49,7 +49,7 @@ func (lu *localResourceUsecase) UploadSingleFile(ctx context.Context, file *mult
 
 	res := &presenter.SingleUploadResponse{
 		Image: constants.UploadPath + filename,
-		Size: fileSize,
+		Size:  fileSize,
 	}
 
 	return res, nil
@@ -76,14 +76,14 @@ func (lu *localResourceUsecase) UploadMultipleFile(ctx context.Context, files []
 		}
 		defer readerFile.Close()
 
-		fileSize, err3 := io.Copy(out, readerFile);
+		fileSize, err3 := io.Copy(out, readerFile)
 		if err3 != nil {
 			return nil, err3
 		}
 
 		once := &presenter.SingleUploadResponse{
 			Image: constants.UploadPath + filename,
-			Size: fileSize,
+			Size:  fileSize,
 		}
 
 		res.Images = append(res.Images, *once)

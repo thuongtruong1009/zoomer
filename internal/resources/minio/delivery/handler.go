@@ -3,9 +3,9 @@ package delivery
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/minio/minio-go/v7"
-	"log"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
+	"log"
 )
 
 type resourceHandler struct {

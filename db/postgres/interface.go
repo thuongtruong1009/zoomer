@@ -1,8 +1,8 @@
 package postgres
 
 import (
-	"gorm.io/gorm"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"gorm.io/gorm"
 )
 
 type PgAdapter interface {

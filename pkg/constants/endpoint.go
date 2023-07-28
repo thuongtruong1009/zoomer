@@ -1,33 +1,33 @@
 package constants
 
 const (
-	ApiGroup string = "/api"
-	WsGroup string = "/ws"
-	DocGroup string = "/docs/*"
+	ApiGroup        string = "/api"
+	WsGroup         string = "/ws"
+	DocGroup        string = "/docs/*"
 	StaticGroupPath string = "/"
 	StaticGroupName string = "public"
 )
 
 const (
 	AuthGroupEndPoint string = "/auth"
-	SignUpEndPoint string = "/signup"
-	SignInEndPoint string = "/signin"
-	SignOutEndPoint string = "/signout"
+	SignUpEndPoint    string = "/signup"
+	SignInEndPoint    string = "/signin"
+	SignOutEndPoint   string = "/signout"
 )
 
 const (
-	RoomGroupEndPoint string = "/rooms"
-	CreateRoomEndPoint string = ""
-	GetAllRoomsEndPoint string = ""
+	RoomGroupEndPoint      string = "/rooms"
+	CreateRoomEndPoint     string = ""
+	GetAllRoomsEndPoint    string = ""
 	GetRoomsOfUserEndPoint string = "/:userId"
 	GetChatHistoryEndPoint string = "/chat-history"
 	GetContactListEndPoint string = "/contact-list"
 )
 
 const (
-	streamEndPoint string = "/stream"
+	streamEndPoint       string = "/stream"
 	CreateStreamEndPoint string = streamEndPoint + "/create"
-	JoinStreamEndPoint string = streamEndPoint + "/join"
+	JoinStreamEndPoint   string = streamEndPoint + "/join"
 )
 
 const (
@@ -35,15 +35,15 @@ const (
 )
 
 const (
-	ResourceGroupEndPoint string = "/resources"
-	localResourceEndPoint string = "/local"
-	UploadSingleLocalResourceEndPoint string = localResourceEndPoint + "/single"
+	ResourceGroupEndPoint               string = "/resources"
+	localResourceEndPoint               string = "/local"
+	UploadSingleLocalResourceEndPoint   string = localResourceEndPoint + "/single"
 	UploadMultipleLocalResourceEndPoint string = localResourceEndPoint + "/multiple"
-	DeleteSingleLocalResourceEndPoint string = localResourceEndPoint + "/single/:fileName"
+	DeleteSingleLocalResourceEndPoint   string = localResourceEndPoint + "/single/:fileName"
 	DeleteMultipleLocalResourceEndPoint string = localResourceEndPoint + "/multiple"
 )
 
 const (
 	SearchGroupEndPoint string = "/search"
-	SearchRoomEndPoint string = "/room"
+	SearchRoomEndPoint  string = "/room"
 )

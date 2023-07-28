@@ -4,14 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-redis/redis/v8"
+	"github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	"log"
 	"time"
-	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 )
 
-type chatRepository struct{
+type chatRepository struct {
 	redisDB *redis.Client
 }
 

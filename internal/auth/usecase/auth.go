@@ -6,13 +6,13 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"net/http"
 	"strings"
 	"time"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
-	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
 )
 
 type AuthClaims struct {
@@ -41,7 +41,7 @@ func NewAuthUseCase(
 	}
 }
 
-func (a *authUseCase) SignUp(ctx context.Context, username string, password string, limit int) (*models.User, error) {
+func (a *authUseCase) SignUp(ctx context.Context, username string, password string, limit int) (*presenter.SignUpResponse, error) {
 	fmtusername := strings.ToLower(username)
 	euser, _ := a.userRepo.GetUserByUsername(ctx, fmtusername)
 
@@ -64,7 +64,11 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 		return nil, err
 	}
 
-	return a.userRepo.GetUserByUsername(ctx, fmtusername)
+	return &presenter.SignUpResponse{
+		Id:       user.Id,
+		Username: user.Username,
+		Limit:    user.Limit,
+	}, nil
 }
 
 func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.LogInResponse, error) {

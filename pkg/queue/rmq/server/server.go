@@ -1,43 +1,43 @@
 package server
 
 import (
-	"time"
-	"fmt"
-	"log"
 	"encoding/json"
+	"fmt"
 	"github.com/streadway/amqp"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/queue/rmq/adapter"
+	"log"
+	"time"
 )
 
 const (
 	_defaultWaitTime = 5 * time.Second
 	_defaultAttempts = 10
-	_defaultTimeout = 2 * time.Second
+	_defaultTimeout  = 2 * time.Second
 )
 
 type CallHandler func(*amqp.Delivery) (interface{}, error)
 
 type Server struct {
-	conn *adapter.RmqConnection
-	error chan error
-	stop chan struct{}
-	router map[string]CallHandler
+	conn    *adapter.RmqConnection
+	error   chan error
+	stop    chan struct{}
+	router  map[string]CallHandler
 	timeout time.Duration
 }
 
 func NewServer(url, serverExchange string, router map[string]CallHandler, opts ...Option) (*Server, error) {
 	cfg := adapter.RmqConfig{
-		URL: url,
+		URL:      url,
 		WaitTime: _defaultWaitTime,
 		Attempts: _defaultAttempts,
 	}
 
 	s := &Server{
-		conn: adapter.New(serverExchange, cfg),
-		error: make(chan error),
-		stop: make(chan struct{}),
-		router: router,
+		conn:    adapter.New(serverExchange, cfg),
+		error:   make(chan error),
+		stop:    make(chan struct{}),
+		router:  router,
 		timeout: _defaultTimeout,
 	}
 
@@ -94,10 +94,10 @@ func (s *Server) serverCall(d *amqp.Delivery) {
 
 func (s *Server) publish(d *amqp.Delivery, body []byte, status string) {
 	err := s.conn.Channel.Publish(d.ReplyTo, "", false, false, amqp.Publishing{
-		ContentType: "application/json",
+		ContentType:   "application/json",
 		CorrelationId: d.CorrelationId,
-		Type: status,
-		Body: body,
+		Type:          status,
+		Body:          body,
 	})
 	if err != nil {
 		log.Printf("Failed to publish response: %s", err)

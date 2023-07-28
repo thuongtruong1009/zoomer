@@ -30,7 +30,8 @@ var (
 	ErrorNotAcceptable       error = errors.New("You requested a format that isn't json")
 	ErrorUnprocessableEntity error = errors.New("Your input failed validation")
 	ErrorTooManyRequests     error = errors.New("Too many requests")
-	ErrorTimeout 		   error = errors.New("Your request timed out")
+	ErrorTimeout             error = errors.New("Your request timed out")
+	ErrorNoContent           error = errors.New("No content")
 )
 
 const (

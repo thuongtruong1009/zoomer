@@ -1,8 +1,8 @@
 package helpers
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 	"time"
 )
 
@@ -12,7 +12,7 @@ func TestRandomString(t *testing.T) {
 		t.Errorf("RandomString(%d) = %s; want 10 characters", len(got), got)
 	}
 
-	if reflect.TypeOf(got).Kind()	!= reflect.String {
+	if reflect.TypeOf(got).Kind() != reflect.String {
 		t.Errorf("RandomString(%d) = %s; want only letters", len(got), got)
 	}
 }
@@ -35,7 +35,7 @@ func TestParallelize(t *testing.T) {
 
 	select {
 	case <-done:
-	case <-time.After(2 *time.Second):
+	case <-time.After(2 * time.Second):
 		t.Error("Parallelize(): Timeout waiting to complete, maximum 2 seconds")
 	}
 }

@@ -2,17 +2,17 @@ package main
 
 import (
 	"errors"
-	"time"
-	"log"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"log"
+	"time"
 )
 
 const (
 	_defaultAttempts = 10
-	_defaultTimeout = time.Second
+	_defaultTimeout  = time.Second
 )
 
 func main() {
@@ -20,8 +20,8 @@ func main() {
 
 	var (
 		attempts = _defaultAttempts
-		err error
-		m *migrate.Migrate
+		err      error
+		m        *migrate.Migrate
 	)
 
 	log.Println("Migration - start")

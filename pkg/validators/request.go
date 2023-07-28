@@ -22,4 +22,3 @@ func ReadRequest(ctx echo.Context, request interface{}) error {
 	}
 	return validate.StructCtx(ctx.Request().Context(), request)
 }
-

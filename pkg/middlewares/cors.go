@@ -20,6 +20,7 @@ func WsHeader(next echo.HandlerFunc) echo.HandlerFunc {
 		c.Response().Header().Set(echo.HeaderAccessControlAllowHeaders, "Content-Type, Authorization")
 		c.Response().Header().Set(echo.HeaderAccessControlAllowMethods, "GET, POST, PUT, DELETE")
 		c.Response().Header().Set(echo.HeaderAccessControlAllowOrigin, "*")
+		c.Response().Header().Set(echo.HeaderAccessControlAllowCredentials, "true")
 		return next(c)
 	}
 }

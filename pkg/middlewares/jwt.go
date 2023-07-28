@@ -2,10 +2,10 @@ package middlewares
 
 import (
 	"github.com/labstack/echo/v4"
-	"net/http"
-	"strings"
 	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"net/http"
+	"strings"
 )
 
 func (mw *MiddlewareManager) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc {

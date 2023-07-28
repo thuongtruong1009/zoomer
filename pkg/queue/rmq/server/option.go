@@ -13,7 +13,7 @@ func Timeout(timeout time.Duration) Option {
 }
 
 func ConnWaitTime(timeout time.Duration) Option {
-	return func (s *Server) {
+	return func(s *Server) {
 		s.conn.WaitTime = timeout
 	}
 }

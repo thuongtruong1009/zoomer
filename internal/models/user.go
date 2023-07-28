@@ -1,8 +1,8 @@
 package models
 
 import (
-	"golang.org/x/crypto/bcrypt"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {

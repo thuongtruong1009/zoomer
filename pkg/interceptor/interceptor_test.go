@@ -22,7 +22,7 @@ func TestInterceptor_Data(t *testing.T) {
 	err := i.Data(c, http.StatusOK, "test")
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, rec.Code)
-	assert.Equal(t, "{\"data\":\"test\",\"message\":null}\n", rec.Body.String())
+	assert.Equal(t, rec.Body.String(), "{\"status\":200,\"data\":\"test\"}\n")
 }
 
 func TestInterceptor_Error(t *testing.T) {
@@ -42,12 +42,18 @@ func TestInterceptor_Error(t *testing.T) {
 	}
 
 	// Check error message
-	props, ok := httpError.Message.(*InterceptorProps)
+	props, ok := httpError.Message.(*InterceptorErrorProps)
 	if !ok {
 		t.Errorf("Expected an *InterceptorProps, but got %T", httpError.Message)
 	}
-	expectedMessage := msg.Error() + " - " + err.Error()
+
+	expectedMessage := msg.Error()
 	if props.Message != expectedMessage {
 		t.Errorf("Expected message '%s', but got '%s'", expectedMessage, props.Message)
+	}
+
+	expectedError := err.Error()
+	if props.Error != expectedError {
+		t.Errorf("Expected error '%s', but got '%s'", expectedError, props.Error)
 	}
 }

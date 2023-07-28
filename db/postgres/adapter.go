@@ -1,13 +1,13 @@
 package postgres
 
 import (
-	"log"
-	"time"
 	"errors"
-	"gorm.io/gorm"
-	"gorm.io/driver/postgres"
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"log"
+	"time"
 )
 
 type postgresStruct struct {

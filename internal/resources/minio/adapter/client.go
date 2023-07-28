@@ -3,19 +3,19 @@ package adapter
 import (
 	"context"
 	"fmt"
-	"io"
-	"log"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"io"
+	"log"
 )
 
 var (
-	endpoint    = configs.NewConfig().MinIOEndpoint //minio.example.com:9000
-	accessKey   = configs.NewConfig().MinIOAccessKey
-	secretKey   = configs.NewConfig().MinIOSecretKey
-	useSSL      = false
+	endpoint  = configs.NewConfig().MinIOEndpoint //minio.example.com:9000
+	accessKey = configs.NewConfig().MinIOAccessKey
+	secretKey = configs.NewConfig().MinIOSecretKey
+	useSSL    = false
 	// contentType = "application/octet-stream" // "image/png"
 	contentType = "image/png"
 	location    = "us-east-1"

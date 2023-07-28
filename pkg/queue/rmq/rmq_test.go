@@ -1,16 +1,16 @@
 package rmq
 
-import(
-	"testing"
+import (
 	"github.com/thuongtruong1009/zoomer/pkg/queue/rmq/client"
+	"testing"
 )
 
 const (
-	host = "localhost:8080"
-	rmqURL = "amqp://guest:guest@localhost:5672/"
+	host              = "localhost:8080"
+	rmqURL            = "amqp://guest:guest@localhost:5672/"
 	rpcServerExchange = "rpc_server"
 	rpcClientExchange = "rpc_client"
-	requests = 10
+	requests          = 10
 )
 
 func TestRMQClient(t *testing.T) {
@@ -44,7 +44,7 @@ func TestRMQClient(t *testing.T) {
 			t.Fatal("Failed to call remote function")
 		}
 
-		if sum.Sum[0].A + sum.Sum[0].B != i + i {
+		if sum.Sum[0].A+sum.Sum[0].B != i+i {
 			t.Fatal("Failed to get correct sum")
 		}
 	}

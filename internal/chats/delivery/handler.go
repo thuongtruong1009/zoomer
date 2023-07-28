@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
-	"net/http"
 	"github.com/thuongtruong1009/zoomer/internal/chats/hub"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"net/http"
 )
 
 type chatHandler struct {

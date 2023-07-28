@@ -1,14 +1,14 @@
 package adapter
 
 import (
-	"time"
-	"log"
 	"fmt"
 	"github.com/streadway/amqp"
+	"log"
+	"time"
 )
 
 type RmqConfig struct {
-	URL string
+	URL      string
 	WaitTime time.Duration
 	Attempts int
 }
@@ -17,21 +17,21 @@ type RmqConnection struct {
 	ConsumerExchange string
 	RmqConfig
 	Connection *amqp.Connection
-	Channel *amqp.Channel
-	Delivery <-chan amqp.Delivery
+	Channel    *amqp.Channel
+	Delivery   <-chan amqp.Delivery
 }
 
 func New(consumerExchange string, cfg RmqConfig) *RmqConnection {
 	return &RmqConnection{
 		ConsumerExchange: consumerExchange,
-		RmqConfig: cfg,
+		RmqConfig:        cfg,
 	}
 }
 
 func (c *RmqConnection) AttemptsConnect() error {
 	var err error
 	for i := c.Attempts; i > 0; i-- {
-		if err = c.connect();err == nil {
+		if err = c.connect(); err == nil {
 			break
 		}
 		log.Printf("Failed to connect to RabbitMQ, attempts left:  %d", i)

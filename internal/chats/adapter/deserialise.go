@@ -2,10 +2,10 @@ package adapter
 
 import (
 	"encoding/json"
-	"github.com/go-redis/redis/v8"
-	"log"
 	"fmt"
+	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"log"
 )
 
 type Document struct {

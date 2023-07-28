@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"mime/multipart"
 	"github.com/thuongtruong1009/zoomer/internal/resources/local/presenter"
+	"mime/multipart"
 )
 
 type ILocalResourceUseCase interface {
@@ -12,5 +12,3 @@ type ILocalResourceUseCase interface {
 	DeleteSingleFile(ctx context.Context, fileName string) error
 	DeleteMultipleFile(ctx context.Context, fileNames []string) error
 }
-
-
