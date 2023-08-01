@@ -6,7 +6,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 )
 
-func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.MiddlewareManager) {
+func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.AuthMiddleware) {
 	roomGroup.POST(constants.CreateRoomEndPoint, h.AddRoom(), mw.JWTValidation)
 	roomGroup.GET(constants.GetRoomsOfUserEndPoint, h.GetUserRooms(), mw.JWTValidation)
 	roomGroup.GET(constants.GetAllRoomsEndPoint, h.GetAll())

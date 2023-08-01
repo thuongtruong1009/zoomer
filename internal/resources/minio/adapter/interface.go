@@ -1,18 +1,15 @@
 package adapter
 
-import (
-	"github.com/minio/minio-go/v7"
-	"io"
-)
+import "io"
 
 type ResourceAdapter interface {
-	GetData(client *minio.Client, bucketName, objectName string) (file io.Reader)
+	GetData(objectName string) (file io.Reader)
 
-	GetDataList(client *minio.Client, bucketName string) (file []io.Reader)
+	GetDataList() (file []io.Reader)
 
-	UploadData(client *minio.Client, bucketName, objectName string, file io.Reader) error
+	UploadData(objectName string, file io.Reader) error
 
-	DeleteData(client *minio.Client, bucketName, objectName string) error
+	DeleteData(objectName string) error
 
-	DeleteDataList(client *minio.Client, bucketName string) error
+	DeleteDataList() error
 }

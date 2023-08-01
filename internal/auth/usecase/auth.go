@@ -3,16 +3,17 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt"
-	"github.com/google/uuid"
-	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
-	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"net/http"
 	"strings"
 	"time"
+	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
 )
 
 type AuthClaims struct {
@@ -46,6 +47,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	euser, _ := a.userRepo.GetUserByUsername(ctx, fmtusername)
 
 	if euser != nil {
+		exceptions.Log(constants.ErrUserExisted, nil)
 		return nil, constants.ErrUserExisted
 	}
 
@@ -61,6 +63,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	err := a.userRepo.CreateUser(ctx, user)
 
 	if err != nil {
+		exceptions.Log(constants.ErrCreateUserFailed, err)
 		return nil, err
 	}
 
@@ -74,10 +77,12 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.LogInResponse, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
+		exceptions.Log(constants.ErrUserNotFound, nil)
 		return nil, constants.ErrUserNotFound
 	}
 
 	if !user.ComparePassword(password) {
+		exceptions.Log(constants.ErrWrongPassword, nil)
 		return nil, constants.ErrWrongPassword
 	}
 
@@ -94,14 +99,15 @@ func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*p
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	tmp, err := token.SignedString(a.signingKey)
+	if err != nil {
+		exceptions.Log(constants.ErrSigningKey, err)
+		return nil, err
+	}
 
 	res := &presenter.LogInResponse{
 		UserId:   user.Id,
 		Username: user.Username,
 		Token:    tmp,
-	}
-	if err != nil {
-		return nil, err
 	}
 
 	return res, nil
@@ -110,12 +116,14 @@ func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*p
 func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			exceptions.Log(constants.ErrUnexpectedSigning, token.Header["alg"])
+			return nil, fmt.Errorf("%s: %v", constants.ErrUnexpectedSigning, token.Header["alg"])
 		}
 		return a.signingKey, nil
 	})
 
 	if err != nil {
+		exceptions.Log(constants.ErrParseToken, err)
 		return "", err
 	}
 
@@ -123,6 +131,7 @@ func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (strin
 		return claims.UserId, nil
 	}
 
+	exceptions.Log(constants.ErrInvalidAccessToken, nil)
 	return "", constants.ErrInvalidAccessToken
 }
 

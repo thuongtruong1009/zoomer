@@ -21,7 +21,7 @@ func Deserialise(res interface{}) []Document {
 			total := len(v) - 1
 			var docs = make([]Document, 0, total/2)
 
-			for i := 1; i <= total; i += 2 {
+			for i := 1; i <= total; i = i + 2 {
 				arrOfValues := v[i+1].([]interface{})
 				value := arrOfValues[len(arrOfValues)-1].(string)
 

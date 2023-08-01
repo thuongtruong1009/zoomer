@@ -6,21 +6,6 @@
   <img src="./public/demo/signup.PNG" alt="signup" width="400" /><img src="./public/demo/signin.PNG" alt="signin" width="400" />
 </div>
 
-## **Technical stuff**
-
-- Architecture: Clean architecture
-- Framework: Echo
-- ORM: Gorm
-- DB: Postgres, Redis
-- Deployment: Docker
-- Hot-Reloader: Air
-- Cache: Redis
-- Message Queue: RabbitMQ
-- Stream: WebRTC
-- Swagger: Echo-Swagger
-- Peer connection: HTTP, WebSocket
-- UML diagram: Diagram.net
-
 ## **Technologies**
 
 [Swagger for Go](https://github.com/swaggo/swag)
@@ -33,16 +18,19 @@
 - [x] The only way the user can message have to know the receiver user name.
 - [x] Users can access their chat history.
 - [x] Users can block each other
-- [x] Dockerize and scalability
+- [x] Dockerize
 - [x] Support Redis cache
 - [x] Support Peer connection
+- [x] Support Swagger document
+- [x] Support file upload/download
+- [x] Testing
+- [x] Support video call
+- [x] Logging
+- [ ] Support MessageQueue
 - [ ] Support OAuth2
-- [ ] Support Swagger
 - [ ] Support notification
-- [ ] Support file upload/download
-- [ ] Add missing intergration tests and Unit Test Coverage
 - [ ] Add role/permission based validation
-- [ ] Implement new features
+- [ ] Implement more new features
 
 ## Architecture
 
@@ -62,38 +50,44 @@ Each client has a `writeMessage` and a `readMessage` method. `readMessage` reads
 
 ## **How to run the code locally**
 
+(Recommend: install [make](https://www.gnu.org/software/make/) before using **make** command - Not required)
+
 ##### 1. Clone this repository
 
 ##### 2. Update .env file
 
+##### 3. Install dependencies
+
+```console
+make setup
+```
+
 ##### 3. Run the code
 
-- With local
+- ##### **With local**
 
-```bash
-go run cmd/main.go
+```console
+make run
 ```
 
-- With Docker
+- ##### **With Docker**
 
-Update .env file (change host to postgresql)
+(Requirement: install [docker](https://docs.docker.com/get-docker/))
 
-```bash
-docker-compose up -d
+```console
+make docker-dev
 ```
 
-#### **Testing**
+##### 4. Testing
 
-- Unit tests
-
-```bash
-go test -v -cover ./...
+```console
+make tests
 ```
 
-- Integration tests
+##### 5. Linting and Formatting
 
-```bash
-go test -v ./integration-tests
+```console
+make lint
 ```
 
 <!-- **References**

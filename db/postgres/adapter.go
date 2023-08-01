@@ -2,20 +2,25 @@ package postgres
 
 import (
 	"errors"
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"log"
 	"time"
+	"gorm.io/gorm"
+	"gorm.io/driver/postgres"
+	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type postgresStruct struct {
 	db *gorm.DB
+	paramCfg *parameter.PostgresConf
 }
 
-func NewPgAdapter() PgAdapter {
-	return &postgresStruct{db: &gorm.DB{}}
+func NewPgAdapter(paramCfg *parameter.PostgresConf) PgAdapter {
+	return &postgresStruct{
+		db: &gorm.DB{},
+		paramCfg: paramCfg,
+	}
 }
 
 func (pg *postgresStruct) getInstance(uri string) *gorm.DB {
@@ -32,7 +37,7 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 	dsn := cfg.DatabaseConnectionURL
 	db := pg.getInstance(dsn)
 
-	pg.setConnectionPool(db, cfg)
+	pg.setConnectionPool(db)
 
 	go func(dsn string) {
 		var intervals = []time.Duration{3 * time.Second, 3 * time.Second, 15 * time.Second, 30 * time.Second, 60 * time.Second, 60 * time.Second}
@@ -71,7 +76,7 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 		}
 	}(dsn)
 
-	if cfg.AutoMigrate {
+	if pg.paramCfg.AutoMigrate {
 		if err := db.AutoMigrate(&models.User{}, &models.Room{}); err != nil {
 			panic("Error when run auto migrations")
 		}
@@ -95,18 +100,13 @@ func (pg *postgresStruct) retryHandler(n int, f func() (bool, error)) error {
 	return er
 }
 
-func (pg *postgresStruct) setConnectionPool(d *gorm.DB, cfg *configs.Configuration) {
-	maxOpen := cfg.MaxOpenConnection
-	maxLifetime := cfg.MaxLifetimeConnection
-	maxIdleConn := cfg.MaxIdleConnection
-	maxIdleTime := cfg.MaxIdleTimeConnection
-
+func (pg *postgresStruct) setConnectionPool(d *gorm.DB) {
 	db, err := d.DB()
 	if err != nil {
 		panic(err)
 	}
-	db.SetMaxOpenConns(int(maxOpen))
-	db.SetConnMaxLifetime(time.Duration(maxLifetime) * time.Second)
-	db.SetMaxIdleConns(int(maxIdleConn))
-	db.SetConnMaxIdleTime(time.Duration(maxIdleTime) * time.Second)
+	db.SetMaxOpenConns(pg.paramCfg.MaxOpenConnection)
+	db.SetConnMaxLifetime(pg.paramCfg.MaxLifetimeConnection * time.Second)
+	db.SetMaxIdleConns(pg.paramCfg.MaxIdleConnection)
+	db.SetConnMaxIdleTime(pg.paramCfg.MaxIdleTimeConnection * time.Second)
 }

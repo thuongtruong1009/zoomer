@@ -3,11 +3,12 @@ package repository
 import (
 	"context"
 	"fmt"
-	"github.com/go-redis/redis/v8"
-	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/pkg/cache"
 	"gorm.io/gorm"
+	"github.com/go-redis/redis/v8"
+	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	// "github.com/RediSearch/redisearch-go/redisearch"
 )
 
 type roomRepository struct {
@@ -76,18 +77,18 @@ func (rr *roomRepository) CountRooms(ctx context.Context, userId string) (int, e
 
 // sync to redis
 func (rr *roomRepository) FetchChatBetween(ctx context.Context, username1, username2, fromTS, toTS string) ([]models.Chat, error) {
-	query := fmt.Sprintf("@from:{%s|%s} @to:{%s|%s} @timestamp:[%s %s]", username1, username2, username1, username2, fromTS, toTS)
+	query := fmt.Sprintf("@from:{%s|%s} @to:{%s|%s} @timestamp:[%s %s]", username2, username1, username1, username2, fromTS, toTS)
 
 	res, err := rr.redisDB.Do(ctx, "FT.SEARCH", chatAdapter.ChatIndex(), query, "SORTBY", "timestamp", "DESC").Result()
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Println("step 1: ", res)
+	fmt.Println("\nstep 1: \n", res)
 
 	data := chatAdapter.Deserialise(res)
 
-	fmt.Println("step 2: ", data)
+	fmt.Println("\nstep 2: \n", data)
 
 	chats := chatAdapter.DeserialiseChat(data)
 

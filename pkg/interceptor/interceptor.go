@@ -2,6 +2,7 @@ package interceptor
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 )
 
 type interceptor struct{}
@@ -25,6 +26,8 @@ func (i *interceptor) Error(c echo.Context, code int, msg error, err error) erro
 		Message: msg.Error(),
 		Error:   err.Error(),
 	}
+
+	exceptions.Log(msg, err)
 
 	return echo.NewHTTPError(code, props)
 }

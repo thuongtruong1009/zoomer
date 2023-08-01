@@ -12,5 +12,5 @@ type PgAdapter interface {
 
 	retryHandler(int, func() (bool, error)) error
 
-	setConnectionPool(*gorm.DB, *configs.Configuration)
+	setConnectionPool(*gorm.DB)
 }

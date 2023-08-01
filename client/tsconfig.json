@@ -20,22 +20,5 @@
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": [
-        "node_modules"
-        // "./node_modules",
-        // "./.next",
-        // "/cmd",
-        // "/dist",
-        // "/public",
-        // "/internal",
-        // "/configs",
-        // "/db",
-        // "/docs",
-        // "/logs",
-        // "/migrations",
-        // "/pkg",
-        // "/release",
-        // "/scripts",
-        // "/validators"
-    ]
+    "exclude": ["node_modules"]
 }

@@ -1,18 +1,15 @@
 package usecase
 
-import (
-	"github.com/minio/minio-go/v7"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-)
+import "github.com/thuongtruong1009/zoomer/internal/models"
 
 type ResourceUseCase interface {
-	GetImage(Client *minio.Client, bucketName, objectName string) (res models.Resource)
+	GetImage(objectName string) (models.Resource)
 
-	GetAllImages(Client *minio.Client, bucketName string) (res models.ResourceList)
+	GetAllImages() (models.ResourceList)
 
-	AddImage(Client *minio.Client, bucketName, objectName, id, name string) (res models.Resource)
+	AddImage(objectName, id, name string) (models.Resource)
 
-	UploadImage(Client *minio.Client, bucketName, objectName, id, name string)
+	UploadImage(objectName, id, name string)
 
-	DeleteImage(Client *minio.Client, bucketName, objectName string)
+	DeleteImage(objectName string)
 }

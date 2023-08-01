@@ -2,17 +2,21 @@ package server
 
 import (
 	"context"
+	"gorm.io/gorm"
+	"net/http"
+	"time"
+	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/utils"
-	"gorm.io/gorm"
-	"net/http"
-	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
 )
 
 const (
@@ -24,19 +28,23 @@ const (
 type Server struct {
 	echo    *echo.Echo
 	cfg     *configs.Configuration
+	parameterCfg *parameter.ParameterConfig
 	pgDB    *gorm.DB
 	redisDB *redis.Client
+	minioClient adapter.ResourceAdapter
 	logger  *logrus.Logger
 	inter   interceptor.IInterceptor
 	notify  chan error
 }
 
-func NewServer(e *echo.Echo, cfg *configs.Configuration, pgDB *gorm.DB, redisDB *redis.Client, logger *logrus.Logger, inter interceptor.IInterceptor) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, parameterCfg *parameter.ParameterConfig, pgDB *gorm.DB, redisDB *redis.Client, minioClient adapter.ResourceAdapter, logger *logrus.Logger, inter interceptor.IInterceptor) *Server {
 	s := &Server{
 		echo:    e,
 		cfg:     cfg,
+		parameterCfg: parameterCfg,
 		pgDB:    pgDB,
 		redisDB: redisDB,
+		minioClient: minioClient,
 		logger:  logger,
 		inter:   inter,
 		notify:  make(chan error, 1),
@@ -59,19 +67,19 @@ func (s *Server) start() {
 			keyPath := utils.GetFilePath(constants.KeyPath)
 			configs.TLSConfig(certPath, keyPath)
 			if err := s.echo.StartTLS(httpServer.Addr, certPath, keyPath); err != http.ErrServerClosed {
-				s.logger.Fatalln("Error occured when starting the server in HTTPS mode", err)
+				exceptions.Fatal(constants.ErrorStartHttps, err)
 				<-s.notify
 			}
 		} else { // http
 			if err := s.HttpMapServer(s.echo); err != nil {
-				s.logger.Fatalln("Error occurred while setting up http routers: ", err)
+				exceptions.Fatal(constants.ErrorSetupHttpRouter, err)
 				<-s.notify
 			}
 
-			s.logger.Logf(logrus.InfoLevel, "::: Api server is listening on PORT: %s", s.cfg.AppPort)
+			exceptions.SystemLog(fmt.Sprintf("%s: %s", constants.ServerApiStarted, s.cfg.AppPort))
 
 			if err := s.echo.StartServer(httpServer); err != nil && err != http.ErrServerClosed {
-				s.logger.Fatalln("Error occurred while starting the http server: ", err)
+				exceptions.Fatal(constants.ErrorStartHttp, err)
 				<-s.notify
 			}
 		}
@@ -79,7 +87,7 @@ func (s *Server) start() {
 
 	function2 := func() {
 		if err2 := WsMapServer(s.echo, s.redisDB, s.inter); err2 != nil {
-			s.logger.Fatalln("Error occurred while setting up websocket routers: ", err2)
+			exceptions.Fatal(constants.ErrorSetupSocketRouter, err2)
 			<-s.notify
 		}
 	}
@@ -95,10 +103,10 @@ func (s *Server) Notify() <-chan error {
 }
 
 func (s *Server) Shutdown() error {
-	s.logger.Println("Server is shutting down...")
+	exceptions.SystemLog(constants.ServerShutdown)
 	ctx, cancel := context.WithTimeout(context.Background(), _defaultShutdownTimeout)
 	defer cancel()
 
-	s.logger.Fatalln("Server is exited properly")
+	exceptions.SystemLog(constants.ServerExitedProperly)
 	return s.echo.Shutdown(ctx)
 }

@@ -1,16 +1,13 @@
 package delivery
 
-import (
-	"github.com/labstack/echo/v4"
-	"github.com/minio/minio-go/v7"
-)
+import "github.com/labstack/echo/v4"
 
 type ResourceHandler interface {
-	GetResource(Client *minio.Client, bucketName string) echo.HandlerFunc
+	GetResource() echo.HandlerFunc
 
-	CreateResource(Client *minio.Client, bucketName string) echo.HandlerFunc
+	CreateResource() echo.HandlerFunc
 
-	UploadResource(Client *minio.Client, bucketName string) echo.HandlerFunc
+	UploadResource() echo.HandlerFunc
 
-	DeleteResource(Client *minio.Client, bucketName string) echo.HandlerFunc
+	DeleteResource() echo.HandlerFunc
 }

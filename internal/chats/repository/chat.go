@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
@@ -34,7 +34,6 @@ func (cr *chatRepository) UpdateContactList(ctx context.Context, username, conta
 
 func (cr *chatRepository) CreateChat(ctx context.Context, c *models.Chat) (string, error) {
 	chatKey := adapter.ChatKey()
-	fmt.Println("chat key", chatKey)
 
 	by, err := json.Marshal(c)
 	if err != nil {
@@ -43,13 +42,20 @@ func (cr *chatRepository) CreateChat(ctx context.Context, c *models.Chat) (strin
 	}
 
 	// Store chat JSON using HSET command
-	err = cr.redisDB.HSet(context.Background(), chatKey, "$", string(by)).Err()
+	// err = cr.redisDB.HSet(context.Background(), adapter.ChatKey(), "$", string(by)).Err()
+	res, err := cr.redisDB.Do(
+		context.Background(),
+		"json.set",
+		chatKey,
+		"$",
+		string(by)).Result()
+
 	if err != nil {
 		log.Println("error while setting chat JSON in Redis", err)
 		return "", err
 	}
 
-	log.Println("chat successfully set")
+	log.Println("--> save chat successfully set", res)
 
 	err = cr.UpdateContactList(ctx, c.From, c.To)
 	if err != nil {

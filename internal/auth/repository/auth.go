@@ -9,7 +9,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/pkg/cache"
+	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 

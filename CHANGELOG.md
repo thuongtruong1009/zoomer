@@ -23,6 +23,7 @@ There is the most valuable changes log:
 - Callback function in sync lock mode
 - Concurrently run http and websocket server
 - Combine into one port for websocket and http
+- Working raw with MinIO
 
 **3. Features**
 

@@ -43,7 +43,7 @@ func (ch *chatHandler) ChatConnect() echo.HandlerFunc {
 		ch.hub.Receiver(c.Request().Context(), client)
 
 		// fmt.Println("existing", ws.RemoteAddr().String())
-		delete(hub.Clients, client)
+		defer delete(hub.Clients, client)
 
 		return c.JSON(http.StatusOK, nil)
 	}

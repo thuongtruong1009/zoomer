@@ -2,20 +2,16 @@ version: "3.9"
 
 services:
   postgres:
-    hostname: postgres
     environment:
-      # - POSTGRES_HOST=postgres
+      POSTGRES_HOST: postgres
       # - POSTGRES_HOST_AUTH_METHOD=trust
-      POSTGRES_DB: zoomer
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456789
-
-  pgadmin:
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-      PGADMIN_DEFAULT_PASSWORD: admin
+      # POSTGRES_DB: zoomer
+      # POSTGRES_USER: postgres
+      # POSTGRES_PASSWORD: 123456789
 
   redis-master:
+    environment:
+      - REDIS_HOST=redis-master
     command: redis-server --requirepass master_password
 
   redis-slave:
@@ -25,16 +21,6 @@ services:
     environment:
       - REDIS_MASTER_HOST=redis-master
     command: redis-sentinel /usr/local/etc/redis/sentinel.conf
-
-  redis-commander:
-    container_name: redis-commander
-    hostname: redis-commander
-    image: rediscommander/redis-commander:latest
-    restart: always
-    environment:
-      - REDIS_HOSTS=redis-master:6380
-    ports:
-      - "6378:8081"
 
   minio:
     environment:
@@ -54,4 +40,3 @@ services:
       target: development
       args:
         TARGET: development
-      # - APP_PATH=./cmd

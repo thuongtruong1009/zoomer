@@ -4,10 +4,11 @@ import (
 	"context"
 	// "crypto/tls"
 	"fmt"
+	"time"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/configs"
-	"log"
-	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 )
 
 var RedisClient *redis.Client
@@ -28,10 +29,10 @@ func GetRedisInstance(cfg *configs.Configuration) *redis.Client {
 
 	pong, err := conn.Ping(ctx).Result()
 	if err != nil {
-		panic(fmt.Errorf("Redis connection failed:  %w", err))
+		exceptions.Fatal(constants.ErrorRedisConnectionFailed, err)
 	}
 
-	log.Println("Redis connection successful", pong)
+	exceptions.SystemLog(fmt.Sprintf("%s: %s", constants.RedisConnectionSuccessful, pong))
 
 	RedisClient = conn
 

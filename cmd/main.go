@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/internal/app"
+	"os"
+	"github.com/thuongtruong1009/zoomer/app"
 )
 
 // @title Zoomer
@@ -35,7 +35,6 @@ import (
 // }
 
 func main() {
-	cfg := configs.NewConfig()
-
-	app.Run(cfg)
+	app.Run()
+	defer os.Exit(0)
 }
