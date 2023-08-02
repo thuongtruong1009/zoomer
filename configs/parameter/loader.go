@@ -1,17 +1,18 @@
 package parameter
 
 import (
-	"log"
 	"github.com/spf13/viper"
+	"log"
 )
 
-type parameterLoader interface{
+type parameterLoader interface {
 	loadDefault()
 }
 
 type ParameterConfig struct {
 	RateLimitConf `mapstructure:"rate_limit"`
-	PostgresConf `mapstructure:"postgres"`
+	PostgresConf  `mapstructure:"postgres"`
+	ServerConf    `mapstructure:"server"`
 }
 
 var pmt *ParameterConfig

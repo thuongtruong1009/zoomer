@@ -4,11 +4,11 @@ import (
 	"context"
 	// "crypto/tls"
 	"fmt"
-	"time"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"time"
 )
 
 var RedisClient *redis.Client

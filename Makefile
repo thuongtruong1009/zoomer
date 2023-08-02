@@ -48,7 +48,7 @@ build:
 
 docs:
 	@ echo "Generating docs..."
-	swag i --dir ./cmd/, ./internal/auth/delivery/, ./internal/rooms/delivery/, ./internal/stream/delivery/, ./internal/chats/delivery/, ./internal/resources/delivery/, ./internal/search/delivery
+	swag fmt
 	swag init -g ./cmd/main.go --output ./docs
 	@ echo "Done!"
 

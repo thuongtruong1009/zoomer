@@ -5,5 +5,5 @@ type SearchResquest struct {
 }
 
 type SearchResponse struct {
-	Match []LogInResponse
+	Match []SignInResponse
 }

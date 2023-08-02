@@ -1,21 +1,21 @@
 package configs
 
 import (
-	"log"
-	"os"
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"log"
+	"os"
 )
 
 type Configuration struct {
-	AppPort     string `env:"APP_PORT" envDefault:"8080"`
-	HashSalt    string `env:"HASH_SALT,required"`
-	SigningKey  string `env:"SIGNING_KEY,required"`
-	TokenTTL    int64  `env:"TOKEN_TTL,required"`
-	JwtSecret   string `env:"JWT_SECRET,required"`
-	HttpsMode   bool   `env:"HTTPS_MODE" envDefault:"false"`
+	AppPort    string `env:"APP_PORT" envDefault:"8080"`
+	HashSalt   string `env:"HASH_SALT,required"`
+	SigningKey string `env:"SIGNING_KEY,required"`
+	TokenTTL   int64  `env:"TOKEN_TTL,required"`
+	JwtSecret  string `env:"JWT_SECRET,required"`
+	HttpsMode  bool   `env:"HTTPS_MODE" envDefault:"false"`
 
 	DatabaseConnectionURL string `env:"PG_URI,required"`
 

@@ -24,16 +24,16 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor) Aut
 }
 
 // SignUp godoc
-// @Summary      Create a new user
-// @Description  Create a new user
-// @Tags         auth
-// @Accept       json
-// @Produce      json
-// @Param user body presenter.SignUpInput true "Create User"
-// @Success      201  {object}  presenter.SignUpResponse
-// @Failure 400 {object} string constants.ErrorBadRequest
-// @Failure 500 {object} string constants.ErrorInternalServer
-// @Router       /auth/signup [post]
+//	@Summary		Create a new user
+//	@Description	Create a new user
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			user	body		presenter.SignUpInput	true	"Create User"
+//	@Success		201		{object}	presenter.SignUpResponse
+//	@Failure		400		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
+//	@Router			/auth/signup [post]
 func (h *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpInput{}
@@ -61,19 +61,19 @@ func (h *authHandler) SignUp() echo.HandlerFunc {
 }
 
 // SignIn godoc
-// @Summary      Login to user account
-// @Description  Login to user account
-// @Tags         auth
-// @Accept       json
-// @Produce      json
-// @Param        body presenter.SignInInput true "Login user"
-// @Success      200  {object}  presenter.SignInResponse
-// @Failure 400 {object} string constants.ErrorBadRequest
-// @Failure 500 {object} string constants.ErrorInternalServer
-// @Router       /auth/signin [post]
+//	@Summary		Login to user account
+//	@Description	Login to user account
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			user	body		presenter.SignInInput	true	"Login user"
+//	@Success		200		{object}	presenter.SignInResponse
+//	@Failure		400		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
+//	@Router			/auth/signin [post]
 func (h *authHandler) SignIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		input := &presenter.LoginInput{}
+		input := &presenter.SignInInput{}
 		if err := validators.ReadRequest(c, input); err != nil {
 			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
@@ -97,18 +97,18 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 }
 
 // SignOut godoc
-// @Summary      Logout user credentials
-// @Description  Logout user credentials
-// @Tags         auth
-// @Accept       json
-// @Produce      json
-// @Param        userId   path      int  true  "User ID"
-// @Success      204  {object}  constants.ErrorNoContent
-// @Failure 400 {object} string constants.ErrorBadRequest
-// @Failure 401 {object} string constants.ErrorUnauthorized
-// @Failure 500 {object} string constants.ErrorInternalServer
-// @Security     bearerAuth
-// @Router       /auth/signout [post]
+//	@Summary		Logout user credentials
+//	@Description	Logout user credentials
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			userId	path	int	true	"User ID"
+//	@Success		200		string	constants.Success
+//	@Failure		400		error	constants.ErrorBadRequest.Error()
+//	@Failure		401		error	constants.ErrorUnauthorized.Error()
+//	@Failure		500		error	constants.ErrorInternalServer.Error()
+//	@Security		bearerAuth
+//	@Router			/auth/signout [post]
 func (h *authHandler) SignOut() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		usecase.WriteCookie(c, constants.CookieKey, "", -1, "", "", false, true)

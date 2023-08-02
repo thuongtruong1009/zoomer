@@ -1,10 +1,6 @@
 package server
 
 import (
-	"github.com/go-redis/redis/v8"
-	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-
 	chatDelivery "github.com/thuongtruong1009/zoomer/internal/chats/delivery"
 	chatHub "github.com/thuongtruong1009/zoomer/internal/chats/hub"
 	chatRepository "github.com/thuongtruong1009/zoomer/internal/chats/repository"
@@ -13,16 +9,16 @@ import (
 	streamHub "github.com/thuongtruong1009/zoomer/internal/stream/hub"
 )
 
-func WsMapServer(e *echo.Echo, redisDB *redis.Client, inter interceptor.IInterceptor) error {
-	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(redisDB))
+func (s *Server) WsMapServer() error {
+	wsChatUC := chatHub.NewChatHub(chatRepository.NewChatRepository(s.redisDB))
 	wsChatHandler := chatDelivery.NewChatHandler(wsChatUC)
 	go wsChatUC.Broadcaster()
-	chatDelivery.MapChatRoutes(e, wsChatHandler)
+	chatDelivery.MapChatRoutes(s.echo, wsChatHandler)
 
-	wsStreamUC := streamHub.NewStreamHub()
-	wsStreamHandler := streamDelivery.NewStreamHandler(wsStreamUC, inter)
+	wsStreamUC := streamHub.NewStreamHub(&s.parameterCfg.ServerConf)
+	wsStreamHandler := streamDelivery.NewStreamHandler(wsStreamUC, s.inter)
 	go wsStreamUC.Broadcaster()
-	streamDelivery.MapStreamRoutes(e, wsStreamHandler)
+	streamDelivery.MapStreamRoutes(s.echo, wsStreamHandler)
 
 	return nil
 }

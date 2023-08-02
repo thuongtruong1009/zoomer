@@ -2,10 +2,10 @@ package middlewares
 
 import (
 	"fmt"
-	"time"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"time"
 )
 
 func (mwm *MiddlewareManager) RequestMiddleware(next echo.HandlerFunc) echo.HandlerFunc {

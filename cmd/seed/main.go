@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
@@ -11,10 +12,11 @@ import (
 )
 
 func main() {
-	config := configs.NewConfig()
+	cfg := configs.LoadConfigs(constants.EnvConfPath)
+	paramCfg := parameter.LoadParameterConfigs(constants.ParamConfPath)
+	pgAdapter := postgres.NewPgAdapter(&paramCfg.PostgresConf)
+	pgInstance := pgAdapter.ConnectInstance(cfg)
 
-	pg := postgres.NewPgAdapter()
-	db := pg.ConnectInstance(config)
 
 	err := db.AutoMigrate(&models.User{})
 	if err != nil {
@@ -35,9 +37,9 @@ func main() {
 
 func seedUser(db *gorm.DB) {
 	u := &models.User{
-		Id:       "1",
-		Username: "Tom",
-		Password: "123456",
+		Id:       "01",
+		Username: "user01",
+		Password: "password01",
 		Limit:    1,
 	}
 	if err := db.Create(u).Error; err != nil {
@@ -47,13 +49,13 @@ func seedUser(db *gorm.DB) {
 
 func seedRoom(db *gorm.DB) {
 	r := &models.Room{
-		Id:          "1",
-		Name:        "Room 1",
-		Description: "Room 1",
-		Category:    "Room 1",
+		Id:          "01",
+		Name:        "Room 01",
+		Description: "Room 01",
+		Category:    "Room 01",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
-		CreatedBy:   "1",
+		CreatedBy:   "01",
 	}
 	if err := db.Create(r).Error; err != nil {
 		log.Fatalf("Failed to seed room data: %v", err)

@@ -2,10 +2,10 @@ package usecase
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
-	"fmt"
 )
 
 type resourceUsecase struct {
@@ -16,18 +16,18 @@ type resourceUsecase struct {
 func NewMinioResourceUseCase(resourceAdapter adapter.ResourceAdapter, resourceRepo repository.ResourceRepository) ResourceUseCase {
 	return &resourceUsecase{
 		resourceAdapter: resourceAdapter,
-		resourceRepo: resourceRepo,
+		resourceRepo:    resourceRepo,
 	}
 }
 
-func (ru resourceUsecase) GetImage(objectName string) (models.Resource) {
+func (ru resourceUsecase) GetImage(objectName string) models.Resource {
 	todo := ru.resourceAdapter.GetData(objectName)
 	res := ru.resourceRepo.GetResource(todo)
 
 	return res
 }
 
-func (ru resourceUsecase) GetAllImages() (models.ResourceList) {
+func (ru resourceUsecase) GetAllImages() models.ResourceList {
 	todoList := ru.resourceAdapter.GetDataList()
 	res := ru.resourceRepo.GetResourcesList(todoList)
 	fmt.Println("res 1", todoList)
@@ -35,7 +35,7 @@ func (ru resourceUsecase) GetAllImages() (models.ResourceList) {
 	return res
 }
 
-func (ru resourceUsecase) AddImage(objectName, id, name string) (models.Resource) {
+func (ru resourceUsecase) AddImage(objectName, id, name string) models.Resource {
 	jsonData, res := ru.resourceRepo.CreateResource(id, name)
 	data := bytes.NewReader(jsonData)
 	err := ru.resourceAdapter.UploadData(objectName, data)

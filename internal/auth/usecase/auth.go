@@ -3,17 +3,17 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"strings"
-	"time"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"net/http"
+	"strings"
+	"time"
 )
 
 type AuthClaims struct {
@@ -74,7 +74,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	}, nil
 }
 
-func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.LogInResponse, error) {
+func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error) {
 	user, _ := a.userRepo.GetUserByUsername(ctx, username)
 	if user == nil {
 		exceptions.Log(constants.ErrUserNotFound, nil)
@@ -104,7 +104,7 @@ func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*p
 		return nil, err
 	}
 
-	res := &presenter.LogInResponse{
+	res := &presenter.SignInResponse{
 		UserId:   user.Id,
 		Username: user.Username,
 		Token:    tmp,

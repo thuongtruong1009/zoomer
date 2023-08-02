@@ -1,10 +1,10 @@
 package delivery
 
 import (
-	"log"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/resources/minio/usecase"
+	"log"
 )
 
 type resourceHandler struct {
@@ -53,7 +53,7 @@ func (rh *resourceHandler) UploadResource() echo.HandlerFunc {
 
 func (rh *resourceHandler) DeleteResource() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		rh.resourceUC.DeleteImage(c.Param("id")+".json")
+		rh.resourceUC.DeleteImage(c.Param("id") + ".json")
 		return c.JSON(200, "deleted")
 	}
 }

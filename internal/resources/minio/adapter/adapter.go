@@ -3,23 +3,23 @@ package adapter
 import (
 	"context"
 	"fmt"
-	"io"
-	"log"
 	"github.com/minio/minio-go/v7"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"io"
+	"log"
 )
 
 type MinioAdapter struct {
-	client *minio.Client
+	client     *minio.Client
 	bucketName string
-	cfg *configs.Configuration
+	cfg        *configs.Configuration
 }
 
 func NewMinioAdapter(c *minio.Client, bucketName string, cfg *configs.Configuration) ResourceAdapter {
 	return &MinioAdapter{
-		client: c,
+		client:     c,
 		bucketName: bucketName,
-		cfg: cfg,
+		cfg:        cfg,
 	}
 }
 

@@ -8,17 +8,17 @@ import (
 )
 
 type MiddlewareManager struct {
-	e *echo.Echo
-	cfg *configs.Configuration
+	e        *echo.Echo
+	cfg      *configs.Configuration
 	paramCfg *parameter.ParameterConfig
-	inter interceptor.IInterceptor
+	inter    interceptor.IInterceptor
 }
 
 func RegisterMiddleware(e *echo.Echo, cfg *configs.Configuration, paramCfg *parameter.ParameterConfig, inter interceptor.IInterceptor) *MiddlewareManager {
 	return &MiddlewareManager{
-		e: e,
-		cfg: cfg,
+		e:        e,
+		cfg:      cfg,
 		paramCfg: paramCfg,
-		inter: inter,
+		inter:    inter,
 	}
 }

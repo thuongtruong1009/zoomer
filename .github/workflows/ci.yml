@@ -4,33 +4,36 @@ on:
   push:
     branches:
       - main
-		paths-ignore:
+    paths-ignore:
       - "!cmd/**"
       - "!configs/**"
       - "!db/**"
       - "!internal/**"
       - "!pkg/**"
+      - "!app/**"
+      - "!infrastructure"
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-		services:
-			postgres:
-				image: postgres:14-alpine
-				env:
-					POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
-					POSTGRES_PASSWORD: ${{ secrets.POSTGRES_USERNAME }}
-					POSTGRES_DB: zoomer
-				ports:
-					- 5432:5432
-				options: >-
-					--health-cmd pg_isready
-					--health-interval 10s
-					--health-timeout 5s
-					--health-retries 5
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: zoomer
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-			- name: Checkout Code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Go
@@ -42,15 +45,15 @@ jobs:
         run: make setup
 
       - name: Build
-				run: make build
+        run: make build
 
-			- name: Test
-				run: make tests
+      - name: Test
+        run: make tests
 
-			- name: coverage
-				run: bash <(curl -s https://codecov.io/bash)
+      - name: Coverage
+        run: bash <(curl -s https://codecov.io/bash)
 
-			- name: go test with coverage
+      - name: go test with coverage
         run: go tool cover -func coverage
 
       - name: Upload Coverage Report
@@ -59,32 +62,45 @@ jobs:
           name: coverage-report
           path: ./coverage
 
-			- name: Upload Coverage Report
-				uses: actions/upload-artifact@v2
-				with:
-					name: coverage-report
-					path: ./coverage
-
-			- name: Run Static Analyzer
+      - name: Run Static Analyzer
         run: go vet -v ./...
 
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      packages: write
+      contents: read
+
     steps:
-			- name: Set up Docker Buildx
+      - name: Set up Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Login to Docker Hub
+      - name: Login to Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and Push Docker Image
+      - name: Log in to the registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ${{ github.repository }}
+            ghcr.io/${{ github.repository }}
+
+      - name: Build and Push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/zoomer:latest
+          tags: ${{ github.repository }}:latest
+          labels: ${{ steps.meta.outputs.labels }}

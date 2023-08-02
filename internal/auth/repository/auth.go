@@ -2,15 +2,15 @@ package repository
 
 import (
 	"context"
+	"github.com/go-redis/redis/v8"
+	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"gorm.io/gorm"
 	"log"
 	"strings"
 	"time"
-	"github.com/go-redis/redis/v8"
-	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
-	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type authRepository struct {
