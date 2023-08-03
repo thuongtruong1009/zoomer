@@ -14,7 +14,7 @@ _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 setup:
 	@echo "Installing dependencies..."
 	go mod tidy
-	go install github.com/cosmtrek/air@v1.27.3
+	go install github.com/cosmtrek/air@latest
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
@@ -31,7 +31,7 @@ start:
 
 tests:
 	@echo "Running tests..."
-	cd scripts && run-tests.sh
+	cd scripts && run-tests.sh && go vet -v ./...
 	@echo "Done!"
 
 lint:
@@ -43,13 +43,12 @@ lint:
 
 build:
 	@ echo "Building ${APPLICATION_NAME}..."
-	@ go build -trimpath -o ${BUILDPOINT} ${ENTRYPOINT}
+	go build -tags migrate -trimpath -o ${BUILDPOINT} ${ENTRYPOINT}
 	@ echo "Done!"
 
 docs:
 	@ echo "Generating docs..."
-	swag fmt
-	swag init -g ./cmd/main.go --output ./docs
+	swag fmt && swag init -g ./cmd/main.go --output ./docs
 	@ echo "Done!"
 
 # Migration

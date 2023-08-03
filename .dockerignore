@@ -4,7 +4,6 @@
 .gitattributes
 Dockerfile-*
 docker-compose*
-Makefile
 LICENSE
 README.md
 CHANGELOG.md
@@ -20,6 +19,6 @@ SECURITY.md
 .github/
 build/
 vscode/
+docs/UML/
 client/
-docs/
 public/

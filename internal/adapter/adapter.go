@@ -13,7 +13,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
-func Adapter(cfg *configs.Configuration, paramCfg *parameter.ParameterConfig) *server.Server {
+func Adapter(cfg *configs.Configuration, paramCfg *parameter.ParameterConfig) server.IServer {
 	logger := logrus.New()
 	logger.SetFormatter(&logrus.JSONFormatter{})
 	logger.SetLevel(logrus.DebugLevel)

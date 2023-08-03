@@ -11,35 +11,22 @@ on:
       - "!internal/**"
       - "!pkg/**"
       - "!app/**"
-      - "!infrastructure"
+      - "!infrastructure/**"
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:14-alpine
-        env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: zoomer
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.20
+          cache: true
 
       - name: Install Dependencies
         run: make setup
@@ -57,13 +44,13 @@ jobs:
         run: go tool cover -func coverage
 
       - name: Upload Coverage Report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ./coverage
-
-      - name: Run Static Analyzer
-        run: go vet -v ./...
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # path: logs/coverage.txt
+          files: logs/coverage.txt
+          flags: unittests
 
   deploy:
     needs: build-and-test
@@ -89,7 +76,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PAT }}
 
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v4
         with:

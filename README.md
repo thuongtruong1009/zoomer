@@ -92,6 +92,12 @@ make lint
 
 <!-- **References**
 
+- [Sentinel ip](https://github.dev/oneyottabyte/redis_sentinel)
+
+- [Sentinel auto 1](https://blog.alexseifert.com/2016/11/14/using-redis-sentinel-with-docker-compose/)
+
+- [Sentinel auto 2](https://github.com/helderjnpinto/Redis-Sentinel-Docker-Compose)
+
 - [Status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 - [Clean architecture 1](https://github.dev/manakuro/golang-clean-architecture)

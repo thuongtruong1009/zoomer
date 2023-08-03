@@ -31,7 +31,7 @@ type Server struct {
 	notify       chan error
 }
 
-func NewServer(e *echo.Echo, cfg *configs.Configuration, parameterCfg *parameter.ParameterConfig, pgDB *gorm.DB, redisDB *redis.Client, minioClient adapter.ResourceAdapter, logger *logrus.Logger, inter interceptor.IInterceptor) *Server {
+func NewServer(e *echo.Echo, cfg *configs.Configuration, parameterCfg *parameter.ParameterConfig, pgDB *gorm.DB, redisDB *redis.Client, minioClient adapter.ResourceAdapter, logger *logrus.Logger, inter interceptor.IInterceptor) IServer {
 	s := &Server{
 		echo:         e,
 		cfg:          cfg,

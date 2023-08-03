@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	_ "github.com/thuongtruong1009/zoomer/docs"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
@@ -23,6 +24,14 @@ import (
 	roomHttp "github.com/thuongtruong1009/zoomer/internal/rooms/delivery"
 	searchHttp "github.com/thuongtruong1009/zoomer/internal/search/delivery"
 )
+
+type IServer interface {
+	HttpMapServer() error
+	WsMapServer() error
+	start()
+	Notify() <-chan error
+	Shutdown(ctx context.Context) error
+}
 
 func (s *Server) HttpMapServer() error {
 	authRepo := authRepository.NewAuthRepository(s.pgDB, s.redisDB)

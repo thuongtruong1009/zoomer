@@ -10,6 +10,8 @@ on:
       - "!db/**"
       - "!internal/**"
       - "!pkg/**"
+      - "!app/**"
+      - "!infrastructure/**"
 
 jobs:
   analyze:
@@ -19,38 +21,35 @@ jobs:
       actions: read
       contents: read
       security-events: write
-
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'go', 'javascript' ]
-
+        language: ["go", "javascript"]
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
 
-	golangci:
+  golangci:
     name: golangci
     runs-on: ubuntu-latest
-		permissions:
+    permissions:
       contents: read
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Go
-				uses: actions/setup-go@v3
+        uses: actions/setup-go@v3
         with:
           stable: "false"
           go-version: "1.20"
@@ -64,8 +63,8 @@ jobs:
           skip-pkg-cache: true
           skip-build-cache: true
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.42.1
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
 
-			- name: Run lint
-				run: |
-					golangci-lint run --issues-exit-code=0
+      - name: Run lint
+        run: |
+          golangci-lint run --issues-exit-code=0

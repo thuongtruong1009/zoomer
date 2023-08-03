@@ -4,35 +4,25 @@ services:
   postgres:
     environment:
       POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_PORT: 5432
       # - POSTGRES_HOST_AUTH_METHOD=trust
-      # POSTGRES_DB: zoomer
-      # POSTGRES_USER: postgres
-      # POSTGRES_PASSWORD: 123456789
-
-  redis-master:
-    environment:
-      - REDIS_HOST=redis-master
-    command: redis-server --requirepass master_password
-
-  redis-slave:
-    command: redis-server --slaveof redis-master 6379 --masterauth master_password --requirepass slave_password
-
-  redis-sentinel:
-    environment:
-      - REDIS_MASTER_HOST=redis-master
-    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
 
   minio:
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-    command: server --console-address ":9001" /var/lib/minio
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ACCESS: oo8xvrXe90ysYFKq
+      MINIO_SECRET: wJU2cLdHICXPI8VKj5OfWKwCcn0MTEsy
+      MINIO_ENDPOINT: localhost:9000
 
   rabbitmq:
     environment:
-      - RABBITMQ_DEFAULT_USER=${RMQ_USER}
-      - RABBITMQ_DEFAULT_PASS=${RMQ_PASSWORD}
-      - RABBITMQ_DEFAULT_VHOST=${RMQ_VHOST}
+      # - RABBITMQ_DEFAULT_USER=guest
+      # - RABBITMQ_DEFAULT_PASS=guest
+      # - RABBITMQ_DEFAULT_VHOST=zoomer
+      RMQ_URI: amqp://guest:guest@localhost:5672/zoomer
 
   app:
     build:

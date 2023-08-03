@@ -1,14 +1,12 @@
 FROM golang:1.20-alpine AS development
-# RUN apk update && apk add make git build-base bash
 RUN mkdir -p /app
 WORKDIR /app
-COPY go.mod go.sum ./
+COPY go.mod go.sum docs ./
 RUN go mod download
-RUN go install github.com/cosmtrek/air@latest
-RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 RUN go clean --modcache
+RUN apk update && apk add make && apk add --no-cache git
 COPY . .
-RUN apk add --no-cache git
+RUN make setup
 RUN go build -v -o main-dev ./cmd/main.go
 
 FROM golang:1.20-alpine AS production
