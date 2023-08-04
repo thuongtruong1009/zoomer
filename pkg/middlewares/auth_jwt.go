@@ -1,13 +1,13 @@
 package middlewares
 
 import (
-	"net/http"
-	"strings"
 	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/internal/auth/repository"
 	"github.com/thuongtruong1009/zoomer/internal/auth/usecase"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"net/http"
+	"strings"
 )
 
 type AuthMiddleware struct {

@@ -3,11 +3,11 @@ package repository
 import (
 	"context"
 	"fmt"
-	"gorm.io/gorm"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"gorm.io/gorm"
 	// "github.com/RediSearch/redisearch-go/redisearch"
 )
 

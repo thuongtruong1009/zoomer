@@ -4,7 +4,6 @@
 .gitattributes
 Dockerfile-*
 docker-compose*
-Makefile
 LICENSE
 README.md
 CHANGELOG.md
@@ -15,11 +14,12 @@ SECURITY.md
 **/*.yml
 **/*.md
 **/*_test.go
+.docker/
 
 .git/
 .github/
 build/
 vscode/
+docs/UML/
 client/
-docs/
 public/

@@ -1,3 +1,7 @@
+server:
+  shutdown_timeout: 3
+  write_timeout: 5
+  read_timeout: 5
 rate_limit:
   rate: 10
   burst: 30

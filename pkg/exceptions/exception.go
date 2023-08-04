@@ -2,9 +2,9 @@ package exceptions
 
 import (
 	"fmt"
-	"log"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"log"
 )
 
 func detectError(err interface{}) string {

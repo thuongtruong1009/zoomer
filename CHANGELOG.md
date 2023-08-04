@@ -24,6 +24,7 @@ There is the most valuable changes log:
 - Concurrently run http and websocket server
 - Combine into one port for websocket and http
 - Working raw with MinIO
+- Logging system
 
 **3. Features**
 
@@ -39,10 +40,11 @@ There is the most valuable changes log:
 
 **4. Bugfixes**
 
-- fix: reload old messages when rejoin room
-- fix: reconnect to websocket when rejoin room
-- fix: display video partner in chat
-- fix: reconnect to websocket when rejoin room
+- Reload old messages when rejoin room
+- Reconnect to websocket when rejoin room
+- Risplay video partner in chat
+- Reconnect to websocket when rejoin room
+- Chat index
 
 ### [v1.0 - 28-03-2023](https://github.com/thuongtruong1009/zoomer/releases/tag/v1.0)
 

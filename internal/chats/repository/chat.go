@@ -41,8 +41,6 @@ func (cr *chatRepository) CreateChat(ctx context.Context, c *models.Chat) (strin
 		return "", err
 	}
 
-	// Store chat JSON using HSET command
-	// err = cr.redisDB.HSet(context.Background(), adapter.ChatKey(), "$", string(by)).Err()
 	res, err := cr.redisDB.Do(
 		context.Background(),
 		"json.set",

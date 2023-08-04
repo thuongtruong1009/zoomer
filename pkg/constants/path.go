@@ -1,17 +1,17 @@
 package constants
 
 const (
-	CertPath         string = "/.docker/nginx/cert.pem"
-	KeyPath          string = "/.docker/nginx/key.pem"
+	CertPath string = "/.docker/nginx/cert.pem"
+	KeyPath  string = "/.docker/nginx/key.pem"
 )
 
 const (
-	EnvConfPath          string = ".env"
-	ParamConfPath 	  string = "."
+	EnvConfPath   string = ".env"
+	ParamConfPath string = "."
 )
 
 const (
-	BucketName       string = "zoomer"
+	BucketName string = "zoomer"
 )
 
 const (
@@ -21,7 +21,7 @@ const (
 )
 
 const (
-	RequestLogPath   string = "logs/requests.log"
-	ErrorLogPath     string = "logs/errors.log"
-	SystemLogPath    string = "logs/system.log"
+	RequestLogPath string = "logs/requests.log"
+	ErrorLogPath   string = "logs/errors.log"
+	SystemLogPath  string = "logs/system.log"
 )

@@ -2,6 +2,7 @@ package hub
 
 import (
 	"context"
+	"github.com/thuongtruong1009/zoomer/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"log"
@@ -15,14 +16,16 @@ type RoomMap struct {
 
 var (
 	Mapper     RoomMap
-	Broadcast  = make(chan *models.BroadcastMessage, 100)
-	Disconnect = make(chan *models.DisconnectMessage, 100)
+	Broadcast  chan *models.BroadcastMessage
+	Disconnect chan *models.DisconnectMessage
 )
 
 type hub struct{}
 
-func NewStreamHub() IHub {
+func NewStreamHub(streamCfg *parameter.ServerConf) IHub {
 	Mapper = RoomMap{Map: make(map[string][]*models.Participant)}
+	Broadcast  = make(chan *models.BroadcastMessage, streamCfg.StreamMaxConnection)
+	Disconnect = make(chan *models.DisconnectMessage, streamCfg.StreamMaxConnection)
 	return &hub{}
 }
 

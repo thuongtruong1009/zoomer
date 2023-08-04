@@ -22,7 +22,6 @@ func WriteLog(filePath string, logID, logMessage string) {
 	logger.Println(logMessage)
 }
 
-
 func RotateTruncateLog(path string, maxFileSize int64) {
 	logFile, err := os.OpenFile("app.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
@@ -62,4 +61,3 @@ func truncateLogFile(file *os.File) error {
 
 	return nil
 }
-

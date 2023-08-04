@@ -3,18 +3,18 @@ package adapter
 import (
 	"context"
 	"fmt"
-	"log"
 	"github.com/minio/minio-go/v7"
-	"github.com/sirupsen/logrus"
 	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/configs"
+	"log"
 )
 
 var (
-	useSSL    = false
+	useSSL      = false
 	contentType = "application/octet-stream"
 	// contentType = "image/png"
-	location    = "us-east-1"
+	location = "us-east-1"
 )
 
 func RegisterMinioClient(cfg *configs.Configuration) (*minio.Client, error) {

@@ -3,15 +3,15 @@ package constants
 import "errors"
 
 var (
-	ErrorShuttdownServer error = errors.New("error shutting down server")
-	ErrorStartHttps error = errors.New("error occured when starting the server in HTTPS mode")
-	ErrorStartHttp error = errors.New("error occurred while starting the http server")
-	ErrorSetupHttpRouter error = errors.New("error occurred while setting up http routers")
+	ErrorShuttdownServer   error = errors.New("error shutting down server")
+	ErrorStartHttps        error = errors.New("error occured when starting the server in HTTPS mode")
+	ErrorStartHttp         error = errors.New("error occurred while starting the http server")
+	ErrorSetupHttpRouter   error = errors.New("error occurred while setting up http routers")
 	ErrorSetupSocketRouter error = errors.New("error occurred while setting up websocket routers")
 
 	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
-	ErrorLoadEnvFile error = errors.New("error loading env file")
-	ErrorEnvKeyNotFound error = errors.New("env key not found")
+	ErrorLoadEnvFile           error = errors.New("error loading env file")
+	ErrorEnvKeyNotFound        error = errors.New("env key not found")
 )
 
 var (
@@ -38,8 +38,8 @@ var (
 	ErrUsernameInvalid    error = errors.New("username invalid")
 	ErrPasswordInvalid    error = errors.New("password invalid")
 	ErrUnexpectedSigning  error = errors.New("unexpected signing method")
-	ErrSigningKey 	   error = errors.New("signing key error")
-	ErrParseToken		 error = errors.New("parse token error")
+	ErrSigningKey         error = errors.New("signing key error")
+	ErrParseToken         error = errors.New("parse token error")
 	ErrCreateUserFailed   error = errors.New("create user failed")
 
 	// room

@@ -1,11 +1,11 @@
 package server
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
+	"context"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	_ "github.com/thuongtruong1009/zoomer/docs"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/middlewares"
 
 	authRepository "github.com/thuongtruong1009/zoomer/internal/auth/repository"
 	minioResourceRepository "github.com/thuongtruong1009/zoomer/internal/resources/minio/repository"
@@ -25,7 +25,15 @@ import (
 	searchHttp "github.com/thuongtruong1009/zoomer/internal/search/delivery"
 )
 
-func (s *Server) HttpMapServer(e *echo.Echo) error {
+type IServer interface {
+	HttpMapServer() error
+	WsMapServer() error
+	start()
+	Notify() <-chan error
+	Shutdown(ctx context.Context) error
+}
+
+func (s *Server) HttpMapServer() error {
 	authRepo := authRepository.NewAuthRepository(s.pgDB, s.redisDB)
 	roomRepo := roomRepository.NewRoomRepository(s.pgDB, s.redisDB)
 
@@ -46,15 +54,15 @@ func (s *Server) HttpMapServer(e *echo.Echo) error {
 	minioResourceHandler := minioResourceHttp.NewResourceHandler(minioResourceUC)
 	localResourceHandler := localResourceHttp.NewLocalResourceHandler(s.inter, localResourceUC)
 
-	e.Static(constants.StaticGroupPath, constants.StaticGroupName)
+	s.echo.Static(constants.StaticGroupPath, constants.StaticGroupName)
 	// e.Use(middleware.Static(constants.StaticGroupPath))
-	e.GET(constants.DocGroup, echoSwagger.WrapHandler)
+	s.echo.GET(constants.DocGroup, echoSwagger.WrapHandler)
 
-	mw := middlewares.RegisterMiddleware(e, s.cfg, s.parameterCfg, s.inter)
+	mw := middlewares.RegisterMiddleware(s.echo, s.cfg, s.parameterCfg, s.inter)
 	mw.HttpMiddleware()
 	authMw := middlewares.NewAuthMiddleware(authUC, s.inter)
 
-	httpGr := e.Group(constants.ApiGroup)
+	httpGr := s.echo.Group(constants.ApiGroup)
 
 	authGroup := httpGr.Group(constants.AuthGroupEndPoint)
 	authHttp.MapAuthRoutes(authGroup, authHandler, authMw)

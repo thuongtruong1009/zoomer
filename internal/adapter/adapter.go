@@ -7,16 +7,13 @@ import (
 	"github.com/thuongtruong1009/zoomer/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/db"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
-	"github.com/thuongtruong1009/zoomer/internal/server"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	minioAdapter "github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/server"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 
-func Adapter() *server.Server {
-	cfg := configs.LoadConfigs(constants.EnvConfPath)
-	paramCfg := parameter.LoadParameterConfigs(constants.ParamConfPath)
-
+func Adapter(cfg *configs.Configuration, paramCfg *parameter.ParameterConfig) server.IServer {
 	logger := logrus.New()
 	logger.SetFormatter(&logrus.JSONFormatter{})
 	logger.SetLevel(logrus.DebugLevel)

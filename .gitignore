@@ -30,7 +30,7 @@ main
 !.docker/**/.gitkeep
 !.docker/**/**/.gitkeep
 .docker/postgres/**
-!.docker/redis/config/sentinel.conf
+!.docker/redis/config/**
 
 **/node_modules
 **/.next

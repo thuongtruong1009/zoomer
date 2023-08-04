@@ -2,23 +2,23 @@ package postgres
 
 import (
 	"errors"
-	"log"
-	"time"
-	"gorm.io/gorm"
-	"gorm.io/driver/postgres"
 	"github.com/thuongtruong1009/zoomer/configs"
 	"github.com/thuongtruong1009/zoomer/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"log"
+	"time"
 )
 
 type postgresStruct struct {
-	db *gorm.DB
+	db       *gorm.DB
 	paramCfg *parameter.PostgresConf
 }
 
 func NewPgAdapter(paramCfg *parameter.PostgresConf) PgAdapter {
 	return &postgresStruct{
-		db: &gorm.DB{},
+		db:       &gorm.DB{},
 		paramCfg: paramCfg,
 	}
 }

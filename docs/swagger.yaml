@@ -1,5 +1,21 @@
 basePath: /api
 definitions:
+  presenter.SignInInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  presenter.SignInResponse:
+    properties:
+      token:
+        type: string
+      userId:
+        type: string
+      username:
+        type: string
+    type: object
   presenter.SignUpInput:
     properties:
       limit:
@@ -32,7 +48,72 @@ info:
   title: Zoomer
   version: "2.0"
 paths:
-  /api/auth/signup:
+  /auth/signin:
+    post:
+      consumes:
+      - application/json
+      description: Login to user account
+      parameters:
+      - description: Login user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.SignInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.SignInResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      summary: Login to user account
+      tags:
+      - auth
+  /auth/signout:
+    post:
+      consumes:
+      - application/json
+      description: Logout user credentials
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: error
+        "401":
+          description: Unauthorized
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      security:
+      - bearerAuth: []
+      summary: Logout user credentials
+      tags:
+      - auth
+  /auth/signup:
     post:
       consumes:
       - application/json
@@ -40,24 +121,28 @@ paths:
       parameters:
       - description: Create User
         in: body
-        name: todo
+        name: user
         required: true
         schema:
           $ref: '#/definitions/presenter.SignUpInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/presenter.SignUpResponse'
         "400":
           description: Bad Request
           schema:
-            type: string
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
       summary: Create a new user
       tags:
-      - users
+      - auth
 securityDefinitions:
   XFirebaseBearer:
     description: Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.

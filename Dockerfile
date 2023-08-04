@@ -1,14 +1,12 @@
 FROM golang:1.20-alpine AS development
-# RUN apk update && apk add make git build-base bash
 RUN mkdir -p /app
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-RUN go install github.com/cosmtrek/air@latest
-RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 RUN go clean --modcache
+RUN apk update && apk add make && apk add --no-cache git
 COPY . .
-RUN apk add --no-cache git
+RUN make setup
 RUN go build -v -o main-dev ./cmd/main.go
 
 FROM golang:1.20-alpine AS production
@@ -26,8 +24,8 @@ RUN addgroup -S zoomer
 RUN adduser -S -D -h /app zoomer zoomer
 RUN chown -R zoomer:zoomer /app
 USER zoomer
-COPY --chown=zoomer:zoomer --from=development /app /app/app-dev
-COPY --chown=zoomer:zoomer --from=production /app/main-prod /app
+COPY --chown=zoomer:zoomer --from=development /app /app/app-dev/
+COPY --chown=zoomer:zoomer --from=production /app/main-prod /app/
 EXPOSE 8080
 CMD if [ "$TARGET" = "development" ]; \
     then /app/app-dev/main-dev; \
