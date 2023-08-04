@@ -127,16 +127,17 @@ services:
       - minio-network
       - rabbitmq-network
       - nginx-network
+    command: ["go", "run", "cmd/main.go"]
     restart: always
 
   nginx:
     image: nginx:1.24-alpine
     container_name: nginx
     ports:
-      - "80:80"
+      - 80:80
     volumes:
-      - ./:/usr/share/nginx/html
-      - ./:/var/www
+      # - ./:/usr/share/nginx/html
+      # - ./:/var/www
       - ./.docker/nginx:/var/log/nginx
       - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:

@@ -102,7 +102,7 @@ func (h *authHandler) SignIn() echo.HandlerFunc {
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			userId	path	int	true	"User ID"
+//	@Param			userId	path	string	true	"User ID"
 //	@Success		200		string	constants.Success
 //	@Failure		400		error	constants.ErrorBadRequest.Error()
 //	@Failure		401		error	constants.ErrorUnauthorized.Error()
