@@ -2,8 +2,8 @@ package middlewares
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 )
 

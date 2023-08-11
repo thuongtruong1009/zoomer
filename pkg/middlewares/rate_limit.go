@@ -3,7 +3,7 @@ package middlewares
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"net/http"
 	"time"

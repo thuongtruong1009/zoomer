@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/minio/minio-go/v7"
-	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"io"
 	"log"
 )

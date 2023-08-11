@@ -6,23 +6,19 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASSWORD=123456789
-      - PG_PORT=5432
+      - PG_DB=zoomer
       # - POSTGRES_HOST_AUTH_METHOD=trust
 
-  minio:
-    environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-      MINIO_ACCESS: oo8xvrXe90ysYFKq
-      MINIO_SECRET: wJU2cLdHICXPI8VKj5OfWKwCcn0MTEsy
-      MINIO_ENDPOINT: localhost:9000
+  # minio:
+  #   environment:
+  #     MINIO_ENDPOINT: localhost:9000
 
   rabbitmq:
     environment:
       # - RABBITMQ_DEFAULT_USER=guest
       # - RABBITMQ_DEFAULT_PASS=guest
       # - RABBITMQ_DEFAULT_VHOST=zoomer
-      RMQ_URI: amqp://guest:guest@localhost:5672/zoomer
+      - RMQ_HOST=rabbitmq
 
   app:
     build:
@@ -30,3 +26,4 @@ services:
       target: development
       args:
         TARGET: development
+    command: ["make", "run"]

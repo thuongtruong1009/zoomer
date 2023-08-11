@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"gorm.io/gorm"
 	"log"
 	"time"
@@ -15,7 +16,7 @@ func main() {
 	cfg := configs.LoadConfigs(constants.EnvConfPath)
 	paramCfg := parameter.LoadParameterConfigs(constants.ParamConfPath)
 	pgAdapter := postgres.NewPgAdapter(&paramCfg.PostgresConf)
-	pgInstance := pgAdapter.ConnectInstance(cfg)
+	db := pgAdapter.ConnectInstance(cfg)
 
 
 	err := db.AutoMigrate(&models.User{})

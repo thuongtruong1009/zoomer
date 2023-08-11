@@ -92,6 +92,8 @@ make lint
 
 <!-- **References**
 
+- [Go8](https://github.dev/gmhafiz/go8)
+
 - [Sentinel ip](https://github.dev/oneyottabyte/redis_sentinel)
 
 - [Sentinel auto 1](https://blog.alexseifert.com/2016/11/14/using-redis-sentinel-with-docker-compose/)

@@ -1,22 +1,22 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This documentation for Zoomer API",
-        "title": "Zoomer",
-        "termsOfService": "http://swagger.io/terms/",
+        "description": "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
+        "title": "constants.AppName",
+        "termsOfService": "constants.AppTermsOfService",
         "contact": {
-            "name": "Tran Nguyen Thuong Truong",
-            "url": "https://github.com/thuongtruong1009/zoomer",
-            "email": "thuongtruongofficial@gmail.com"
+            "name": "constants.AppContactName",
+            "url": "constants.AppContactURL",
+            "email": "constants.AppContactEmail"
         },
         "license": {
-            "name": "Apache 2.0",
-            "url": "https://github.com/thuongtruong1009/zoomer/LICENSE"
+            "name": "constants.AppLicenseName",
+            "url": "constants.AppLicenseURL"
         },
-        "version": "2.0"
+        "version": "constants.AppVersion"
     },
-    "host": "localhost:8080",
-    "basePath": "/api",
+    "host": "constants.AppHost",
+    "basePath": "constants.ApiGroup",
     "paths": {
         "/auth/signin": {
             "post": {
@@ -84,7 +84,7 @@
                 "summary": "Logout user credentials",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "User ID",
                         "name": "userId",
                         "in": "path",
@@ -226,12 +226,6 @@
             "description": "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
             "type": "apiKey",
             "name": "Authorization",
-            "in": "header"
-        },
-        "XUserEmailAuth": {
-            "description": "This method just enabled for local development",
-            "type": "apiKey",
-            "name": "X-User-Email",
             "in": "header"
         }
     }

@@ -5,7 +5,7 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"log"
 	"time"
 )
@@ -16,7 +16,7 @@ const (
 )
 
 func main() {
-	databaseURL := configs.LookupEnv("PG_MIGRATE_URI")
+	databaseURL := configs.LookupEnv("PG_URI")
 
 	var (
 		attempts = _defaultAttempts

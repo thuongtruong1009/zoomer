@@ -5,7 +5,7 @@ import (
 	// "crypto/tls"
 	"fmt"
 	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"time"

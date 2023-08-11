@@ -2,8 +2,8 @@ package postgres
 
 import (
 	"errors"
-	"github.com/thuongtruong1009/zoomer/configs"
-	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

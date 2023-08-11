@@ -2,7 +2,7 @@ package hub
 
 import (
 	"context"
-	"github.com/thuongtruong1009/zoomer/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"log"

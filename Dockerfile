@@ -19,17 +19,17 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/main.go
 
 FROM scratch
-WORKDIR /app
 RUN addgroup -S zoomer
 RUN adduser -S -D -h /app zoomer zoomer
-RUN chown -R zoomer:zoomer /app
+RUN mkdir -p /app
+WORKDIR /app
 USER zoomer
 COPY --chown=zoomer:zoomer --from=development /app /app/app-dev/
 COPY --chown=zoomer:zoomer --from=production /app/main-prod /app/
 EXPOSE 8080
 CMD if [ "$TARGET" = "development" ]; \
     then /app/app-dev/main-dev; \
-    else /app/main-prod; \
+    else ./main-prod; \
     fi
 
 LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"

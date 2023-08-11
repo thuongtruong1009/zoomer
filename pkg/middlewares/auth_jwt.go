@@ -13,9 +13,6 @@ import (
 type AuthMiddleware struct {
 	authUC usecase.UseCase
 	inter  interceptor.IInterceptor
-	// cfg    *config.Configuration
-	// logger *logrus.Logger
-	// origins []string
 }
 
 func NewAuthMiddleware(authUC usecase.UseCase, inter interceptor.IInterceptor) *AuthMiddleware {
@@ -24,7 +21,7 @@ func NewAuthMiddleware(authUC usecase.UseCase, inter interceptor.IInterceptor) *
 
 func (mw *AuthMiddleware) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		authHeader := c.Request().Header.Get("Authorization")
+		authHeader := c.Request().Header.Get(constants.BearerHeader)
 		if authHeader == "" {
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
@@ -34,7 +31,7 @@ func (mw *AuthMiddleware) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc 
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
-		if headerParts[0] != "Bearer" {
+		if headerParts[0] != constants.BearerName {
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 

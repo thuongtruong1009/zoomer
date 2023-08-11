@@ -7,7 +7,7 @@ const (
 
 const (
 	EnvConfPath   string = ".env"
-	ParamConfPath string = "."
+	ParamConfPath string = "conf"
 )
 
 const (
@@ -21,7 +21,7 @@ const (
 )
 
 const (
-	RequestLogPath string = "logs/requests.log"
+	RequestLogPath string = "logs/access.log"
 	ErrorLogPath   string = "logs/errors.log"
 	SystemLogPath  string = "logs/system.log"
 )

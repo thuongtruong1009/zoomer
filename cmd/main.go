@@ -1,29 +1,30 @@
 package main
 
 import (
-	"github.com/thuongtruong1009/zoomer/app"
+	"github.com/thuongtruong1009/zoomer/infrastructure/app"
+	_"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"os"
 )
 
-//	@title			Zoomer
-//	@version		2.0
-//	@description	This documentation for Zoomer API
-//	@termsOfService	http://swagger.io/terms/
+//	@title			constants.AppName
+//	@version		constants.AppVersion
+//	@description	constants.AppDescription
+//	@termsOfService	constants.AppTermsOfService
 
-//	@contact.name	Tran Nguyen Thuong Truong
-//	@contact.url	https://github.com/thuongtruong1009/zoomer
-//	@contact.email	thuongtruongofficial@gmail.com
+//	@contact.name	constants.AppContactName
+//	@contact.url	constants.AppContactURL
+//	@contact.email	constants.AppContactEmail
 
-//	@license.name	Apache 2.0
-//	@license.url	https://github.com/thuongtruong1009/zoomer/LICENSE
+//	@license.name	constants.AppLicenseName
+//	@license.url	constants.AppLicenseURL
 
-//	@host		localhost:8080
-//	@BasePath	/api
+//	@host		constants.AppHost
+//	@BasePath	constants.ApiGroup
 
-//	@securityDefinitions.apikey	XUserEmailAuth
-//	@in							header
-//	@name						X-User-Email
-//	@description				This method just enabled for local development
+//	@securityDefinitions	bearerAuth
+//	@in						header
+//	@name					constants.BearerHeader
+//	@description			Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
 
 //	@securityDefinitions.apikey	XFirebaseBearer
 //	@in							header

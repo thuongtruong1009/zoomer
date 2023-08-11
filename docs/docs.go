@@ -10,15 +10,15 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://swagger.io/terms/",
+        "termsOfService": "constants.AppTermsOfService",
         "contact": {
-            "name": "Tran Nguyen Thuong Truong",
-            "url": "https://github.com/thuongtruong1009/zoomer",
-            "email": "thuongtruongofficial@gmail.com"
+            "name": "constants.AppContactName",
+            "url": "constants.AppContactURL",
+            "email": "constants.AppContactEmail"
         },
         "license": {
-            "name": "Apache 2.0",
-            "url": "https://github.com/thuongtruong1009/zoomer/LICENSE"
+            "name": "constants.AppLicenseName",
+            "url": "constants.AppLicenseURL"
         },
         "version": "{{.Version}}"
     },
@@ -91,7 +91,7 @@ const docTemplate = `{
                 "summary": "Logout user credentials",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "User ID",
                         "name": "userId",
                         "in": "path",
@@ -234,24 +234,18 @@ const docTemplate = `{
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
-        },
-        "XUserEmailAuth": {
-            "description": "This method just enabled for local development",
-            "type": "apiKey",
-            "name": "X-User-Email",
-            "in": "header"
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2.0",
-	Host:             "localhost:8080",
-	BasePath:         "/api",
+	Version:          "constants.AppVersion",
+	Host:             "constants.AppHost",
+	BasePath:         "constants.ApiGroup",
 	Schemes:          []string{},
-	Title:            "Zoomer",
-	Description:      "This documentation for Zoomer API",
+	Title:            "constants.AppName",
+	Description:      "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

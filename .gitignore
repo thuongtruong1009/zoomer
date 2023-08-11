@@ -18,6 +18,8 @@ tmp/
 
 vendor/
 
+bin
+
 main
 
 .env

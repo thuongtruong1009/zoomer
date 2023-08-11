@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/thuongtruong1009/zoomer/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"gorm.io/gorm"
 )
 

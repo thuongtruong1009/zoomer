@@ -1,4 +1,4 @@
-basePath: /api
+basePath: constants.ApiGroup
 definitions:
   presenter.SignInInput:
     properties:
@@ -34,19 +34,19 @@ definitions:
       username:
         type: string
     type: object
-host: localhost:8080
+host: constants.AppHost
 info:
   contact:
-    email: thuongtruongofficial@gmail.com
-    name: Tran Nguyen Thuong Truong
-    url: https://github.com/thuongtruong1009/zoomer
-  description: This documentation for Zoomer API
+    email: constants.AppContactEmail
+    name: constants.AppContactName
+    url: constants.AppContactURL
+  description: Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
   license:
-    name: Apache 2.0
-    url: https://github.com/thuongtruong1009/zoomer/LICENSE
-  termsOfService: http://swagger.io/terms/
-  title: Zoomer
-  version: "2.0"
+    name: constants.AppLicenseName
+    url: constants.AppLicenseURL
+  termsOfService: constants.AppTermsOfService
+  title: constants.AppName
+  version: constants.AppVersion
 paths:
   /auth/signin:
     post:
@@ -88,7 +88,7 @@ paths:
         in: path
         name: userId
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -148,10 +148,5 @@ securityDefinitions:
     description: Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
     in: header
     name: Authorization
-    type: apiKey
-  XUserEmailAuth:
-    description: This method just enabled for local development
-    in: header
-    name: X-User-Email
     type: apiKey
 swagger: "2.0"

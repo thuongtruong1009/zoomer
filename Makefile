@@ -18,6 +18,7 @@ setup:
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install golang.org/x/vuln/cmd/govulncheck@latest
 	@echo "Done!"
 
 dev:
@@ -31,7 +32,7 @@ start:
 
 tests:
 	@echo "Running tests..."
-	cd scripts && run-tests.sh && go vet -v ./...
+	go clean -testcache && cd scripts && run-tests.sh && go vet -v ./... && govulncheck ./...
 	@echo "Done!"
 
 lint:
@@ -78,18 +79,16 @@ seed:
 
 docker-build:
 	@ echo "Building ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}..."
-	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
+	docker build --pull --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} -f ${_BUILD_ARGS_DOCKERFILE} .
 	@ echo "Done!"
 
 docker-dev:
 	@ echo "Building ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}..."
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d
 	@ echo "Running..."
 
 docker-prod:
-	@ echo "Building ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG}..."
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-	@ echo "Done!"
 
 docker-push:
 	@ echo "Pushing ${DOCKER_USERNAME}/${APPLICATION_NAME}:${_BUILD_ARGS_TAG} to docker hub..."

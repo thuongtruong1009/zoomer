@@ -12,11 +12,11 @@ services:
       - ./.docker/postgres/data:/var/lib/postgresql/data
     networks:
       - postgres-network
-    healthcheck:
-      test: pg_isready
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    # healthcheck:
+    #   test: pg_isready
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
 
   pgadmin:
     image: dockette/adminer:pgsql
@@ -26,9 +26,9 @@ services:
       - "5050:80"
     # expose:
     #   - "80"
-    depends_on:
-      postgres:
-        condition: service_healthy
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
     networks:
       - postgres-network
     volumes:
@@ -101,18 +101,15 @@ services:
       - rabbitmq-network
 
   app:
-    # image: thuongtruong1009/zoomer
     build:
       context: .
       dockerfile: Dockerfile
     env_file:
       - .env
     ports:
-      - "8080:8080"
+      - ${APP_PORT}:${APP_PORT}
     environment:
       - APP_PORT=80
-    # deploy:
-    #   replicas: 3
     depends_on:
       - postgres
       - redis-master
@@ -127,7 +124,6 @@ services:
       - minio-network
       - rabbitmq-network
       - nginx-network
-    command: ["go", "run", "cmd/main.go"]
     restart: always
 
   nginx:
