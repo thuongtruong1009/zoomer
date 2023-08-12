@@ -5,9 +5,10 @@ import "errors"
 var (
 	ErrorShuttdownServer   error = errors.New("error shutting down server")
 	ErrorStartHttps        error = errors.New("error occured when starting the server in HTTPS mode")
-	ErrorStartHttp         error = errors.New("error occurred while starting the http server")
+	ErrorStartHttp         error = errors.New("error occurred while starting the http api")
 	ErrorSetupHttpRouter   error = errors.New("error occurred while setting up http routers")
 	ErrorSetupSocketRouter error = errors.New("error occurred while setting up websocket routers")
+	ErrorStartupApi		   error = errors.New("error occurred while starting up the server")
 
 	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
 	ErrorLoadEnvFile           error = errors.New("error loading env file")

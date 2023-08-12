@@ -55,20 +55,20 @@ docs:
 # Migration
 
 migration-create:
-	set /p Name="Please provide name for the migration: " && migrate create -ext sql -dir db/migrations/sql -seq %Name%
+	set /p Name="Please provide name for the migration: " && migrate create -ext sql -dir db/migrations -seq %Name%
 
 migration-up:
 	@ echo "Migrating up..."
-	@ set -p N="How many migration you wants to perform (default value: [all]): " && migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" up %N:~-1%
+	@ set -p N="How many migration you wants to perform (default value: [all]): " && migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" up %N:~-1%
 	@ echo "Done!"
 
 migration-down:
 	@ echo "Migrating down..."
-	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" down
+	migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" down
 	@ echo "Done!"
 
 migrate-status:
-	migrate -path db/migrations/sql -verbose -database "${PG_MIGRATE_URI}" status=
+	migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" status=
 
 seed:
 	@ echo "Seeding data..."

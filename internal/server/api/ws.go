@@ -1,12 +1,12 @@
 package api
 
 import (
-	chatDelivery "github.com/thuongtruong1009/zoomer/internal/chats/delivery"
-	chatHub "github.com/thuongtruong1009/zoomer/internal/chats/hub"
-	chatRepository "github.com/thuongtruong1009/zoomer/internal/chats/repository"
+	chatDelivery "github.com/thuongtruong1009/zoomer/internal/modules/chats/delivery"
+	chatHub "github.com/thuongtruong1009/zoomer/internal/modules/chats/hub"
+	chatRepository "github.com/thuongtruong1009/zoomer/internal/modules/chats/repository"
 
-	streamDelivery "github.com/thuongtruong1009/zoomer/internal/stream/delivery"
-	streamHub "github.com/thuongtruong1009/zoomer/internal/stream/hub"
+	streamDelivery "github.com/thuongtruong1009/zoomer/internal/modules/stream/delivery"
+	streamHub "github.com/thuongtruong1009/zoomer/internal/modules/stream/hub"
 )
 
 func (s *Api) WsApi() error {

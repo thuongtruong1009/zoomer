@@ -4,9 +4,9 @@ services:
   postgres:
     environment:
       - PG_HOST=postgres
-      - PG_USER=postgres
-      - PG_PASSWORD=123456789
-      - PG_DB=zoomer
+      # - PG_USER=postgres
+      # - PG_PASSWORD=123456789
+      # - PG_PORT=5432
       # - POSTGRES_HOST_AUTH_METHOD=trust
 
   # minio:

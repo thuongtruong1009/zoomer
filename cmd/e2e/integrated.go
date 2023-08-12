@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/suite"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"github.com/thuongtruong1009/zoomer/internal/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	"io/ioutil"
 	"github.com/thuongtruong1009/zoomer/infrastructure/app"
 )

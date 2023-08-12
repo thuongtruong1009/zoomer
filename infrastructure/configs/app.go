@@ -17,7 +17,7 @@ type Configuration struct {
 	JwtSecret  string `env:"JWT_SECRET,required"`
 	HttpsMode  bool   `env:"HTTPS_MODE" envDefault:"false"`
 
-	DatabaseConnectionURL string `env:"PG_URI,required"`
+	DatabaseConnectionURL string `env:"PG_CONNECTION,required"`
 
 	RedisURI      string `env:"REDIS_URI,required"`
 	RedisPassword string `env:"REDIS_PASSWORD,required"`

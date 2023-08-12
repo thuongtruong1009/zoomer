@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
-	"github.com/thuongtruong1009/zoomer/internal/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/adapter"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"gorm.io/gorm"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
@@ -37,8 +37,11 @@ type IApi interface {
 	Stop(context.Context) error
 }
 
+type Options func(opts *Api) error
+
 func NewApi(e *echo.Echo, cfg *configs.Configuration, parameterCfg *parameter.ParameterConfig, pgDB *gorm.DB, redisDB *redis.Client, minioClient adapter.ResourceAdapter, logger *logrus.Logger, inter interceptor.IInterceptor) IApi {
-	return &Api{
+
+	s := &Api{
 		Echo:         e,
 		Cfg:          cfg,
 		ParameterCfg: parameterCfg,
@@ -48,6 +51,8 @@ func NewApi(e *echo.Echo, cfg *configs.Configuration, parameterCfg *parameter.Pa
 		Logger:       logger,
 		Inter:        inter,
 	}
+
+	return s
 }
 
 func (s *Api) Start(c chan error) {
@@ -70,7 +75,6 @@ func (s *Api) Start(c chan error) {
 			if err := s.HttpApi(); err != nil {
 				exceptions.Fatal(constants.ErrorSetupHttpRouter, err)
 				c <- constants.ErrorSetupHttpRouter
-
 			}
 
 			exceptions.SystemLog(fmt.Sprintf("%s: %s", constants.ServerApiStarted, s.Cfg.AppPort))
@@ -89,19 +93,12 @@ func (s *Api) Start(c chan error) {
 		}
 	}
 
-	// go func() {
-		helpers.Parallelize(function1, function2)
-		// defer close(Signal)
-		// exceptions.SystemLog(constants.ServerApiStopped)
-		// defer <-Signal
-		// <-Signal
-		c <- nil
-	// }()
+	helpers.Parallelize(function1, function2)
+	c <- nil
 }
 
 func (s *Api) Stop(ctx context.Context) error {
+	s.RedisDB.Close()
+	s.RedisDB.Shutdown(ctx)
 	return s.Echo.Shutdown(ctx)
 }
-
-
-// type Options func(opts *Server) error
