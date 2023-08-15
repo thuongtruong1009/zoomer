@@ -7,10 +7,14 @@ import (
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
+	authRepository "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
+	userRepository "github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"net/http"
 	"strings"
 	"time"
@@ -23,28 +27,29 @@ type AuthClaims struct {
 }
 
 type authUseCase struct {
-	userRepo       repository.UserRepository
-	hashSalt       string
-	signingKey     []byte
-	expireDuration time.Duration
+	authRepo       authRepository.UserRepository
+	userRepo 	 userRepository.IUserRepository
+	cfg *configs.Configuration
+	paramCfg *parameter.ParameterConfig
 }
 
 func NewAuthUseCase(
-	userRepo repository.UserRepository,
-	hashSalt string,
-	signingKey []byte,
-	tokenTTL int64) UseCase {
+	authRepo authRepository.UserRepository,
+	userRepo userRepository.IUserRepository,
+	cfg *configs.Configuration,
+	paramCfg *parameter.ParameterConfig,
+	) UseCase {
 	return &authUseCase{
-		userRepo:       userRepo,
-		hashSalt:       hashSalt,
-		signingKey:     signingKey,
-		expireDuration: time.Second * time.Duration(tokenTTL),
+		authRepo:       authRepo,
+		userRepo: userRepo,
+		cfg: cfg,
+		paramCfg: paramCfg,
 	}
 }
 
 func (a *authUseCase) SignUp(ctx context.Context, username string, password string, limit int) (*presenter.SignUpResponse, error) {
 	fmtusername := strings.ToLower(username)
-	euser, _ := a.userRepo.GetUserByUsername(ctx, fmtusername)
+	euser, _ := a.userRepo.GetUserByIdOrName(ctx, fmtusername)
 
 	if euser != nil {
 		exceptions.Log(constants.ErrUserExisted, nil)
@@ -60,7 +65,7 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 
 	user.HashPassword()
 
-	err := a.userRepo.CreateUser(ctx, user)
+	err := a.authRepo.CreateUser(ctx, user)
 
 	if err != nil {
 		exceptions.Log(constants.ErrCreateUserFailed, err)
@@ -74,8 +79,8 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	}, nil
 }
 
-func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error) {
-	user, _ := a.userRepo.GetUserByUsername(ctx, username)
+func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error) {
+	user, _ := au.userRepo.GetUserByIdOrName(ctx, username)
 	if user == nil {
 		exceptions.Log(constants.ErrUserNotFound, nil)
 		return nil, constants.ErrUserNotFound
@@ -86,40 +91,49 @@ func (a *authUseCase) SignIn(ctx context.Context, username, password string) (*p
 		return nil, constants.ErrWrongPassword
 	}
 
-	claims := AuthClaims{
-		Username: user.Username,
-		UserId:   user.Id,
-		StandardClaims: jwt.StandardClaims{
-			IssuedAt:  time.Now().Unix(),
-			Issuer:    user.Id,
-			ExpiresAt: time.Now().Add(a.expireDuration).Unix(),
-		},
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	tmp, err := token.SignedString(a.signingKey)
-	if err != nil {
-		exceptions.Log(constants.ErrSigningKey, err)
-		return nil, err
-	}
-
 	res := &presenter.SignInResponse{
 		UserId:   user.Id,
 		Username: user.Username,
-		Token:    tmp,
+		Token:    "",
+	}
+
+	cachekey := cache.TokenKey(user.Id + user.Username)
+	userInCache := cache.GetCache(cachekey)
+	if userInCache != nil {
+		res.Token = userInCache.(string)
+	} else {
+		claims := AuthClaims{
+			Username: user.Username,
+			UserId:   user.Id,
+			StandardClaims: jwt.StandardClaims{
+				IssuedAt:  time.Now().Unix(),
+				Issuer:    user.Id,
+				ExpiresAt: time.Now().Add(time.Second * time.Duration(au.paramCfg.TokenTimeout)).Unix(),
+			},
+		}
+
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+		tmp, err := token.SignedString([]byte(au.cfg.SigningKey))
+		if err != nil {
+			exceptions.Log(constants.ErrSigningKey, err)
+			return nil, err
+		}
+
+		res.Token = tmp
+		cache.SetCache(cachekey, tmp, time.Second * time.Duration(au.paramCfg.TokenTimeout))
 	}
 
 	return res, nil
 }
 
-func (a *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
+func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			exceptions.Log(constants.ErrUnexpectedSigning, token.Header["alg"])
 			return nil, fmt.Errorf("%s: %v", constants.ErrUnexpectedSigning, token.Header["alg"])
 		}
-		return a.signingKey, nil
+		return []byte(au.cfg.SigningKey), nil
 	})
 
 	if err != nil {
@@ -150,7 +164,7 @@ func WriteCookie(c echo.Context, name, value string, expire time.Duration, path,
 }
 
 // func (a *authUseCase) SearchUserByMatch(c echo.Context, username string) {
-// 	users, err := a.userRepo.QueryMatchingFields(c.Request().Context(), username)
+// 	users, err := a.authRepo.QueryMatchingFields(c.Request().Context(), username)
 // 	if err != nil {
 // 		c.JSON(http.StatusInternalServerError, err)
 // 		return

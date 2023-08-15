@@ -47,3 +47,8 @@ const (
 	SearchGroupEndPoint string = "/search"
 	SearchRoomEndPoint  string = "/room"
 )
+
+const (
+	UserGroupEndPoint string = "/users"
+	GetUserByIdOrName string = "/:idOrName"
+)

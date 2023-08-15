@@ -12,3 +12,6 @@ postgres:
   max_lifetime_conn: 20
   max_idle_time_conn: 20
   auto_migrate: true
+others:
+  ctx_timeout: 3
+	token_timeout: 86400

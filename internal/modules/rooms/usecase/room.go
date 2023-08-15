@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	auth "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
+	users "github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/repository"
@@ -14,10 +14,10 @@ import (
 
 type roomUsecase struct {
 	roomRepo repository.RoomRepository
-	userRepo auth.UserRepository
+	userRepo users.IUserRepository
 }
 
-func NewRoomUseCase(roomRepo repository.RoomRepository, userRepo auth.UserRepository) UseCase {
+func NewRoomUseCase(roomRepo repository.RoomRepository, userRepo users.IUserRepository) UseCase {
 	return &roomUsecase{
 		roomRepo: roomRepo,
 		userRepo: userRepo,
@@ -37,7 +37,7 @@ func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string
 		return err
 	}
 
-	user, err := ru.userRepo.GetUserById(ctx, userId)
+	user, err := ru.userRepo.GetUserByIdOrName(ctx, userId)
 	if err != nil {
 		return err
 	}
@@ -47,7 +47,6 @@ func (ru roomUsecase) CreateRoom(ctx context.Context, userId string, name string
 	} else {
 		return errors.New("limit exceeded")
 	}
-
 }
 
 func (ru roomUsecase) GetRoomsByUserId(ctx context.Context, userId string) ([]*models.Room, error) {
@@ -70,7 +69,7 @@ func (ru roomUsecase) GetAllRooms(ctx context.Context) ([]*models.Room, error) {
 
 // sync to redis
 func (ru roomUsecase) VerifyContact(ctx context.Context, username string) bool {
-	_, err := ru.userRepo.GetUserByUsername(ctx, username)
+	_, err := ru.userRepo.GetUserByIdOrName(ctx, username)
 	if err != nil {
 		return false
 	}

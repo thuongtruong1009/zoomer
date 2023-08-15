@@ -9,6 +9,8 @@ There is the most valuable changes log:
 - Config RabbitMQ for chat service
 - Combine into one port for websocket and http
 - Split docker-compose in multi-target
+- Combine get id/name user endpoint
+- Refactor code
 
 **2. News**
 
@@ -24,7 +26,9 @@ There is the most valuable changes log:
 - Concurrently run http and websocket server
 - Combine into one port for websocket and http
 - Working raw with MinIO
-- Logging system
+- Logging middleware system
+- Cache token
+- Exception log injection
 
 **3. Features**
 

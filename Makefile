@@ -4,7 +4,7 @@ export $(shell type .env | findstr /v /c:"#" /c:"=")
 DOCKER_USERNAME ?= thuongtruong1009
 APPLICATION_NAME ?= ${APP_NAME}
 GIT_HASH ?= $(shell git log --format="%%h" -n 1)
-ENTRYPOINT ?= cmd/main.go
+ENTRYPOINT ?= cmd/api/main.go
 BUILDPOINT ?= release/latest
 
 _BUILD_ARGS_TAG ?= ${GIT_HASH}
@@ -52,6 +52,11 @@ docs:
 	swag fmt && swag init -g ./cmd/main.go --output ./docs
 	@ echo "Done!"
 
+seed:
+	@ echo "Seeding data..."
+	go run ./cmd/seed/main.go
+	@ echo "Done!"
+
 # Migration
 
 migration-create:
@@ -69,11 +74,6 @@ migration-down:
 
 migrate-status:
 	migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" status=
-
-seed:
-	@ echo "Seeding data..."
-	go run ./cmd/seed/main.go
-	@ echo "Done!"
 
 # Docker
 

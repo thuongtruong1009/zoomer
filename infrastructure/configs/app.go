@@ -13,7 +13,6 @@ type Configuration struct {
 	AppPort    string `env:"APP_PORT" envDefault:"8080"`
 	HashSalt   string `env:"HASH_SALT,required"`
 	SigningKey string `env:"SIGNING_KEY,required"`
-	TokenTTL   int64  `env:"TOKEN_TTL,required"`
 	JwtSecret  string `env:"JWT_SECRET,required"`
 	HttpsMode  bool   `env:"HTTPS_MODE" envDefault:"false"`
 

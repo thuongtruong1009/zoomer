@@ -7,7 +7,7 @@ RUN go clean --modcache
 RUN apk update && apk add make && apk add --no-cache git
 COPY . .
 RUN make setup
-RUN go build -v -o main-dev ./cmd/main.go
+RUN go build -v -o main-dev ./cmd/api/main.go
 
 FROM golang:1.20-alpine AS production
 RUN apk update && apk --no-cache add ca-certificates
@@ -16,7 +16,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/api/main.go
 
 FROM scratch
 RUN addgroup -S zoomer
