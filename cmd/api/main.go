@@ -1,39 +1,35 @@
 package main
 
 import (
-	"github.com/thuongtruong1009/zoomer/infrastructure/app"
-	_"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"os"
+	"github.com/thuongtruong1009/zoomer/infrastructure/app"
 )
 
-//	@title			constants.AppName
-//	@version		constants.AppVersion
-//	@description	constants.AppDescription
-//	@termsOfService	constants.AppTermsOfService
+//	@title			Zoomer
+//	@version		1.1
+//	@description	The HTTP documentation for Zoomer API
+//	@termsOfService	http://swagger.io/terms/
 
-//	@contact.name	constants.AppContactName
-//	@contact.url	constants.AppContactURL
-//	@contact.email	constants.AppContactEmail
+//	@contact.name	Tran Nguyen Thuong Truong
+//	@contact.url	https://github.com/thuongtruong1009/zoomer
+//	@contact.email	mailto:thuongtruongofficial@gmail.com
 
-//	@license.name	constants.AppLicenseName
-//	@license.url	constants.AppLicenseURL
+//	@license.name	Apache 2.0
+//	@license.url	https://github.com/thuongtruong1009/zoomer/LICENSE
 
-//	@host		constants.AppHost
-//	@BasePath	constants.ApiGroup
+//	@schemes	http
+//	@host		localhost:8080
+//	@BasePath	/api
 
 //	@securityDefinitions	bearerAuth
 //	@in						header
-//	@name					constants.BearerHeader
+//	@name					Authorization
 //	@description			Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
 
 //	@securityDefinitions.apikey	XFirebaseBearer
 //	@in							header
 //	@name						Authorization
 //	@description				Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
-
-// func init() {
-// 	echo.SetMode(echo.ReleaseMode)
-// }
 
 func main() {
 	app.Run()

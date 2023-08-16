@@ -4,14 +4,14 @@ import (
 	"context"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/db"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	minioAdapter "github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/adapter"
+	"github.com/thuongtruong1009/zoomer/internal/server/api"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-	"github.com/thuongtruong1009/zoomer/internal/server/api"
 )
 
 type IAdapter interface {

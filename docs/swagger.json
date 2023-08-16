@@ -1,22 +1,25 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
         "description": "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
-        "title": "constants.AppName",
-        "termsOfService": "constants.AppTermsOfService",
+        "title": "Zoomer",
+        "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "constants.AppContactName",
-            "url": "constants.AppContactURL",
-            "email": "constants.AppContactEmail"
+            "name": "Tran Nguyen Thuong Truong",
+            "url": "https://github.com/thuongtruong1009/zoomer",
+            "email": "mailto:thuongtruongofficial@gmail.com"
         },
         "license": {
-            "name": "constants.AppLicenseName",
-            "url": "constants.AppLicenseURL"
+            "name": "Apache 2.0",
+            "url": "https://github.com/thuongtruong1009/zoomer/LICENSE"
         },
-        "version": "constants.AppVersion"
+        "version": "1.1"
     },
-    "host": "constants.AppHost",
-    "basePath": "constants.ApiGroup",
+    "host": "localhost:8080",
+    "basePath": "/api",
     "paths": {
         "/auth/signin": {
             "post": {
@@ -164,9 +167,67 @@
                     }
                 }
             }
+        },
+        "/users/{idOrName}": {
+            "get": {
+                "description": "Get user by id or name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get user by id or name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id or name of user",
+                        "name": "idOrName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/presenter.GetUserByIdOrNameResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "presenter.GetUserByIdOrNameResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "presenter.SignInInput": {
             "type": "object",
             "properties": {

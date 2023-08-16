@@ -92,6 +92,7 @@ make lint
 
 <!-- **References**
 
+- [Ecommerce](https://github.com/nikhilnarayanan623/ecommerce-gin-clean-arch)
 - [Go8](https://github.dev/gmhafiz/go8)
 
 - [Sentinel ip](https://github.dev/oneyottabyte/redis_sentinel)

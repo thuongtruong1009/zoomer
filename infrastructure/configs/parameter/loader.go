@@ -13,7 +13,8 @@ type ParameterConfig struct {
 	RateLimitConf `mapstructure:"rate_limit"`
 	PostgresConf  `mapstructure:"postgres"`
 	ServerConf    `mapstructure:"server"`
-	OtherConf    `mapstructure:"others"`
+	AuthConf      `mapstructure:"auth"`
+	OtherConf     `mapstructure:"others"`
 }
 
 var pmt *ParameterConfig
@@ -22,6 +23,7 @@ func loadDefaultParameter(pmt *ParameterConfig) {
 	pmt.RateLimitConf.loadDefault()
 	pmt.PostgresConf.loadDefault()
 	pmt.ServerConf.loadDefault()
+	pmt.AuthConf.loadDefault()
 	pmt.OtherConf.loadDefault()
 }
 

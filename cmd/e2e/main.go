@@ -2,21 +2,21 @@ package e2e
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/labstack/echo/v4"
+	"github.com/stretchr/testify/suite"
+	"github.com/thuongtruong1009/zoomer/infrastructure/app"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"io/ioutil"
 	"net/http"
 	"os"
-	"fmt"
 	"strings"
 	"syscall"
 	"testing"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"github.com/labstack/echo/v4"
-	"github.com/stretchr/testify/suite"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
-	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
-	"io/ioutil"
-	"github.com/thuongtruong1009/zoomer/infrastructure/app"
 )
 
 type e2eTestSuite struct {
@@ -31,12 +31,12 @@ func TestE2ETestSuite(t *testing.T) {
 
 func (s *e2eTestSuite) SetupSuite() {
 	s.config = &configs.Configuration{
-		AppPort: "8080",
-		SigningKey: "secret",
-		HashSalt: "salt",
+		AppPort:               "8080",
+		SigningKey:            "secret",
+		HashSalt:              "salt",
 		DatabaseConnectionURL: "postgres://postgres:postgres@localhost:5432/zoomer?sslmode=disable",
-		TokenTTL: 3600,
-		JwtSecret: "secret",
+		TokenTTL:              3600,
+		JwtSecret:             "secret",
 	}
 
 	dsn := s.config.DatabaseConnectionURL

@@ -1,5 +1,14 @@
-basePath: constants.ApiGroup
+basePath: /api
 definitions:
+  presenter.GetUserByIdOrNameResponse:
+    properties:
+      id:
+        type: string
+      limit:
+        type: integer
+      username:
+        type: string
+    type: object
   presenter.SignInInput:
     properties:
       password:
@@ -34,19 +43,19 @@ definitions:
       username:
         type: string
     type: object
-host: constants.AppHost
+host: localhost:8080
 info:
   contact:
-    email: constants.AppContactEmail
-    name: constants.AppContactName
-    url: constants.AppContactURL
+    email: mailto:thuongtruongofficial@gmail.com
+    name: Tran Nguyen Thuong Truong
+    url: https://github.com/thuongtruong1009/zoomer
   description: Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.
   license:
-    name: constants.AppLicenseName
-    url: constants.AppLicenseURL
-  termsOfService: constants.AppTermsOfService
-  title: constants.AppName
-  version: constants.AppVersion
+    name: Apache 2.0
+    url: https://github.com/thuongtruong1009/zoomer/LICENSE
+  termsOfService: http://swagger.io/terms/
+  title: Zoomer
+  version: "1.1"
 paths:
   /auth/signin:
     post:
@@ -143,6 +152,37 @@ paths:
       summary: Create a new user
       tags:
       - auth
+  /users/{idOrName}:
+    get:
+      consumes:
+      - application/json
+      description: Get user by id or name
+      parameters:
+      - description: id or name of user
+        in: path
+        name: idOrName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.GetUserByIdOrNameResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      summary: Get user by id or name
+      tags:
+      - users
+schemes:
+- http
 securityDefinitions:
   XFirebaseBearer:
     description: Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.

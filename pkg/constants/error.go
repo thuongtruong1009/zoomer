@@ -8,7 +8,7 @@ var (
 	ErrorStartHttp         error = errors.New("error occurred while starting the http api")
 	ErrorSetupHttpRouter   error = errors.New("error occurred while setting up http routers")
 	ErrorSetupSocketRouter error = errors.New("error occurred while setting up websocket routers")
-	ErrorStartupApi		   error = errors.New("error occurred while starting up the server")
+	ErrorStartupApi        error = errors.New("error occurred while starting up the server")
 
 	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
 	ErrorLoadEnvFile           error = errors.New("error loading env file")

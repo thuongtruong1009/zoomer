@@ -53,7 +53,7 @@ func (mw *AuthMiddleware) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc 
 
 func (mw *AuthMiddleware) CookieValidation(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		cookie, err := c.Cookie(constants.CookieKey)
+		cookie, err := c.Cookie(constants.AccessTokenKey)
 		if err != nil {
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}

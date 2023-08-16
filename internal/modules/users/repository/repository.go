@@ -3,29 +3,26 @@ package repository
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
+	"github.com/google/uuid"
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
-	// chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
-	// "log"
 	"strings"
-	"time"
-	"fmt"
-	"github.com/google/uuid"
 )
 
 type userRepository struct {
-	pgDB *gorm.DB
-	redisDB *redis.Client
+	pgDB     *gorm.DB
+	redisDB  *redis.Client
 	paramCfg *parameter.ParameterConfig
 }
 
 func NewUserRepository(pgDB *gorm.DB, redisDB *redis.Client, paramCfg *parameter.ParameterConfig) IUserRepository {
-	return &userRepository {
-		pgDB: pgDB,
-		redisDB: redisDB,
+	return &userRepository{
+		pgDB:     pgDB,
+		redisDB:  redisDB,
 		paramCfg: paramCfg,
 	}
 }
@@ -47,16 +44,12 @@ func (ur *userRepository) GetUserByIdOrName(ctx context.Context, IdOrUsername st
 		}
 	}
 
-	fmt.Println(queryStruct)
-	fmt.Println(queryCacheKey)
-
-	//check in cache
 	userInCache := cache.GetCache(queryCacheKey)
 	if userInCache != nil {
 		return userInCache.(*models.User), nil
 	}
 
-	timeoutCtx, cancel := context.WithTimeout(ctx, ur.paramCfg.OtherConf.CtxTimeout*time.Second)
+	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ur.paramCfg.TokenTimeout))
 	defer cancel()
 
 	var user models.User
@@ -64,17 +57,6 @@ func (ur *userRepository) GetUserByIdOrName(ctx context.Context, IdOrUsername st
 		return nil, constants.ErrNoRecord
 	}
 
-	//redis sync
-	// _, err := ur.redisDB.SIsMember(context.Background(), chatAdapter.UserSetKey(), IdOrUsername).Result()
-	// if err != nil {
-	// 	log.Fatalln("(Redis) while checking user existance: ", err)
-	// }
-	// if !exist {
-	// 	log.Println("(Redis) user not found in Redis-DB")
-	// 	return nil, constants.ErrNoRecord
-	// }
-
-	//set in cache
-	cache.SetCache(queryCacheKey, &user, 0)
+	cache.SetCache(queryCacheKey, &user, helpers.DurationSecond(ur.paramCfg.TokenTimeout))
 	return &user, nil
 }

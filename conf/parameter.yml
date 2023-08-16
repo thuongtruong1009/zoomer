@@ -12,6 +12,11 @@ postgres:
   max_lifetime_conn: 20
   max_idle_time_conn: 20
   auto_migrate: true
+auth:
+	token_timeout: 86400
+  cookie_path: "/"
+  cookie_domain: "localhost"
+  cookie_secure: false
+  cookie_httpOnly: true
 others:
   ctx_timeout: 3
-	token_timeout: 86400

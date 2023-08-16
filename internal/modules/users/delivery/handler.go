@@ -10,16 +10,28 @@ import (
 
 type userHandler struct {
 	usecase usecase.IUserUseCase
-	inter interceptor.IInterceptor
+	inter   interceptor.IInterceptor
 }
 
 func NewUserHandler(usecase usecase.IUserUseCase, inter interceptor.IInterceptor) IUserHandler {
 	return &userHandler{
 		usecase: usecase,
-		inter: inter,
+		inter:   inter,
 	}
 }
 
+// GetUserByIdOrName godoc
+//
+//	@Summary		Get user by id or name
+//	@Description	Get user by id or name
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			idOrName	path		string	true	"id or name of user"
+//	@Success		200			{object}	presenter.GetUserByIdOrNameResponse
+//	@Failure		401			error		constants.ErrorBadRequest
+//	@Failure		500			error		constants.ErrorInternalServer
+//	@Router			/users/{idOrName} [get]
 func (h *userHandler) GetUserByIdOrName() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := c.Param("idOrName")

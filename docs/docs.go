@@ -10,15 +10,15 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "constants.AppTermsOfService",
+        "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "constants.AppContactName",
-            "url": "constants.AppContactURL",
-            "email": "constants.AppContactEmail"
+            "name": "Tran Nguyen Thuong Truong",
+            "url": "https://github.com/thuongtruong1009/zoomer",
+            "email": "mailto:thuongtruongofficial@gmail.com"
         },
         "license": {
-            "name": "constants.AppLicenseName",
-            "url": "constants.AppLicenseURL"
+            "name": "Apache 2.0",
+            "url": "https://github.com/thuongtruong1009/zoomer/LICENSE"
         },
         "version": "{{.Version}}"
     },
@@ -171,9 +171,67 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/users/{idOrName}": {
+            "get": {
+                "description": "Get user by id or name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get user by id or name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id or name of user",
+                        "name": "idOrName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/presenter.GetUserByIdOrNameResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "presenter.GetUserByIdOrNameResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "presenter.SignInInput": {
             "type": "object",
             "properties": {
@@ -240,11 +298,11 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "constants.AppVersion",
-	Host:             "constants.AppHost",
-	BasePath:         "constants.ApiGroup",
-	Schemes:          []string{},
-	Title:            "constants.AppName",
+	Version:          "1.1",
+	Host:             "localhost:8080",
+	BasePath:         "/api",
+	Schemes:          []string{"http"},
+	Title:            "Zoomer",
 	Description:      "Enter the token with the `Bearer ` prefix, e.g. `Bearer jwt_token_string`.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

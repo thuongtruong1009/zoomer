@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
@@ -8,15 +9,13 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/adapter"
-	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
-	"gorm.io/gorm"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/utils"
+	"gorm.io/gorm"
 	"net/http"
-	"time"
-	"context"
 )
 
 type Api struct {
@@ -59,8 +58,8 @@ func (s *Api) Start(c chan error) {
 	function1 := func() {
 		httpServer := &http.Server{
 			Addr:         ":" + s.Cfg.AppPort,
-			WriteTimeout: s.ParameterCfg.ServerConf.WriteTimeout * time.Second,
-			ReadTimeout:  s.ParameterCfg.ServerConf.ReadTimeout * time.Second,
+			WriteTimeout: helpers.DurationSecond(s.ParameterCfg.WriteTimeout),
+			ReadTimeout:  helpers.DurationSecond(s.ParameterCfg.ReadTimeout),
 		}
 
 		if s.Cfg.HttpsMode { // https

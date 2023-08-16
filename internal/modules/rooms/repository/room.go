@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
-	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
 	"gorm.io/gorm"
 	// "github.com/RediSearch/redisearch-go/redisearch"
 )

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/streadway/amqp"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/infrastructure/queue/rmq/adapter"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"sync"
 	"time"
 )

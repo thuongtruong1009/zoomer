@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"context"
-	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
 )
 
@@ -16,6 +16,16 @@ func NewUserUseCase(repo repository.IUserRepository) IUserUseCase {
 	}
 }
 
-func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*models.User, error) {
-	return u.repo.GetUserByIdOrName(ctx, IdOrName)
+func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*presenter.GetUserByIdOrNameResponse, error) {
+	user, err := u.repo.GetUserByIdOrName(ctx, IdOrName)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &presenter.GetUserByIdOrNameResponse{
+		Id: user.Id,
+		Username: user.Username,
+		Limit: user.Limit,
+	}
+	return res, nil
 }

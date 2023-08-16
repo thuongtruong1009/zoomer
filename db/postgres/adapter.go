@@ -5,6 +5,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -106,7 +107,7 @@ func (pg *postgresStruct) setConnectionPool(d *gorm.DB) {
 		panic(err)
 	}
 	db.SetMaxOpenConns(pg.paramCfg.MaxOpenConnection)
-	db.SetConnMaxLifetime(pg.paramCfg.MaxLifetimeConnection * time.Second)
+	db.SetConnMaxLifetime(helpers.DurationSecond(pg.paramCfg.MaxLifetimeConnection))
 	db.SetMaxIdleConns(pg.paramCfg.MaxIdleConnection)
-	db.SetConnMaxIdleTime(pg.paramCfg.MaxIdleTimeConnection * time.Second)
+	db.SetConnMaxIdleTime(helpers.DurationSecond(pg.paramCfg.MaxIdleTimeConnection))
 }

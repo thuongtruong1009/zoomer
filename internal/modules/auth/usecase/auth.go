@@ -6,15 +6,16 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	authRepository "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
 	userRepository "github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
-	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"net/http"
 	"strings"
 	"time"
@@ -27,9 +28,9 @@ type AuthClaims struct {
 }
 
 type authUseCase struct {
-	authRepo       authRepository.UserRepository
-	userRepo 	 userRepository.IUserRepository
-	cfg *configs.Configuration
+	authRepo authRepository.UserRepository
+	userRepo userRepository.IUserRepository
+	cfg      *configs.Configuration
 	paramCfg *parameter.ParameterConfig
 }
 
@@ -38,11 +39,11 @@ func NewAuthUseCase(
 	userRepo userRepository.IUserRepository,
 	cfg *configs.Configuration,
 	paramCfg *parameter.ParameterConfig,
-	) UseCase {
+) UseCase {
 	return &authUseCase{
-		authRepo:       authRepo,
+		authRepo: authRepo,
 		userRepo: userRepo,
-		cfg: cfg,
+		cfg:      cfg,
 		paramCfg: paramCfg,
 	}
 }
@@ -108,7 +109,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 			StandardClaims: jwt.StandardClaims{
 				IssuedAt:  time.Now().Unix(),
 				Issuer:    user.Id,
-				ExpiresAt: time.Now().Add(time.Second * time.Duration(au.paramCfg.TokenTimeout)).Unix(),
+				ExpiresAt: time.Now().Add(helpers.DurationSecond(au.paramCfg.TokenTimeout)).Unix(),
 			},
 		}
 
@@ -121,7 +122,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 		}
 
 		res.Token = tmp
-		cache.SetCache(cachekey, tmp, time.Second * time.Duration(au.paramCfg.TokenTimeout))
+		cache.SetCache(cachekey, tmp, helpers.DurationSecond(au.paramCfg.TokenTimeout))
 	}
 
 	return res, nil

@@ -17,6 +17,13 @@ func TestRandomString(t *testing.T) {
 	}
 }
 
+func TestDurationToSeconds(t *testing.T) {
+	got := DurationSecond(1)
+	if got != 1*time.Second {
+		t.Errorf("DurationToSeconds(1 * time.Second) = %d; want 1", got)
+	}
+}
+
 func TestParallelize(t *testing.T) {
 	done := make(chan struct{})
 

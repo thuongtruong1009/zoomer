@@ -1,19 +1,19 @@
 package app
 
 import (
+	"context"
 	"fmt"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/server/adapter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"os"
 	"os/signal"
 	"runtime"
 	"runtime/debug"
 	"syscall"
-	"time"
-	"context"
 )
 
 func Run() {
@@ -25,7 +25,7 @@ func Run() {
 
 	c := make(chan os.Signal, 1)
 
-	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, syscall.SIGHUP, syscall.SIGQUIT,)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, syscall.SIGHUP, syscall.SIGQUIT)
 	signal.Notify(c, os.Kill)
 
 	cfg := configs.LoadConfigs(constants.EnvConfPath)
@@ -41,13 +41,14 @@ func Run() {
 	}
 
 	exceptions.SystemLog(constants.ServerShutdown)
-	ctx, cancel := context.WithTimeout(context.Background(), paramCfg.ServerConf.ShutdownTimeout * time.Second)
+
+	ctx, cancel := context.WithTimeout(context.Background(), helpers.DurationSecond(paramCfg.ServerConf.ShutdownTimeout))
+	defer cancel()
+
 	exceptions.SystemLog(constants.ServerExitedProperly)
 
 	p, _ := os.FindProcess(os.Getpid())
 	p.Signal(syscall.SIGINT)
-
-	defer cancel()
 
 	if err := adt.Shutdown(ctx); err != nil {
 		exceptions.Fatal(constants.ErrorShuttdownServer, fmt.Sprintf("%v", err))

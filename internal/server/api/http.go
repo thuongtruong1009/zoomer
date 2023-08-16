@@ -3,8 +3,8 @@ package api
 import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 	_ "github.com/thuongtruong1009/zoomer/docs"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/internal/middlewares"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 
 	authRepository "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
 	minioResourceRepository "github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/repository"
@@ -42,7 +42,7 @@ func (s *Api) HttpApi() error {
 	localResourceUC := localResourceUsecase.NewLocalResourceUseCase()
 	userUC := userUsecase.NewUserUseCase(userRepo)
 
-	authHandler := authHttp.NewAuthHandler(authUC, s.Inter)
+	authHandler := authHttp.NewAuthHandler(authUC, s.Inter, s.ParameterCfg)
 	roomHandler := roomHttp.NewRoomHandler(roomUC, s.Inter)
 	searchHandler := searchHttp.NewSearchHandler(searchUC)
 	minioResourceHandler := minioResourceHttp.NewResourceHandler(minioResourceUC)

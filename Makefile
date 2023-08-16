@@ -6,6 +6,7 @@ APPLICATION_NAME ?= ${APP_NAME}
 GIT_HASH ?= $(shell git log --format="%%h" -n 1)
 ENTRYPOINT ?= cmd/api/main.go
 BUILDPOINT ?= release/latest
+MIGRATION_ENTRYPOINT ?= db/migrations
 
 _BUILD_ARGS_TAG ?= ${GIT_HASH}
 _BUILD_ARGS_RELEASE_TAG ?= latest
@@ -19,6 +20,7 @@ setup:
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install golang.org/x/vuln/cmd/govulncheck@latest
+	go install golang.org/x/tools/cmd/goimports@latest
 	@echo "Done!"
 
 dev:
@@ -44,12 +46,12 @@ lint:
 
 build:
 	@ echo "Building ${APPLICATION_NAME}..."
-	go build -tags migrate -trimpath -o ${BUILDPOINT} ${ENTRYPOINT}
+	go build -tags migrate -v -trimpath -o ${BUILDPOINT} ${ENTRYPOINT}
 	@ echo "Done!"
 
 docs:
 	@ echo "Generating docs..."
-	swag fmt && swag init -g ./cmd/main.go --output ./docs
+	swag fmt && swag init -g ${ENTRYPOINT} -o ./docs --generatedTime=true
 	@ echo "Done!"
 
 seed:
@@ -60,20 +62,20 @@ seed:
 # Migration
 
 migration-create:
-	set /p Name="Please provide name for the migration: " && migrate create -ext sql -dir db/migrations -seq %Name%
+	set /p Name="Please provide name for the migration: " && migrate create -ext sql -dir ${MIGRATION_ENTRYPOINT} -seq %Name%
 
 migration-up:
 	@ echo "Migrating up..."
-	@ set -p N="How many migration you wants to perform (default value: [all]): " && migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" up %N:~-1%
+	@ set -p N="How many migration you wants to perform (default value: [all]): " && migrate -path ${MIGRATION_ENTRYPOINT} -verbose -database "${PG_MIGRATE_URI}" up %N:~-1%
 	@ echo "Done!"
 
 migration-down:
 	@ echo "Migrating down..."
-	migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" down
+	migrate -path ${MIGRATION_ENTRYPOINT} -verbose -database "${PG_MIGRATE_URI}" down
 	@ echo "Done!"
 
 migrate-status:
-	migrate -path db/migrations -verbose -database "${PG_MIGRATE_URI}" status=
+	migrate -path ${MIGRATION_ENTRYPOINT} -verbose -database "${PG_MIGRATE_URI}" status=
 
 # Docker
 

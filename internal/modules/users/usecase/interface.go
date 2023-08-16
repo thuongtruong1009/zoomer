@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"context"
-	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 )
 
 type IUserUseCase interface {
-	GetUserByIdOrName(ctx context.Context, IdOrName string) (*models.User, error)
+	GetUserByIdOrName(ctx context.Context, IdOrName string) (*presenter.GetUserByIdOrNameResponse, error)
 }

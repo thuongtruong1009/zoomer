@@ -5,8 +5,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"net/http"
-	"time"
 )
 
 func (mwm *MiddlewareManager) RateLimit(pmt parameter.RateLimitConf) {
@@ -14,9 +14,9 @@ func (mwm *MiddlewareManager) RateLimit(pmt parameter.RateLimitConf) {
 		Skipper: middleware.DefaultSkipper,
 		Store: middleware.NewRateLimiterMemoryStoreWithConfig(
 			middleware.RateLimiterMemoryStoreConfig{
-				Rate:  pmt.Rate,
-				Burst: pmt.Burst,
-				ExpiresIn: pmt.ExpiresIn * time.Second,
+				Rate:      pmt.Rate,
+				Burst:     pmt.Burst,
+				ExpiresIn: helpers.DurationSecond(pmt.ExpiresIn),
 			},
 		),
 		IdentifierExtractor: func(ctx echo.Context) (string, error) {

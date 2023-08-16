@@ -24,7 +24,7 @@ type hub struct{}
 
 func NewStreamHub(streamCfg *parameter.ServerConf) IHub {
 	Mapper = RoomMap{Map: make(map[string][]*models.Participant)}
-	Broadcast  = make(chan *models.BroadcastMessage, streamCfg.StreamMaxConnection)
+	Broadcast = make(chan *models.BroadcastMessage, streamCfg.StreamMaxConnection)
 	Disconnect = make(chan *models.DisconnectMessage, streamCfg.StreamMaxConnection)
 	return &hub{}
 }

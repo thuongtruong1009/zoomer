@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	// "fmt"
 	"github.com/go-redis/redis/v8"
-	"github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
 	"log"
 	"time"
 )

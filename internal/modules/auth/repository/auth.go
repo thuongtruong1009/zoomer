@@ -3,30 +3,30 @@ package repository
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
-	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
 	"log"
-	"time"
 )
 
 type authRepository struct {
-	pgDB    *gorm.DB
-	redisDB *redis.Client
+	pgDB     *gorm.DB
+	redisDB  *redis.Client
 	paramCfg *parameter.ParameterConfig
 }
 
 func NewAuthRepository(pgDB *gorm.DB, redisDB *redis.Client, paramCfg *parameter.ParameterConfig) UserRepository {
 	return &authRepository{
-		pgDB:    pgDB,
-		redisDB: redisDB,
+		pgDB:     pgDB,
+		redisDB:  redisDB,
 		paramCfg: paramCfg,
 	}
 }
 
 func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) error {
-	timeoutCtx, cancel := context.WithTimeout(ctx, ar.paramCfg.OtherConf.CtxTimeout*time.Second)
+	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ar.paramCfg.CtxTimeout))
 	defer cancel()
 
 	if err := ar.pgDB.WithContext(timeoutCtx).Create(&user).Error; err != nil {
