@@ -1,6 +1,9 @@
 package delivery
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
+)
 
 type AuthHandler interface {
 	SignUp() echo.HandlerFunc
@@ -8,4 +11,8 @@ type AuthHandler interface {
 	SignIn() echo.HandlerFunc
 
 	SignOut() echo.HandlerFunc
+
+	writeCookie(ctx echo.Context, cookie *presenter.SetCookie)
+
+	ResetPassword() echo.HandlerFunc
 }

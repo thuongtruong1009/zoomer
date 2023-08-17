@@ -7,6 +7,6 @@ type InterceptorSuccessProps struct {
 
 type InterceptorErrorProps struct {
 	Status  int    `json:"status"`
-	Message string `json:"message"`
-	Error   string `json:"error"`
+	Message string `json:"message,omitempty"`
+	Error   string `json:"error,omitempty"`
 }

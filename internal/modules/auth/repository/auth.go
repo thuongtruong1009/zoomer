@@ -36,13 +36,13 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 	//redis sync
 	err := ar.redisDB.Set(context.Background(), user.Username, user.Password, 0).Err()
 	if err != nil {
-		log.Println("(Redis) while adding new user: ", err)
+		log.Println("(Redis) error while syncing new user: ", err)
 		return err
 	}
 
 	err = ar.redisDB.SAdd(context.Background(), chatAdapter.UserSetKey(), user.Username).Err()
 	if err != nil {
-		log.Println("(Redis) while adding new user: ", err)
+		log.Println("(Redis) while syncing new user: ", err)
 		ar.redisDB.Del(context.Background(), user.Username)
 		return err
 	}

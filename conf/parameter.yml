@@ -2,10 +2,17 @@ server:
   shutdown_timeout: 3
   write_timeout: 5
   read_timeout: 5
-rate_limit:
-  rate: 10
-  burst: 30
-  expiresIn: 180
+middleware:
+  rate_limit:
+    rate: 10
+    burst: 30
+    expiresIn: 180
+  body_limit: "2M"
+  recover_size: 1  # 1 KB
+  log_skipper: "localhost"
+  gzip_skipper: "/auth,/docs"
+	gzip_level: 5
+  allow_origins: "http://localhost:3000"
 postgres:
   max_open_conn: 20
   max_idle_conn: 20

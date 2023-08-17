@@ -1,7 +1,7 @@
 package presenter
 
 type GetUserByIdOrNameResponse struct {
-	Id string `json:"id"`
+	Id       string `json:"id"`
 	Username string `json:"username"`
-	Limit int `json:"limit"`
+	Limit    int    `json:"limit"`
 }

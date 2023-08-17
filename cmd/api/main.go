@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"github.com/thuongtruong1009/zoomer/infrastructure/app"
+	"os"
 )
 
 //	@title			Zoomer

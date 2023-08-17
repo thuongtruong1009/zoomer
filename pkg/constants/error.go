@@ -9,8 +9,6 @@ var (
 	ErrorSetupHttpRouter   error = errors.New("error occurred while setting up http routers")
 	ErrorSetupSocketRouter error = errors.New("error occurred while setting up websocket routers")
 	ErrorStartupApi        error = errors.New("error occurred while starting up the server")
-
-	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
 	ErrorLoadEnvFile           error = errors.New("error loading env file")
 	ErrorEnvKeyNotFound        error = errors.New("env key not found")
 )
@@ -30,23 +28,42 @@ var (
 )
 
 var (
-	// auth
-	ErrUserNotFound       error = errors.New("user not found")
-	ErrWrongPassword      error = errors.New("wrong password")
-	ErrUserExisted        error = errors.New("user existed")
-	ErrInvalidAccessToken error = errors.New("invalid access token")
-	ErrNoRecord           error = errors.New("no record")
-	ErrUsernameInvalid    error = errors.New("username invalid")
-	ErrPasswordInvalid    error = errors.New("password invalid")
-	ErrUnexpectedSigning  error = errors.New("unexpected signing method")
-	ErrSigningKey         error = errors.New("signing key error")
-	ErrParseToken         error = errors.New("parse token error")
-	ErrCreateUserFailed   error = errors.New("create user failed")
+	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
+)
 
+var (
+	ErrUserNotFound       error = errors.New("user not found")
+	ErrUserExisted        error = errors.New("user existed")
+	ErrReqiredUsername  error = errors.New("username is required")
+	ErrLenUsername      error = errors.New("username must be between 4 and 20 characters")
+	ErrAlphaNumUsername error = errors.New("username can only contain letters or numbers")
+	ErrCreateUserFailed  error = errors.New("create user failed")
+	ErrSpaceUsername error = errors.New("username is not allowed to have spaces")
+
+	ErrReqiredPassword  error = errors.New("password is required")
+	ErrWrongPassword      error = errors.New("wrong password")
+	ErrSpacePassword error = errors.New("password is not allowed to have spaces")
+	ErrLenPassword      error = errors.New("password must be between 8 and 20 characters")
+	ErrAlphaNumPassword error = errors.New("password must contain at least one letter - one number - one special characters - one uppercase letter - one lowercase letter")
+	ErrHashPassword     error = errors.New("error when encrypt password")
+	ErrComparePassword  error = errors.New("password not match")
+
+	ErrNoRecord           error = errors.New("no record")
+	ErrInvalidAccessToken error = errors.New("invalid access token")
+	ErrUnexpectedSigning error = errors.New("unexpected signing method")
+	ErrSigningKey        error = errors.New("signing key error")
+	ErrParseToken        error = errors.New("parse token error")
+)
+
+var (
 	// room
 	ErrChatNotFound     error = errors.New("chat not found")
 	ErrChatAccessDenied error = errors.New("chat access denied")
+	ErrInvalidRoomLimit error = errors.New("room limit must be positive number")
+	ErrMaxRoomLimit error = errors.New("max room limit")
+)
 
+var (
 	// stream
 	ErrStreamIDMissing error = errors.New("roomID is missing")
 )

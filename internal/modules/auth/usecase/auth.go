@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
-	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
@@ -16,22 +15,17 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"net/http"
 	"strings"
 	"time"
+	"github.com/thuongtruong1009/zoomer/infrastructure/mail"
 )
-
-type AuthClaims struct {
-	jwt.StandardClaims
-	Username string `json:"username"`
-	UserId   string `json:"userId"`
-}
 
 type authUseCase struct {
 	authRepo authRepository.UserRepository
 	userRepo userRepository.IUserRepository
 	cfg      *configs.Configuration
 	paramCfg *parameter.ParameterConfig
+	mail mail.IMail
 }
 
 func NewAuthUseCase(
@@ -39,19 +33,21 @@ func NewAuthUseCase(
 	userRepo userRepository.IUserRepository,
 	cfg *configs.Configuration,
 	paramCfg *parameter.ParameterConfig,
+	mail mail.IMail,
 ) UseCase {
 	return &authUseCase{
 		authRepo: authRepo,
 		userRepo: userRepo,
 		cfg:      cfg,
 		paramCfg: paramCfg,
+		mail: mail,
 	}
 }
 
 func (a *authUseCase) SignUp(ctx context.Context, username string, password string, limit int) (*presenter.SignUpResponse, error) {
 	fmtusername := strings.ToLower(username)
-	euser, _ := a.userRepo.GetUserByIdOrName(ctx, fmtusername)
 
+	euser, _ := a.userRepo.GetUserByIdOrName(ctx, fmtusername)
 	if euser != nil {
 		exceptions.Log(constants.ErrUserExisted, nil)
 		return nil, constants.ErrUserExisted
@@ -64,10 +60,12 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 		Limit:    limit,
 	}
 
-	user.HashPassword()
+	if err := user.HashPassword(); err != nil {
+		exceptions.Log(constants.ErrHashPassword, err)
+		return nil, err
+	}
 
 	err := a.authRepo.CreateUser(ctx, user)
-
 	if err != nil {
 		exceptions.Log(constants.ErrCreateUserFailed, err)
 		return nil, err
@@ -87,7 +85,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 		return nil, constants.ErrUserNotFound
 	}
 
-	if !user.ComparePassword(password) {
+	if err := user.ComparePassword(password); err != nil {
 		exceptions.Log(constants.ErrWrongPassword, nil)
 		return nil, constants.ErrWrongPassword
 	}
@@ -103,7 +101,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 	if userInCache != nil {
 		res.Token = userInCache.(string)
 	} else {
-		claims := AuthClaims{
+		claims := models.AuthClaims{
 			Username: user.Username,
 			UserId:   user.Id,
 			StandardClaims: jwt.StandardClaims{
@@ -129,7 +127,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 }
 
 func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
-	token, err := jwt.ParseWithClaims(accessToken, &AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(accessToken, &models.AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			exceptions.Log(constants.ErrUnexpectedSigning, token.Header["alg"])
 			return nil, fmt.Errorf("%s: %v", constants.ErrUnexpectedSigning, token.Header["alg"])
@@ -142,7 +140,7 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 		return "", err
 	}
 
-	if claims, ok := token.Claims.(*AuthClaims); ok && token.Valid {
+	if claims, ok := token.Claims.(*models.AuthClaims); ok && token.Valid {
 		return claims.UserId, nil
 	}
 
@@ -150,18 +148,14 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 	return "", constants.ErrInvalidAccessToken
 }
 
-func WriteCookie(c echo.Context, name, value string, expire time.Duration, path, domain string, secure, httpOnly bool) {
-	cookie := http.Cookie{
-		Name:     name,
-		Expires:  time.Now().Add(expire),
-		Value:    value,
-		Path:     path,
-		Domain:   domain,
-		Secure:   secure,
-		HttpOnly: httpOnly,
+func (au *authUseCase) ResetPassword(ctx context.Context, body *presenter.ResetPassword) error {
+
+	newEmail := &mail.Mail{
+		To:      "thuongtruongofficial@gmail.com",
+		Body:    "Ahehehe",
 	}
 
-	c.SetCookie(&cookie)
+	return au.mail.SendingNativeMail(newEmail)
 }
 
 // func (a *authUseCase) SearchUserByMatch(c echo.Context, username string) {

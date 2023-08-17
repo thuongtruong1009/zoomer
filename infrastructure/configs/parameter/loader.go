@@ -10,17 +10,17 @@ type parameterLoader interface {
 }
 
 type ParameterConfig struct {
-	RateLimitConf `mapstructure:"rate_limit"`
-	PostgresConf  `mapstructure:"postgres"`
-	ServerConf    `mapstructure:"server"`
-	AuthConf      `mapstructure:"auth"`
-	OtherConf     `mapstructure:"others"`
+	ServerConf     `mapstructure:"server"`
+	MiddlewareConf `mapstructure:"middleware"`
+	PostgresConf   `mapstructure:"postgres"`
+	AuthConf       `mapstructure:"auth"`
+	OtherConf      `mapstructure:"others"`
 }
 
 var pmt *ParameterConfig
 
 func loadDefaultParameter(pmt *ParameterConfig) {
-	pmt.RateLimitConf.loadDefault()
+	pmt.MiddlewareConf.loadDefault()
 	pmt.PostgresConf.loadDefault()
 	pmt.ServerConf.loadDefault()
 	pmt.AuthConf.loadDefault()

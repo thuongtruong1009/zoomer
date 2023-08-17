@@ -92,6 +92,8 @@ make lint
 
 <!-- **References**
 
+- [Mail server config](https://support.google.com/a/answer/9003945?hl=en&sjid=12665133969789364821-AP)
+
 - [Ecommerce](https://github.com/nikhilnarayanan623/ecommerce-gin-clean-arch)
 - [Go8](https://github.dev/gmhafiz/go8)
 

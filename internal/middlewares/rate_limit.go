@@ -9,14 +9,14 @@ import (
 	"net/http"
 )
 
-func (mwm *MiddlewareManager) RateLimit(pmt parameter.RateLimitConf) {
+func (mwm *MiddlewareManager) RateLimit(pmt parameter.MiddlewareConf) {
 	config := middleware.RateLimiterConfig{
 		Skipper: middleware.DefaultSkipper,
 		Store: middleware.NewRateLimiterMemoryStoreWithConfig(
 			middleware.RateLimiterMemoryStoreConfig{
-				Rate:      pmt.Rate,
-				Burst:     pmt.Burst,
-				ExpiresIn: helpers.DurationSecond(pmt.ExpiresIn),
+				Rate:      pmt.RateLimit.Rate,
+				Burst:     pmt.RateLimit.Burst,
+				ExpiresIn: helpers.DurationSecond(pmt.RateLimit.ExpiresIn),
 			},
 		),
 		IdentifierExtractor: func(ctx echo.Context) (string, error) {

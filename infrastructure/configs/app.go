@@ -21,6 +21,10 @@ type Configuration struct {
 	RedisURI      string `env:"REDIS_URI,required"`
 	RedisPassword string `env:"REDIS_PASSWORD,required"`
 
+	MailHost string `env:"MAIL_HOST,required"`
+	MailUser string `env:"MAIL_USER,required"`
+	MailPassword string `env:"MAIL_PASSWORD,required"`
+
 	MinIOAccessKey string `env:"MINIO_ACCESS,required"`
 	MinIOSecretKey string `env:"MINIO_SECRET,required"`
 	MinIOEndpoint  string `env:"MINIO_ENDPOINT,required"`

@@ -3,7 +3,8 @@ package constants
 const (
 	ApiGroup        string = "/api"
 	WsGroup         string = "/ws"
-	DocGroup        string = "/docs/*"
+	DocSpecial      string = "/docs/*"
+	DocCommon       string = "/docs"
 	StaticGroupPath string = "/"
 	StaticGroupName string = "public"
 )
@@ -13,6 +14,7 @@ const (
 	SignUpEndPoint    string = "/signup"
 	SignInEndPoint    string = "/signin"
 	SignOutEndPoint   string = "/signout"
+	ResetPassword string = "/reset-password"
 )
 
 const (

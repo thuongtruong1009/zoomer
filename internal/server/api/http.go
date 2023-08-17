@@ -6,6 +6,8 @@ import (
 	"github.com/thuongtruong1009/zoomer/internal/middlewares"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 
+	"github.com/thuongtruong1009/zoomer/infrastructure/mail"
+
 	authRepository "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
 	minioResourceRepository "github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/repository"
 	roomRepository "github.com/thuongtruong1009/zoomer/internal/modules/rooms/repository"
@@ -28,6 +30,8 @@ import (
 )
 
 func (s *Api) HttpApi() error {
+	mailUC := mail.NewMail(s.Cfg)
+
 	authRepo := authRepository.NewAuthRepository(s.PgDB, s.RedisDB, s.ParameterCfg)
 	roomRepo := roomRepository.NewRoomRepository(s.PgDB, s.RedisDB)
 	userRepo := userRepository.NewUserRepository(s.PgDB, s.RedisDB, s.ParameterCfg)
@@ -35,7 +39,7 @@ func (s *Api) HttpApi() error {
 	searchRepo := searchRepository.NewSearchRepository(s.PgDB)
 	minioRepository := minioResourceRepository.NewResourceRepository()
 
-	authUC := authUsecase.NewAuthUseCase(authRepo, userRepo, s.Cfg, s.ParameterCfg)
+	authUC := authUsecase.NewAuthUseCase(authRepo, userRepo, s.Cfg, s.ParameterCfg, mailUC)
 	roomUC := roomUsecase.NewRoomUseCase(roomRepo, userRepo)
 	searchUC := searchUsecase.NewSearchUseCase(searchRepo, roomRepo)
 	minioResourceUC := minioResourceUsecase.NewMinioResourceUseCase(s.MinioClient, minioRepository)
@@ -51,7 +55,8 @@ func (s *Api) HttpApi() error {
 
 	s.Echo.Static(constants.StaticGroupPath, constants.StaticGroupName)
 	// e.Use(middleware.Static(constants.StaticGroupPath))
-	s.Echo.GET(constants.DocGroup, echoSwagger.WrapHandler)
+	s.Echo.GET(constants.DocSpecial, echoSwagger.WrapHandler)
+	// s.Echo.GET(constants.DocCommon, echoSwagger.WrapHandler)
 
 	mw := middlewares.RegisterMiddleware(s.Echo, s.Cfg, s.ParameterCfg, s.Inter)
 	mw.HttpMiddleware()

@@ -11,4 +11,6 @@ type UseCase interface {
 	SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error)
 
 	ParseToken(ctx context.Context, accessToken string) (string, error)
+
+	ResetPassword(ctx context.Context, body *presenter.ResetPassword) error
 }
