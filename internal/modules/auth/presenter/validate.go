@@ -3,6 +3,7 @@ package presenter
 import (
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"unicode"
+	// "strings"
 )
 
 func validateUsername(username string) error {
@@ -24,6 +25,47 @@ func validateUsername(username string) error {
 		}
 	}
 
+	return nil
+}
+
+func validateEmail(email string) error {
+    if email == "" {
+        return constants.ErrRequiredEmail
+    }
+
+	for _, char := range email {
+        if unicode.IsSpace(char) {
+            return constants.ErrSpaceEmail
+        }
+    }
+
+    // iAt := strings.IndexByte(email, '@')
+    // if iAt <=2 || iAt > -2 {
+    //     return constants.ErrInvalidEmail
+    // }
+
+    // if email[:iAt] == "" {
+    //     return constants.ErrInvalidEmail
+    // }
+
+    // domain := email[iAt+1:]
+    // if domain == "" {
+    //     return constants.ErrInvalidEmail
+    // }
+
+    // iDot := strings.IndexByte(domain, '.')
+    // if iDot == -1 || iDot == 0 {
+    //     return constants.ErrInvalidEmail
+    // }
+
+    // if strings.Index(domain, "..") != -1 {
+    //     return constants.ErrInvalidEmail
+    // }
+
+    // iTLD := strings.LastIndexByte(domain, '.')
+    // if len([]rune(domain[iTLD+1:])) >= 2 {
+	// 	return constants.ErrInvalidEmail
+	// }
 	return nil
 }
 

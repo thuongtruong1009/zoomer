@@ -25,6 +25,7 @@ func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*
 	res := &presenter.GetUserByIdOrNameResponse{
 		Id:       user.Id,
 		Username: user.Username,
+		Email: user.Email,
 		Limit:    user.Limit,
 	}
 	return res, nil

@@ -10,5 +10,5 @@ func MapAuthRoutes(authGroup *echo.Group, h AuthHandler, mw *middlewares.AuthMid
 	authGroup.POST(constants.SignUpEndPoint, h.SignUp())
 	authGroup.POST(constants.SignInEndPoint, h.SignIn())
 	authGroup.POST(constants.SignOutEndPoint, h.SignOut(), mw.JWTValidation)
-	authGroup.POST(constants.ResetPassword, h.ResetPassword())
+	authGroup.PATCH(constants.ResetPassword, h.ResetPassword())
 }

@@ -6,11 +6,11 @@ import (
 )
 
 type UseCase interface {
-	SignUp(ctx context.Context, username, password string, limit int) (*presenter.SignUpResponse, error)
+	SignUp(ctx context.Context, dto *presenter.SignUpRequest) (*presenter.SignUpResponse, error)
 
-	SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error)
+	SignIn(ctx context.Context, dto *presenter.SignInRequest) (*presenter.SignInResponse, error)
 
 	ParseToken(ctx context.Context, accessToken string) (string, error)
 
-	ResetPassword(ctx context.Context, body *presenter.ResetPassword) error
+	ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error
 }

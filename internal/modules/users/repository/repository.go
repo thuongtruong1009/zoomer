@@ -11,6 +11,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
 	"strings"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 )
 
 type userRepository struct {
@@ -27,22 +28,29 @@ func NewUserRepository(pgDB *gorm.DB, redisDB *redis.Client, paramCfg *parameter
 	}
 }
 
-func (ur *userRepository) GetUserByIdOrName(ctx context.Context, IdOrUsername string) (*models.User, error) {
+func (ur *userRepository) GetUserByIdOrName(ctx context.Context, account string) (*models.User, error) {
 	var queryStruct *models.User
 	var queryCacheKey string
 
-	_, err := uuid.Parse(IdOrUsername)
+	_, err := uuid.Parse(account)
 	if err != nil {
-		queryStruct = &models.User{
-			Username: strings.ToLower(IdOrUsername),
+		isEmail := strings.IndexByte(account, '@')
+		if isEmail >= 0 {
+			queryStruct = &models.User{
+				Email: account,
+			}
+		} else {
+			queryStruct = &models.User{
+				Username: strings.ToLower(account),
+			}
 		}
-		queryCacheKey = cache.UsernameKey(IdOrUsername)
 	} else {
-		queryCacheKey = cache.UserIdKey(IdOrUsername)
 		queryStruct = &models.User{
-			Id: IdOrUsername,
+			Id: account,
 		}
 	}
+
+	queryCacheKey = cache.AuthUserKey(account)
 
 	userInCache := cache.GetCache(queryCacheKey)
 	if userInCache != nil {
@@ -54,6 +62,7 @@ func (ur *userRepository) GetUserByIdOrName(ctx context.Context, IdOrUsername st
 
 	var user models.User
 	if err := ur.pgDB.WithContext(timeoutCtx).Where(queryStruct).First(&user).Error; err != nil {
+		exceptions.Log(constants.ErrorContextTimeout, err)
 		return nil, constants.ErrNoRecord
 	}
 

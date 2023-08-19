@@ -92,6 +92,8 @@ make lint
 
 <!-- **References**
 
+- [Email template](https://medium.com/@itsHabib/sending-emails-with-go-using-a-custom-template-ae863b65a859)
+
 - [Mail server config](https://support.google.com/a/answer/9003945?hl=en&sjid=12665133969789364821-AP)
 
 - [Ecommerce](https://github.com/nikhilnarayanan623/ecommerce-gin-clean-arch)

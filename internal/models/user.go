@@ -1,10 +1,15 @@
 package models
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"golang.org/x/crypto/bcrypt"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+)
 
 type User struct {
 	Id       string `gorm:"primary_key"`
-	Username string `gorm:"not null;unique;type:varchar(100)" json:"username"`
+	Username string `gorm:"not null;unique;type:varchar(20)" json:"username"`
+	Email string `gorm:"not null;unique;type:varchar(32)" json:"email"`
 	Password string `gorm:"not null" json:"password"`
 	Limit    int    `gorm:"not null" json:"limit"`
 }
@@ -12,7 +17,8 @@ type User struct {
 func (u *User) HashPassword() error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		exceptions.Log(constants.ErrHashPassword, err)
+		return constants.ErrHashPassword
 	}
 
 	u.Password = string(hashedPassword)
@@ -21,7 +27,8 @@ func (u *User) HashPassword() error {
 
 func (u *User) ComparePassword(password string) error {
 	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password)); err != nil {
-		return err
+		exceptions.Log(constants.ErrComparePassword, err)
+		return constants.ErrComparePassword
 	}
 
 	return nil

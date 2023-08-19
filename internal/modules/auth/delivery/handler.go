@@ -10,7 +10,6 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -35,33 +34,26 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor, par
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			user	body		presenter.SignUpInput	true	"Create User"
+//	@Param			user	body		presenter.SignUpRequest	true	"Create User"
 //	@Success		201		{object}	presenter.SignUpResponse
 //	@Failure		400		error		constants.ErrorBadRequest
 //	@Failure		500		error		constants.ErrorInternalServer
 //	@Router			/auth/signup [post]
 func (ah *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		input := &presenter.SignUpInput{}
+		input := &presenter.SignUpRequest{}
 		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		err1 := input.IsUsernameValid()
-		if err1 != nil {
-			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err1)
-		}
-
-		err2 := input.IsPasswordValid()
-		if err2 != nil {
-			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err2)
-		}
-
-		input.IsLimitValid()
-
-		user, err := ah.useCase.SignUp(c.Request().Context(), strings.ToLower(input.Username), input.Password, input.Limit)
+		err := input.IsRequestValid()
 		if err != nil {
-			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
+		user, err2 := ah.useCase.SignUp(c.Request().Context(), input)
+		if err2 != nil {
+			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err2)
 		}
 
 		return ah.inter.Data(c, http.StatusCreated, user)
@@ -71,33 +63,32 @@ func (ah *authHandler) SignUp() echo.HandlerFunc {
 // SignIn godoc
 //
 //	@Summary		Login to account
-//	@Description	Login to user account
+//	@Description	Login to user account with username or email
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			user	body		presenter.SignInInput	true	"Login user"
+//	@Param			user	body		presenter.SignInRequest	true	"Login user"
 //	@Success		200		{object}	presenter.SignInResponse
 //	@Failure		400		error		constants.ErrorBadRequest
 //	@Failure		500		error		constants.ErrorInternalServer
 //	@Router			/auth/signin [post]
 func (ah *authHandler) SignIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		input := &presenter.SignInInput{}
+		input := &presenter.SignInRequest{}
 		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		user, err := ah.useCase.SignIn(c.Request().Context(), input.Username, input.Password)
-
+		err := input.IsRequestValid()
 		if err != nil {
-			if err == constants.ErrUserNotFound {
-				return ah.inter.Error(c, http.StatusNotFound, constants.ErrUserNotFound, err)
-			}
-			if err == constants.ErrWrongPassword {
-				return ah.inter.Error(c, http.StatusNotFound, constants.ErrWrongPassword, err)
-			}
-			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
+
+		user, err2 := ah.useCase.SignIn(c.Request().Context(), input)
+		if err2 != nil {
+			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err2)
+		}
+
 		newCookie := &presenter.SetCookie{
 			Name: constants.AccessTokenKey,
 			Value: user.Token,

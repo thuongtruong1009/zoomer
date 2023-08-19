@@ -8,7 +8,8 @@ import (
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
-	"log"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type authRepository struct {
@@ -30,21 +31,22 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 	defer cancel()
 
 	if err := ar.pgDB.WithContext(timeoutCtx).Create(&user).Error; err != nil {
+		exceptions.Log(constants.ErrorContextTimeout, err)
 		return err
 	}
 
 	//redis sync
 	err := ar.redisDB.Set(context.Background(), user.Username, user.Password, 0).Err()
 	if err != nil {
-		log.Println("(Redis) error while syncing new user: ", err)
-		return err
+		exceptions.Log(constants.ErrRedisSyncUser, err)
+		return constants.ErrRedisSyncUser
 	}
 
 	err = ar.redisDB.SAdd(context.Background(), chatAdapter.UserSetKey(), user.Username).Err()
 	if err != nil {
-		log.Println("(Redis) while syncing new user: ", err)
+		exceptions.Log(constants.ErrRedisAddUser, err)
 		ar.redisDB.Del(context.Background(), user.Username)
-		return err
+		return constants.ErrRedisAddUser
 	}
 
 	return nil

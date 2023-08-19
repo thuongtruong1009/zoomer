@@ -11,6 +11,7 @@ var (
 	ErrorStartupApi        error = errors.New("error occurred while starting up the server")
 	ErrorLoadEnvFile           error = errors.New("error loading env file")
 	ErrorEnvKeyNotFound        error = errors.New("env key not found")
+	ErrorContextTimeout error = errors.New("error context timeout")
 )
 
 var (
@@ -29,6 +30,8 @@ var (
 
 var (
 	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
+	ErrRedisSyncUser error = errors.New("error when sync user data to redis")
+	ErrRedisAddUser error = errors.New("error when add redis user data to redis")
 )
 
 var (
@@ -40,8 +43,12 @@ var (
 	ErrCreateUserFailed  error = errors.New("create user failed")
 	ErrSpaceUsername error = errors.New("username is not allowed to have spaces")
 
+	ErrRequiredEmail error = errors.New("email is required")
+	ErrInvalidEmail error = errors.New("email is invalid")
+	ErrSpaceEmail error = errors.New("email is not allowed to have spaces")
+
 	ErrReqiredPassword  error = errors.New("password is required")
-	ErrWrongPassword      error = errors.New("wrong password")
+	// ErrWrongPassword      error = errors.New("wrong password")
 	ErrSpacePassword error = errors.New("password is not allowed to have spaces")
 	ErrLenPassword      error = errors.New("password must be between 8 and 20 characters")
 	ErrAlphaNumPassword error = errors.New("password must contain at least one letter - one number - one special characters - one uppercase letter - one lowercase letter")

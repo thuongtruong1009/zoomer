@@ -44,8 +44,8 @@ func NewAuthUseCase(
 	}
 }
 
-func (a *authUseCase) SignUp(ctx context.Context, username string, password string, limit int) (*presenter.SignUpResponse, error) {
-	fmtusername := strings.ToLower(username)
+func (a *authUseCase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) (*presenter.SignUpResponse, error) {
+	fmtusername := strings.ToLower(dto.Username)
 
 	euser, _ := a.userRepo.GetUserByIdOrName(ctx, fmtusername)
 	if euser != nil {
@@ -56,12 +56,11 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	user := &models.User{
 		Id:       uuid.New().String(),
 		Username: fmtusername,
-		Password: password,
-		Limit:    limit,
+		Password: dto.Password,
+		Limit:    dto.Limit,
 	}
 
 	if err := user.HashPassword(); err != nil {
-		exceptions.Log(constants.ErrHashPassword, err)
 		return nil, err
 	}
 
@@ -78,25 +77,24 @@ func (a *authUseCase) SignUp(ctx context.Context, username string, password stri
 	}, nil
 }
 
-func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*presenter.SignInResponse, error) {
-	user, _ := au.userRepo.GetUserByIdOrName(ctx, username)
-	if user == nil {
-		exceptions.Log(constants.ErrUserNotFound, nil)
-		return nil, constants.ErrUserNotFound
+func (au *authUseCase) SignIn(ctx context.Context, dto *presenter.SignInRequest) (*presenter.SignInResponse, error) {
+	user, err := au.userRepo.GetUserByIdOrName(ctx, dto.UsernameOrEmail)
+	if err != nil {
+		return nil, err
 	}
 
-	if err := user.ComparePassword(password); err != nil {
-		exceptions.Log(constants.ErrWrongPassword, nil)
-		return nil, constants.ErrWrongPassword
+	if err := user.ComparePassword(dto.Password); err != nil {
+		return nil, err
 	}
 
 	res := &presenter.SignInResponse{
 		UserId:   user.Id,
 		Username: user.Username,
+		Email: user.Email,
 		Token:    "",
 	}
 
-	cachekey := cache.TokenKey(user.Id + user.Username)
+	cachekey := cache.AuthTokenKey(user.Id + user.Username)
 	userInCache := cache.GetCache(cachekey)
 	if userInCache != nil {
 		res.Token = userInCache.(string)
@@ -116,7 +114,7 @@ func (au *authUseCase) SignIn(ctx context.Context, username, password string) (*
 		tmp, err := token.SignedString([]byte(au.cfg.SigningKey))
 		if err != nil {
 			exceptions.Log(constants.ErrSigningKey, err)
-			return nil, err
+			return nil, constants.ErrSigningKey
 		}
 
 		res.Token = tmp
@@ -137,7 +135,7 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 
 	if err != nil {
 		exceptions.Log(constants.ErrParseToken, err)
-		return "", err
+		return "", constants.ErrParseToken
 	}
 
 	if claims, ok := token.Claims.(*models.AuthClaims); ok && token.Valid {
@@ -148,11 +146,11 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 	return "", constants.ErrInvalidAccessToken
 }
 
-func (au *authUseCase) ResetPassword(ctx context.Context, body *presenter.ResetPassword) error {
-
+func (au *authUseCase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
 	newEmail := &mail.Mail{
 		To:      "thuongtruongofficial@gmail.com",
-		Body:    "Ahehehe",
+		Subject: "Reset Zoomer password",
+		Body:    "Your new password is xxx",
 	}
 
 	return au.mail.SendingNativeMail(newEmail)
