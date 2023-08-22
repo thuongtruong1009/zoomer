@@ -42,6 +42,7 @@ func NewAuthHandler(useCase usecase.UseCase, inter interceptor.IInterceptor, par
 func (ah *authHandler) SignUp() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		input := &presenter.SignUpRequest{}
+
 		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
@@ -145,6 +146,29 @@ func (ah *authHandler) writeCookie(c echo.Context, cookie *presenter.SetCookie) 
 	c.SetCookie(newCookie)
 }
 
+// ForgotPassword godoc
+//
+//	@Summary		Forgot password
+//	@Description	Forgot current password
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			email	body		presenter.ForgotPassword	true	"Forgot password"
+//	@Success		200		string 		constants.Success
+//	@Failure		400		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
+//	@Router			/auth/forgot-password [post]
+func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		newEmail := &presenter.ForgotPassword{}
+
+		if err := validators.ReadRequest(c, newEmail); err != nil {
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
+		return ah.useCase.ForgotPassword(c.Request().Context(), newEmail)
+	}
+}
 
 // ResetPassword godoc
 //

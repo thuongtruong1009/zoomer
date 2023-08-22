@@ -8,10 +8,10 @@ middleware:
     burst: 30
     expiresIn: 180
   body_limit: "2M"
-  recover_size: 1  # 1 KB
+  recover_size: 1 # 1 KB
   log_skipper: "localhost"
   gzip_skipper: "/auth,/docs"
-	gzip_level: 5
+  gzip_level: 5
   allow_origins: "http://localhost:3000"
 postgres:
   max_open_conn: 20
@@ -20,7 +20,7 @@ postgres:
   max_idle_time_conn: 20
   auto_migrate: true
 auth:
-	token_timeout: 86400
+  token_timeout: 86400
   cookie_path: "/"
   cookie_domain: "localhost"
   cookie_secure: false

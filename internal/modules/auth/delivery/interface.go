@@ -14,5 +14,7 @@ type AuthHandler interface {
 
 	writeCookie(ctx echo.Context, cookie *presenter.SetCookie)
 
+	ForgotPassword() echo.HandlerFunc
+
 	ResetPassword() echo.HandlerFunc
 }

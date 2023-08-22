@@ -3,41 +3,34 @@ package presenter
 import (
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"unicode"
-	// "strings"
+	"github.com/thuongtruong1009/zoomer/pkg/shared"
 )
 
 func validateUsername(username string) error {
-	if username == "" {
-		return constants.ErrReqiredUsername
-	}
-
-	usernameLen := len(username)
-	if usernameLen < constants.MinUsernameLen || usernameLen > constants.MaxUsernameLen {
-		return constants.ErrLenUsername
-	}
-
-	for _, char := range username {
-		if unicode.IsSpace(char){
+	switch {
+	case shared.MatchRegex(shared.EmptyRegex, username):
+			return constants.ErrReqiredUsername
+	case !shared.MatchRegex(shared.UsernameLenRegex, username):
+			return constants.ErrLenUsername
+	case shared.MatchRegex(shared.SpaceRegex, username):
 			return constants.ErrSpaceUsername
-		}
-		if !unicode.IsLetter(char) && !unicode.IsNumber(char) {
+	case !shared.MatchRegex(shared.WordNumRegex, username):
 			return constants.ErrAlphaNumUsername
-		}
 	}
 
 	return nil
 }
 
 func validateEmail(email string) error {
-    if email == "" {
-        return constants.ErrRequiredEmail
-    }
+	switch {
+		case shared.MatchRegex(shared.EmptyRegex, email):
+			return constants.ErrRequiredEmail
+		case !shared.MatchRegex(shared.EmailLenRegex, email):
+			return constants.ErrLenEmail
+		case shared.MatchRegex(shared.SpaceRegex, email):
+			return constants.ErrSpaceEmail
 
-	for _, char := range email {
-        if unicode.IsSpace(char) {
-            return constants.ErrSpaceEmail
-        }
-    }
+	}
 
     // iAt := strings.IndexByte(email, '@')
     // if iAt <=2 || iAt > -2 {
@@ -70,20 +63,18 @@ func validateEmail(email string) error {
 }
 
 func validatePassword(password string) error {
-	if password == "" {
-		return constants.ErrReqiredPassword
-	}
-
-	passLen := len(password)
-	if passLen < constants.MinPasswordLen || passLen > constants.MaxPasswordLen {
-		return constants.ErrLenPassword
+	switch {
+		case shared.MatchRegex(shared.EmptyRegex, password):
+			return constants.ErrRequiredPassword
+		case !shared.MatchRegex(shared.PasswordLenRegex, password):
+			return constants.ErrLenPassword
+		case shared.MatchRegex(shared.SpaceRegex, password):
+			return constants.ErrSpacePassword
 	}
 
 	var hasUpperCase, hasLowerCase, hasNumber, hasSpecial bool
 	for _, char := range password {
 		switch {
-		case unicode.IsSpace(char):
-			return constants.ErrSpacePassword
 		case unicode.IsNumber(char):
 			hasNumber = true
 		case unicode.IsUpper(char):

@@ -1,10 +1,10 @@
 package presenter
 
 type SignUpRequest struct {
-	Username string `json:"username" validate:"required,min=4,max=20"`
-	Email string `json:"email" validate:"required,min=12,max=32"`
-	Password string `json:"password" validate:"required,min=8,max=20"`
-	Limit    int    `json:"limit" validate:"required,max=10"`
+	Username string `json:"username"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+	Limit    int    `json:"limit"`
 }
 
 func (input *SignUpRequest) IsRequestValid() error {

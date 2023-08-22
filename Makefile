@@ -34,7 +34,9 @@ start:
 
 tests:
 	@echo "Running tests..."
-	go clean -testcache && cd scripts && run-tests.sh && go vet -v ./... && govulncheck ./...
+	go clean -testcache && go vet -v ./... && govulncheck ./... \
+  go test ./pkg/validators/... ./pkg/utils/... ./infrastructure/cache/... ./pkg/interceptor/... ./pkg/helpers/... ./pkg/shared/... -v -coverprofile=logs/coverage.txt -covermode=atomic \
+  go test -timeout 30s ./pkg/helpers -run ^TestParallelize$ -v
 	@echo "Done!"
 
 lint:

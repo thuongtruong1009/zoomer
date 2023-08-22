@@ -146,6 +146,17 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 	return "", constants.ErrInvalidAccessToken
 }
 
+func (au *authUseCase) ForgotPassword(ctx context.Context, dto *presenter.ForgotPassword) error {
+	newEmail := &mail.Mail{
+		To:      "thuongtruongofficial@gmail.com",
+		Subject: "Reset Zoomer password",
+		Body:    "Your new password is xxx",
+	}
+
+	return au.mail.SendingNativeMail(newEmail)
+}
+
+
 func (au *authUseCase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
 	newEmail := &mail.Mail{
 		To:      "thuongtruongofficial@gmail.com",

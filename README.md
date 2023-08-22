@@ -1,3 +1,7 @@
+<!-- [![test-and-lint](https://github.com/thuongtruong1009/zoomer/actions/workflows/test-and-lint.yaml/badge.svg)](https://github.com/thuongtruong1009/zoomer/actions/workflows/test-and-lint.yaml)
+[![codecov](https://codecov.io/gh/thuongtruong1009/zoomer/branch/main/graph/badge.svg?token=YBOM7T2YUK)](https://codecov.io/gh/thuongtruong1009/zoomer)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thuongtruong1009/zoomer)](https://goreportcard.com/report/github.com/thuongtruong1009/zoomer) -->
+
 <h1 align="center">ZOOMER</h1>
 
 ## Preview
@@ -26,6 +30,7 @@
 - [x] Testing
 - [x] Support video call
 - [x] Logging
+- [x] Send email service
 - [ ] Support MessageQueue
 - [ ] Support OAuth2
 - [ ] Support notification

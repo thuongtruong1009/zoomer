@@ -12,5 +12,7 @@ type UseCase interface {
 
 	ParseToken(ctx context.Context, accessToken string) (string, error)
 
+	ForgotPassword(ctx context.Context, dto *presenter.ForgotPassword) error
+
 	ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error
 }
