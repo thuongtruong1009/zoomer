@@ -15,6 +15,7 @@ _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 setup:
 	@echo "Installing dependencies..."
 	go mod tidy
+	go get -v -t -d ./...
 	go install github.com/cosmtrek/air@latest
 	go install github.com/swaggo/swag/cmd/swag@latest
 	go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest

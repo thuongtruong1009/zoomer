@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"github.com/thuongtruong1009/zoomer/db"
 	"github.com/thuongtruong1009/zoomer/db/postgres"
+	"github.com/thuongtruong1009/zoomer/db/redis"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	minioAdapter "github.com/thuongtruong1009/zoomer/internal/modules/resources/minio/adapter"
@@ -32,10 +32,11 @@ func NewAdapter(cfg *configs.Configuration, paramCfg *parameter.ParameterConfig,
 	logger.SetFormatter(&logrus.JSONFormatter{})
 	logger.SetLevel(logrus.DebugLevel)
 
-	pgAdapter := postgres.NewPgAdapter(&paramCfg.PostgresConf)
-	pgInstance := pgAdapter.ConnectInstance(cfg)
+	pgAdapter := postgres.NewPgAdapter(cfg, &paramCfg.PostgresConf)
+	pgInstance := pgAdapter.ConnectInstance()
 
-	redisInstance := db.GetRedisInstance(cfg)
+	redisAdapter := redis.NewRedisAdapter(cfg, &paramCfg.RedisConf)
+	redisInstance := redisAdapter.ConnectInstance()
 
 	newMinioClient, _ := minioAdapter.RegisterMinioClient(cfg)
 	minioAdapter.SetPermission(newMinioClient, constants.BucketName)

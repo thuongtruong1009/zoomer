@@ -1,25 +1,27 @@
 package postgres
 
 import (
-	"errors"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 )
 
 type postgresStruct struct {
 	db       *gorm.DB
+	cfg 	*configs.Configuration
 	paramCfg *parameter.PostgresConf
 }
 
-func NewPgAdapter(paramCfg *parameter.PostgresConf) PgAdapter {
+func NewPgAdapter(cfg *configs.Configuration, paramCfg *parameter.PostgresConf) PgAdapter {
 	return &postgresStruct{
 		db:       &gorm.DB{},
+		cfg: cfg,
 		paramCfg: paramCfg,
 	}
 }
@@ -28,14 +30,14 @@ func (pg *postgresStruct) getInstance(uri string) *gorm.DB {
 	db, err := gorm.Open(postgres.Open(uri), &gorm.Config{})
 
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		exceptions.Fatal(constants.ErrorPostgresConnectionFailed, err)
 	}
 
 	return db
 }
 
-func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
-	dsn := cfg.DatabaseConnectionURL
+func (pg *postgresStruct) ConnectInstance() *gorm.DB {
+	dsn := pg.cfg.DatabaseConnectionURL
 	db := pg.getInstance(dsn)
 
 	pg.setConnectionPool(db)
@@ -44,24 +46,24 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 		var intervals = []time.Duration{3 * time.Second, 3 * time.Second, 15 * time.Second, 30 * time.Second, 60 * time.Second, 60 * time.Second}
 
 		for {
-			time.Sleep(60 * time.Second)
+			time.Sleep(helpers.DurationSecond(pg.paramCfg.RetryDelay))
 			sqlDB, err := db.DB()
 			if err != nil {
-				log.Fatal("Error when ping to database: ", err)
+				exceptions.Fatal(constants.ErrorPostgresGetResponse, err)
 			}
 
 			pong := sqlDB.Ping()
 			if pong != nil {
 			L:
 				for i := 0; i < len(intervals); i++ {
-					pong2 := pg.retryHandler(3, func() (bool, error) {
+					pong2 := pg.retryHandler(pg.paramCfg.RetryAttempts, func() (bool, error) {
 						db = pg.getInstance(dsn)
 
 						if db == nil {
-							return false, errors.New("Error when reconnect to database")
+							return false, constants.ErrorPostgresReconnect
 						}
 
-						log.Println("Reconnect to database successful")
+						exceptions.SystemLog(constants.PostgresConnectionSuccessful)
 						return true, nil
 					})
 					if pong2 != nil {
@@ -79,9 +81,9 @@ func (pg *postgresStruct) ConnectInstance(cfg *configs.Configuration) *gorm.DB {
 
 	if pg.paramCfg.AutoMigrate {
 		if err := db.AutoMigrate(&models.User{}, &models.Room{}); err != nil {
-			panic("Error when run auto migrations")
+			exceptions.Panic(constants.ErrorPostgresAutoMigration, err)
 		}
-		log.Println("Auto migration successful")
+		exceptions.SystemLog(constants.PostgresAutoMigrationSuccessful)
 
 		// sqlString := fmt.Sprintf("CREATE TABLE IF NOT EXISTS users(%s);", db.Migrator().CurrentDatabase().Migrator().GetTable(&User{}))
 		// fmt.Println(sqlString)
@@ -106,8 +108,8 @@ func (pg *postgresStruct) setConnectionPool(d *gorm.DB) {
 	if err != nil {
 		panic(err)
 	}
+	db.SetMaxIdleConns(pg.paramCfg.MaxIdleConnection)
 	db.SetMaxOpenConns(pg.paramCfg.MaxOpenConnection)
 	db.SetConnMaxLifetime(helpers.DurationSecond(pg.paramCfg.MaxLifetimeConnection))
-	db.SetMaxIdleConns(pg.paramCfg.MaxIdleConnection)
 	db.SetConnMaxIdleTime(helpers.DurationSecond(pg.paramCfg.MaxIdleTimeConnection))
 }

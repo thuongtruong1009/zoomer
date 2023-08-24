@@ -35,8 +35,8 @@ jobs:
           skip-cache: true
           skip-pkg-cache: true
           skip-build-cache: true
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
+        # run: |
+        #   curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
 
       - name: Run lint
         run: |
@@ -44,6 +44,20 @@ jobs:
 
   build-and-test:
     runs-on: ubuntu-latest
+    # services:
+    #   postgres:
+    #     image: postgres:14-alpine
+    #     env:
+    #       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+    #       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    #       POSTGRES_DB: zoomer
+    #     ports:
+    #       - 5432:5432
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3

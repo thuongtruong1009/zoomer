@@ -13,6 +13,7 @@ type ParameterConfig struct {
 	ServerConf     `mapstructure:"server"`
 	MiddlewareConf `mapstructure:"middleware"`
 	PostgresConf   `mapstructure:"postgres"`
+	RedisConf 	`mapstructure:"redis"`
 	AuthConf       `mapstructure:"auth"`
 	OtherConf      `mapstructure:"others"`
 }
@@ -22,6 +23,7 @@ var pmt *ParameterConfig
 func loadDefaultParameter(pmt *ParameterConfig) {
 	pmt.MiddlewareConf.loadDefault()
 	pmt.PostgresConf.loadDefault()
+	pmt.RedisConf.loadDefault()
 	pmt.ServerConf.loadDefault()
 	pmt.AuthConf.loadDefault()
 	pmt.OtherConf.loadDefault()

@@ -32,6 +32,11 @@ var (
 	ErrorRedisConnectionFailed error = errors.New("redis connection failed")
 	ErrRedisSyncUser error = errors.New("error when sync user data to redis")
 	ErrRedisAddUser error = errors.New("error when add redis user data to redis")
+
+	ErrorPostgresConnectionFailed error = errors.New("failed to connect to postgres database")
+	ErrorPostgresGetResponse error = errors.New("error when get ping response from postgres")
+	ErrorPostgresReconnect error = errors.New("error when reconnect to postgres")
+	ErrorPostgresAutoMigration error = errors.New("error when run auto migrate postgres")
 )
 
 var (

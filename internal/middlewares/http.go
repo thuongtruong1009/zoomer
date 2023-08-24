@@ -59,4 +59,7 @@ func (mwm *MiddlewareManager) HttpMiddleware() {
 	}))
 
 	mwm.RateLimit(mwm.paramCfg.MiddlewareConf)
+
+	// for https
+	// mwm.e.Pre(middleware.HTTPSRedirect())
 }

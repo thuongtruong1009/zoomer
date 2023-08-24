@@ -44,7 +44,7 @@ func RotateTruncateLog(path string, maxFileSize int64) {
 			}
 		}
 
-		time.Sleep(time.Minute) // Adjust the time interval based on your needs
+		time.Sleep(time.Minute)
 	}
 }
 
