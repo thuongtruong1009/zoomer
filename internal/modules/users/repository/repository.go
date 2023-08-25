@@ -12,6 +12,8 @@ import (
 	"gorm.io/gorm"
 	"strings"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"github.com/thuongtruong1009/zoomer/pkg/abstract"
+	"fmt"
 )
 
 type userRepository struct {
@@ -68,4 +70,72 @@ func (ur *userRepository) GetUserByIdOrName(ctx context.Context, account string)
 
 	cache.SetCache(queryCacheKey, &user, helpers.DurationSecond(ur.paramCfg.TokenTimeout))
 	return &user, nil
+}
+
+func (ur *userRepository) Search(ctx context.Context, name string, pagination *abstract.Pagination) (*models.UsersList, error) {
+	var users []*models.User
+	var total int64
+
+	if err := ur.pgDB.WithContext(ctx).Model(&models.User{}).Where("username LIKE ?", "%"+name+"%").Count(&total).Error; err != nil {
+		return nil, constants.ErrNoRecord
+	}
+
+	if err := ur.pgDB.WithContext(ctx).Where("username LIKE ?", "%"+name+"%").Limit(pagination.Size).Offset(pagination.Offset()).Find(&users).Error; err != nil {
+		return nil, constants.ErrNoRecord
+	}
+
+	return &models.UsersList{
+		TotalCount: total,
+		TotalPages: helpers.TotalPages(total, pagination.Size),
+		Page:       pagination.Page,
+		Size:       pagination.Size,
+		HasMore:    helpers.HasMore(total, pagination.Page, pagination.Size),
+		Users:      users,
+	}, nil
+
+	// searchWord := fmt.Sprint("%s:*", name)
+	// var count int
+	// if err := ur.pgDB.QueryRow(ctx, `SELECT count(email_id) FROM users WHERE document_with_idx @@ to_tsquery($1)`, searchWord).Scan(&count); err != nil {
+	// 	return nil, err
+	// }
+
+	// if count == 0 {
+	// 	return &models.UsersList {
+	// 		TotalCount: 0,
+	// 		TotalPages: 0,
+	// 		Page: 0,
+	// 		Size: 0,
+	// 		HasMore: false,
+	// 		Users: make([]*models.Email, 0),
+	// 	}, nil
+	// }
+
+	// rows, err := ur.pgDB.Query(ctx, `SELECT email_id, address_to, address_from, subject, message, created_at
+	// FROM emails WHERE document_with_idx @@ to_tsquery($1) ORDER BY created_at OFFSET $2 LIMIT $3`, searchWord, pagination.GetOffset(), Pagination.GetLimit())
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// defer rows.Close()
+
+	// userList := make([]*models.Email, 0, count)
+	// for rows.Next() {
+	// 	var m models.User
+	// 	if err := rows.Scan(&m.Id, &m.Email, &m.Username); err != nil {
+	// 		return nil, err
+	// 	}
+	// 	userList = append(userList, &m)
+	// }
+
+	// if err := rows.Err(); err != nil {
+	// 	return nil, err
+	// }
+
+	// return &models.UsersList {
+	// 	TotalCount: int64(count),
+	// 	TotalPages: int64(pagination.GetTotalPages(count)),
+	// 	Page: int64(pagination.GetPage()),
+	// 	Size: int64(pagination.GetSize()),
+	// 	HasMore: pagination.GetHasMore(count),
+	// 	Users: userList,
+	// }, nil
 }

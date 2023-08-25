@@ -11,15 +11,13 @@ const defaultSize = 10
 type Pagination struct {
 	Page  int `json:"page,omitempty"`
 	Size  int `json:"size,omitempty"`
-	Total int `json:"total,omitempty"`
 	OrderBy string `json:"order_by,omitempty"`
 }
 
-func NewPagination(page, size, total int, orderBy string) *Pagination {
+func NewPagination(page, size int, orderBy string) *Pagination {
 	return &Pagination{
 		Page: page,
 		Size: size,
-		Total: total,
 		OrderBy: orderBy,
 	}
 }
@@ -97,10 +95,6 @@ func (p *Pagination) GetOffset() int {
 
 func (p *Pagination) GetSize() int {
 	return p.Size
-}
-
-func (p *Pagination) GetTotal() int {
-	return p.Total
 }
 
 func (p *Pagination) GetQueryString() string {

@@ -30,3 +30,7 @@ func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*
 	}
 	return res, nil
 }
+
+func (u *userUseCase) SearchUser(ctx context.Context, name string, pagination *abstract.Pagination) (*models.UsersList, error) {
+	return u.repo.Search(ctx, name, pagination)
+}
