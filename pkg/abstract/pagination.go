@@ -9,16 +9,15 @@ import (
 const defaultSize = 10
 
 type Pagination struct {
-	Page  int `json:"page,omitempty"`
 	Size  int `json:"size,omitempty"`
+	Page  int `json:"page,omitempty"`
 	OrderBy string `json:"order_by,omitempty"`
 }
 
-func NewPagination(page, size int, orderBy string) *Pagination {
+func NewPagination(size, page int) *Pagination {
 	return &Pagination{
 		Page: page,
 		Size: size,
-		OrderBy: orderBy,
 	}
 }
 

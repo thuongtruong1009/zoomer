@@ -13,7 +13,6 @@ import (
 	"strings"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/abstract"
-	"fmt"
 )
 
 type userRepository struct {
@@ -76,22 +75,26 @@ func (ur *userRepository) Search(ctx context.Context, name string, pagination *a
 	var users []*models.User
 	var total int64
 
+	// Count the total number of matching users
 	if err := ur.pgDB.WithContext(ctx).Model(&models.User{}).Where("username LIKE ?", "%"+name+"%").Count(&total).Error; err != nil {
-		return nil, constants.ErrNoRecord
+		return nil, err // Return the actual error instead of constants.ErrNoRecord
 	}
 
-	if err := ur.pgDB.WithContext(ctx).Where("username LIKE ?", "%"+name+"%").Limit(pagination.Size).Offset(pagination.Offset()).Find(&users).Error; err != nil {
-		return nil, constants.ErrNoRecord
+	// Retrieve paginated users list
+	if err := ur.pgDB.WithContext(ctx).Where("username LIKE ?", "%"+name+"%").Limit(pagination.GetSize()).Offset(pagination.GetOffset()).Find(&users).Error; err != nil {
+		return nil, err // Return the actual error instead of constants.ErrNoRecord
 	}
 
 	return &models.UsersList{
 		TotalCount: total,
-		TotalPages: helpers.TotalPages(total, pagination.Size),
-		Page:       pagination.Page,
-		Size:       pagination.Size,
-		HasMore:    helpers.HasMore(total, pagination.Page, pagination.Size),
+		TotalPages: int64(pagination.GetTotalPages(int(total))),
+		Page:       int64(pagination.GetPage()),
+		Size:       int64(pagination.GetSize()),
+		HasMore:    pagination.GetHasMore(int(total)),
 		Users:      users,
 	}, nil
+
+
 
 	// searchWord := fmt.Sprint("%s:*", name)
 	// var count int

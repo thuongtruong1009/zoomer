@@ -55,12 +55,12 @@ func (h *userHandler) GetUserByIdOrName() echo.HandlerFunc {
 //	@Accept			json
 //	@Produce		json
 //	@Param			name	path		string	true	"name of user"
-// @Param name query string false "name of user"
-// @Param page query string false "page number"
-// @Param size query string false "number of elements"
-//	@Success		200			{object}	presenter.GetUserByIdOrNameResponse
-//	@Failure		401			error		constants.ErrorBadRequest
-//	@Failure		500			error		constants.ErrorInternalServer
+//	@Param			name	query		string	false	"name of user"
+//	@Param			page	query		string	false	"page number"
+//	@Param			size	query		string	false	"number of elements"
+//	@Success		200		{object}	models.UsersList
+//	@Failure		401		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
 //	@Router			/users/search [get]
 func (h *userHandler) SearchUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -73,7 +73,7 @@ func (h *userHandler) SearchUser() echo.HandlerFunc {
 			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		pq := abstract.NewPagination(size, page, "")
+		pq := abstract.NewPagination(size, page)
 
 		user, err := h.usecase.SearchUser(c.Request().Context(), c.QueryParam("name"), pq)
 		if err != nil {

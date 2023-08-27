@@ -4,6 +4,8 @@ import (
 	"context"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/abstract"
 )
 
 type userUseCase struct {

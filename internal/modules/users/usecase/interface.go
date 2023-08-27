@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 	"github.com/thuongtruong1009/zoomer/pkg/abstract"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 )
 
 type IUserUseCase interface {

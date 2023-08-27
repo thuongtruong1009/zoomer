@@ -1,7 +1,44 @@
 basePath: /api
 definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      limit:
+        type: integer
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UsersList:
+    properties:
+      has_more:
+        type: boolean
+      page:
+        type: integer
+      size:
+        type: integer
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  presenter.ForgotPassword:
+    properties:
+      email:
+        type: string
+    type: object
   presenter.GetUserByIdOrNameResponse:
     properties:
+      email:
+        type: string
       id:
         type: string
       limit:
@@ -9,15 +46,17 @@ definitions:
       username:
         type: string
     type: object
-  presenter.SignInInput:
+  presenter.SignInRequest:
     properties:
       password:
         type: string
-      username:
+      username_or_email:
         type: string
     type: object
   presenter.SignInResponse:
     properties:
+      email:
+        type: string
       token:
         type: string
       userId:
@@ -25,8 +64,10 @@ definitions:
       username:
         type: string
     type: object
-  presenter.SignUpInput:
+  presenter.SignUpRequest:
     properties:
+      email:
+        type: string
       limit:
         type: integer
       password:
@@ -36,6 +77,8 @@ definitions:
     type: object
   presenter.SignUpResponse:
     properties:
+      email:
+        type: string
       id:
         type: string
       limit:
@@ -57,18 +100,48 @@ info:
   title: Zoomer
   version: "1.1"
 paths:
-  /auth/signin:
+  /auth/forgot-password:
     post:
       consumes:
       - application/json
-      description: Login to user account
+      description: Forgot current password
       parameters:
-      - description: Login user
+      - description: Forgot password
+        in: body
+        name: email
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.ForgotPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      summary: Forgot password
+      tags:
+      - auth
+  /auth/reset-password:
+    patch:
+      consumes:
+      - application/json
+      description: Reset or update change password
+      parameters:
+      - description: Reset password
         in: body
         name: user
         required: true
         schema:
-          $ref: '#/definitions/presenter.SignInInput'
+          $ref: '#/definitions/presenter.SignInRequest'
       produces:
       - application/json
       responses:
@@ -84,14 +157,44 @@ paths:
           description: Internal Server Error
           schema:
             type: error
-      summary: Login to user account
+      summary: Reset password
+      tags:
+      - auth
+  /auth/signin:
+    post:
+      consumes:
+      - application/json
+      description: Login to user account with username or email
+      parameters:
+      - description: Login user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.SignInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.SignInResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      summary: Login to account
       tags:
       - auth
   /auth/signout:
     post:
       consumes:
       - application/json
-      description: Logout user credentials
+      description: Logout user with credentials or token
       parameters:
       - description: User ID
         in: path
@@ -119,21 +222,21 @@ paths:
             type: error
       security:
       - bearerAuth: []
-      summary: Logout user credentials
+      summary: Logout user
       tags:
       - auth
   /auth/signup:
     post:
       consumes:
       - application/json
-      description: Create a new user
+      description: Create a new account for new user
       parameters:
       - description: Create User
         in: body
         name: user
         required: true
         schema:
-          $ref: '#/definitions/presenter.SignUpInput'
+          $ref: '#/definitions/presenter.SignUpRequest'
       produces:
       - application/json
       responses:
@@ -149,7 +252,7 @@ paths:
           description: Internal Server Error
           schema:
             type: error
-      summary: Create a new user
+      summary: Register account
       tags:
       - auth
   /users/{idOrName}:
@@ -179,6 +282,47 @@ paths:
           schema:
             type: error
       summary: Get user by id or name
+      tags:
+      - users
+  /users/search:
+    get:
+      consumes:
+      - application/json
+      description: Search user by name
+      parameters:
+      - description: name of user
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: name of user
+        in: query
+        name: name
+        type: string
+      - description: page number
+        in: query
+        name: page
+        type: string
+      - description: number of elements
+        in: query
+        name: size
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UsersList'
+        "401":
+          description: Unauthorized
+          schema:
+            type: error
+        "500":
+          description: Internal Server Error
+          schema:
+            type: error
+      summary: Search user by name
       tags:
       - users
 schemes:
