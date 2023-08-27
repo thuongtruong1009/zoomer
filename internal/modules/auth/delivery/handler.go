@@ -153,10 +153,10 @@ func (ah *authHandler) writeCookie(c echo.Context, cookie *presenter.SetCookie) 
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			email	body		presenter.ForgotPassword	true	"Forgot password"
-//	@Success		200		string 		constants.Success
-//	@Failure		400		error		constants.ErrorBadRequest
-//	@Failure		500		error		constants.ErrorInternalServer
+//	@Param			email	body	presenter.ForgotPassword	true	"Forgot password"
+//	@Success		200		string	constants.Success
+//	@Failure		400		error	constants.ErrorBadRequest
+//	@Failure		500		error	constants.ErrorInternalServer
 //	@Router			/auth/forgot-password [post]
 func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -177,7 +177,7 @@ func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			user	body		presenter.SignInInput	true	"Reset password"
+//	@Param			user	body		presenter.SignInRequest	true	"Reset password"
 //	@Success		200		{object}	presenter.SignInResponse
 //	@Failure		400		error		constants.ErrorBadRequest
 //	@Failure		500		error		constants.ErrorInternalServer

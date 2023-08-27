@@ -29,9 +29,9 @@ func (rd *redisStruct) getInstance() *redis.Client {
 		Addr:     rd.cfg.RedisURI,
 		Password: rd.cfg.RedisPassword,
 		DB:       rd.paramCfg.DB,
-		MinIdleConns: rd.paramCfg.MinIdleConns,
-		PoolSize: rd.paramCfg.PoolSize,
-		PoolTimeout:  helpers.DurationSecond(rd.paramCfg.PoolTimeout),
+		// MinIdleConns: rd.paramCfg.MinIdleConns,
+		// PoolSize: rd.paramCfg.PoolSize,
+		// PoolTimeout:  helpers.DurationSecond(rd.paramCfg.PoolTimeout),
 	})
 }
 

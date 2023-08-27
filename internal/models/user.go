@@ -14,6 +14,15 @@ type User struct {
 	Limit    int    `gorm:"not null" json:"limit"`
 }
 
+type UsersList struct {
+	TotalCount int64    `json:"total_count"`
+	TotalPages int64    `json:"total_pages"`
+	Page       int64    `json:"page"`
+	Size       int64    `json:"size"`
+	HasMore    bool     `json:"has_more"`
+	Users     []*User `json:"users"`
+}
+
 func (u *User) HashPassword() error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {

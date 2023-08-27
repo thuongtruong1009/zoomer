@@ -4,6 +4,8 @@ import (
 	"context"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
+	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/abstract"
 )
 
 type userUseCase struct {
@@ -29,4 +31,8 @@ func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*
 		Limit:    user.Limit,
 	}
 	return res, nil
+}
+
+func (u *userUseCase) SearchUser(ctx context.Context, name string, pagination *abstract.Pagination) (*models.UsersList, error) {
+	return u.repo.Search(ctx, name, pagination)
 }

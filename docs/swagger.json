@@ -21,9 +21,9 @@
     "host": "localhost:8080",
     "basePath": "/api",
     "paths": {
-        "/auth/signin": {
+        "/auth/forgot-password": {
             "post": {
-                "description": "Login to user account",
+                "description": "Forgot current password",
                 "consumes": [
                     "application/json"
                 ],
@@ -33,7 +33,99 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "Login to user account",
+                "summary": "Forgot password",
+                "parameters": [
+                    {
+                        "description": "Forgot password",
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/presenter.ForgotPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/reset-password": {
+            "patch": {
+                "description": "Reset or update change password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Reset password",
+                "parameters": [
+                    {
+                        "description": "Reset password",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/presenter.SignInRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/presenter.SignInResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "description": "Login to user account with username or email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login to account",
                 "parameters": [
                     {
                         "description": "Login user",
@@ -41,7 +133,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/presenter.SignInInput"
+                            "$ref": "#/definitions/presenter.SignInRequest"
                         }
                     }
                 ],
@@ -74,7 +166,7 @@
                         "bearerAuth": []
                     }
                 ],
-                "description": "Logout user credentials",
+                "description": "Logout user with credentials or token",
                 "consumes": [
                     "application/json"
                 ],
@@ -84,7 +176,7 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "Logout user credentials",
+                "summary": "Logout user",
                 "parameters": [
                     {
                         "type": "string",
@@ -124,7 +216,7 @@
         },
         "/auth/signup": {
             "post": {
-                "description": "Create a new user",
+                "description": "Create a new account for new user",
                 "consumes": [
                     "application/json"
                 ],
@@ -134,7 +226,7 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "Create a new user",
+                "summary": "Register account",
                 "parameters": [
                     {
                         "description": "Create User",
@@ -142,7 +234,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/presenter.SignUpInput"
+                            "$ref": "#/definitions/presenter.SignUpRequest"
                         }
                     }
                 ],
@@ -155,6 +247,68 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/search": {
+            "get": {
+                "description": "Search user by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Search user by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of user",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name of user",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of elements",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UsersList"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "type": "error"
                         }
@@ -214,9 +368,66 @@
         }
     },
     "definitions": {
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UsersList": {
+            "type": "object",
+            "properties": {
+                "has_more": {
+                    "type": "boolean"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "total_count": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                }
+            }
+        },
+        "presenter.ForgotPassword": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
         "presenter.GetUserByIdOrNameResponse": {
             "type": "object",
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -228,13 +439,13 @@
                 }
             }
         },
-        "presenter.SignInInput": {
+        "presenter.SignInRequest": {
             "type": "object",
             "properties": {
                 "password": {
                     "type": "string"
                 },
-                "username": {
+                "username_or_email": {
                     "type": "string"
                 }
             }
@@ -242,6 +453,9 @@
         "presenter.SignInResponse": {
             "type": "object",
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "token": {
                     "type": "string"
                 },
@@ -253,9 +467,12 @@
                 }
             }
         },
-        "presenter.SignUpInput": {
+        "presenter.SignUpRequest": {
             "type": "object",
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "limit": {
                     "type": "integer"
                 },
@@ -270,6 +487,9 @@
         "presenter.SignUpResponse": {
             "type": "object",
             "properties": {
+                "email": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },

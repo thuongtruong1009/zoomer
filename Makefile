@@ -1,14 +1,15 @@
-include .env
-export $(shell type .env | findstr /v /c:"#" /c:"=")
+ifdef ${APP_NAME}
+APPLICATION_NAME := ${APP_NAME}
+else
+APPLICATION_NAME := "zoomer"
+endif
 
 DOCKER_USERNAME ?= thuongtruong1009
-APPLICATION_NAME ?= ${APP_NAME}
-GIT_HASH ?= $(shell git log --format="%%h" -n 1)
 ENTRYPOINT ?= cmd/api/main.go
 BUILDPOINT ?= release/latest
 MIGRATION_ENTRYPOINT ?= db/migrations
 
-_BUILD_ARGS_TAG ?= ${GIT_HASH}
+_BUILD_ARGS_TAG ?= $(shell git log --format="%%h" -n 1)
 _BUILD_ARGS_RELEASE_TAG ?= latest
 _BUILD_ARGS_DOCKERFILE ?= Dockerfile
 

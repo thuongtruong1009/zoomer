@@ -6,6 +6,8 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"net/http"
+	"strconv"
+	"github.com/thuongtruong1009/zoomer/pkg/abstract"
 )
 
 type userHandler struct {
@@ -37,6 +39,43 @@ func (h *userHandler) GetUserByIdOrName() echo.HandlerFunc {
 		input := c.Param("idOrName")
 
 		user, err := h.usecase.GetUserByIdOrName(c.Request().Context(), input)
+		if err != nil {
+			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+		}
+
+		return h.inter.Data(c, http.StatusOK, user)
+	}
+}
+
+// SearchUser godoc
+//
+//	@Summary		Search user by name
+//	@Description	Search user by name
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			name	path		string	true	"name of user"
+//	@Param			name	query		string	false	"name of user"
+//	@Param			page	query		string	false	"page number"
+//	@Param			size	query		string	false	"number of elements"
+//	@Success		200		{object}	models.UsersList
+//	@Failure		401		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
+//	@Router			/users/search [get]
+func (h *userHandler) SearchUser() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		page, err := strconv.Atoi(c.QueryParam("page"))
+		if err != nil {
+			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+		size, err := strconv.Atoi(c.QueryParam("size"))
+		if err != nil {
+			return h.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
+		pq := abstract.NewPagination(size, page)
+
+		user, err := h.usecase.SearchUser(c.Request().Context(), c.QueryParam("name"), pq)
 		if err != nil {
 			return h.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}

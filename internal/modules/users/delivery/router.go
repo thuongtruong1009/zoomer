@@ -7,4 +7,6 @@ import (
 
 func MapUserRoutes(userGroup *echo.Group, h IUserHandler) {
 	userGroup.GET(constants.GetUserByIdOrName, h.GetUserByIdOrName())
+
+	userGroup.GET("/search", h.SearchUser())
 }
