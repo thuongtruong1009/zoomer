@@ -15,22 +15,19 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-RUN go install github.com/swaggo/swag/cmd/swag@latest && swag init -g ./cmd/api/prod.go -o ./docs
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/api/main.go
+RUN go install github.com/swaggo/swag/cmd/swag@latest && swag init -g ./cmd/api/prod.go -o ./docs
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/api/prod.go
 
-FROM scratch
-RUN addgroup -S zoomer
-RUN adduser -S -D -h /app zoomer zoomer
+FROM alpine:latest
+RUN addgroup -S zoomer && adduser -S -G zoomer zoomer
 RUN mkdir -p /app
 WORKDIR /app
 USER zoomer
-COPY --chown=zoomer:zoomer --from=development /app /app/app-dev/
-COPY --chown=zoomer:zoomer --from=production /app/main-prod /app/
-EXPOSE 8080
+COPY --chown=zoomer:zoomer --from=production /app/main-prod ./zoomer-prod
 CMD if [ "$TARGET" = "development" ]; \
-    then /app/app-dev/main-dev; \
-    else ./main-prod; \
+    then ./main-dev; \
+    else ./zoomer-prod; \
     fi
 
 LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"

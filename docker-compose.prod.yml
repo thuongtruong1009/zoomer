@@ -39,7 +39,7 @@ services:
   #     - RMQ_URI=${RMQ_CLOUD}
 
   app:
-    image: thuongtruong1009/prod
+    image: thuongtruong1009/zoomer
     # deploy:
     #   replicas: 3
     build:

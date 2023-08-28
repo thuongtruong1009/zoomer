@@ -12,11 +12,11 @@ services:
       - ./.docker/postgres/data:/var/lib/postgresql/data
     networks:
       - postgres-network
-    # healthcheck:
-    #   test: pg_isready
-    #   interval: 10s
-    #   timeout: 5s
-    #   retries: 5
+    healthcheck:
+      test: pg_isready
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dockette/adminer:pgsql
@@ -24,11 +24,9 @@ services:
     restart: always
     ports:
       - "5050:80"
-    # expose:
-    #   - "80"
-    # depends_on:
-    #   postgres:
-    #     condition: service_healthy
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - postgres-network
     volumes:
