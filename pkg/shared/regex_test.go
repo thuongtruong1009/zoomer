@@ -6,11 +6,11 @@ func TestMatchRegex(t *testing.T) {
 	arr := []map[string]string{
 		{
 			"regex": "^[a-zA-Z0-9]{3,20}$",
-			"word": "zoomer",
+			"word":  "zoomer",
 		},
 		{
 			"regex": "^[a-zA-Z0-9]{3,20}$",
-			"word": "zoomer123",
+			"word":  "zoomer123",
 		},
 	}
 

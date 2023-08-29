@@ -6,13 +6,13 @@ import (
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
 	"net/http"
 	"time"
-	"github.com/thuongtruong1009/zoomer/pkg/pipe"
-	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 )
 
 type authHandler struct {
@@ -93,8 +93,8 @@ func (ah *authHandler) SignIn() echo.HandlerFunc {
 		}
 
 		newCookie := &presenter.SetCookie{
-			Name: constants.AccessTokenKey,
-			Value: user.Token,
+			Name:    constants.AccessTokenKey,
+			Value:   user.Token,
 			Expires: helpers.DurationSecond(ah.paramCfg.TokenTimeout),
 		}
 		ah.writeCookie(c, newCookie)
@@ -127,8 +127,8 @@ func (ah *authHandler) SignOut() echo.HandlerFunc {
 		}
 
 		newCookie := &presenter.SetCookie{
-			Name: constants.AccessTokenKey,
-			Value: "",
+			Name:    constants.AccessTokenKey,
+			Value:   "",
 			Expires: -1,
 		}
 		ah.writeCookie(c, newCookie)

@@ -5,21 +5,21 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
+	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
-	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 )
 
 type redisStruct struct {
-	redis *redis.Client
-	cfg  *configs.Configuration
+	redis    *redis.Client
+	cfg      *configs.Configuration
 	paramCfg *parameter.RedisConf
 }
 
 func NewRedisAdapter(cfg *configs.Configuration, paramCfg *parameter.RedisConf) RedisAdapter {
 	return &redisStruct{
-		cfg: cfg,
+		cfg:      cfg,
 		paramCfg: paramCfg,
 	}
 }
@@ -50,5 +50,3 @@ func (rd *redisStruct) ConnectInstance() *redis.Client {
 
 	return conn
 }
-
-

@@ -16,7 +16,7 @@ const (
 )
 
 func main() {
-	databaseURL := configs.LookupEnv("PG_URI")
+	databaseURL := configs.GetEnvVar("PG_URI")
 
 	var (
 		attempts = _defaultAttempts

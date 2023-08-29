@@ -9,10 +9,10 @@ const (
 )
 
 const (
-	RedisConnectionSuccessful string = "redis connection successful"
-	PostgresConnectionSuccessful string = "postgres connection successful"
+	RedisConnectionSuccessful       string = "redis connection successful"
+	PostgresConnectionSuccessful    string = "postgres connection successful"
 	PostgresAutoMigrationSuccessful string = "postgres run auto migration successful"
-	EMsgQueueName                    = "chat"
+	EMsgQueueName                          = "chat"
 )
 
 const (

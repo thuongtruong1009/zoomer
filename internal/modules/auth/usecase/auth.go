@@ -8,6 +8,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
+	"github.com/thuongtruong1009/zoomer/infrastructure/mail"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	authRepository "github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
@@ -17,7 +18,6 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"strings"
 	"time"
-	"github.com/thuongtruong1009/zoomer/infrastructure/mail"
 )
 
 type authUsecase struct {
@@ -25,7 +25,7 @@ type authUsecase struct {
 	userRepo userRepository.IUserRepository
 	cfg      *configs.Configuration
 	paramCfg *parameter.ParameterConfig
-	mail mail.IMail
+	mail     mail.IMail
 }
 
 func NewAuthUseCase(
@@ -40,7 +40,7 @@ func NewAuthUseCase(
 		userRepo: userRepo,
 		cfg:      cfg,
 		paramCfg: paramCfg,
-		mail: mail,
+		mail:     mail,
 	}
 }
 
@@ -90,7 +90,7 @@ func (au *authUsecase) SignIn(ctx context.Context, dto *presenter.SignInRequest)
 	res := &presenter.SignInResponse{
 		UserId:   user.Id,
 		Username: user.Username,
-		Email: user.Email,
+		Email:    user.Email,
 		Token:    "",
 	}
 
@@ -100,9 +100,9 @@ func (au *authUsecase) SignIn(ctx context.Context, dto *presenter.SignInRequest)
 		res.Token = userInCache.(string)
 	} else {
 		claims := models.AuthClaims{
-			Id:   user.Id,
+			Id:       user.Id,
 			Username: user.Username,
-			Email: user.Email,
+			Email:    user.Email,
 			StandardClaims: jwt.StandardClaims{
 				IssuedAt:  time.Now().Unix(),
 				Issuer:    user.Id,
@@ -157,13 +157,6 @@ func (au *authUsecase) ForgotPassword(ctx context.Context, email string) error {
 	return au.mail.SendingNativeMail(newEmail)
 }
 
-
 func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
-	newEmail := &mail.Mail{
-		To:      "thuongtruongofficial@gmail.com",
-		Subject: "Reset Zoomer password",
-		Body:    "Your new password is xxx",
-	}
-
-	return au.mail.SendingNativeMail(newEmail)
+	return nil
 }

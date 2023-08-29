@@ -4,10 +4,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"net/http"
 	"strings"
-	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 )
 
 type AuthMiddleware struct {

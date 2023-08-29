@@ -6,10 +6,10 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
 	chatAdapter "github.com/thuongtruong1009/zoomer/internal/modules/chats/adapter"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
-	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type authRepository struct {
@@ -52,10 +52,18 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 	return nil
 }
 
-// func (ar *authRepository) UpdatePassword(ctx context.Context, password string) error {
-// 	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ar.paramCfg.CtxTimeout))
-// 	defer cancel()
+func (ar *authRepository) UpdatePassword(ctx context.Context, password string) error {
+	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ar.paramCfg.CtxTimeout))
+	defer cancel()
 
-// 	if err := ar.pgDB.WithContext(context.Background())
-// 	return nil
-// }
+	user := &models.User{
+		Password: password,
+	}
+
+	if err := ar.pgDB.WithContext(timeoutCtx).Save(&user).Error; err != nil {
+		exceptions.Log(constants.ErrorContextTimeout, err)
+		return err
+	}
+
+	return nil
+}

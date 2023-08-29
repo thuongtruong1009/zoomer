@@ -12,7 +12,7 @@ const (
 )
 
 const (
-	BearerName   = "Bearer"
-	BearerHeader = "Authorization"
-	AuthCtxUserKey  = "user"
+	BearerName     = "Bearer"
+	BearerHeader   = "Authorization"
+	AuthCtxUserKey = "user"
 )

@@ -13,7 +13,7 @@ type ParameterConfig struct {
 	ServerConf     `mapstructure:"server"`
 	MiddlewareConf `mapstructure:"middleware"`
 	PostgresConf   `mapstructure:"postgres"`
-	RedisConf 	`mapstructure:"redis"`
+	RedisConf      `mapstructure:"redis"`
 	AuthConf       `mapstructure:"auth"`
 	OtherConf      `mapstructure:"others"`
 }

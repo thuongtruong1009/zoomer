@@ -6,13 +6,13 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/abstract"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 	"gorm.io/gorm"
 	"strings"
-	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
-	"github.com/thuongtruong1009/zoomer/pkg/abstract"
-	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 )
 
 type userRepository struct {
@@ -94,8 +94,6 @@ func (ur *userRepository) Search(ctx context.Context, name string, pagination *a
 		HasMore:    pagination.GetHasMore(int(total)),
 		Users:      users,
 	}, nil
-
-
 
 	// searchWord := fmt.Sprint("%s:*", name)
 	// var count int

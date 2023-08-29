@@ -3,13 +3,13 @@ package presenter
 import "time"
 
 type SetCookie struct {
-	Name string
-	Value string
+	Name    string
+	Value   string
 	Expires time.Duration
 }
 
 type ResetPassword struct {
-	Password string `json:"password"`
+	Password    string `json:"password"`
 	NewPassword string `json:"new_password"`
 }
 

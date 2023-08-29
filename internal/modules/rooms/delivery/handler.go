@@ -7,11 +7,11 @@ import (
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
 	"net/http"
-	"github.com/thuongtruong1009/zoomer/pkg/decorators"
-	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 )
 
 type roomHandler struct {

@@ -6,11 +6,11 @@ import (
 )
 
 type RedisConf struct {
-	DB            int           `mapstructure:"db"`
-	MinIdleConns  int           `mapstructure:"min_idle_conns"`
-	PoolSize      int           `mapstructure:"pool_size"`
-	PoolTimeout   time.Duration `mapstructure:"pool_timeout"`
-	IdleTimeout   time.Duration `mapstructure:"idle_timeout"`
+	DB           int           `mapstructure:"db"`
+	MinIdleConns int           `mapstructure:"min_idle_conns"`
+	PoolSize     int           `mapstructure:"pool_size"`
+	PoolTimeout  time.Duration `mapstructure:"pool_timeout"`
+	IdleTimeout  time.Duration `mapstructure:"idle_timeout"`
 }
 
 var _ parameterLoader = (*RedisConf)(nil)
