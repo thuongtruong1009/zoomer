@@ -2,16 +2,16 @@ package delivery
 
 import (
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/thuongtruong1009/zoomer/internal/models"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/rooms/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
 	"net/http"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 )
 
 type roomHandler struct {
@@ -53,12 +53,14 @@ func (rh *roomHandler) GetAll() echo.HandlerFunc {
 
 func (rh *roomHandler) GetUserRooms() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		rawId := c.Param(repository.CtxUserKey)
-		userId, err := uuid.Parse(rawId)
+		userId := decorators.DetectCurrentUser(c).Id
+
+		err := pipe.IsValidUUID(userId)
 		if err != nil {
 			return rh.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
-		rooms, err := rh.roomUC.GetRoomsByUserId(c.Request().Context(), userId.String())
+
+		rooms, err := rh.roomUC.GetRoomsByUserId(c.Request().Context(), userId)
 		if err != nil {
 			return rh.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}
@@ -68,8 +70,12 @@ func (rh *roomHandler) GetUserRooms() echo.HandlerFunc {
 
 func (rh *roomHandler) AddRoom() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		userId := decorators.DetectCurrentUser(c).Id
 
-		userId := c.Get(repository.CtxUserKey)
+		if err := pipe.IsValidUUID(userId); err != nil {
+			return rh.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
 		input := &presenter.RoomRequest{}
 
 		if err := validators.ReadRequest(c, input); err != nil {

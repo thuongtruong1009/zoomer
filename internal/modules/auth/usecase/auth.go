@@ -20,7 +20,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/mail"
 )
 
-type authUseCase struct {
+type authUsecase struct {
 	authRepo authRepository.UserRepository
 	userRepo userRepository.IUserRepository
 	cfg      *configs.Configuration
@@ -35,7 +35,7 @@ func NewAuthUseCase(
 	paramCfg *parameter.ParameterConfig,
 	mail mail.IMail,
 ) UseCase {
-	return &authUseCase{
+	return &authUsecase{
 		authRepo: authRepo,
 		userRepo: userRepo,
 		cfg:      cfg,
@@ -44,7 +44,7 @@ func NewAuthUseCase(
 	}
 }
 
-func (a *authUseCase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) (*presenter.SignUpResponse, error) {
+func (a *authUsecase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) (*presenter.SignUpResponse, error) {
 	fmtusername := strings.ToLower(dto.Username)
 
 	euser, _ := a.userRepo.GetUserByIdOrName(ctx, fmtusername)
@@ -77,7 +77,7 @@ func (a *authUseCase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) 
 	}, nil
 }
 
-func (au *authUseCase) SignIn(ctx context.Context, dto *presenter.SignInRequest) (*presenter.SignInResponse, error) {
+func (au *authUsecase) SignIn(ctx context.Context, dto *presenter.SignInRequest) (*presenter.SignInResponse, error) {
 	user, err := au.userRepo.GetUserByIdOrName(ctx, dto.UsernameOrEmail)
 	if err != nil {
 		return nil, err
@@ -100,8 +100,9 @@ func (au *authUseCase) SignIn(ctx context.Context, dto *presenter.SignInRequest)
 		res.Token = userInCache.(string)
 	} else {
 		claims := models.AuthClaims{
+			Id:   user.Id,
 			Username: user.Username,
-			UserId:   user.Id,
+			Email: user.Email,
 			StandardClaims: jwt.StandardClaims{
 				IssuedAt:  time.Now().Unix(),
 				Issuer:    user.Id,
@@ -124,7 +125,7 @@ func (au *authUseCase) SignIn(ctx context.Context, dto *presenter.SignInRequest)
 	return res, nil
 }
 
-func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (string, error) {
+func (au *authUsecase) ParseToken(ctx context.Context, accessToken string) (*models.AuthClaims, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &models.AuthClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			exceptions.Log(constants.ErrUnexpectedSigning, token.Header["alg"])
@@ -135,20 +136,20 @@ func (au *authUseCase) ParseToken(ctx context.Context, accessToken string) (stri
 
 	if err != nil {
 		exceptions.Log(constants.ErrParseToken, err)
-		return "", constants.ErrParseToken
+		return nil, constants.ErrParseToken
 	}
 
 	if claims, ok := token.Claims.(*models.AuthClaims); ok && token.Valid {
-		return claims.UserId, nil
+		return claims, nil
 	}
 
 	exceptions.Log(constants.ErrInvalidAccessToken, nil)
-	return "", constants.ErrInvalidAccessToken
+	return nil, constants.ErrInvalidAccessToken
 }
 
-func (au *authUseCase) ForgotPassword(ctx context.Context, dto *presenter.ForgotPassword) error {
+func (au *authUsecase) ForgotPassword(ctx context.Context, email string) error {
 	newEmail := &mail.Mail{
-		To:      "thuongtruongofficial@gmail.com",
+		To:      email,
 		Subject: "Reset Zoomer password",
 		Body:    "Your new password is xxx",
 	}
@@ -157,7 +158,7 @@ func (au *authUseCase) ForgotPassword(ctx context.Context, dto *presenter.Forgot
 }
 
 
-func (au *authUseCase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
+func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
 	newEmail := &mail.Mail{
 		To:      "thuongtruongofficial@gmail.com",
 		Subject: "Reset Zoomer password",
@@ -166,11 +167,3 @@ func (au *authUseCase) ResetPassword(ctx context.Context, dto *presenter.ResetPa
 
 	return au.mail.SendingNativeMail(newEmail)
 }
-
-// func (a *authUseCase) SearchUserByMatch(c echo.Context, username string) {
-// 	users, err := a.authRepo.QueryMatchingFields(c.Request().Context(), username)
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, err)
-// 		return
-// 	}
-// }

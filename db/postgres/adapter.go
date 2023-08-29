@@ -10,6 +10,7 @@ import (
 	"time"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
+	"gorm.io/gorm/logger"
 )
 
 type postgresStruct struct {
@@ -27,7 +28,9 @@ func NewPgAdapter(cfg *configs.Configuration, paramCfg *parameter.PostgresConf) 
 }
 
 func (pg *postgresStruct) getInstance(uri string) *gorm.DB {
-	db, err := gorm.Open(postgres.Open(uri), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(uri), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 
 	if err != nil {
 		exceptions.Fatal(constants.ErrorPostgresConnectionFailed, err)

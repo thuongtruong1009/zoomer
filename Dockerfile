@@ -20,9 +20,9 @@ RUN go install github.com/swaggo/swag/cmd/swag@latest && swag init -g ./cmd/api/
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-s -w" -tags migrate -o main-prod ./cmd/api/prod.go
 
 FROM alpine:latest
-RUN addgroup -S zoomer && adduser -S -G zoomer zoomer
 RUN mkdir -p /app
 WORKDIR /app
+RUN addgroup -S zoomer && adduser -S -G zoomer zoomer
 USER zoomer
 COPY --chown=zoomer:zoomer --from=production /app/main-prod ./zoomer-prod
 CMD if [ "$TARGET" = "development" ]; \
@@ -32,7 +32,7 @@ CMD if [ "$TARGET" = "development" ]; \
 
 LABEL maintainer="Tran Nguyen Thuong Truong <thuongtruongofficial@gmail.com>"
 LABEL org.opencontainers.image.authors="thuongtruong1009"
-LABEL org.opencontainers.image.version="1.0"
+LABEL org.opencontainers.image.version="1.1"
 LABEL org.opencontainers.image.description="Official Image of Zoomer application"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.source="https://github.com/thuongtruong1009/zoomer"

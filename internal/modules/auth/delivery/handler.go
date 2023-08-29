@@ -11,6 +11,8 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/validators"
 	"net/http"
 	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 )
 
 type authHandler struct {
@@ -117,6 +119,13 @@ func (ah *authHandler) SignIn() echo.HandlerFunc {
 //	@Router			/auth/signout [post]
 func (ah *authHandler) SignOut() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		userId := decorators.DetectCurrentUser(c).Id
+
+		err := pipe.IsValidUUID(userId)
+		if err != nil {
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
 		newCookie := &presenter.SetCookie{
 			Name: constants.AccessTokenKey,
 			Value: "",
@@ -160,13 +169,13 @@ func (ah *authHandler) writeCookie(c echo.Context, cookie *presenter.SetCookie) 
 //	@Router			/auth/forgot-password [post]
 func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		newEmail := &presenter.ForgotPassword{}
+		userEmail := decorators.DetectCurrentUser(c).Email
 
-		if err := validators.ReadRequest(c, newEmail); err != nil {
+		if err := validators.ReadRequest(c, userEmail); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		return ah.useCase.ForgotPassword(c.Request().Context(), newEmail)
+		return ah.useCase.ForgotPassword(c.Request().Context(), userEmail)
 	}
 }
 

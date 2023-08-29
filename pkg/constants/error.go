@@ -40,6 +40,11 @@ var (
 )
 
 var (
+	ErrRequiredUUID error = errors.New("id is required")
+	ErrInvalidUUID error = errors.New("uuid is invalid")
+)
+
+var (
 	ErrUserNotFound       error = errors.New("user not found")
 	ErrUserExisted        error = errors.New("user existed")
 	ErrReqiredUsername  error = errors.New("username is required")

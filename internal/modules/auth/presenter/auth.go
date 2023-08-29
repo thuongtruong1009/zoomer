@@ -8,10 +8,6 @@ type SetCookie struct {
 	Expires time.Duration
 }
 
-type ForgotPassword struct {
-	Email string `json:"email"`
-}
-
 type ResetPassword struct {
 	Password string `json:"password"`
 	NewPassword string `json:"new_password"`

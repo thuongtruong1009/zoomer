@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
-	"github.com/google/uuid"
 	"github.com/thuongtruong1009/zoomer/infrastructure/cache"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
@@ -13,6 +12,7 @@ import (
 	"strings"
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/abstract"
+	"github.com/thuongtruong1009/zoomer/pkg/pipe"
 )
 
 type userRepository struct {
@@ -33,7 +33,8 @@ func (ur *userRepository) GetUserByIdOrName(ctx context.Context, account string)
 	var queryStruct *models.User
 	var queryCacheKey string
 
-	_, err := uuid.Parse(account)
+	err := pipe.IsValidUUID(account)
+
 	if err != nil {
 		isEmail := strings.IndexByte(account, '@')
 		if isEmail >= 0 {

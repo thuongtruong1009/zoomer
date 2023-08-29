@@ -14,4 +14,5 @@ const (
 const (
 	BearerName   = "Bearer"
 	BearerHeader = "Authorization"
+	AuthCtxUserKey  = "user"
 )

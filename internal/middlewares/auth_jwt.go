@@ -2,12 +2,12 @@ package middlewares
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/repository"
 	"github.com/thuongtruong1009/zoomer/internal/modules/auth/usecase"
 	"github.com/thuongtruong1009/zoomer/pkg/constants"
 	"github.com/thuongtruong1009/zoomer/pkg/interceptor"
 	"net/http"
 	"strings"
+	"github.com/thuongtruong1009/zoomer/pkg/decorators"
 )
 
 type AuthMiddleware struct {
@@ -35,7 +35,7 @@ func (mw *AuthMiddleware) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc 
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
-		userId, err := mw.authUC.ParseToken(c.Request().Context(), headerParts[1])
+		user, err := mw.authUC.ParseToken(c.Request().Context(), headerParts[1])
 
 		if err != nil {
 			status := http.StatusInternalServerError
@@ -45,7 +45,7 @@ func (mw *AuthMiddleware) JWTValidation(next echo.HandlerFunc) echo.HandlerFunc 
 			return mw.inter.Error(c, status, constants.ErrorInternalServer, err)
 		}
 
-		c.Set(repository.CtxUserKey, userId)
+		decorators.BindCurrentUser(c, user)
 
 		return next(c)
 	}
@@ -58,7 +58,7 @@ func (mw *AuthMiddleware) CookieValidation(next echo.HandlerFunc) echo.HandlerFu
 			return mw.inter.Error(c, http.StatusUnauthorized, constants.ErrorUnauthorized, constants.ErrInvalidAccessToken)
 		}
 
-		userId, err := mw.authUC.ParseToken(c.Request().Context(), cookie.Value)
+		user, err := mw.authUC.ParseToken(c.Request().Context(), cookie.Value)
 
 		if err != nil {
 			status := http.StatusInternalServerError
@@ -68,7 +68,7 @@ func (mw *AuthMiddleware) CookieValidation(next echo.HandlerFunc) echo.HandlerFu
 			return mw.inter.Error(c, status, constants.ErrorInternalServer, err)
 		}
 
-		c.Set(repository.CtxUserKey, userId)
+		decorators.BindCurrentUser(c, user)
 
 		return next(c)
 	}

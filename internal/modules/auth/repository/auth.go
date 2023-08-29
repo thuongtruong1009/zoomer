@@ -52,13 +52,10 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 	return nil
 }
 
-// func (ar *authRepository) QueryMatchingFields(ctx context.Context, match string) (*[]models.User, error) {
-// 	var user []models.User
-// 	err := ar.pgDB.WithContext(ctx).Where("username LIKE ?", "%"+match+"%").First(&user).Error
+// func (ar *authRepository) UpdatePassword(ctx context.Context, password string) error {
+// 	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ar.paramCfg.CtxTimeout))
+// 	defer cancel()
 
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return &user, nil
+// 	if err := ar.pgDB.WithContext(context.Background())
+// 	return nil
 // }
