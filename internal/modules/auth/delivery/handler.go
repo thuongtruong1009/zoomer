@@ -169,13 +169,42 @@ func (ah *authHandler) writeCookie(c echo.Context, cookie *presenter.SetCookie) 
 //	@Router			/auth/forgot-password [post]
 func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		userEmail := decorators.DetectCurrentUser(c).Email
+		input := &presenter.ForgotPassword{}
 
-		if err := validators.ReadRequest(c, userEmail); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		return ah.useCase.ForgotPassword(c.Request().Context(), userEmail)
+		err := ah.useCase.ForgotPassword(c.Request().Context(), input.Email)
+		if err != nil {
+			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+		}
+
+		return ah.inter.Data(c, http.StatusOK, constants.Success)
+	}
+}
+
+// VerifyResetPasswordOtp godoc
+//
+//	@Summary		Verify OTP
+//	@Description	Verify password recover OTP code
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			otp	body	presenter.VerifyResetPasswordOtp	true	"Verify OTP"
+//	@Success		200	string	constants.Success
+//	@Failure		400	error	constants.ErrorBadRequest
+//	@Failure		500	error	constants.ErrorInternalServer
+//	@Router			/auth/verify-reset-password-otp [post]
+func (ah *authHandler) VerifyResetPasswordOtp() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		otp := &presenter.VerifyResetPasswordOtp{}
+
+		if err := validators.ReadRequest(c, otp); err != nil {
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
+		return ah.useCase.VerifyResetPasswordOtp(c.Request().Context(), otp.Code)
 	}
 }
 
@@ -193,12 +222,17 @@ func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 //	@Router			/auth/reset-password [patch]
 func (ah *authHandler) ResetPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		newEmail := &presenter.ResetPassword{}
+		input := &presenter.ResetPassword{}
 
-		if err := validators.ReadRequest(c, newEmail); err != nil {
+		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		return ah.useCase.ResetPassword(c.Request().Context(), newEmail)
+		err := ah.useCase.ResetPassword(c.Request().Context(), input)
+		if err != nil {
+			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+		}
+
+		return ah.inter.Data(c, http.StatusOK, constants.Success)
 	}
 }

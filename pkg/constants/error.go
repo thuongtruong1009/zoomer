@@ -64,12 +64,21 @@ var (
 	ErrAlphaNumPassword error = errors.New("password must contain at least one letter - one number - one special characters - one uppercase letter - one lowercase letter")
 	ErrHashPassword     error = errors.New("error when encrypt password")
 	ErrComparePassword  error = errors.New("password not match")
+	ErrPasswordNotChange error = errors.New("password must be different from the old password")
 
 	ErrNoRecord           error = errors.New("no record")
 	ErrInvalidAccessToken error = errors.New("invalid access token")
 	ErrUnexpectedSigning  error = errors.New("unexpected signing method")
 	ErrSigningKey         error = errors.New("signing key error")
 	ErrParseToken         error = errors.New("parse token error")
+)
+
+var (
+	// ErrOtpNotFound error = errors.New("otp not found")
+	ErrOtpExpired  error = errors.New("otp expired")
+	ErrOtpInvalid  error = errors.New("otp invalid")
+	// ErrOtpSend     error = errors.New("otp send error")
+	// ErrOtpCreate   error = errors.New("otp create error")
 )
 
 var (

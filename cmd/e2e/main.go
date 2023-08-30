@@ -17,6 +17,7 @@ import (
 	"strings"
 	"syscall"
 	"testing"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type e2eTestSuite struct {
@@ -35,7 +36,6 @@ func (s *e2eTestSuite) SetupSuite() {
 		SigningKey:            "secret",
 		HashSalt:              "salt",
 		DatabaseConnectionURL: "postgres://postgres:postgres@localhost:5432/zoomer?sslmode=disable",
-		TokenTTL:              3600,
 		JwtSecret:             "secret",
 	}
 
@@ -57,8 +57,8 @@ func (s *e2eTestSuite) TeaDownSuite() {
 }
 
 func (s *e2eTestSuite) Test_EndToEnd_Register() {
-	username := helpers.RandomString(10)
-	pwd := helpers.RandomString(8)
+	username := helpers.RandomChain(constants.RandomTypeString, 10)
+	pwd := helpers.RandomChain(constants.RandomTypeString, 10)
 
 	reqStr := `{"username":"` + username + `","password":"` + pwd + `", "limit": 10}`
 	req, err := http.NewRequest("POST", fmt.Sprintf("http://localhost:%s/api/auth/signup", s.config.AppPort), strings.NewReader(reqStr))

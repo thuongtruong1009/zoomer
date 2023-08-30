@@ -1,10 +1,8 @@
 package mail
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
-	"html/template"
 	"net/smtp"
 	"strings"
 )
@@ -22,22 +20,9 @@ func NewMail(cfg *configs.Configuration) IMail {
 func (e *mail) SendingNativeMail(mail *Mail) error {
 	auth := smtp.PlainAuth("", e.cfg.MailUser, e.cfg.MailPassword, strings.Split(e.cfg.MailHost, ":")[0])
 
-	t, _ := template.ParseFiles("template.html")
+	msg := []byte(fmt.Sprintf("To: %s\r\nSubject: %s\r\n\r\nThis is auto message from Zoomer\n\n%s", mail.To, mail.Subject, mail.Body))
 
-	var body bytes.Buffer
-
-	body.Write([]byte(fmt.Sprintf("Subject: %s\n%s\n\n", mail.Subject, "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n")))
-
-	t.Execute(&body, struct {
-		Name    string
-		Message string
-	}{
-		Name:    mail.To,
-		Message: mail.Body,
-	})
-
-	err := smtp.SendMail(e.cfg.MailHost, auth, e.cfg.MailUser, []string{mail.To}, body.Bytes())
-
+	err := smtp.SendMail(e.cfg.MailHost, auth, e.cfg.MailUser, []string{mail.To}, msg)
 	if err != nil {
 		fmt.Println(err)
 		return err

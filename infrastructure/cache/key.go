@@ -11,3 +11,7 @@ func AuthTokenKey(authToken string) string {
 func UserRoomKey(userId string) string {
 	return "cache_user_room#" + userId
 }
+
+func MailOtpKey(email string) string {
+	return "cache_mail_otp#" + email
+}

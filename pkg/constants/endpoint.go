@@ -14,6 +14,8 @@ const (
 	SignUpEndPoint    string = "/signup"
 	SignInEndPoint    string = "/signin"
 	SignOutEndPoint   string = "/signout"
+	ForgotPassword	string = "/forgot-password"
+	VerifyResetPasswordOtp string = "/verify-reset-password-otp"
 	ResetPassword     string = "/reset-password"
 )
 

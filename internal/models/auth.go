@@ -8,9 +8,3 @@ type AuthClaims struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 }
-
-// type AuthCtxToken struct {
-// 	UserId   string `json:"userId"`
-// 	Username string `json:"username"`
-// 	Email string `json:"email"`
-// }

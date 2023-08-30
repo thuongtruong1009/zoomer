@@ -1,12 +1,9 @@
-ifdef ${APP_NAME}
-APPLICATION_NAME := ${APP_NAME}
-else
-APPLICATION_NAME := "zoomer"
-endif
+APPLICATION_NAME ?= ${APP_NAME}
+VERSION ?= latest
 
 DOCKER_USERNAME ?= thuongtruong1009
 ENTRYPOINT ?= cmd/api/main.go
-BUILDPOINT ?= release/latest
+BUILDPOINT = release/${VERSION}
 MIGRATION_ENTRYPOINT ?= db/migrations
 
 _BUILD_ARGS_TAG ?= $(shell git log --format="%%h" -n 1)

@@ -16,3 +16,8 @@ const (
 	BearerHeader   = "Authorization"
 	AuthCtxUserKey = "user"
 )
+
+const (
+	RandomTypeNumber byte = 1
+	RandomTypeString byte = 2
+)

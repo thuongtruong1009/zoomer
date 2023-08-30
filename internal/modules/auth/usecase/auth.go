@@ -56,16 +56,20 @@ func (a *authUsecase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) 
 	user := &models.User{
 		Id:       uuid.New().String(),
 		Username: fmtusername,
+		Email:    dto.Email,
 		Password: dto.Password,
 		Limit:    dto.Limit,
 	}
 
-	if err := user.HashPassword(); err != nil {
+	hashedPassword, err := helpers.Encrypt(user.Password)
+	if err != nil {
+		exceptions.Log(constants.ErrHashPassword, err)
 		return nil, err
 	}
 
-	err := a.authRepo.CreateUser(ctx, user)
-	if err != nil {
+	user.Password = string(hashedPassword)
+
+	if err := a.authRepo.CreateUser(ctx, user); err != nil {
 		exceptions.Log(constants.ErrCreateUserFailed, err)
 		return nil, err
 	}
@@ -73,6 +77,7 @@ func (a *authUsecase) SignUp(ctx context.Context, dto *presenter.SignUpRequest) 
 	return &presenter.SignUpResponse{
 		Id:       user.Id,
 		Username: user.Username,
+		Email:    user.Email,
 		Limit:    user.Limit,
 	}, nil
 }
@@ -83,7 +88,8 @@ func (au *authUsecase) SignIn(ctx context.Context, dto *presenter.SignInRequest)
 		return nil, err
 	}
 
-	if err := user.ComparePassword(dto.Password); err != nil {
+	if err := helpers.Decrypt(user.Password, dto.Password); err != nil {
+		exceptions.Log(constants.ErrComparePassword, err)
 		return nil, err
 	}
 
@@ -148,15 +154,35 @@ func (au *authUsecase) ParseToken(ctx context.Context, accessToken string) (*mod
 }
 
 func (au *authUsecase) ForgotPassword(ctx context.Context, email string) error {
+	newOtp := helpers.RandomChain(constants.RandomTypeNumber, 6)
+
 	newEmail := &mail.Mail{
 		To:      email,
 		Subject: "Reset Zoomer password",
-		Body:    "Your new password is xxx",
+		Body:    "Your OTP code is: " + newOtp,
 	}
+
+	cache.SetCache(cache.MailOtpKey(email), newOtp, helpers.DurationSecond(au.paramCfg.OtpTimeout))
 
 	return au.mail.SendingNativeMail(newEmail)
 }
 
-func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
+func (au *authUsecase) VerifyResetPasswordOtp(ctx context.Context, otpCode string) error {
+	sentOtp := cache.GetCache(cache.MailOtpKey(otpCode))
+
+	if sentOtp == nil {
+		exceptions.Log(constants.ErrOtpExpired, nil)
+		return constants.ErrOtpExpired
+	}
+
+	if sentOtp.(string) != otpCode {
+		exceptions.Log(constants.ErrOtpInvalid, nil)
+		return constants.ErrOtpInvalid
+	}
+
 	return nil
+}
+
+func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
+	return au.authRepo.UpdatePassword(ctx, dto)
 }

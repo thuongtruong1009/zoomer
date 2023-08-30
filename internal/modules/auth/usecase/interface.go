@@ -15,5 +15,7 @@ type UseCase interface {
 
 	ForgotPassword(ctx context.Context, email string) error
 
+	VerifyResetPasswordOtp(ctx context.Context, otpCode string) error
+
 	ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error
 }

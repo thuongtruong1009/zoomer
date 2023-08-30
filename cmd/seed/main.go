@@ -15,8 +15,8 @@ import (
 func main() {
 	cfg := configs.LoadConfigs(constants.EnvConfPath)
 	paramCfg := parameter.LoadParameterConfigs(constants.ParamConfPath)
-	pgAdapter := postgres.NewPgAdapter(&paramCfg.PostgresConf)
-	db := pgAdapter.ConnectInstance(cfg)
+	pgAdapter := postgres.NewPgAdapter(cfg, &paramCfg.PostgresConf)
+	db := pgAdapter.ConnectInstance()
 
 	err := db.AutoMigrate(&models.User{})
 	if err != nil {

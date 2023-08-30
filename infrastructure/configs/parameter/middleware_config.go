@@ -10,7 +10,7 @@ type MiddlewareConf struct {
 	RateLimit struct {
 		Rate      rate.Limit    `mapstructure:"rate"`
 		Burst     int           `mapstructure:"burst"`
-		ExpiresIn time.Duration `mapstructure:"expiresIn"`
+		ExpiresIn time.Duration `mapstructure:"expires_in"`
 	} `mapstructure:"rate_limit"`
 	BodyLimit    string `mapstructure:"body_limit"`
 	RecoverSize  int    `mapstructure:"recover_size"`
