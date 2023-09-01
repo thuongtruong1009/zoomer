@@ -20,7 +20,7 @@ require (
 	github.com/spf13/viper v1.16.0
 	github.com/streadway/amqp v1.1.0
 	github.com/stretchr/testify v1.8.4
-	github.com/swaggo/echo-swagger v1.4.0
+	github.com/swaggo/echo-swagger v1.4.1
 	github.com/swaggo/swag v1.16.1
 	golang.org/x/crypto v0.11.0
 	golang.org/x/time v0.3.0
@@ -38,6 +38,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.4 // indirect
