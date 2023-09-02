@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"context"
+	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
-	"github.com/thuongtruong1009/zoomer/internal/models"
 	"github.com/thuongtruong1009/zoomer/pkg/abstract"
 )
 
@@ -27,7 +27,7 @@ func (u *userUseCase) GetUserByIdOrName(ctx context.Context, IdOrName string) (*
 	res := &presenter.GetUserByIdOrNameResponse{
 		Id:       user.Id,
 		Username: user.Username,
-		Email: user.Email,
+		Email:    user.Email,
 		Limit:    user.Limit,
 	}
 	return res, nil

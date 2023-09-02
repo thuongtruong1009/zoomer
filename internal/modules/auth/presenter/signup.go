@@ -2,7 +2,7 @@ package presenter
 
 type SignUpRequest struct {
 	Username string `json:"username"`
-	Email string `json:"email"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 	Limit    int    `json:"limit"`
 }
@@ -34,6 +34,6 @@ func (input *SignUpRequest) IsRequestValid() error {
 type SignUpResponse struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
-	Email string `json:"email"`
+	Email    string `json:"email"`
 	Limit    int    `json:"limit"`
 }

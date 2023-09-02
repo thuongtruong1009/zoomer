@@ -260,6 +260,52 @@
                 }
             }
         },
+        "/auth/verify-reset-password-otp": {
+            "post": {
+                "description": "Verify password recover OTP code",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Verify OTP",
+                "parameters": [
+                    {
+                        "description": "Verify OTP",
+                        "name": "otp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/presenter.VerifyResetPasswordOtp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "error"
+                        }
+                    }
+                }
+            }
+        },
         "/users/search": {
             "get": {
                 "description": "Search user by name",
@@ -497,6 +543,14 @@
                     "type": "integer"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "presenter.VerifyResetPasswordOtp": {
+            "type": "object",
+            "properties": {
+                "code": {
                     "type": "string"
                 }
             }

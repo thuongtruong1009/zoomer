@@ -16,5 +16,9 @@ type AuthHandler interface {
 
 	ForgotPassword() echo.HandlerFunc
 
+	VerifyResetPasswordOtp() echo.HandlerFunc
+
 	ResetPassword() echo.HandlerFunc
+
+	UpdatePassword() echo.HandlerFunc
 }

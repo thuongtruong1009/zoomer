@@ -32,9 +32,9 @@ import (
 func (s *Api) HttpApi() error {
 	mailUC := mail.NewMail(s.Cfg)
 
-	authRepo := authRepository.NewAuthRepository(s.PgDB, s.RedisDB, s.ParameterCfg)
-	roomRepo := roomRepository.NewRoomRepository(s.PgDB, s.RedisDB)
 	userRepo := userRepository.NewUserRepository(s.PgDB, s.RedisDB, s.ParameterCfg)
+	authRepo := authRepository.NewAuthRepository(s.PgDB, s.RedisDB, s.ParameterCfg, userRepo)
+	roomRepo := roomRepository.NewRoomRepository(s.PgDB, s.RedisDB)
 	roomRepo.CreateFetchChatBetweenIndex()
 	searchRepo := searchRepository.NewSearchRepository(s.PgDB)
 	minioRepository := minioResourceRepository.NewResourceRepository()

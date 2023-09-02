@@ -7,6 +7,7 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"log"
 	"sync"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
 type RoomMap struct {
@@ -30,7 +31,7 @@ func NewStreamHub(streamCfg *parameter.ServerConf) IHub {
 }
 
 func (h *hub) CreateStream(ctx context.Context) string {
-	roomID := helpers.RandomString(8)
+	roomID := helpers.RandomChain(constants.RandomTypeString, 8)
 	Mapper.mux.Lock()
 	Mapper.Map[roomID] = []*models.Participant{}
 	Mapper.mux.Unlock()

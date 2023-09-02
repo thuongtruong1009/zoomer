@@ -9,8 +9,8 @@ import (
 const defaultSize = 10
 
 type Pagination struct {
-	Size  int `json:"size,omitempty"`
-	Page  int `json:"page,omitempty"`
+	Size    int    `json:"size,omitempty"`
+	Page    int    `json:"page,omitempty"`
 	OrderBy string `json:"order_by,omitempty"`
 }
 
@@ -23,7 +23,7 @@ func NewPagination(size, page int) *Pagination {
 
 func (p *Pagination) SetSize(sizeQuery string) error {
 	if sizeQuery == "" {
-		p.Size= defaultSize
+		p.Size = defaultSize
 		return nil
 	}
 	n, err := strconv.Atoi(sizeQuery)
@@ -50,7 +50,6 @@ func (p *Pagination) SetPage(pageQuery string) error {
 func (p *Pagination) SetOrderBy(orderByQuery string) {
 	p.OrderBy = orderByQuery
 }
-
 
 // func (p *Pagination) GetTotalPage() int {
 // 	return int(math.Ceil(float64(p.Total) / float64(p.Size)))
@@ -101,7 +100,7 @@ func (p *Pagination) GetQueryString() string {
 }
 
 func (p *Pagination) GetTotalPages(totalCount int) int {
-	d := float64(totalCount)/float64(p.GetSize())
+	d := float64(totalCount) / float64(p.GetSize())
 	return int(math.Ceil(d))
 }
 

@@ -4,25 +4,25 @@ import (
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs"
 	"github.com/thuongtruong1009/zoomer/infrastructure/configs/parameter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
+	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"time"
-	"github.com/thuongtruong1009/zoomer/pkg/constants"
-	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"gorm.io/gorm/logger"
+	"time"
 )
 
 type postgresStruct struct {
 	db       *gorm.DB
-	cfg 	*configs.Configuration
+	cfg      *configs.Configuration
 	paramCfg *parameter.PostgresConf
 }
 
 func NewPgAdapter(cfg *configs.Configuration, paramCfg *parameter.PostgresConf) PgAdapter {
 	return &postgresStruct{
 		db:       &gorm.DB{},
-		cfg: cfg,
+		cfg:      cfg,
 		paramCfg: paramCfg,
 	}
 }

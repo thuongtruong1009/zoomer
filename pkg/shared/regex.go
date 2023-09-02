@@ -3,8 +3,8 @@ package shared
 import "regexp"
 
 const (
-	EmptyRegex = `^$`
-	SpaceRegex = `\s+`
+	EmptyRegex   = `^$`
+	SpaceRegex   = `\s+`
 	WordNumRegex = `^[a-zA-Z0-9]+$`
 )
 

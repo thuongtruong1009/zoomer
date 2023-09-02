@@ -19,14 +19,14 @@ func detectError(err interface{}) string {
 }
 
 func genErrorLog(msg error, err ...interface{}) {
-	id := helpers.RandomString(8)
+	id := helpers.RandomChain(constants.RandomTypeString, 8)
 	logContent := fmt.Sprintf("Message: %s - Error: %s\n", msg, err)
 
 	helpers.WriteLog(constants.ErrorLogPath, fmt.Sprintf("[Id: %s] - Date: ", id), logContent)
 }
 
 func genSystemLog(msg string) {
-	id := helpers.RandomString(8)
+	id := helpers.RandomChain(constants.RandomTypeString, 8)
 	logContent := fmt.Sprintf("Message: %s\n", msg)
 
 	helpers.WriteLog(constants.SystemLogPath, fmt.Sprintf("[Id: %s] - Date: ", id), logContent)

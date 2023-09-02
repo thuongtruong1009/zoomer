@@ -6,7 +6,7 @@ middleware:
   rate_limit:
     rate: 10
     burst: 30
-    expiresIn: 180
+    expires_in: 180
   body_limit: "2M"
   recover_size: 1 # 1 KB
   log_skipper: "localhost"
@@ -35,3 +35,4 @@ auth:
   cookie_httpOnly: true
 others:
   ctx_timeout: 3
+  otp_timeout: 90

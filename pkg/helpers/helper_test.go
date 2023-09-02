@@ -4,16 +4,26 @@ import (
 	"reflect"
 	"testing"
 	"time"
+	"github.com/thuongtruong1009/zoomer/pkg/constants"
 )
 
-func TestRandomString(t *testing.T) {
-	got := RandomString(10)
-	if len(got) != 10 {
-		t.Errorf("RandomString(%d) = %s; want 10 characters", len(got), got)
+func TestRandomChain(t *testing.T) {
+	gotStr := RandomChain(constants.RandomTypeString, 10)
+	if len(gotStr) != 10 {
+		t.Errorf("RandomChain(%d) = %s; want 10 characters", len(gotStr), gotStr)
 	}
 
-	if reflect.TypeOf(got).Kind() != reflect.String {
-		t.Errorf("RandomString(%d) = %s; want only letters", len(got), got)
+	if reflect.TypeOf(gotStr).Kind() != reflect.String {
+		t.Errorf("RandomChain(%d) = %s; want only strings", len(gotStr), gotStr)
+	}
+
+	gotNum := RandomChain(constants.RandomTypeNumber, 6)
+	if len(gotNum) != 10 {
+		t.Errorf("RandomChain(%d) = %s; want 10 characters", len(gotNum), gotNum)
+	}
+
+	if reflect.TypeOf(gotNum).Kind() != reflect.String {
+		t.Errorf("RandomChain(%d) = %s; want only numbers", len(gotNum), gotNum)
 	}
 }
 

@@ -10,8 +10,8 @@ func MapRoomRoutes(roomGroup *echo.Group, h Handler, mw *middlewares.AuthMiddlew
 	roomGroup.POST(constants.CreateRoomEndPoint, h.AddRoom(), mw.JWTValidation)
 	roomGroup.GET(constants.GetRoomsOfUserEndPoint, h.GetUserRooms(), mw.JWTValidation)
 	roomGroup.GET(constants.GetAllRoomsEndPoint, h.GetAll())
-	//sync to redis
 
+	//sync to redis
 	roomGroup.GET(constants.GetChatHistoryEndPoint, h.ChatHistoryHandler())
 	roomGroup.GET(constants.GetContactListEndPoint, h.ContactListHandler())
 }

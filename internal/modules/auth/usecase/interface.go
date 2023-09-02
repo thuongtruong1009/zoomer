@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	"github.com/thuongtruong1009/zoomer/internal/models"
+	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 )
 
 type UseCase interface {
@@ -15,5 +15,7 @@ type UseCase interface {
 
 	ForgotPassword(ctx context.Context, email string) error
 
-	ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error
+	VerifyOtp(ctx context.Context, otpCode string) error
+
+	ResetPassword(ctx context.Context, dto *presenter.UpdatePassword) error
 }

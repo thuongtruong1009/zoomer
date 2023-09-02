@@ -1,5 +1,5 @@
 package mail
 
 type IMail interface {
-	SendingNativeMail(*Mail) error
+	SendingMail(*Mail) error
 }
