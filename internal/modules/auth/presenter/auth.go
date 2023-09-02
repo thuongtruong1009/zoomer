@@ -2,11 +2,11 @@ package presenter
 
 import "time"
 
-type ForgotPassword struct {
+type MailRequest struct {
 	Email string `json:"email"`
 }
 
-type VerifyResetPasswordOtp struct {
+type VerifyOtp struct {
 	Code string `json:"code"`
 }
 
@@ -16,12 +16,11 @@ type SetCookie struct {
 	Expires time.Duration
 }
 
-type ResetPassword struct {
+type UpdatePassword struct {
 	Email 	 string `json:"email"`
 	NewPassword string `json:"new_password"`
 }
 
-
-func (input *ResetPassword) IsPasswordValid() error {
+func (input *UpdatePassword) IsPasswordValid() error {
 	return validatePassword(input.NewPassword)
 }

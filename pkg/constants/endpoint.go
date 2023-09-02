@@ -17,6 +17,7 @@ const (
 	ForgotPassword	string = "/forgot-password"
 	VerifyResetPasswordOtp string = "/verify-reset-password-otp"
 	ResetPassword     string = "/reset-password"
+	UpdatePassword    string = "/update-password"
 )
 
 const (

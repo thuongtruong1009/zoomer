@@ -164,10 +164,10 @@ func (au *authUsecase) ForgotPassword(ctx context.Context, email string) error {
 
 	cache.SetCache(cache.MailOtpKey(email), newOtp, helpers.DurationSecond(au.paramCfg.OtpTimeout))
 
-	return au.mail.SendingNativeMail(newEmail)
+	return au.mail.SendingMail(newEmail)
 }
 
-func (au *authUsecase) VerifyResetPasswordOtp(ctx context.Context, otpCode string) error {
+func (au *authUsecase) VerifyOtp(ctx context.Context, otpCode string) error {
 	sentOtp := cache.GetCache(cache.MailOtpKey(otpCode))
 
 	if sentOtp == nil {
@@ -183,6 +183,10 @@ func (au *authUsecase) VerifyResetPasswordOtp(ctx context.Context, otpCode strin
 	return nil
 }
 
-func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.ResetPassword) error {
-	return au.authRepo.UpdatePassword(ctx, dto)
+func (au *authUsecase) ResetPassword(ctx context.Context, dto *presenter.UpdatePassword) error {
+	return au.authRepo.UpdatePassword(ctx, dto.Email, dto.NewPassword)
+}
+
+func (au *authUsecase) UpdatePassword(ctx context.Context, dto *presenter.UpdatePassword) error {
+	return au.authRepo.UpdatePassword(ctx, dto.Email, dto.NewPassword)
 }

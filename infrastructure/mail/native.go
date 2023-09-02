@@ -17,12 +17,12 @@ func NewMail(cfg *configs.Configuration) IMail {
 	}
 }
 
-func (e *mail) SendingNativeMail(mail *Mail) error {
-	auth := smtp.PlainAuth("", e.cfg.MailUser, e.cfg.MailPassword, strings.Split(e.cfg.MailHost, ":")[0])
+func (m *mail) SendingMail(mail *Mail) error {
+	auth := smtp.PlainAuth("", m.cfg.MailUser, m.cfg.MailPassword, strings.Split(m.cfg.MailHost, ":")[0])
 
 	msg := []byte(fmt.Sprintf("To: %s\r\nSubject: %s\r\n\r\nThis is auto message from Zoomer\n\n%s", mail.To, mail.Subject, mail.Body))
 
-	err := smtp.SendMail(e.cfg.MailHost, auth, e.cfg.MailUser, []string{mail.To}, msg)
+	err := smtp.SendMail(m.cfg.MailHost, auth, m.cfg.MailUser, []string{mail.To}, msg)
 	if err != nil {
 		fmt.Println(err)
 		return err

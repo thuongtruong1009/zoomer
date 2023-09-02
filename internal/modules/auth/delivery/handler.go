@@ -169,7 +169,7 @@ func (ah *authHandler) writeCookie(c echo.Context, cookie *presenter.SetCookie) 
 //	@Router			/auth/forgot-password [post]
 func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		input := &presenter.ForgotPassword{}
+		input := &presenter.MailRequest{}
 
 		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
@@ -198,37 +198,71 @@ func (ah *authHandler) ForgotPassword() echo.HandlerFunc {
 //	@Router			/auth/verify-reset-password-otp [post]
 func (ah *authHandler) VerifyResetPasswordOtp() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		otp := &presenter.VerifyResetPasswordOtp{}
+		otp := &presenter.VerifyOtp{}
 
 		if err := validators.ReadRequest(c, otp); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
-		return ah.useCase.VerifyResetPasswordOtp(c.Request().Context(), otp.Code)
+		return ah.useCase.VerifyOtp(c.Request().Context(), otp.Code)
 	}
 }
 
 // ResetPassword godoc
 //
 //	@Summary		Reset password
-//	@Description	Reset or update change password
+//	@Description	Reset the forgot password
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			user	body		presenter.SignInRequest	true	"Reset password"
-//	@Success		200		{object}	presenter.SignInResponse
+//	@Param			user	body		presenter.ResetPassword	true	"Reset password"
+//	@Success		200		string		constants.Success
 //	@Failure		400		error		constants.ErrorBadRequest
 //	@Failure		500		error		constants.ErrorInternalServer
 //	@Router			/auth/reset-password [patch]
 func (ah *authHandler) ResetPassword() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		input := &presenter.ResetPassword{}
+		input := &presenter.UpdatePassword{}
 
 		if err := validators.ReadRequest(c, input); err != nil {
 			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
 		}
 
 		err := ah.useCase.ResetPassword(c.Request().Context(), input)
+		if err != nil {
+			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
+		}
+
+		return ah.inter.Data(c, http.StatusOK, constants.Success)
+	}
+}
+
+// UpdatePassword godoc
+//
+//	@Summary		Update password
+//	@Description	Update change password
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			user	body		presenter.UpdatePassword	true	"Update password"
+//	@Success		200		string		constants.Success
+//	@Failure		400		error		constants.ErrorBadRequest
+//	@Failure		500		error		constants.ErrorInternalServer
+//	@Router			/auth/update-password [patch]
+func (ah *authHandler) UpdatePassword() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		email := decorators.DetectCurrentUser(c).Email
+
+		input := &presenter.UpdatePassword{}
+
+		if err := validators.ReadRequest(c, input); err != nil {
+			return ah.inter.Error(c, http.StatusBadRequest, constants.ErrorBadRequest, err)
+		}
+
+		err := ah.useCase.ResetPassword(c.Request().Context(), &presenter.UpdatePassword{
+			Email:       email,
+			NewPassword: input.NewPassword,
+		})
 		if err != nil {
 			return ah.inter.Error(c, http.StatusInternalServerError, constants.ErrorInternalServer, err)
 		}

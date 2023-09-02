@@ -10,7 +10,6 @@ import (
 	"github.com/thuongtruong1009/zoomer/pkg/exceptions"
 	"github.com/thuongtruong1009/zoomer/pkg/helpers"
 	"gorm.io/gorm"
-	"github.com/thuongtruong1009/zoomer/internal/modules/auth/presenter"
 	userRepository "github.com/thuongtruong1009/zoomer/internal/modules/users/repository"
 )
 
@@ -56,16 +55,16 @@ func (ar *authRepository) CreateUser(ctx context.Context, user *models.User) err
 	return nil
 }
 
-func (ar *authRepository) UpdatePassword(ctx context.Context, dto *presenter.ResetPassword) error {
+func (ar *authRepository) UpdatePassword(ctx context.Context, email, newPassword string) error {
 	timeoutCtx, cancel := context.WithTimeout(ctx, helpers.DurationSecond(ar.paramCfg.CtxTimeout))
 	defer cancel()
 
-    user, err := ar.userRepo.GetUserByIdOrName(ctx, dto.Email)
+    user, err := ar.userRepo.GetUserByIdOrName(ctx, email)
 	if err != nil {
 		return err
 	}
 
-	hashedPassword, err := helpers.Encrypt(dto.NewPassword)
+	hashedPassword, err := helpers.Encrypt(newPassword)
 	if err != nil {
 		exceptions.Log(constants.ErrHashPassword, err)
 		return err
@@ -76,7 +75,7 @@ func (ar *authRepository) UpdatePassword(ctx context.Context, dto *presenter.Res
 		return constants.ErrPasswordNotChange
 	}
 
-	if err := ar.pgDB.WithContext(timeoutCtx).Where("email = ?", dto.Email).Update("password", hashedPassword).Error; err != nil {
+	if err := ar.pgDB.WithContext(timeoutCtx).Where("email = ?", email).Update("password", hashedPassword).Error; err != nil {
 		exceptions.Log(constants.ErrorContextTimeout, err)
 		return err
 	}
